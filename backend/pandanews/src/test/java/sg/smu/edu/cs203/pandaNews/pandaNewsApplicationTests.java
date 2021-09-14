@@ -1,10 +1,10 @@
-package sg.smu.edu.cs203.pandaNews;
+package sg.smu.edu.cs203.pandanews;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class pandaNewsApplicationTests {
+class PandaNewsApplicationTests {
 
 	@Test
 	void contextLoads() {

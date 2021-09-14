@@ -1,12 +1,12 @@
-package sg.smu.edu.cs203.pandaNews;
+package sg.smu.edu.cs203.pandanews;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class pandaNewsApplication {
+public class PandaNewsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(pandaNewsApplication.class, args);
+		SpringApplication.run(PandaNewsApplication.class, args);
 	}
 }
