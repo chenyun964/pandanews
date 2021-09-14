@@ -1,4 +1,4 @@
-package sg.smu.edu.cs203.pandanews.model;
+package sg.edu.smu.cs203.pandanews.model;
 
 import java.util.Date;
 

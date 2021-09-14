@@ -1,4 +1,4 @@
-package sg.smu.edu.cs203.pandanews;
+package sg.edu.smu.cs203.pandanews;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

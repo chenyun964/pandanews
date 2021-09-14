@@ -1,8 +1,8 @@
-package sg.smu.edu.cs203.pandanews.service;
+package sg.edu.smu.cs203.pandanews.service;
 
 import org.springframework.stereotype.Service;
 
-import sg.smu.edu.cs203.pandanews.model.Example;
+import sg.edu.smu.cs203.pandanews.model.Example;
 
 @Service
 public interface ExampleService {
