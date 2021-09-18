@@ -20,3 +20,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Resource files ###
+/backend/pandanews/src/main/resources/application.properties
