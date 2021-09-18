@@ -4,9 +4,8 @@ package sg.edu.smu.cs203.pandanews.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import sg.edu.smu.cs203.pandanews.model.news.News;
-import sg.edu.smu.cs203.pandanews.service.NewsServiceImpl;
+import sg.edu.smu.cs203.pandanews.service.News.NewsServiceImpl;
 
 @RestController
 public class NewsController {

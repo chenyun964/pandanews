@@ -1,11 +1,10 @@
-package sg.edu.smu.cs203.pandanews.service;
+package sg.edu.smu.cs203.pandanews.service.News;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

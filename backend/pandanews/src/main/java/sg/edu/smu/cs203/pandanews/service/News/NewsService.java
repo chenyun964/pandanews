@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.service;
+package sg.edu.smu.cs203.pandanews.service.News;
 
 
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,6 @@ import java.util.List;
 
 public interface NewsService {
 
-    //TODO CRUD
     News createNewsByManual(News news);
 
     List<News> createNewsByAPI();
