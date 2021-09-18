@@ -38,7 +38,7 @@
 }
 
 .login-section{
-  height: 80vh;
+  min-height: calc(100vh - 59px);
   background: linear-gradient(45deg, rgba(9,198,249,1) 0%, rgba(4,93,233,1) 100%);
   display: flex;
   justify-content: center;
@@ -57,4 +57,8 @@
 
 .login-left img{
   width: 100%;
+}
+
+.section-title{
+  color: #429ae2;
 }
