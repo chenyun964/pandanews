@@ -14,8 +14,6 @@ import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import sg.edu.smu.cs203.pandanews.model.Organisation;
-
 import lombok.*;
 
 @Entity

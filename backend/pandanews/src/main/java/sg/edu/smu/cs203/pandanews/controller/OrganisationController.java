@@ -12,24 +12,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import sg.edu.smu.cs203.pandanews.service.UserService;
-import sg.edu.smu.cs203.pandanews.model.User;
+import sg.edu.smu.cs203.pandanews.service.OrganisationService;
+import sg.edu.smu.cs203.pandanews.model.Organisation;
 
 @RestController
-public class UserController {
-    private UserService userService;
+public class OrganisationController {
+    private OrganisationService organisationService;
 
-    public UserController(UserService us){
-        this.userService = us;
+    public OrganisationController(OrganisationService os){
+        this.organisationService = os;
     }
 
     /**
      * List all books in the system
      * @return list of all books
      */
-    @GetMapping("/users")
-    public List<User> getUsers(){
-        return userService.listUsers();
+    @GetMapping("/organisations")
+    public List<Organisation> getOrganisations(){
+        return organisationService.listOrganisations();
     }
 
     /**
@@ -38,40 +38,40 @@ public class UserController {
      * @param id
      * @return book with the given id
      */
-    @GetMapping("/users/{id}")
-    public User getUser(@PathVariable Long id){
-        User user = userService.getUser(id);
+    @GetMapping("/organisations/{id}")
+    public Organisation getOrganisation(@PathVariable Long id){
+        Organisation organisation = organisationService.getOrganisation(id);
 
         // Need to handle "book not found" error using proper HTTP status code
         // In this case it should be HTTP 404
-        if(user == null) return null;
-        return userService.getUser(id);
+        if(organisation == null) return null;
+        return organisationService.getOrganisation(id);
 
     }
     /**
      * Add a new book with POST request to "/books"
      * Note the use of @RequestBody
-     * @param user
+     * @param organisation
      * @return list of all books
      */
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/users")
-    public User addUser(@RequestBody User user){
-        return userService.addUser(user);
+    @PostMapping("/organisations")
+    public Organisation addOrganisation(@RequestBody Organisation organisation){
+        return organisationService.addOrganisation(organisation);
     }
 
     /**
      * If there is no book with the given "id", throw a BookNotFoundException
      * @param id
-     * @param newUserInfo
+     * @param newOrganisationInfo
      * @return the updated, or newly added book
      */
-    @PutMapping("/users/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User newUserInfo){
-        User user = userService.updateUser(id, newUserInfo);
-        if(user == null) return null;
+    @PutMapping("/organisations/{id}")
+    public Organisation updateOrganisation(@PathVariable Long id, @RequestBody Organisation newOrganisationInfo){
+        Organisation organisation = organisationService.updateOrganisation(id, newOrganisationInfo);
+        if(organisation == null) return null;
         
-        return user;
+        return organisation;
     }
 
     /**
@@ -79,10 +79,10 @@ public class UserController {
      * If there is no book with the given "id", throw a BookNotFoundException
      * @param id
      */
-    @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable Long id){
+    @DeleteMapping("/organisations/{id}")
+    public void deleteOrganisation(@PathVariable Long id){
         try{
-            userService.deleteUser(id);
+            organisationService.deleteOrganisation(id);
          }catch(EmptyResultDataAccessException e) {
             // throw new BookNotFoundException(id);
          }

@@ -12,8 +12,6 @@ import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import sg.edu.smu.cs203.pandanews.model.User;
-
 import lombok.*;
 
 @Entity
