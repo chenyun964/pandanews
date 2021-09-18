@@ -7,3 +7,5 @@ azure.bing.ApiKey = f51483ef012f491d83758b679ce77655 //Please do not share aroun
 azure.bing.endpoint = https://api.bing.microsoft.com/v7.0/news
 azure.bing.countryCode = sg
 azure.bing.phase = COVID
+
+server.error.include-message = always
