@@ -12,6 +12,8 @@ import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import sg.edu.smu.cs203.pandanews.model.User;
+
 import lombok.*;
 
 @Entity
@@ -21,7 +23,7 @@ import lombok.*;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class Organisation {
-    @Id @GeneratedValue (strategy = GenerationType.IDENTITY) @Setter
+    @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter

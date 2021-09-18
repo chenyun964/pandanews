@@ -14,6 +14,8 @@ import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import sg.edu.smu.cs203.pandanews.model.Organisation;
+
 import lombok.*;
 
 @Entity
@@ -23,7 +25,7 @@ import lombok.*;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class User {
-    @Id @GeneratedValue (strategy = GenerationType.IDENTITY) @Setter
+    @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter
@@ -41,7 +43,7 @@ public class User {
     @Setter
     private String contact;
 
-    @OneToMany(mappedBy = "organisation", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Organisation> organisations;
 
