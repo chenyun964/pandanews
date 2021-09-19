@@ -36,7 +36,7 @@ public class VacciSpot {
     @Setter
     private Double latitude;
 
-    @Setter 
+    @Setter
     private Double longitude;
 
     @Setter
