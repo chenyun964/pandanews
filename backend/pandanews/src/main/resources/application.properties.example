@@ -1,6 +1,11 @@
 spring.jpa.hibernate.ddl-auto=update
-spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:<YOUR SQL PORT>/<YOUR SCHEMA NAME>
-spring.datasource.username=<YOUR USERNAME>
-spring.datasource.password=<YOUR PASSWORD>
+spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:<YOUR_SQL_PORT>/<YOUR_SCHEMA_NAME>
+spring.datasource.username=<YOUR_USERNAME>
+spring.datasource.password=<YOUR_PASSWORD>
+
 jwt.secret=eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTYzMTk1Mjk0NCwiaWF0IjoxNjMxOTUyOTQ0fQ.EwCWV-ROQ6XBEMlMvhYu4d3WSXxwTrrGJsa0JnnZwHs
 
+azure.bing.ApiKey = f51483ef012f491d83758b679ce77655 //Please do not share around!
+azure.bing.endpoint = https://api.bing.microsoft.com/v7.0/news
+azure.bing.countryCode = sg
+azure.bing.phase = COVID
