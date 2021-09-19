@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { Route, Switch } from 'react-router';
 
-import Nav from "./modules/nav";
-import Demo from "./modules/demo";
-import Login from "./modules/login";
-import Signup from './modules/signup';
+import Nav from "./module/Nav";
+import Demo from "./module/Demo";
+import Login from "./module/Login";
+import Signup from './module/Signup';
+import Dashboard from './module/Dashboard';
 
 class AllRoutes extends Component {
   render() {
@@ -15,6 +16,7 @@ class AllRoutes extends Component {
           <Route exact path="/" component={Demo} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          <Route exact path="/dashboard" component={Dashboard} />
         </Switch>
       </Fragment>
     );

@@ -62,3 +62,8 @@
 .section-title{
   color: #429ae2;
 }
+
+.input-error-msg{
+  color: #ff4f4f;
+  font-size: .75rem;
+}
