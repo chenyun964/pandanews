@@ -11,8 +11,6 @@ import java.util.List;
 
 public interface CovidStatsService {
 
-
-
     CovidCase createCase(CovidCase c);
 
     List<CovidCase> createCaseByAPI(); //TODO look for a API first

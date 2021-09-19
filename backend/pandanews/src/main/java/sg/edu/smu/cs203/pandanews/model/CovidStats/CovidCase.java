@@ -27,6 +27,9 @@ public class CovidCase {
         this.longitude = longitude;
     }
 
+    public CovidCase() {
+    }
+
     public int getId() {
         return id;
     }
