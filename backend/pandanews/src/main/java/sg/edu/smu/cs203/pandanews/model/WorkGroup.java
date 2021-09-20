@@ -34,10 +34,10 @@ public class WorkGroup {
     private Long id;
 
     @Setter
-    private String groupname;
+    private String workgroupname;
 
     @Setter
-    private List<Date> inOffice;
+    private List<Date> datesInOffice;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
