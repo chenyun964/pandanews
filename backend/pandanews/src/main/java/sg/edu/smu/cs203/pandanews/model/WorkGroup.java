@@ -18,6 +18,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.*;
 
+import sg.edu.smu.cs203.pandanews.model.Organisation;
+import sg.edu.smu.cs203.pandanews.model.User;
+
 @Entity
 @Getter
 @ToString
