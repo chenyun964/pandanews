@@ -12,24 +12,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import sg.edu.smu.cs203.pandanews.service.OrganisationService;
-import sg.edu.smu.cs203.pandanews.model.Organisation;
+import sg.edu.smu.cs203.pandanews.service.WorkGroupService;
+import sg.edu.smu.cs203.pandanews.model.WorkGroup;
 
 @RestController
 public class WorkGroupController {
-    private OrganisationService organisationService;
+    private WorkGroupService workGroupService;
 
-    public OrganisationController(OrganisationService os){
-        this.organisationService = os;
+    public WorkGroupController(WorkGroupService workGroupService){
+        this.workGroupService = workGroupService;
     }
 
     /**
      * List all books in the system
      * @return list of all books
      */
-    @GetMapping("/organisations")
-    public List<Organisation> getOrganisations(){
-        return organisationService.listOrganisations();
+    @GetMapping("/workgroups")
+    public List<WorkGroups> getWorkGroups(){
+        return workGroupService.listWorkGroups();
     }
 
     /**
@@ -38,26 +38,26 @@ public class WorkGroupController {
      * @param id
      * @return book with the given id
      */
-    @GetMapping("/organisations/{id}")
-    public Organisation getOrganisation(@PathVariable Long id){
-        Organisation organisation = organisationService.getOrganisation(id);
+    @GetMapping("/workgroups/{id}")
+    public WorkGroup getWorkGroup(@PathVariable Long id){
+        WorkGroup workGroup = workGroupService.getWorkGroup(id);
 
         // Need to handle "book not found" error using proper HTTP status code
         // In this case it should be HTTP 404
-        if(organisation == null) return null;
-        return organisationService.getOrganisation(id);
+        if(workGroup == null) return null;
+        return workGroupService.getWorkGroup(id);
 
     }
     /**
      * Add a new book with POST request to "/books"
      * Note the use of @RequestBody
-     * @param organisation
+     * @param workGroup
      * @return list of all books
      */
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/organisations")
-    public Organisation addOrganisation(@RequestBody Organisation organisation){
-        return organisationService.addOrganisation(organisation);
+    @PostMapping("/workgroups")
+    public WorkGroup addWorkGroup(@RequestBody WorkGroup workGroup){
+        return workGroupService.addWorkGroup(workGroup);
     }
 
     /**
@@ -66,12 +66,12 @@ public class WorkGroupController {
      * @param newOrganisationInfo
      * @return the updated, or newly added book
      */
-    @PutMapping("/organisations/{id}")
-    public Organisation updateOrganisation(@PathVariable Long id, @RequestBody Organisation newOrganisationInfo){
-        Organisation organisation = organisationService.updateOrganisation(id, newOrganisationInfo);
-        if(organisation == null) return null;
+    @PutMapping("/workgroups/{id}")
+    public WorkGroup updateWorkGroup(@PathVariable Long id, @RequestBody WorkGroup newWorkGroupInfo){
+        WorkGroup workGroup = workGroupService.updateWorkGroup(id, newWorkGroupInfo);
+        if(workGroup == null) return null;
         
-        return organisation;
+        return workGroup;
     }
 
     /**
@@ -79,12 +79,12 @@ public class WorkGroupController {
      * If there is no book with the given "id", throw a BookNotFoundException
      * @param id
      */
-    @DeleteMapping("/organisations/{id}")
-    public void deleteOrganisation(@PathVariable Long id){
-        try{
-            organisationService.deleteOrganisation(id);
-         }catch(EmptyResultDataAccessException e) {
+    @DeleteMapping("/workgroups/{id}")
+    public void deleteWorkGroup(@PathVariable Long id){
+        try {
+            workGroupService.deleteWorkGroup(id);
+        } catch(EmptyResultDataAccessException e) {
             // throw new BookNotFoundException(id);
-         }
+        }
     }
 }
