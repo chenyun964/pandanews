@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Column;
@@ -44,6 +46,10 @@ public class User {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Organisation> organisations;
+
+    @ManyToOne
+    @JoinColumn(name = "workgroup_id", nullable = false)
+    private WorkGroup workgroup;
 
     @Column(name = "created_at", updatable = false)
     private Date createdAt;

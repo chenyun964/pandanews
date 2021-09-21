@@ -28,7 +28,7 @@ public class WorkGroupController {
      * @return list of all books
      */
     @GetMapping("/workgroups")
-    public List<WorkGroups> getWorkGroups(){
+    public List<WorkGroup> getWorkGroups(){
         return workGroupService.listWorkGroups();
     }
 

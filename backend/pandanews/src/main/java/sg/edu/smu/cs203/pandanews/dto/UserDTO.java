@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.model;
+package sg.edu.smu.cs203.pandanews.dto;
 
 import java.io.Serializable;
 import javax.validation.constraints.NotNull;

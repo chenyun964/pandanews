@@ -12,5 +12,5 @@ public interface WorkGroupService {
     WorkGroup addWorkGroup(WorkGroup workgroup);
     WorkGroup updateWorkGroup(Long id, WorkGroup workgroup);
     void deleteWorkGroup(Long id);
-    WorkGroup getWorkGroupByUsername(String username);
+    // WorkGroup getWorkGroupByUsername(String username);
 }

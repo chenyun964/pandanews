@@ -34,8 +34,8 @@ public class WorkGroupServiceImpl implements WorkGroupService {
     @Override
     public WorkGroup updateWorkGroup(Long id, WorkGroup newWorkGroup) {
         return workgroups.findById(id).map(workgroup -> {
-            workgroups.setWorkGroupName(newWorkGroup.getWorkGroupName());
-            workgroups.setDatesInOffice(newWorkGroup.getDatesInOffice());
+            workgroup.setWorkGroupName(newWorkGroup.getWorkGroupName());
+            workgroup.setDatesInOffice(newWorkGroup.getDatesInOffice());
             return workgroups.save(workgroup);
         }).orElse(null);
     }

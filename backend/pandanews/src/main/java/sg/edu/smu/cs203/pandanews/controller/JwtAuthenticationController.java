@@ -1,7 +1,5 @@
 package sg.edu.smu.cs203.pandanews.controller;
 
-import java.util.Objects;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,11 +17,10 @@ import javax.validation.Valid;
 import org.springframework.web.server.ResponseStatusException;
 
 import sg.edu.smu.cs203.pandanews.service.JwtUserDetailsService;
-import sg.edu.smu.cs203.pandanews.utility.JwtTokenUtil;
+import sg.edu.smu.cs203.pandanews.util.JwtTokenUtil;
 import sg.edu.smu.cs203.pandanews.model.JwtRequest;
 import sg.edu.smu.cs203.pandanews.model.JwtResponse;
-import sg.edu.smu.cs203.pandanews.model.User;
-import sg.edu.smu.cs203.pandanews.model.UserDTO;
+import sg.edu.smu.cs203.pandanews.dto.UserDTO;
 
 @RestController
 @CrossOrigin

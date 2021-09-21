@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.utility;
+package sg.edu.smu.cs203.pandanews.util;
 
 import java.io.Serializable;
 import java.util.Date;

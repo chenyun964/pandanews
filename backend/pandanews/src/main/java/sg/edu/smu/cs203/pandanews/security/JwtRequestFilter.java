@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import sg.edu.smu.cs203.pandanews.service.JwtUserDetailsService;
-import sg.edu.smu.cs203.pandanews.utility.JwtTokenUtil;
+import sg.edu.smu.cs203.pandanews.util.JwtTokenUtil;
 
 import io.jsonwebtoken.ExpiredJwtException;
 

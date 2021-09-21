@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import sg.edu.smu.cs203.pandanews.repository.UserRepository;
 import sg.edu.smu.cs203.pandanews.model.User;
-import sg.edu.smu.cs203.pandanews.model.UserDTO;
+import sg.edu.smu.cs203.pandanews.dto.UserDTO;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
