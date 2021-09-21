@@ -20,7 +20,7 @@ import lombok.*;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class Example {
-    @Id @GeneratedValue (strategy = GenerationType.IDENTITY) @Setter
+    @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter
