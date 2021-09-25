@@ -1,6 +1,5 @@
 package sg.edu.smu.cs203.pandanews.repository;
 
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

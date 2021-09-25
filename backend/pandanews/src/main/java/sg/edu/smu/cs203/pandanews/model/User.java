@@ -43,12 +43,20 @@ public class User {
     @Setter
     private String contact;
 
+    @Setter
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Organisation> organisations;
 
+    @Setter
     @ManyToOne
-    @JoinColumn(name = "workgroup_id", nullable = false)
+    @JoinColumn(name = "organisation_id")
+    @JsonIgnore
+    private Organisation organisation;
+
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "workgroup_id")
     private WorkGroup workgroup;
 
     @Column(name = "created_at", updatable = false)

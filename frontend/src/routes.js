@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Route, Switch } from 'react-router';
 
-import Nav from "./module/Nav";
+import Nav from "./module/nav/Nav";
 import Demo from "./module/Demo";
 import Login from "./module/Login";
 import Signup from './module/Signup';

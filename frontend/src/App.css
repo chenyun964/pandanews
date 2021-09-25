@@ -33,37 +33,87 @@
   }
 }
 
-.nav-item{
+/* Header Nav  */
+.navbar{
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.nav-item {
   padding: 0px 10px;
 }
 
-.login-section{
+/* Login Page */
+
+.login-section {
   min-height: calc(100vh - 59px);
-  background: linear-gradient(45deg, rgba(9,198,249,1) 0%, rgba(4,93,233,1) 100%);
+  background: linear-gradient(45deg, rgba(9, 198, 249, 1) 0%, rgba(4, 93, 233, 1) 100%);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.login-container{
+.login-container {
   background-color: white;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.35);
 }
 
-.login-left{
+.login-left {
   background-color: #CCE1FF;
   padding: 20px;
 }
 
-.login-left img{
+.login-left img {
   width: 100%;
 }
 
-.section-title{
+.section-title {
   color: #429ae2;
 }
 
-.input-error-msg{
+.input-error-msg {
   color: #ff4f4f;
   font-size: .75rem;
+}
+
+/* Side Nav */
+
+#login-side-nav {
+  background: #1e85f1;
+  color: white;
+  width: 200px;
+  min-height: calc(100vh - 60px);
+  padding-right: 0px;
+  padding-left: 5px;
+}
+
+#login-side-nav .section-title {
+  color: white;
+  padding: 15px 10px 5px;
+  margin: 0px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+#login-side-nav .section-nav .nav-item{
+  padding-right: 0px;
+}
+
+#login-side-nav .section-nav a{
+  color: white;
+  padding-right: 5px;
+}
+
+#login-side-nav .section-nav i{
+  padding-right: 10px;
+}
+
+#login-side-nav .section-nav a.active{
+  color: #1e85f1;
+  border-radius: 25px 0px 0px 25px;
+  background-color: white;
+}
+
+@media only screen and (max-width: 800px){
+  #login-side-nav .section-nav a span{
+    display: none;
+  }
 }

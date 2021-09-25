@@ -20,6 +20,7 @@ import sg.edu.smu.cs203.pandanews.service.JwtUserDetailsService;
 import sg.edu.smu.cs203.pandanews.util.JwtTokenUtil;
 import sg.edu.smu.cs203.pandanews.model.JwtRequest;
 import sg.edu.smu.cs203.pandanews.model.JwtResponse;
+import sg.edu.smu.cs203.pandanews.dto.AdminDTO;
 import sg.edu.smu.cs203.pandanews.dto.UserDTO;
 
 @RestController
@@ -55,6 +56,35 @@ public class JwtAuthenticationController {
     }
 
     private void authenticate(String username, String password) throws Exception {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        } catch (DisabledException e) {
+            throw new Exception("USER_DISABLED", e);
+        } catch (BadCredentialsException e) {
+            throw new Exception("INVALID_CREDENTIALS", e);
+        }
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/admin/authenticate")
+    public ResponseEntity<?> createAuthenticationTokenAdmin(@RequestBody JwtRequest authenticationRequest) throws Exception {
+        authenticateAdmin(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+        final String token = jwtTokenUtil.generateToken(userDetails);
+        return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/admin/register")
+    public ResponseEntity<?> addAdmin(@Valid @RequestBody AdminDTO adminDTO) throws Exception {
+        if (!adminDTO.getPassword().equals(adminDTO.getConfirmPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Password and confirmPassword provided do not match!");
+        }
+        return ResponseEntity.ok(userDetailsService.save(adminDTO));
+    }
+
+    private void authenticateAdmin(String username, String password) throws Exception {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (DisabledException e) {

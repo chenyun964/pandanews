@@ -1,23 +1,20 @@
 package sg.edu.smu.cs203.pandanews.model;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.validation.constraints.NotNull;
-import javax.persistence.CascadeType;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Column;
 import javax.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.*;
 
@@ -27,35 +24,16 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class Organisation {
+
+public class Admin {
     @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter
-    private String title;
+    private String username;
 
     @Setter
-    private String address;
-
-    @Setter
-    private String contact;
-
-    @Setter
-    private String code;
-
-    @Setter
-    private byte status;
-
-    @Setter
-    @ManyToOne
-    @JoinColumn(name = "owner_id", nullable = false)
-    @JsonIgnore
-    private User owner;
-
-    @Setter
-    @OneToMany(mappedBy = "organisation", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<User> employee;
+    private String password;
 
     @Column(name = "created_at", updatable = false)
     private Date createdAt;
