@@ -18,38 +18,20 @@ import lombok.*;
 @Getter
 @ToString
 @EqualsAndHashCode
-<<<<<<< HEAD:backend/pandanews/src/main/java/sg/edu/smu/cs203/pandanews/model/Organisation.java
-public class Organisation {
-=======
 public class TestSpot {
->>>>>>> p15:backend/pandanews/src/main/java/sg/edu/smu/cs203/pandanews/model/TestSpot.java
     @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter
-<<<<<<< HEAD:backend/pandanews/src/main/java/sg/edu/smu/cs203/pandanews/model/Organisation.java
-    private String title;
-=======
     private String type;
 
     @Setter
     private String name;
->>>>>>> p15:backend/pandanews/src/main/java/sg/edu/smu/cs203/pandanews/model/TestSpot.java
 
     @Setter
     private String address;
 
     @Setter
-<<<<<<< HEAD:backend/pandanews/src/main/java/sg/edu/smu/cs203/pandanews/model/Organisation.java
-    private String contact;
-
-    @Setter
-    private String code;
-
-    @ManyToOne
-    @JoinColumn(name = "owner_id", nullable = false)
-    private User owner;
-=======
     private Double latitude;
 
     @Setter
@@ -61,7 +43,6 @@ public class TestSpot {
 
     @Setter
     private String contact;
->>>>>>> p15:backend/pandanews/src/main/java/sg/edu/smu/cs203/pandanews/model/TestSpot.java
 
     @Column(name = "created_at", updatable = false)
     private Date createdAt;
