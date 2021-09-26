@@ -1,0 +1,30 @@
+
+.date-picker-widget {
+	position: relative;
+	input {
+		box-shadow: 0 3px 20px 0 rgba(18,106,211,.1);
+		border-color: transparent!important;
+		background-color: #fff;
+		border-radius: 30px;
+		width: auto;
+		font-weight: 300;
+		text-indent: 10px;
+		color: #788db4;
+		font-weight: 400;
+		padding: 8px 20px 8px 12px;
+		&:focus{
+			color: #788db4;
+			font-weight: 400;
+		}
+	}
+	i.cal-icon {
+		position: absolute;
+    right: 17px;
+    color: #788db4;
+    font-size: 1.1875rem;
+    top: 8px;
+	}
+	&:hover{
+		cursor: pointer;
+	}
+}

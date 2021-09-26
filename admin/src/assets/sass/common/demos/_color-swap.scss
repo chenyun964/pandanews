@@ -1,0 +1,186 @@
+#sidebar-settings {
+  .color-option-check {
+    padding: 10;
+    text-align: center;
+    background: #EEF5FF;
+  }
+
+  .title {
+    font-size: 12px;
+    margin: 0;
+    padding: 10px 0 0;
+  }
+
+  .color-option-check > label {
+    display: block;
+    position: relative;
+    padding: 10px;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    cursor: pointer;
+  }
+
+  .color-option-check > label:first-child {
+    margin-left: 0;
+  }
+
+  .color-option-check > label:last-child {
+    margin-right: 0;
+  }
+
+  .color-option-check > label > .color {
+    display: block;
+    height: 18px;
+  }
+
+  .color-option-check > label > .split {
+    display: block;
+  }
+
+  .color-option-check > label > .split:after,
+  .color-option-check > label > .split:before {
+    content: " ";
+    display: table;
+  }
+
+  .color-option-check > label > .split:after {
+    clear: both;
+  }
+
+  .color-option-check > label > .split > .color {
+    display: block;
+    height: 60px;
+  }
+
+  .color-option-check > label > .split > .color:first-child {
+    float: left;
+    width: 20%;
+    border-radius: 3px 0 0 3px;
+    display: inline-block;
+  }
+
+  .color-option-check > label > .split > .color:last-child {
+    float: right;
+    width: 80%;
+    border-radius: 0 3px 3px 0;
+    display: inline-block;
+  }
+
+  .color-option-check > label > .icon-check {
+    position: absolute;
+    display: block;
+    left: 45px;
+    top: 22px;
+    width: 30px;
+    height: 30px;
+    margin-left: -10px;
+    text-align: center;
+    color: #fff;
+    opacity: 0;
+
+    &:before {
+      content: "\f17d";
+      font-family: $lineAwesomeIcons;
+      font-size: 30px;
+      color: rgba(255,255,255,1);
+    }
+
+    &.dark {
+      &:before {
+        color: #15182B;
+      }
+    }
+  }
+
+  .color-option-check > label > input[type=radio] {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .color-option-check > label > input[type=radio]:checked+.icon-check {
+    opacity: 1!important;
+  }
+}
+
+#sidebar-settings {
+  .bg-menu-dark {
+    background: #15182B;
+  }
+
+  .bg-menu-light {
+    background: #fff;
+  }
+
+  .bg-theme-a {
+    background: #fff;
+  }
+
+  .bg-theme-b,
+  .bg-theme-j {
+    background: #736cc7;
+  }
+
+  .bg-theme-c,
+  .bg-theme-k {
+    background: $color-info-state;
+  }
+
+  .bg-theme-d,
+  .bg-theme-l {
+    background: $color-success-state;
+  }
+
+  .bg-theme-e,
+  .bg-theme-m {
+    background: #f2989d;
+  }
+
+  .bg-theme-f,
+  .bg-theme-n {
+    background: #32C1DB;
+  }
+
+  .bg-theme-g,
+  .bg-theme-o {
+    background: #fbd087;
+  }
+
+  .bg-theme-h,
+  .bg-theme-p {
+    background: rgb(112,65,171);
+    background: -moz-linear-gradient(-45deg, rgba(112,65,171,1) 21%, rgba(49,144,240,1) 100%, rgba(49,144,240,1) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(112,65,171,1) 21%,rgba(49,144,240,1) 100%,rgba(49,144,240,1) 100%);
+    background: linear-gradient(135deg, rgba(112,65,171,1) 21%,rgba(49,144,240,1) 100%,rgba(49,144,240,1) 100%);
+  }
+}
+
+body.layout-horizontal {
+  #sidebar-settings {
+    .bg-theme-a {
+      background: lighten(#15182B,8%);
+    }
+
+    .color-option-check > label > .split > .color:first-child {
+      float: none;
+      width: 100%;
+      border-radius: 3px 3px 0 0;
+      display: block;
+      height: 30px;
+    }
+
+    .color-option-check > label > .split > .color:last-child {
+      float: none;
+      width: 100%;
+      border-radius: 0 0 3px 3px;
+      display: block;
+      height: 15px;
+    }
+
+    .color-option-check > label > .icon-check {
+      left: 43px;
+      top: 16px;
+    }
+  }
+}

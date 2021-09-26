@@ -1,0 +1,88 @@
+@import "../../../bootstrap/functions";
+@import "../../../bootstrap/variables";
+@import "../../../bootstrap/mixins";
+@import "../../../common/utils/var";
+@import "../../../common/utils/mixins";
+@import "../../../common/utils/functions";
+/* Table Of Content
+* =========================================================================
+* 1.  Brand Colors
+*	2.  Variables
+*	3.  General Elements
+*	4.  Helper Classes
+*	5.  Layout
+*	6.  Alerts
+*	7.  Badges
+*	8.  Buttons
+*	9.  List Items
+*	10. Dropdowns
+*	11. Tiles
+*	12. Navs
+*	13. Tabs
+*	14. Pills
+*	15. Pace
+*	16. Progressbars
+*	17. Timeline
+*	18. Popover
+*	19. Preloaders
+*	20. Sweet Alerts
+*	21. Forms
+** a.  Placeholders
+** b.  General
+** c.  Multi-select
+** d.  Prepend
+** e.  Checkbox / Radios
+** f.  Select2
+** g.  File Upload
+** h.  Disabled/Read Only
+** i.  Bootstrap Range/Slider
+** j.  noUiSlider plugin
+** k.  Switches
+** l.  Bootstrap Date Picker
+** m.  Form Wizard
+** n.  Actions
+*	22. Actions
+*	23. Chartist Demo
+*	24. Calendar Demo
+*	25. Mail Demo
+*/
+/*=========================================================================
+Brand Colors
+========================================================================== */
+$brand-primary-color: #5accca!default;
+$brand-accent-color: #F64A91!default;
+/*=========================================================================
+Template Variables
+========================================================================== */
+// Body
+//------------->
+$body-bg: #f0f6ff; //** Background color for <body>
+$body_text_color: $grey-800 ; //** Global text color on <body>
+$header_text_color: $grey-900 ;
+// Logo
+//------------->
+$logo_background_color: lighten(#161931, 3%) ;
+$logo_text_color: #fff ;
+$logo_icon_color: $brand-primary-color;
+// Main Menu Nav
+//------------->
+$main_menu_background_color: #161931 ;
+$main_menu_active_bg: transparent; //** Background active color
+$main_menu_active_subnav: #161931;
+$main_menu_text_color: rgba(117, 152, 193,1);
+$main_menu_text_hover_color: #fff;
+$main_menu_active_text_color: rgba(255, 255, 255, 1); //** Text active color
+// Top Toolbar
+//------------->
+$toolbar_desktop_bg_color: $brand-primary-color;
+$toolbar_desktop_text_color: #fff;
+$toolbar_desktop_text_hover_color:#fff;
+$toolbar_mobile-tablet_bg_color: $logo_background_color;
+$toolbar_mobile-tablet_text_color: #fff;
+$toolbar_mobile-tablet_text_bottom_active_color:$brand-primary-color;
+$toolbar_icon_bg_circle:rgba(255,255,255,.1);
+
+@import 'elements/base';
+@import 'elements/classes';
+@import 'elements/template';
+@import 'elements/ui-components';

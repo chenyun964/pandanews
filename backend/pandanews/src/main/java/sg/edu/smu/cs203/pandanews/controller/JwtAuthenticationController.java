@@ -68,7 +68,7 @@ public class JwtAuthenticationController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/admin/authenticate")
     public ResponseEntity<?> createAuthenticationTokenAdmin(@RequestBody JwtRequest authenticationRequest) throws Exception {
-        authenticateAdmin(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
         final UserDetails userDetails = userDetailsService.loadAdminByUsername(authenticationRequest.getUsername());
         System.out.println(userDetails.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
@@ -78,20 +78,6 @@ public class JwtAuthenticationController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/admin/register")
     public ResponseEntity<?> addAdmin(@Valid @RequestBody AdminDTO adminDTO) throws Exception {
-        if (!adminDTO.getPassword().equals(adminDTO.getConfirmPassword())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "Password and confirmPassword provided do not match!");
-        }
         return ResponseEntity.ok(userDetailsService.save(adminDTO));
-    }
-
-    private void authenticateAdmin(String username, String password) throws Exception {
-        try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        } catch (DisabledException e) {
-            throw new Exception("USER_DISABLED", e);
-        } catch (BadCredentialsException e) {
-            throw new Exception("INVALID_CREDENTIALS", e);
-        }
     }
 }

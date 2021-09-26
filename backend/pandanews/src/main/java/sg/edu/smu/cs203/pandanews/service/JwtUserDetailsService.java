@@ -9,10 +9,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import sg.edu.smu.cs203.pandanews.repository.AdminRepository;
 import sg.edu.smu.cs203.pandanews.repository.UserRepository;
 import sg.edu.smu.cs203.pandanews.model.User;
-import sg.edu.smu.cs203.pandanews.model.Admin;
 import sg.edu.smu.cs203.pandanews.dto.UserDTO;
 import sg.edu.smu.cs203.pandanews.dto.AdminDTO;
 
@@ -21,9 +19,6 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository users;
-
-	@Autowired
-	private AdminRepository admins;
 
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
@@ -40,12 +35,12 @@ public class JwtUserDetailsService implements UserDetailsService {
 	}
 
 	public UserDetails loadAdminByUsername(String username) throws UsernameNotFoundException {
-		Admin admin = admins.findByUsername(username).orElse(null);
-		if (admin == null) {
-			throw new UsernameNotFoundException("User not found with username: " + username);
+		User user = users.findAdminByUsername(username, "ROLE_ADMIN").orElse(null);
+		if (user == null) {
+			throw new UsernameNotFoundException("Admin not found with username: " + username);
 		}
 
-		return new org.springframework.security.core.userdetails.User(admin.getUsername(), admin.getPassword(),
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
 				new ArrayList<>());
 	}
 	
@@ -57,10 +52,10 @@ public class JwtUserDetailsService implements UserDetailsService {
 		return users.save(newUser);
 	}
 
-	public Admin save(AdminDTO admin) {
-		Admin newAdmin = new Admin();
+	public User save(AdminDTO admin) {
+		User newAdmin = new User("ROLE_ADMIN");
         newAdmin.setUsername(admin.getUsername());
         newAdmin.setPassword(bcryptEncoder.encode(admin.getPassword()));
-		return admins.save(newAdmin);
+		return users.save(newAdmin);
 	}
 }

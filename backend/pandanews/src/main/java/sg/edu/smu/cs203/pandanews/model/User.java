@@ -2,6 +2,8 @@ package sg.edu.smu.cs203.pandanews.model;
 
 import java.util.List;
 import java.util.Date;
+import java.util.Arrays;
+import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,9 +14,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.validation.constraints.NotNull;
 import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.*;
 
@@ -24,7 +31,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class User {
+public class User implements UserDetails{
     @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -65,6 +72,18 @@ public class User {
     @Column(name = "updated_at")
     private Date updatedAt;
 
+    // We define three roles
+    /*
+    * ROLE_USER
+    * ROLE_ADMIN
+    */
+    @NotNull
+    private String authorities = "ROLE_USER";
+
+    public User(String role){
+        authorities = role;
+    }
+
     @PrePersist
     public void logCreation() {
         Date temp = new Date();
@@ -78,5 +97,34 @@ public class User {
         Date temp = new Date();
         Object param = new java.sql.Timestamp(temp.getTime());
         updatedAt = (Date) param;
+    }
+
+    
+    /* Return a collection of authorities granted to the user.
+    */
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Arrays.asList(new SimpleGrantedAuthority(authorities));
+    }
+
+    /*
+    The various is___Expired() methods return a boolean to indicate whether
+    or not the user’s account is enabled or expired.
+    */
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+    @Override
+        public boolean isAccountNonLocked() {
+    return true;
+    }
+    @Override
+        public boolean isCredentialsNonExpired() {
+    return true;
+    }
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

@@ -1,0 +1,93 @@
+.aside-toolbar {
+	height: 65px;
+	position: relative;
+	.header-controls {
+		position: absolute;
+		right: 0;
+		width: rem(50);
+		height: rem(65);
+		line-height: 4;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		.btn-menu {
+			padding: 6px 17px 6px 9px;
+
+			i {
+				font-size: rem(18);
+			}
+		}
+	}
+}
+.site-logo {
+	height: rem(65);
+	width: inherit;
+	padding: 0;
+	margin: 0;
+	display: inline-block;
+	float: left;
+	list-style: none;
+
+	li {
+		display: inline-block;
+		height: 65px;
+
+		.logo {
+			position: absolute;
+			top: 22px;
+			left: 15px;
+
+			svg {
+				width: 23px;
+				height: 23px;
+			}
+		}
+
+		.brand-text {
+			font-size: rem(18);
+			font-family: $font-family-logo;
+			padding: 20px 0 0 47px;
+			font-weight: 400;
+			display: block;
+		}
+	}
+
+	li.app_menu-close {
+		float: right;
+		display: none;
+		padding: rem(19) rem(20);
+
+		a {
+			i {
+				font-size: rem(30);
+			}
+		}
+	}
+}
+@include media-breakpoint-down(md) {
+	.site-logo {
+		li {
+			display: inline-block;
+
+			.logo_mobile {
+				position: absolute;
+				top: 18px;
+				left: -2px;
+
+				#logo_mobile {
+					width: 27px;
+					height: 27px;
+				}
+			}
+
+			.brand-text {
+				font-size: rem(21);
+				font-family: $font-family-logo;
+				padding: 17px 0 0 33px;
+				font-weight: 400;
+				display: block;
+			}
+		}
+	}
+}

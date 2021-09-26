@@ -1,0 +1,496 @@
+// Gradients
+
+@mixin gradient-bg($color) {
+  @if $enable-gradients {
+    background: $color linear-gradient(180deg, mix($body-bg, $color, 15%), $color) repeat-x;
+  } @else {
+    background-color: $color;
+  }
+}
+
+// Horizontal gradient, from left to right
+//
+// Creates two color stops, start and end, by specifying a color and position for each color stop.
+@mixin gradient-x($start-color: $grey-700, $end-color: $grey-800, $start-percent: 0%, $end-percent: 100%) {
+  background-image: linear-gradient(to right, $start-color $start-percent, $end-color $end-percent);
+  background-repeat: repeat-x;
+}
+
+// Vertical gradient, from top to bottom
+//
+// Creates two color stops, start and end, by specifying a color and position for each color stop.
+@mixin gradient-y($start-color: $grey-700, $end-color: $grey-800, $start-percent: 0%, $end-percent: 100%) {
+  background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent);
+  background-repeat: repeat-x;
+}
+
+@mixin gradient-directional($start-color: $grey-700, $end-color: $grey-800, $deg: 45deg) {
+  background-image: linear-gradient($deg, $start-color, $end-color);
+  background-repeat: repeat-x;
+}
+@mixin gradient-x-three-colors($start-color: $blue, $mid-color: $purple, $color-stop: 50%, $end-color: $red) {
+  background-image: linear-gradient(to right, $start-color, $mid-color $color-stop, $end-color);
+  background-repeat: no-repeat;
+}
+@mixin gradient-y-three-colors($start-color: $blue, $mid-color: $purple, $color-stop: 50%, $end-color: $red) {
+  background-image: linear-gradient($start-color, $mid-color $color-stop, $end-color);
+  background-repeat: no-repeat;
+}
+@mixin gradient-radial($inner-color: $grey-700, $outer-color: $grey-800) {
+  background-image: radial-gradient(circle, $inner-color, $outer-color);
+  background-repeat: no-repeat;
+}
+@mixin gradient-striped($color: rgba($white, .15), $angle: 45deg) {
+  background-image: linear-gradient($angle, $color 25%, transparent 25%, transparent 50%, $color 50%, $color 75%, transparent 75%, transparent);
+}
+
+
+
+/// Adds a browser prefix to the property
+/// @param {*} $property Property
+/// @param {*} $value Value
+@mixin css3-prefix($property, $value) {
+	-webkit-#{$property}: #{$value};
+	-khtml-#{$property}: #{$value};
+	-moz-#{$property}: #{$value};
+	-ms-#{$property}: #{$value};
+	-o-#{$property}: #{$value};
+	#{$property}: #{$value};
+}
+@mixin shadow-z-1() {
+	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
+}
+
+@mixin shadow-z-1-hover() {
+	box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+@mixin shadow-z-2() {
+	box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+@mixin shadow-z-3() {
+	box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24),
+		0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+@mixin shadow-z-4() {
+	box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22),
+		0 25px 55px 0 rgba(0, 0, 0, 0.21);
+}
+
+@mixin shadow-z-5() {
+	box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2),
+		0 40px 77px 0 rgba(0, 0, 0, 0.22);
+}
+
+/* Shadows (from mdl http://www.getmdl.io/) */
+
+// Focus shadow mixin.
+@mixin big-shadow() {
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.18), 0 8px 16px rgba(0, 0, 0, 0.36);
+}
+
+
+
+// Placeholder text
+@mixin material-placeholder() {
+	&::-moz-placeholder {
+		@content;
+	} // Firefox
+	&:-ms-input-placeholder {
+		@content;
+	} // Internet Explorer 10+
+	&::-webkit-input-placeholder {
+		@content;
+	} // Safari and Chrome
+}
+
+// variations(unquote(""), background-color, #FFF);
+@mixin variations($component, $selector-suffix, $bmd-param-1, $color-default) {
+	@include generic-variations($component, $selector-suffix, $color-default, "variations-content", $bmd-param-1);
+}
+
+@mixin variations-content($args) {
+	//@debug "#{map-get($args, mixin-name)}{ #{map-get($args, material-param-1)}: #{map-get($args, variation-color)}; }";
+	//@debug "#{inspect($args)}";
+	//@error "break here";
+	#{map-get($args, material-param-1)}: map-get($args, variation-color);
+}
+
+@mixin background-variations($component, $selector-suffix, $color-default) {
+	@include generic-variations($component, $selector-suffix, $color-default, "background-variations-content", null);
+}
+
+@mixin background-variations-content($args) {
+	background-color: map-get($args, variation-color);
+	@if (map-get($args, variation-color) == $bmd-btn-background-color) {
+		color: $bmd-text-color-primary;
+	} @else {
+		color: map-get($args, variation-color-text);
+	}
+}
+
+//@mixin text-variations($component, $selector-suffix, $color-default) {
+//  @include generic-variations($component, $selector-suffix, $color-default, "text-variations-content", null);
+//}
+//
+//@mixin text-variations-content($args) {
+//  color: map-get($args, variation-color);
+//}
+
+@mixin button-variations($component, $selector-suffix, $color-default) {
+	@include generic-variations($component, $selector-suffix, $color-default, "button-variations-content", 4%);
+}
+
+@mixin button-variations-content($args) {
+	//@debug "#{inspect($args)}";
+	$variation-color: map-get($args, variation-color);
+	$bmd-param-1: map-get($args, material-param-1);
+	background-color: contrast-color(
+		$variation-color,
+		darken($variation-color, $bmd-param-1),
+		lighten($variation-color, $bmd-param-1)
+	);
+}
+
+// navbar-variations(" label input[type=checkbox]:checked + .toggle:active:after", $brand-primary-color
+@mixin navbar-variations($component, $selector-suffix, $color-default) {
+	@include generic-variations($component, $selector-suffix, $color-default, "navbar-variations-content", null);
+}
+
+@mixin navbar-variations-content($args) {
+	$variation-color: map-get($args, variation-color);
+	$variation-color-text: map-get($args, variation-color-text);
+
+	background-color: $variation-color;
+	color: $variation-color-text;
+	// deeply defined to override welljumbo class without !impotant need
+	.navbar-form .form-group input.form-control,
+	.navbar-form input.form-control {
+		@include material-placeholder {
+			color: $variation-color-text;
+		}
+	}
+	.dropdown-menu {
+		border-radius: $border-radius-base !important;
+		li > a {
+			&:hover,
+			&:focus {
+				color: $white-color;
+				background-color: $variation-color;
+			}
+		}
+
+		.active > a {
+			&:hover,
+			&:focus {
+				color: $variation-color-text;
+			}
+			background-color: $variation-color;
+			color: $variation-color-text;
+		}
+	}
+}
+
+// alert-variations("", $brand-primary-color)
+@mixin alert-variations($component, $selector-suffix, $color-default) {
+	@include generic-variations($component, $selector-suffix, $color-default, "alert-variations-content", null);
+}
+
+@mixin alert-variations-content($args) {
+	$variation-color: map-get($args, variation-color);
+	$variation-color-text: map-get($args, variation-color-text);
+
+	background-color: lighten($variation-color, 3%);
+	color: $variation-color-text;
+
+	a,
+	.alert-link {
+		color: $variation-color-text;
+	}
+}
+
+// interpolation of mixin-name is not allowed evidently, so we statically include based on the mixin-name given
+@mixin call-variations-content-mixin($args) {
+	$mixin-name: map-get($args, mixin-name);
+	@if $mixin-name == variations-content {
+		@include variations-content($args);
+	} @else if $mixin-name == background-variations-content {
+		@include background-variations-content($args);
+	} @else if $mixin-name == text-variations-content {
+		@include text-variations-content($args);
+	} @else if $mixin-name == button-variations-content {
+		@include button-variations-content($args);
+	} @else if $mixin-name == bg-color-variations-content {
+		@include bg-color-variations-content($args);
+	} @else if $mixin-name == bg-box-shadow-variations-content {
+		@include bg-box-shadow-variations-content($args);
+	} @else if $mixin-name == bg-img-variations-content {
+		@include bg-img-variations-content($args);
+	} @else if $mixin-name == navbar-variations-content {
+		@include navbar-variations-content($args);
+	} @else if $mixin-name == alert-variations-content {
+		@include alert-variations-content($args);
+	} @else {
+		@error "Unknown mixin: #{$mixin-name}";
+	}
+}
+
+//
+// To use this mixin you should pass a function as final parameter to define
+// the style. In that definition you can use the following variables to define it.
+//
+// $variation-color-name ---> "red", "green", "indigo" ...
+// $variation-color-full-name ---> "red", "green-50", "indigo-400" ...
+// $variation-color ---> #f44336, #e8f5e9, #5c6bc0 ...
+// $variation-color-text ---> rgba(255,255,255,0.84), rgba(0,0,0,0.84), rgba(255,255,255,0.84) ...
+//
+
+@mixin generic-variations($component, $selector-suffix, $color-default, $mixin-name, $bmd-param-1) {
+	//setup map to pass parameters (instead of the incredibly long-error-prone list for each and every @include)
+	$args: (
+		mixin-name: $mixin-name,
+		material-param-1: $bmd-param-1
+	);
+
+	// bootstrap styles
+	&#{$selector-suffix},
+	&#{$component}-default#{$selector-suffix} {
+		$args-extra: map-merge(
+			$args,
+
+			(
+				variation-color: $color-default,
+				variation-color-text: $bmd-text-color-light
+			)
+		);
+		@include call-variations-content-mixin($args-extra);
+	}
+	&#{$component}-inverse#{$selector-suffix} {
+		$args-inverse: map-merge(
+			$args,
+
+			(
+				variation-color: $bmd-brand-inverse,
+				variation-color-text: contrast-color($bmd-brand-inverse, $bmd-text-color-primary-hex, $bmd-text-color-light-hex)
+			)
+		);
+		@include call-variations-content-mixin($args-inverse);
+	}
+	&#{$component}-primary#{$selector-suffix} {
+		$args-primary: map-merge(
+			$args,
+
+			(
+				variation-color: $brand-primary-color,
+				variation-color-text: $bmd-text-color-light
+			)
+		);
+		@include call-variations-content-mixin($args-primary);
+	}
+	&#{$component}-success#{$selector-suffix} {
+		$args-success: map-merge(
+			$args,
+
+			(
+				variation-color: $color-success-state,
+				variation-color-text: $bmd-text-color-light
+			)
+		);
+		@include call-variations-content-mixin($args-success);
+	}
+	&#{$component}-info#{$selector-suffix} {
+		$args-info: map-merge(
+			$args,
+
+			(
+				variation-color: $color-info-state,
+				variation-color-text: $bmd-text-color-light
+			)
+		);
+		@include call-variations-content-mixin($args-info);
+	}
+	&#{$component}-warning#{$selector-suffix} {
+		$args-warning: map-merge(
+			$args,
+
+			(
+				variation-color: $color-warning-state,
+				variation-color-text: $bmd-text-color-light
+			)
+		);
+		@include call-variations-content-mixin($args-warning);
+	}
+	&#{$component}-danger#{$selector-suffix} {
+		$args-danger: map-merge(
+			$args,
+
+			(
+				variation-color: $color-danger-state,
+				variation-color-text: $bmd-text-color-light
+			)
+		);
+		@include call-variations-content-mixin($args-danger);
+	}
+}
+
+@mixin transition($time, $type) {
+	-webkit-transition: all $time $type;
+	-moz-transition: all $time $type;
+	-o-transition: all $time $type;
+	-ms-transition: all $time $type;
+	transition: all $time $type;
+}
+@mixin transform($params) {
+	@include css3-prefix("transform", $params);
+}
+@mixin transform-scale($value) {
+	-webkit-transform: scale($value);
+	-moz-transform: scale($value);
+	-o-transform: scale($value);
+	-ms-transform: scale($value);
+	transform: scale($value);
+}
+
+@mixin transform-scale3d($value) {
+	-webkit-transform: scale3d($value);
+	-moz-transform: scale3d($value);
+	-o-transform: scale3d($value);
+	-ms-transform: scale3d($value);
+	transform: scale3d($value);
+}
+
+@mixin transform-translate-x($value) {
+	-webkit-transform: translate3d($value, 0, 0);
+	-moz-transform: translate3d($value, 0, 0);
+	-o-transform: translate3d($value, 0, 0);
+	-ms-transform: translate3d($value, 0, 0);
+	transform: translate3d($value, 0, 0);
+}
+
+@mixin transform-translate-y($value) {
+	-webkit-transform: translate3d(0, $value, 0);
+	-moz-transform: translate3d(0, $value, 0);
+	-o-transform: translate3d(0, $value, 0);
+	-ms-transform: translate3d(0, $value, 0);
+	transform: translate3d(0, $value, 0);
+}
+
+@mixin transform-origin($coordinates) {
+	-webkit-transform-origin: $coordinates;
+	-moz-transform-origin: $coordinates;
+	-o-transform-origin: $coordinates;
+	-ms-transform-origin: $coordinates;
+	transform-origin: $coordinates;
+}
+
+@mixin animation($value) {
+	-webkit-animation: $value;
+	-moz-animation: $value;
+	-o-animation: $value;
+	-ms-animation: $value;
+	animation: $value;
+}
+
+// Mixins for buttons
+
+@mixin btn-styles($btn-color) {
+	// remove this line if you want black shadows
+	@include shadow-2dp-color($btn-color);
+
+	&,
+	&:hover,
+	&:focus,
+	&:active,
+	&.active,
+	&:active:focus,
+	&:active:hover,
+	&.active:focus,
+	&.active:hover,
+	.open > &.dropdown-toggle,
+	.open > &.dropdown-toggle:focus,
+	.open > &.dropdown-toggle:hover {
+		background-color: $btn-color;
+		color: $white-color;
+	}
+
+	&:focus,
+	&:active,
+	&:hover {
+		// remove this line if you want black shadows
+		@include button-shadow-color($btn-color);
+	}
+
+	&.disabled,
+	&:disabled,
+	&[disabled],
+	fieldset[disabled] & {
+		&,
+		&:hover,
+		&:focus,
+		&.focus,
+		&:active,
+		&.active {
+			box-shadow: none;
+		}
+	}
+
+	&.btn-simple {
+		background-color: transparent;
+		color: $btn-color;
+		box-shadow: none;
+
+		&:hover,
+		&:focus,
+		&:active {
+			background-color: transparent;
+			color: $btn-color;
+		}
+	}
+}
+
+//Placeholders
+/*
+input,
+textarea {
+    @include input-placeholder {
+        color: $grey;
+    }
+}
+*/
+//------------------------------------>
+
+@mixin input-placeholder {
+	&.placeholder {
+		@content;
+	}
+	&:-moz-placeholder {
+		@content;
+	}
+	&::-moz-placeholder {
+		@content;
+	}
+	&:-ms-input-placeholder {
+		@content;
+	}
+	&::-webkit-input-placeholder {
+		@content;
+	}
+}
+
+//Harware
+//Simple and effective for when you need to trigger hardware acceleration for some animation.
+@mixin hardware($backface: true, $perspective: 1000) {
+	@if $backface {
+		backface-visibility: hidden;
+	}
+	perspective: $perspective;
+}
+//Truncate
+@mixin truncate($truncation-boundary) {
+	max-width: $truncation-boundary;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

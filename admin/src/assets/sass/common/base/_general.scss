@@ -1,0 +1,110 @@
+html {
+	height: 100%;
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+	-ms-overflow-style: scrollbar;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	font-family: $font-family-body;
+}
+body,html{
+		font-size: 100%;
+	   font-weight: 300;
+		 line-height: 1.5;
+		 letter-spacing: .02rem;
+}
+a,
+a:link,
+a:visited {
+	text-decoration: none;
+	outline: none;
+  transition: all 300ms ease;
+}
+
+a:active,
+a:hover {
+	outline: none;
+	text-decoration: none;
+}
+
+*,
+:active,
+:focus {
+	outline: none;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: $font-family-header;
+	letter-spacing: 0.02em;
+}
+.h1,
+.h2,
+.h3,
+h1,
+h2,
+h3{
+		font-weight: 300;
+}
+
+
+.h4,
+.h5,
+.h6,
+h4,
+h5,
+h6 {
+	font-weight: 400;
+}
+p {
+	font-size:  rem(14);
+	line-height: 1.7;
+}
+ul li,
+ol li{
+		font-size: rem(14);
+}
+label{
+		font-size: rem(14)!important;
+		font-weight: 400;
+}
+
+::selection {
+  background: #FFF9CC; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: #FFF9CC; /* Gecko Browsers */
+}
+code {
+	font-size: 87.5%;
+	word-break: break-word;
+}
+
+pre {
+    white-space: pre-wrap;
+
+}
+img, figure {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+}
+strong{
+	font-weight:500;
+}

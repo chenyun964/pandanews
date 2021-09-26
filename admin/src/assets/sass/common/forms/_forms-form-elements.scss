@@ -1,0 +1,65 @@
+
+//== Basic Form Controls
+//------------------------------------
+.form-control{
+	border: 1px solid transparent;
+	color: #839bb3;
+	&:focus{
+		box-shadow: none;
+	}
+	&.no-focus-border{
+		&:focus{
+			border:0;
+		}
+	}
+}
+.custom-control-input:disabled~.custom-control-label, .custom-file-label, .custom-file-label:after, .form-control, .form-control-plaintext, .form-control:focus{
+	font-size: rem(14);
+}
+
+//== Rounded Form Controls
+//------------------------------------
+.form-control.input-rounded{
+	border-radius: 20px;
+}
+
+
+//== Horizontal Form
+//------------------------------------
+.form-horizontal{
+	.form-group{
+		.control-label{
+			margin-top:7px;
+		}
+	}
+}
+.custom-file-label::after{
+	&:hover{
+		cursor:pointer;
+	}
+}
+.custom-file-input:lang(en)~.custom-file-label.file-icon::after,
+.custom-file-label.file-icon::after{
+	font-family:$materialDesignIconic;
+	content:'\f22a'!important;
+	padding:5px 16px;
+	font-size:rem(16);
+}
+.custom-file-label, .custom-file-label:after{
+	color:#839bb3;
+}
+//== Sign In Form
+//------------------------------------
+.sign-in-form{
+	.custom-control{
+		position: relative;
+		display: -ms-inline-flexbox;
+		display: inline-flex;
+		min-height: 1.5rem;
+		padding-left: 1.5rem;
+		margin-right: 1rem;
+		.custom-control-label{
+			padding-top:1px;
+		}
+	}
+}

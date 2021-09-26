@@ -1,0 +1,570 @@
+//-----------------------------//
+// BUTTONS
+//-----------------------------//
+
+.btn,
+a:link.btn {
+	display: inline-block;
+	text-align: center;
+	white-space: nowrap;
+	user-select: none;
+	border: 1px solid transparent;
+	padding: 8px 20px;
+	font-size: rem(14);
+	border-radius: 0.25rem;
+	transition: all 200ms ease;
+	height: 38px;
+	vertical-align: middle;
+	font-weight: 300;
+	cursor: pointer;
+	/*------------- BUTTON STYLES --------------*/
+	&.btn-rounded {
+		border-radius: 50px;
+		padding: 8px 25px;
+	}
+	/*------------- BUTTON SIZES--------------*/
+	&.btn-sm {
+		padding: 0.35rem 0.75rem;
+		font-size: rem(12);
+		height: 32px;
+		line-height: 1;
+	}
+
+	&.btn-lg {
+		padding: 25px 50px !important;
+		font-size: 1rem;
+		line-height: 0.2;
+height: auto;
+		i {
+			vertical-align: top;
+			margin: -10px 0 0 5px;
+			font-size: 20px;
+		}
+	}
+
+	i {
+		vertical-align: middle !important;
+		margin: -1px 4px 0;
+	}
+
+	&.btn.focus,
+	&.btn:focus {
+		box-shadow: none;
+	}
+}
+
+.btn-secondary,
+a:link.btn-secondary {
+	background-color: #fff;
+	border: 1px solid #d8e3ef;
+	color: $color-secondary-state;
+
+	&:hover {
+		background-color: darken($color-secondary-state, 3%) !important;
+		border: solid 1px darken($color-secondary-state, 3%) !important;
+		box-shadow: 0 5px 10px rgba($color-secondary-state, 0.4) !important;
+		color: rgba(255, 255, 255, 1);
+	}
+
+	&:active {
+		background-color: lighten($color-secondary-state, 1%) !important;
+		border: solid 1px lighten($color-secondary-state, 1%) !important;
+		color: rgba(255, 255, 255, 1) !important;
+		box-shadow: none !important;
+	}
+
+	&:focus {
+		background-color: $color-secondary-state;
+		border: solid 1px $color-secondary-state;
+		color: rgba(255, 255, 255, 1) !important;
+		box-shadow: none !important;
+	}
+
+	&.btn-floating {
+		box-shadow: 0 5px 10px rgba($color-secondary-state, 0.4) !important;
+
+		&:active,
+		&:hover {
+			box-shadow: 0 15px 20px rgba($color-secondary-state, 0.4) !important;
+		}
+	}
+
+	&.btn-outline {
+		background-color: #fff;
+		color: $color-secondary-state;
+
+		&:focus {
+			background-color: #fff !important;
+			color: $color-secondary-state !important;
+		}
+
+		&:active,
+		&:hover {
+			color: rgba(255, 255, 255, 1) !important;
+			background-color: $color-secondary-state !important;
+		}
+	}
+}
+
+.btn-secondary.disabled,
+.btn-secondary:disabled {
+	color: rgba(141, 166, 195, 0.8);
+	background-color: transparent;
+	border-color: #d8e3ef;
+
+	&:active,
+	&:focus,
+	&:hover {
+		color: rgba(141, 166, 195, 0.8) !important;
+		background: transparent !important;
+		border-color: #d8e3ef !important;
+		box-shadow: none !important;
+	}
+}
+
+.btn-secondary:not([disabled]):not(.disabled).active,
+.btn-secondary:not([disabled]):not(.disabled):active,
+.show > .btn-secondary.dropdown-toggle {
+	background-color: $color-secondary-state;
+	border: solid 1px $color-secondary-state;
+	color: rgba(255, 255, 255, 0.9);
+}
+
+.btn-success {
+	background-color: $color-success-state;
+	border: solid 1px $color-success-state;
+	color: rgba(255, 255, 255, 0.85);
+
+	&:hover {
+		background-color: darken($color-success-state, 3%) !important;
+		border: solid 1px darken($color-success-state, 3%) !important;
+		box-shadow: 0 5px 10px rgba($color-success-state, 0.4) !important;
+		color: rgba(255, 255, 255, 1);
+	}
+
+	&:active {
+		background-color: lighten($color-success-state, 1%) !important;
+		border: solid 1px lighten($color-success-state, 1%) !important;
+		color: rgba(255, 255, 255, 1) !important;
+		box-shadow: none !important;
+	}
+
+	&:focus {
+		background-color: $color-success-state;
+		border: solid 1px $color-success-state;
+		color: rgba(255, 255, 255, 1) !important;
+		box-shadow: none !important;
+	}
+
+	&.btn-floating {
+		box-shadow: 0 5px 10px rgba($color-success-state, 0.4) !important;
+
+		&:active,
+		&:hover {
+			box-shadow: 0 15px 20px rgba($color-success-state, 0.4) !important;
+		}
+	}
+
+	&.btn-outline {
+		background-color: #fff;
+		color: $color-success-state;
+
+		&:focus {
+			background-color: #fff !important;
+			color: $color-success-state !important;
+		}
+
+		&:active,
+		&:hover {
+			color: rgba(255, 255, 255, 1) !important;
+			background-color: $color-success-state !important;
+		}
+	}
+}
+
+.btn-success.disabled,
+.btn-success:disabled {
+	color: #fff;
+	background-color: rgba($color-success-state, 0.85);
+	border-color: rgba($color-success-state, 0.85);
+}
+
+.btn-success:not(:disabled):not(.disabled).active,
+.btn-success:not(:disabled):not(.disabled):active,
+.show > .btn-success.dropdown-toggle {
+	background-color: $color-success-state;
+	border: solid 1px $color-success-state;
+	color: rgba(255, 255, 255, 0.85);
+}
+
+.btn-info,
+a:link.btn-info {
+	background-color: $color-info-state;
+	border: solid 1px $color-info-state;
+	color: rgba(255, 255, 255, 0.85);
+
+	&:hover {
+		background-color: darken($color-info-state, 3%) !important;
+		border: solid 1px darken($color-info-state, 3%) !important;
+		box-shadow: 0 5px 10px rgba($color-info-state, 0.4) !important;
+		color: rgba(255, 255, 255, 1);
+	}
+
+	&:active {
+		background-color: lighten($color-info-state, 1%) !important;
+		border: solid 1px lighten($color-info-state, 1%) !important;
+		color: rgba(255, 255, 255, 1) !important;
+		box-shadow: none !important;
+	}
+
+	&:focus {
+		background-color: $color-info-state;
+		border: solid 1px $color-info-state;
+		color: rgba(255, 255, 255, 1) !important;
+		box-shadow: none !important;
+	}
+
+	&.btn-floating {
+		box-shadow: 0 5px 10px rgba($color-info-state, 0.4) !important;
+
+		&:active,
+		&:hover {
+			box-shadow: 0 15px 20px rgba($color-info-state, 0.4) !important;
+		}
+	}
+
+	&.btn-outline {
+		background-color: #fff;
+		color: $color-info-state;
+
+		&:focus {
+			background-color: #fff !important;
+			color: $color-info-state !important;
+		}
+
+		&:active,
+		&:hover {
+			color: rgba(255, 255, 255, 1) !important;
+			background-color: $color-info-state !important;
+		}
+	}
+}
+
+.btn-info.disabled,
+.btn-info:disabled {
+	color: #fff;
+	background-color: rgba($color-info-state, 0.85);
+	border-color: rgba($color-info-state, 0.85);
+}
+
+.btn-info:not(:disabled):not(.disabled).active,
+.btn-info:not(:disabled):not(.disabled):active,
+.show > .btn-info.dropdown-toggle {
+	background-color: $color-info-state;
+	border: solid 1px $color-info-state;
+	color: rgba(255, 255, 255, 0.85);
+}
+
+.btn-warning,
+a:link.btn-warning {
+	background-color: $color-warning-state;
+	border: solid 1px $color-warning-state;
+	color: rgba(255, 255, 255, 0.85);
+
+	&:hover {
+		background-color: darken($color-warning-state, 3%) !important;
+		border: solid 1px darken($color-warning-state, 3%) !important;
+		box-shadow: 0 5px 10px rgba($color-warning-state, 0.4) !important;
+		color: rgba(255, 255, 255, 1);
+	}
+
+	&:active {
+		background-color: lighten($color-warning-state, 1%) !important;
+		border: solid 1px lighten($color-warning-state, 1%) !important;
+		color: rgba(255, 255, 255, 1) !important;
+		box-shadow: none !important;
+	}
+
+	&:focus {
+		background-color: $color-warning-state;
+		border: solid 1px $color-warning-state;
+		color: rgba(255, 255, 255, 1) !important;
+		box-shadow: none !important;
+	}
+
+	&.btn-floating {
+		box-shadow: 0 5px 10px rgba($color-warning-state, 0.4) !important;
+
+		&:active,
+		&:hover {
+			box-shadow: 0 15px 20px rgba($color-warning-state, 0.4) !important;
+		}
+	}
+
+	&.btn-outline {
+		background-color: #fff;
+		color: $color-warning-state;
+
+		&:focus {
+			background-color: #fff !important;
+			color: $color-warning-state !important;
+		}
+
+		&:active,
+		&:hover {
+			color: rgba(255, 255, 255, 1) !important;
+			background-color: $color-warning-state !important;
+		}
+	}
+}
+
+.btn-warning.disabled,
+.btn-warning:disabled {
+	color: #fff;
+	background-color: rgba($color-warning-state, 0.85);
+	border-color: rgba($color-warning-state, 0.85);
+}
+
+.btn-warning:not(:disabled):not(.disabled).active,
+.btn-warning:not(:disabled):not(.disabled):active,
+.show > .btn-warning.dropdown-toggle {
+	background-color: $color-warning-state;
+	border: solid 1px $color-warning-state;
+	color: rgba(255, 255, 255, 0.85);
+}
+
+.btn-danger,
+a:link.btn-danger {
+	background-color: $color-danger-state;
+	border: solid 1px $color-danger-state;
+	color: rgba(255, 255, 255, 0.85);
+
+	&:hover {
+		background-color: darken($color-danger-state, 3%) !important;
+		border: solid 1px darken($color-danger-state, 3%) !important;
+		box-shadow: 0 5px 10px rgba($color-danger-state, 0.4) !important;
+		color: rgba(255, 255, 255, 1);
+	}
+
+	&:active {
+		background-color: lighten($color-danger-state, 1%) !important;
+		border: solid 1px lighten($color-danger-state, 1%) !important;
+		color: rgba(255, 255, 255, 1) !important;
+		box-shadow: none !important;
+	}
+
+	&:focus {
+		background-color: $color-danger-state;
+		border: solid 1px $color-danger-state;
+		color: rgba(255, 255, 255, 1) !important;
+		box-shadow: none !important;
+	}
+
+	&.btn-floating {
+		box-shadow: 0 5px 10px rgba($color-danger-state, 0.4) !important;
+
+		&:active,
+		&:hover {
+			box-shadow: 0 15px 20px rgba($color-danger-state, 0.4) !important;
+		}
+	}
+
+	&.btn-outline {
+		background-color: #fff;
+		color: $color-danger-state;
+
+		&:focus {
+			background-color: #fff !important;
+			color: $color-danger-state !important;
+		}
+
+		&:active,
+		&:hover {
+			color: rgba(255, 255, 255, 1) !important;
+			background-color: $color-danger-state !important;
+		}
+	}
+}
+
+.btn-danger.disabled,
+.btn-danger:disabled {
+	color: #fff;
+	background-color: rgba($color-danger-state, 0.85);
+	border-color: rgba($color-danger-state, 0.85);
+}
+
+.btn-danger:not(:disabled):not(.disabled).active,
+.btn-danger:not(:disabled):not(.disabled):active,
+.show > .btn-danger.dropdown-toggle {
+	background-color: $color-danger-state;
+	border: solid 1px $color-danger-state;
+	color: rgba(255, 255, 255, 0.85);
+}
+
+.btn-secondary:not([disabled]):not(.disabled).active,
+.btn-secondary:not([disabled]):not(.disabled):active,
+.show > .btn-secondary.dropdown-toggle {
+	background-color: #6987ab;
+	border-color: #6987ab;
+	color: #fff;
+	box-shadow: 0 2px 2px 0 rgba(105, 135, 171, 0.14),
+		0 3px 1px -2px rgba(105, 135, 171, 0.2),
+		0 1px 5px 0 rgba(105, 135, 171, 0.12);
+}
+
+.btn-light,
+a:link.btn-light {
+	background-color: #fff;
+	border-color: rgba(141, 166, 195, 0.2);
+	color: #839bb3 !important;
+
+	i {
+		color: rgba(141, 166, 195, 0.6);
+	}
+
+	&:hover {
+		background-color: #f0f6ff !important;
+		box-shadow: 0 5px 10px rgba($color-secondary-state, 0.2) !important;
+		border-color: rgba(141, 166, 195, 0.2);
+
+		i {
+			color: rgba(141, 166, 195, 0.6) !important;
+		}
+	}
+
+	&:active {
+		background-color: rgba(199, 217, 238, 0.4) !important;
+		border-color: rgba(141, 166, 195, 0.2) !important;
+	}
+
+	&.btn-floating {
+		box-shadow: 0 5px 10px rgba($color-secondary-state, 0.2) !important;
+
+		&:active,
+		&:hover {
+			box-shadow: 0 15px 20px rgba($color-secondary-state, 0.2) !important;
+		}
+	}
+}
+/*------------- BUTTON TYPES --------------*/
+.btn-round {
+	border-radius: 100%;
+	padding: 0;
+	width: 40px;
+	height: 40px;
+	line-height: 42px;
+	fill: #fff;
+	position: relative;
+}
+
+.btn-pill {
+	-webkit-border-radius: 60px;
+	-moz-border-radius: 60px;
+	-ms-border-radius: 60px;
+	-o-border-radius: 60px;
+	border-radius: 60px;
+}
+
+.btn-more {
+	margin: 40px auto;
+	text-align: center;
+}
+
+.btn-link {
+	background-color: transparent;
+	border: none;
+	padding: 6px 17px;
+}
+
+.btn-link.active,
+.btn-link.disabled,
+.btn-link:active,
+.btn-link:focus,
+.btn-link:hover,
+.btn-link[disabled] {
+	background-color: transparent;
+	border: none;
+	text-decoration: none;
+	outline: none;
+}
+
+.btn.btn-icon {
+	padding: 7px 16px;
+}
+
+.custom-file-label.btn-icon,
+.custom-file-label.btn-icon::after {
+	padding: 10px 16px;
+}
+
+.btn.btn-tranparent,
+.btn.btn-tranparent {
+	background-color: transparent;
+	border-color: transparent;
+	border: 0;
+	padding: 0;
+	height: 30px;
+	width: 30px;
+	padding: 3px 5px;
+	margin: 0 7px;
+
+	i {
+		font-size: rem(20);
+	}
+
+	&:hover {
+		i {
+			color: #353a40;
+		}
+	}
+
+	&:active,
+	&:focus {
+		outline: 0;
+		box-shadow: none;
+	}
+}
+
+.btn.btn-fab {
+	border-radius: 50%;
+	font-size: 24px;
+	height: 56px;
+	margin: auto;
+	width: 56px;
+	padding: 0;
+	position: relative;
+	line-height: normal;
+}
+/*****************************************
+upload button styles
+******************************************/
+.file-upload {
+	position: relative;
+	display: inline-block;
+}
+
+.file-upload__label {
+	display: block;
+	padding: 1em 2em;
+	color: #fff;
+	background: #222;
+	border-radius: 0.4em;
+	transition: background 0.3s;
+
+	&:hover {
+		cursor: pointer;
+		background: #000;
+	}
+}
+
+.file-upload__input {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	font-size: 1;
+	width: 0;
+	height: 100%;
+	opacity: 0;
+}
