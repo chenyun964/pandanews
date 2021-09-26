@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background: #f0f6ff;
 }
 
 .App-logo {
@@ -35,4 +36,20 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.login-section{
+  height: 100vh;
+}
+
+.login-card{
+  box-shadow: 0 10px 40px 0 rgb(18 106 211 / 7%), 0 2px 9px 0 rgb(18 106 211 / 6%);
+  border: none;
+  margin-bottom: 1.875rem;
+  transition: all .3s ease;
+}
+
+.input-error-msg {
+  color: #ff4f4f;
+  font-size: .75rem;
 }

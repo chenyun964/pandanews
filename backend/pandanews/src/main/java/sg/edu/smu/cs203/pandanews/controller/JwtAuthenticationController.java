@@ -69,7 +69,8 @@ public class JwtAuthenticationController {
     @PostMapping("/admin/authenticate")
     public ResponseEntity<?> createAuthenticationTokenAdmin(@RequestBody JwtRequest authenticationRequest) throws Exception {
         authenticateAdmin(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+        final UserDetails userDetails = userDetailsService.loadAdminByUsername(authenticationRequest.getUsername());
+        System.out.println(userDetails.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
     }
