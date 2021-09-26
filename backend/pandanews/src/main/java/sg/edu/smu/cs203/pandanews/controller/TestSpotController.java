@@ -14,31 +14,31 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
-import sg.edu.smu.cs203.pandanews.dto.VacciSpotDTO;
+import sg.edu.smu.cs203.pandanews.dto.TestSpotDTO;
 import sg.edu.smu.cs203.pandanews.exception.SpotNotFoundException;
-import sg.edu.smu.cs203.pandanews.model.VacciSpot;
-import sg.edu.smu.cs203.pandanews.service.VacciSpotService;
+import sg.edu.smu.cs203.pandanews.model.TestSpot;
+import sg.edu.smu.cs203.pandanews.service.TestSpotService;
 
 @RestController
-@RequestMapping(path = "/vaccispots")
-public class VacciSpotController {
-    private VacciSpotService vacciSpotService;
+@RequestMapping(path = "/testspots")
+public class TestSpotController {
+    private TestSpotService testSpotService;
 
     @Autowired
-    public VacciSpotController(VacciSpotService vss) {
-        this.vacciSpotService = vss;
+    public TestSpotController(TestSpotService tss) {
+        this.testSpotService = tss;
     }
 
     @GetMapping
     @ResponseBody
-    public Iterable<VacciSpot> getVacciSpots() {
-        return vacciSpotService.listAll();
+    public Iterable<TestSpot> getTestSpots() {
+        return testSpotService.listAll();
     }
 
     @GetMapping(path = "/{id}")
     @ResponseBody
-    public VacciSpot getById(@PathVariable Long id) {
-        VacciSpot spot = vacciSpotService.getById(id);
+    public TestSpot getById(@PathVariable Long id) {
+        TestSpot spot = testSpotService.getById(id);
         if (spot == null) {
             throw new SpotNotFoundException();
         }
@@ -47,58 +47,46 @@ public class VacciSpotController {
 
     @GetMapping(path = "/name/{name}")
     @ResponseBody
-    public VacciSpot getByName(@PathVariable String name) {
-        VacciSpot spot = vacciSpotService.getByName(name);
+    public TestSpot getByName(@PathVariable String name) {
+        TestSpot spot = testSpotService.getByName(name);
         if (spot == null) {
             throw new SpotNotFoundException();
         }
         return spot;
     }
 
-    @GetMapping(path = "/region/{region}")
-    @ResponseBody
-    public Iterable<VacciSpot> getAllByRegion(@PathVariable String region) {
-        return vacciSpotService.listByRegion(region);
-    }
-
     @GetMapping(path = "/type/{type}")
     @ResponseBody
-    public Iterable<VacciSpot> getAllByType(@PathVariable String type) {
-        return vacciSpotService.listByType(type);
-    }
-
-    @GetMapping(path = "vaccitype/{vacciType}")
-    @ResponseBody
-    public Iterable<VacciSpot> getAllByVacciType(@PathVariable String vacciType) {
-        return vacciSpotService.listByVacciType(vacciType);
+    public Iterable<TestSpot> getAllByType(@PathVariable String type) {
+        return testSpotService.listByType(type);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public VacciSpot postMethodName(@RequestBody VacciSpotDTO newSpotDTO) {
-        VacciSpot newSpot = new VacciSpot();
+    public TestSpot postMethodName(@RequestBody TestSpotDTO newSpotDTO) {
+        TestSpot newSpot = new TestSpot();
         newSpot.setName(newSpotDTO.getName());
         newSpot.setType(newSpotDTO.getType());
         newSpot.setAddress(newSpotDTO.getAddress());
-        newSpot.setRegion(newSpotDTO.getRegion());
-        newSpot.setVacciType(newSpotDTO.getVacciType());
         newSpot.setLatitude(newSpotDTO.getLatitude());
         newSpot.setLongitude(newSpotDTO.getLongitude());
-        return vacciSpotService.add(newSpot);
+        newSpot.setOpHours(newSpotDTO.getOpHours());
+        newSpot.setContact(newSpotDTO.getContact());
+        return testSpotService.add(newSpot);
     }
 
     @PutMapping(path = "/{id}")
     @ResponseBody
-    public VacciSpot updateVacciSpot(@PathVariable Long id, @RequestBody VacciSpotDTO newSpotDTO) {
-        VacciSpot newSpot = new VacciSpot();
+    public TestSpot updateTestSpot(@PathVariable Long id, @RequestBody TestSpotDTO newSpotDTO) {
+        TestSpot newSpot = new TestSpot();
         newSpot.setName(newSpotDTO.getName());
         newSpot.setType(newSpotDTO.getType());
         newSpot.setAddress(newSpotDTO.getAddress());
-        newSpot.setRegion(newSpotDTO.getRegion());
-        newSpot.setVacciType(newSpotDTO.getVacciType());
         newSpot.setLatitude(newSpotDTO.getLatitude());
         newSpot.setLongitude(newSpotDTO.getLongitude());
-        newSpot = vacciSpotService.update(id, newSpot);
+        newSpot.setOpHours(newSpotDTO.getOpHours());
+        newSpot.setContact(newSpotDTO.getContact());
+        newSpot = testSpotService.update(id, newSpot);
         if (newSpot == null) {
             throw new SpotNotFoundException();
         }
@@ -107,8 +95,8 @@ public class VacciSpotController {
 
     @DeleteMapping(path = "/{id}")
     @ResponseBody
-    public VacciSpot deleteById(@PathVariable Long id) {
-        VacciSpot spot = vacciSpotService.deleteById(id);
+    public TestSpot deleteById(@PathVariable Long id) {
+        TestSpot spot = testSpotService.deleteById(id);
         if (spot == null) {
             throw new SpotNotFoundException();
         }

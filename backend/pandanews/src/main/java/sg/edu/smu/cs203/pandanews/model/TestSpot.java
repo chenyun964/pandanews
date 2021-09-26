@@ -16,15 +16,32 @@ import lombok.*;
 @Entity
 @Getter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @EqualsAndHashCode
-public class Example {
+public class TestSpot {
     @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter
-    private String attribute;
+    private String type;
+
+    @Setter
+    private String name;
+
+    @Setter
+    private String address;
+
+    @Setter
+    private Double latitude;
+
+    @Setter
+    private Double longitude;
+
+    @Setter
+    @Column(name = "operating_hours")
+    private String opHours;
+
+    @Setter
+    private String contact;
 
     @Column(name = "created_at", updatable = false)
     private Date createdAt;
