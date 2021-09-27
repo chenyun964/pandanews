@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.model.news;
+package sg.edu.smu.cs203.pandanews.model;
 
 import java.util.ArrayList;
 import java.util.Date;

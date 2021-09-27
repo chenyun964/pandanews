@@ -5,7 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import sg.edu.smu.cs203.pandanews.model.Measurement;
 
-@Repository
-public interface ExampleRepository extends JpaRepository <Example, Long> {
 
+@Repository
+public interface MeasurementRepository extends JpaRepository <Measurement, Long>{
+    
 }
