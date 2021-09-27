@@ -20,4 +20,5 @@ public interface OrganisationService {
     void deleteOrganisation(Long id);
 
     Organisation getOrganisationByOwner(Long id);
+    Organisation approveOrganisation(Long id);
 }

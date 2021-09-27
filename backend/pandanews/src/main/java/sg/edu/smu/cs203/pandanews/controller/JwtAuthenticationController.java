@@ -23,6 +23,8 @@ import sg.edu.smu.cs203.pandanews.model.JwtResponse;
 import sg.edu.smu.cs203.pandanews.dto.AdminDTO;
 import sg.edu.smu.cs203.pandanews.dto.UserDTO;
 
+import sg.edu.smu.cs203.pandanews.model.User;
+
 @RestController
 @CrossOrigin
 public class JwtAuthenticationController {
@@ -70,7 +72,6 @@ public class JwtAuthenticationController {
     public ResponseEntity<?> createAuthenticationTokenAdmin(@RequestBody JwtRequest authenticationRequest) throws Exception {
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
         final UserDetails userDetails = userDetailsService.loadAdminByUsername(authenticationRequest.getUsername());
-        System.out.println(userDetails.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
     }

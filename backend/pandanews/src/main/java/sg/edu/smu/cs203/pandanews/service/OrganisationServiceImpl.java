@@ -57,4 +57,12 @@ public class OrganisationServiceImpl implements OrganisationService {
     public Organisation getOrganisationByOwner(Long id){
         return organisations.findByOwnerId(id).orElse(null);
     }
+
+    @Override
+    public Organisation approveOrganisation(Long id){
+        return organisations.findById(id).map(organisation -> {
+            organisation.setStatus((byte)1);
+            return organisations.save(organisation);
+        }).orElse(null);
+    }
 }

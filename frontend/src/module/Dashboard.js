@@ -1,6 +1,5 @@
 import { Component, Fragment } from 'react';
 import LoginModel from '../model/LoginModel';
-import Sidebar from "./nav/Sidebar";
 import OrganisationModel from '../model/OrganisationModel';
 
 class Dashboard extends Component {
@@ -207,20 +206,10 @@ class Dashboard extends Component {
     renderDashboard() {
         return <Fragment>
             <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Timesheet</h5>
-                            <p class="card-text">Please enter the ogranisation code:</p>
-                            <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="code" ref="code" onChange={this.handleChange.bind(this, "code")}
-                                    value={this.state.fields["code"]} />
-                                <span className="input-error-msg">{this.state.errors["code"]}</span>
-                            </div>
-                            <div className="text-center">
-                                <a href="#" class="btn btn-primary">Punch Out</a>
-                            </div>
-                        </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Ogranisation Name: {this.state.company.title}</h5>
+                        <p class="card-text">Contact Number: {this.state.company.contact}</p>
                     </div>
                 </div>
             </div>
@@ -229,12 +218,9 @@ class Dashboard extends Component {
 
     render() {
         return (
-            <div className="d-flex">
-                <Sidebar />
-                <div className="flex-fill p-5">
-                    <h1 className="text-center">Dashboard</h1>
-                    {this.renderOptions()}
-                </div>
+            <div className="flex-fill p-5">
+                <h1 className="text-center">Dashboard</h1>
+                {this.renderOptions()}
             </div>
         );
     }

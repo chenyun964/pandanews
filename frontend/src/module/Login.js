@@ -16,6 +16,13 @@ class Login extends Component {
         }
     }
 
+    
+    componentDidMount() {
+        if (LoginModel.retrieveToken()) {
+            window.location.replace("/dashboard");
+        }
+    }
+
     handleValidation() {
         let fields = this.state.fields;
         let errors = {};

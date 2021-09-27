@@ -113,6 +113,10 @@
 }
 
 @media only screen and (max-width: 800px){
+  #login-side-nav{
+    width: 100px;
+  }
+
   #login-side-nav .section-nav a span{
     display: none;
   }

@@ -81,7 +81,7 @@ public class User implements UserDetails{
     private String authorities = "ROLE_USER";
 
     public User(String role){
-        authorities = role;
+        this.authorities = role;
     }
 
     @PrePersist

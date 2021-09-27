@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import LoginModel from '../../model/LoginModel';
 
 class Sidebar extends Component {
+  logout(){
+    LoginModel.destoryAll();
+    window.location.replace("/login");
+  }
+
   render() {
     return (
       <div id="login-side-nav" className="d-flex flex-column justify-content-between">
@@ -40,7 +46,7 @@ class Sidebar extends Component {
             </li>
           </ul>
         </div>
-        <a className="dropdown-item" href="#" > Sign out </a>
+        <button className="btn btn-danger mb-2" onClick={() => this.logout()}> Sign out </button>
       </div>
     );
   }

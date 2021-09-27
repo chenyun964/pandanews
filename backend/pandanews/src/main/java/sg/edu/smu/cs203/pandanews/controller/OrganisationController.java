@@ -111,6 +111,15 @@ public class OrganisationController {
         return organisation;
     }
 
+    @PutMapping("/organisation/approve/{id}")
+    public Organisation approveOrganisation(@PathVariable Long id){
+        Organisation organisation = orgService.approveOrganisation(id);
+        if(organisation == null) return null;
+        
+        return organisation;
+    }
+
+
     /**
      * Remove a book with the DELETE request to "/books/{id}"
      * If there is no book with the given "id", throw a BookNotFoundException
