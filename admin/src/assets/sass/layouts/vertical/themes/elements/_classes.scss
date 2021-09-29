@@ -1,0 +1,66 @@
+/*=========================================================================
+Helper Classes
+========================================================================== */
+.brand-primary {
+	background-color: $brand-primary-color !important;
+}
+
+.brand-accent {
+	background-color: $brand-accent-color !important;
+}
+
+.bg-primary {
+	background-color: $brand-primary-color !important;
+
+	&.bg-lt,
+	.bg-lt {
+		background-color: lighten($brand-primary-color, 5%) !important;
+	}
+
+	&.bg-lt,
+	.bg-dk {
+		background-color: darken($brand-primary-color, 5%) !important;
+	}
+}
+
+a.bg-primary:focus,
+a.bg-primary:hover {
+	background-color: #0062cc !important;
+}
+
+.bg-accent {
+	background-color: $brand-accent-color !important;
+
+	&.bg-lt,
+	.bg-lt {
+		background-color: lighten($brand-accent-color, 5%) !important;
+	}
+
+	&.bg-lt,
+	.bg-dk {
+		background-color: darken($brand-accent-color, 5%) !important;
+	}
+}
+
+a.bg-accent:focus,
+a.bg-accent:hover {
+	background-color: #0062cc !important;
+}
+
+.text-primary {
+	color: $brand-primary-color !important;
+}
+
+.text-accent {
+	color: $brand-accent-color !important;
+}
+
+.swatch {
+	&.swatch-color_primary {
+		background-color: $brand-primary-color;
+	}
+
+	&.swatch-color_accent {
+		background-color: $brand-accent-color;
+	}
+}

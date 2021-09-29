@@ -57,6 +57,8 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/users")
     public User addUser(@RequestBody User user){
+        
+
         return userService.addUser(user);
     }
 

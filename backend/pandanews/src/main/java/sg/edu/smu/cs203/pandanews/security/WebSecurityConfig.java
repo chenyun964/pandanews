@@ -52,9 +52,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		// We don't need CSRF for this example
-		httpSecurity.csrf().disable()
+		httpSecurity.cors().and().csrf().disable()
 				// dont authenticate this particular request
-				.authorizeRequests().antMatchers("/authenticate", "/register").permitAll()
+				.authorizeRequests()
+				.antMatchers("/authenticate", "/register", "/admin/authenticate", "/admin/register").permitAll()
+				.antMatchers("/organisation/approve/*").hasRole("ADMIN")
+				.antMatchers("/organisation/**").authenticated()
 				// role-specific requests
 				.antMatchers(HttpMethod.GET, "/organisations/*/workgroups", "/organisations/*/workgroups/*").permitAll()
 				.antMatchers(HttpMethod.POST, "/organisations/*/workgroups").hasAnyRole("ADMIN", "MANAGER")
@@ -62,8 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.DELETE, "/organisations/*/workgroups/*").hasAnyRole("ADMIN", "MANAGER")
 				// all other requests need to be authenticated
 				.anyRequest().authenticated().and()
-				// make sure we use stateless session; session won't be used to store user's
-				// state.
+				// make sure we use stateless session; session won't be used to store user's state
 				.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

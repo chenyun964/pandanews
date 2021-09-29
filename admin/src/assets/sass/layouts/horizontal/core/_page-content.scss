@@ -1,0 +1,28 @@
+.page-content {
+	display: flex;
+	flex: 1 0 auto;
+	flex-direction: column;
+}
+@media (max-width: 768px) {
+	.page-header.container,
+	.page-content.container{
+		    max-width: 100%;
+	}
+}
+@media (max-width: 576px) {
+	.page-content {
+		padding: 0!important;
+	}
+}
+
+@include media-breakpoint-down(md) {
+	.content.container{
+		max-width: 100%;
+		transition: all 0.3s ease;
+	}
+	.content-wrapper {
+		.content {
+			margin-top: 65px;
+		}
+	}
+}

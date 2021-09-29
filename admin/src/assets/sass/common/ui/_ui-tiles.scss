@@ -1,0 +1,9 @@
+.tile-secondary:hover {
+	background-color: $color-secondary-state !important;
+	box-shadow: 0 15px 20px rgba($color-secondary-state, 0.4) !important;
+	color: #fff !important;
+
+	i {
+		color: #fff !important;
+	}
+}

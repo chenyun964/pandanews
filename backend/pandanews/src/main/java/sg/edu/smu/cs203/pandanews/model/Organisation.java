@@ -10,10 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.validation.constraints.NotNull;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -38,13 +40,19 @@ public class Organisation {
     @Setter
     private String code;
 
+    @Setter
+    private byte status;
+
+    @Setter
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
+    @JsonIgnore
     private User owner;
 
-    @OneToMany(mappedBy = "organisation", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Setter
+    @OneToMany(mappedBy = "organisation", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Organisation> organisations;
+    private List<User> employee;
 
     @Column(name = "created_at", updatable = false)
     private Date createdAt;
