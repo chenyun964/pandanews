@@ -22,8 +22,8 @@ public class WorkGroupServiceImpl implements WorkGroupService {
     }
 
     @Override
-    public List<WorkGroup> listWorkGroups() {
-        return workgroups.findAll();
+    public List<WorkGroup> listWorkGroups(Long organisationId) {
+        return workgroups.findByOrganisationId(organisationId);
     }
 
     @Override

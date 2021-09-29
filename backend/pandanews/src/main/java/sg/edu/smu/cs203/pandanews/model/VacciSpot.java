@@ -18,7 +18,7 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class VacciSpot {
-    @Id @GeneratedValue (strategy = GenerationType.IDENTITY) @Setter
+    @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter
