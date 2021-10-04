@@ -1,0 +1,28 @@
+.contact-list {
+	.contact-item {
+		.card-title{
+			margin: 15px 0 0 0;
+		}
+		.contact {
+			a{
+				transition: all 200ms ease;
+				&:hover {
+					background-color: #736cc7;
+
+					i {
+						color: #fff;
+					}
+				}
+			}
+
+		}
+
+		.card-footer > div > div:first-child > div > a {
+			border-radius: 0 0 0 5px;
+		}
+
+		.card-footer > div > div:last-child > div > a {
+			border-radius: 0 0 5px 0;
+		}
+	}
+}

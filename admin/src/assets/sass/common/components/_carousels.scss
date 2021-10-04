@@ -1,0 +1,33 @@
+.carousel-control-next, .carousel-control-prev{
+	width:10%;
+}
+.carousel-control-prev-icon{
+	background-image:none;
+ &:after{
+	 position: absolute;
+	font-family: LineAwesome;
+	font-size: 30px;
+	right: 1.5625rem;
+	top: 50%;
+	margin-top: -.625rem;
+	-webkit-transition: all "all" "250ms";
+	transition: all "all" "250ms";
+	content: "\f111";
+  color:#fff;
+ }
+}
+.carousel-control-next-icon{
+	background-image:none;
+ &:after{
+	 position: absolute;
+	font-family: LineAwesome;
+	font-size: 30px;
+	right: 1.5625rem;
+	top: 50%;
+	margin-top: -.625rem;
+	-webkit-transition: all "all" "250ms";
+	transition: all "all" "250ms";
+	content: "\f112";
+color:#fff;
+ }
+}

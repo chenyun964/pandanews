@@ -1,0 +1,82 @@
+.card[data-widget="dropzone"]{
+	.card-body{
+		position: relative;
+		.dropzone{
+			margin: 50px;
+			background: #f0f6ff;
+			transition: all 300ms ease;
+			&#singleFileUpload{
+				border: 2px dashed #7468bd;
+			}
+			&#multiFileUpload{
+				border: 2px dashed #F64A91;
+			}
+			&#fileTypeValidation{
+				border: 2px dashed #42a4f4;
+			}
+			&:hover{
+				margin: 20px;
+				cursor: pointer;
+				.btn{
+							margin-top: 0;
+				}
+			}
+		}
+		.dz-message{
+			background: #f0f6ff;
+			padding:20px;
+			transition: all 300ms ease;
+			border-radius: 5px;
+			.btn{
+				    margin-top: 15px;
+			}
+			i.gradient-1{
+				font-size: 100px;
+				display: block;
+				text-align: center;
+				&:before{
+					background: rgb(92,132,232);
+					background: -moz-linear-gradient(-45deg, rgba(92,132,232,1) 1%, rgba(116,104,189,1) 65%);
+					background: -webkit-linear-gradient(-45deg, rgba(92,132,232,1) 1%,rgba(116,104,189,1) 65%);
+					background: linear-gradient(135deg, rgba(92,132,232,1) 1%,rgba(116,104,189,1) 65%);
+					background-clip: text;
+					text-fill-color: transparent;
+					-webkit-background-clip: text;
+					-webkit-text-fill-color: transparent;
+				}
+			}
+			i.gradient-2{
+				font-size: 100px;
+				display: block;
+				text-align: center;
+				&:before{
+					background: rgb(100,10,239);
+					background: -moz-linear-gradient(-45deg, rgba(100,10,239,1) 0%, rgba(246,74,145,1) 82%);
+					background: -webkit-linear-gradient(-45deg, rgba(100,10,239,1) 0%,rgba(246,74,145,1) 82%);
+					background: linear-gradient(135deg, rgba(100,10,239,1) 0%,rgba(246,74,145,1) 82%);
+					background-clip: text;
+					text-fill-color: transparent;
+					-webkit-background-clip: text;
+					-webkit-text-fill-color: transparent;
+				}
+			}
+			i.gradient-3{
+				font-size: 100px;
+				display: block;
+				text-align: center;
+				&:before{
+					background: rgb(46,199,177);
+					background: -moz-linear-gradient(-45deg, rgba(46,199,177,1) 1%, rgba(66,164,244,1) 65%);
+					background: -webkit-linear-gradient(-45deg, rgba(46,199,177,1) 1%,rgba(66,164,244,1) 65%);
+					background: linear-gradient(135deg, rgba(46,199,177,1) 1%,rgba(66,164,244,1) 65%);
+					background-clip: text;
+					text-fill-color: transparent;
+					-webkit-background-clip: text;
+					-webkit-text-fill-color: transparent;
+				}
+			}
+
+		}
+		
+	}
+}

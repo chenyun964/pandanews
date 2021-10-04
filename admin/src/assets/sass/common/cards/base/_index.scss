@@ -1,0 +1,352 @@
+/*=========================================================================
+General Layout
+========================================================================== */
+.card {
+	box-shadow: 0 10px 40px 0 rgba(18,106,211,0.07), 0 2px 9px 0 rgba(18,106,211,0.06);
+	border: none;
+	margin-bottom: rem(30px);
+	transition: all 300ms ease;
+
+	.card-header {
+		font-size: 1rem;
+		font-weight: 300;
+		padding: 15px 20px 15px;
+		position: relative;
+		border-bottom: 1px solid rgba(234,243,253,.9);
+		background-color: transparent;
+		min-height: 45px;
+
+		&.text-light {
+			border-bottom: 1px solid rgba(255, 255, 255, .08);
+		}
+
+		.card-title {
+			font-size: 1rem;
+			font-weight: 300;
+		}
+	}
+
+	.card-footer {
+		padding: 1rem 1.25rem;
+		font-size: 1.1rem;
+		font-weight: 400;
+		background-color: transparent;
+		border-top: 1px solid rgba(234, 243, 253,.7);
+	}
+
+	.card-block {
+		flex: 1 1 auto;
+		padding: 1.25rem;
+	}
+
+	.shadow-on-hover{
+		box-shadow: none;
+		transition: all 300ms ease;
+		&:hover{
+			box-shadow: 0 10px 40px 0 rgba(18,106,211,.07), 0 2px 9px 0 rgba(18,106,211,.06);
+			cursor: pointer;
+		}
+	}
+
+	&.card-elevate {
+		-webkit-transition: -webkit-transform 0.2s ease, -webkit-box-shadow 0.2s ease;
+		transition: -webkit-transform 0.2s ease, -webkit-box-shadow 0.2s ease;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+		transition: transform 0.2s ease, box-shadow 0.2s ease, -webkit-transform 0.2s ease, -webkit-box-shadow 0.2s ease;
+		will-change: transform, box-shadow;
+
+		&:hover {
+			-webkit-transform: translateY(-5px) translateZ(0);
+			transform: translateY(-5px) translateZ(0);
+			box-shadow: 0 16px 32px 0 rgba(100,143,195, 0.28), 0 0 0 transparent;
+			cursor: pointer;
+		}
+	}
+
+	&.card-overlay {
+		border: solid thin #e7f0ff;
+
+		.card-img-top {
+			position: absolute;
+			z-index: 0;
+		}
+
+		.card-body {
+			z-index: 5;
+			background: #fff;
+			margin-top: 130px;
+			padding: 10px;
+		}
+	}
+
+	.card-link {
+		font-size: rem(14);
+	}
+}
+
+/*=========================================================================
+Solid Card Colors
+========================================================================== */
+.card.card-success{
+	background: $color-success-state;
+	.card-header {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		.actions{
+			div > a > i,
+			li > a > i{
+				color:rgba(255,255,255,.5);
+				&:hover{
+					color:#fff;
+				}
+			}
+		}
+	}
+
+	.card-header,
+	.card-title {
+		color: #fff;
+	}
+
+	.card-body {
+		p,
+		span {
+			color: #fff;
+		}
+	}
+
+	.card-footer {
+		border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+		p,
+		span {
+			color: #fff;
+		}
+	}
+}
+.card.card-info{
+	background: $color-info-state;
+	.card-header {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		.actions{
+			div > a > i,
+			li > a > i{
+				color:rgba(255,255,255,.5);
+				&:hover{
+					color:#fff;
+				}
+			}
+		}
+	}
+
+	.card-header,
+	.card-title {
+		color: #fff;
+	}
+
+	.card-body {
+		p,
+		span {
+			color: #fff;
+		}
+	}
+
+	.card-footer {
+		border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+		p,
+		span {
+			color: #fff;
+		}
+	}
+}
+.card.card-warning{
+	background: $color-warning-state;
+	.card-header {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		.actions{
+			div > a > i,
+			li > a > i{
+				color:rgba(255,255,255,.5);
+				&:hover{
+					color:#fff;
+				}
+			}
+		}
+	}
+
+	.card-header,
+	.card-title {
+		color: #fff;
+	}
+
+	.card-body {
+		p,
+		span {
+			color: #fff;
+		}
+	}
+
+	.card-footer {
+		border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+		p,
+		span {
+			color: #fff;
+		}
+	}
+}
+.card.card-danger{
+	background: $color-danger-state;
+	.card-header {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		.actions{
+			div > a > i,
+			li > a > i{
+				color:rgba(255,255,255,.5);
+				&:hover{
+					color:#fff;
+				}
+			}
+		}
+	}
+
+	.card-header,
+	.card-title {
+		color: #fff;
+	}
+
+	.card-body {
+		p,
+		span {
+			color: #fff;
+		}
+	}
+
+	.card-footer {
+		border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+		p,
+		span {
+			color: #fff;
+		}
+	}
+}
+.card.card-dark{
+	background:#151726;
+	.card-header {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		.actions{
+			div > a > i,
+			li > a > i{
+				color:rgba(255,255,255,.5);
+				&:hover{
+					color:#fff;
+				}
+			}
+		}
+	}
+
+	.card-header,
+	.card-title {
+		color: #fff;
+	}
+
+	.card-body {
+		p,
+		span {
+			color: #fff;
+		}
+	}
+
+	.card-footer {
+		border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+		p,
+		span {
+			color: #fff;
+		}
+	}
+}
+/*=========================================================================
+Outline Card Colors
+========================================================================== */
+.card.card-border-success{
+	border:solid 1px $color-success-state;
+	.card-header {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		background: $color-success-state;
+		color: #fff;
+		.card-title {
+			color: #fff;
+		}
+		.actions{
+			div > a > i,
+			li > a > i{
+				color:rgba(255,255,255,.5);
+				&:hover{
+					color:#fff;
+				}
+			}
+		}
+	}
+}
+.card.card-border-info{
+	border:solid 1px $color-info-state;
+	.card-header {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		background: $color-info-state;
+		color: #fff;
+		.card-title {
+			color: #fff;
+		}
+		.actions{
+			div > a > i,
+			li > a > i{
+				color:rgba(255,255,255,.5);
+				&:hover{
+					color:#fff;
+				}
+			}
+		}
+	}
+}
+.card.card-border-warning{
+	border:solid 1px $color-warning-state;
+	.card-header {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		background: $color-warning-state;
+		color: #fff;
+		.card-title {
+			color: #fff;
+		}
+		.actions{
+			div > a > i,
+			li > a > i{
+				color:rgba(255,255,255,.5);
+				&:hover{
+					color:#fff;
+				}
+			}
+		}
+	}
+}
+.card.card-border-danger{
+	border:solid 1px $color-danger-state;
+	.card-header {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		background: $color-danger-state;
+		color: #fff;
+		.card-title {
+			color: #fff;
+		}
+		.actions{
+			div > a > i,
+			li > a > i{
+				color:rgba(255,255,255,.5);
+				&:hover{
+					color:#fff;
+				}
+			}
+		}
+	}
+}

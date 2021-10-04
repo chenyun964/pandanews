@@ -1,0 +1,100 @@
+.sign-in-form {
+	margin: auto;
+	padding: 30px;
+	max-width: 992px;
+
+	.card{
+		border-radius: 15px;
+	}
+
+	.sign-in-heading {
+		font-size: rem(16);
+	}
+
+	.invite-link{
+		text-decoration: underline;
+		color: #FFCE67;
+	}
+
+	.submit-code-btn{
+		width: 40%;
+	}
+
+	.code-input{
+		display: block;
+		text-align: center;
+	}
+
+	.input-empty{
+		border: 1px solid #dc3545;
+	}
+
+	.change-mode-btn{
+		border: 1px solid white;
+		color: white;
+		background: none;
+		border-radius: 25px;
+		padding: 10px 50px;
+		height: auto;
+	}
+	
+	.title{
+		color: #bb5241;
+		font-weight: bold;
+		font-size: 28px;
+		padding: 40px 0 20px;
+	}
+
+	.submit-btn{
+		border: 1px solid #fff;
+		color: #fff;
+		background: #bb5241;
+		border-radius: 25px;
+		padding: 13px 70px;
+		height: auto;
+		font-size: 1rem;
+		font-weight: bold;
+	}
+
+	.left-side-bar, .right-side-bar{
+		background-color: #de7261;
+		height: 100%;
+		padding:50px 20px;
+	}
+
+	.left-side-bar h1, .right-side-bar h1{
+		font-weight: bold;
+		color:white;
+	}
+
+	.left-side-bar p, .right-side-bar p{
+		color:white;
+		padding: 20px 50px;
+	}
+
+	.forgot-password-btn{
+		color: black;
+		text-decoration: underline;
+		background: none;
+	}
+
+	.input-error{
+		border: 1px solid red;
+	}
+
+	.error-msg{
+		color: red;
+	}
+}
+
+.select_page_profile{
+	height: 30px;
+	width: 30px;
+	margin-right: 10px;
+}
+
+.select_page_option{
+	overflow: hidden;
+	-webkit-line-clmap: 1;
+	text-overflow: ellipsis;
+}

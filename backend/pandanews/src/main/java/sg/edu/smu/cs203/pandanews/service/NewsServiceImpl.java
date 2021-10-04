@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

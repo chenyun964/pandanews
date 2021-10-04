@@ -1,0 +1,123 @@
+@import "../../../bootstrap/functions";
+@import "../../../bootstrap/variables";
+@import "../../../bootstrap/mixins";
+@import "../../../common/utils/var";
+@import "../../../common/utils/mixins";
+@import "../../../common/utils/functions";
+
+//== OVERLAY MENU STYLE DEMO 4
+//----------------------------------------------------------------------------->
+
+
+/**
+// FIXED HEADER LAYOUT WITH OVERLAY MENU
+**/
+body {
+	&.layout-fixed.overlay-menu {
+		.top-toolbar{
+			left:0;
+			right:0;
+			position: fixed;
+		}
+		.sidebar-left .sidebar-content{
+			.aside-toolbar{
+				    position: relative;
+			}
+			.main-menu {
+				padding-top: 0;
+			}
+
+		}
+	}
+}
+
+
+
+
+body.overlay-menu {
+  .sidebar.sidebar-left {
+    position: fixed;
+    width: 260px;
+    top: 65px;
+    left: -260px;
+    height: 100vh;
+    overflow-y: auto;
+    box-shadow: 3px 0 20px -3px rgba(0,0,0,.14);
+
+    .sidebar-content {
+      width: 255px;
+      transition: all 300ms ease;
+
+      .main-menu {
+        width: inherit;
+        overflow-y: auto;
+        padding-bottom: 65px;
+
+        .sidebar-header {
+          margin: 0;
+          padding: rem(10) rem(20);
+          text-transform: uppercase;
+          font-size: rem(11);
+          display: block;
+          position: relative;
+        }
+        @import "../../../common/components/menu";
+      }
+    }
+  }
+
+  &.overlay-menu-open {
+    .sidebar.sidebar-left {
+      left: 0;
+    }
+  }
+
+  .top-toolbar.navbar-desktop {
+    box-shadow: 0 1px 15px 1px rgba(57, 49, 74, 0.5);
+
+    .navbar-nav.nav-left {
+      order: 1;
+    }
+
+    .site-logo {
+      order: 2;
+      position: relative;
+
+      li h1.brand-text {
+        font-size: rem(20);
+      }
+    }
+
+    .navbar-nav.nav-right {
+      order: 3;
+      margin: initial;
+    }
+  }
+  @include media-breakpoint-down(md) {
+    .top-toolbar.navbar-desktop {
+      .navbar-nav.nav-left {
+        .nav-item:first-child {
+          display: none;
+        }
+      }
+
+      .site-logo {
+        display: none;
+      }
+
+      .navbar-nav.nav-right {
+        margin: 0 0 0 auto;
+      }
+    }
+  }
+}
+//== MOBILE MENU
+//----------------------------------------------------------------------------->
+
+body.aside-left-open {
+  overflow-y: hidden;
+
+  .sidebar.sidebar-left {
+    left: 0;
+  }
+}

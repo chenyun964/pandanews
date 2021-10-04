@@ -27,9 +27,9 @@ public class WorkGroupController {
      * List all books in the system
      * @return list of all books
      */
-    @GetMapping("/workgroups")
-    public List<WorkGroups> getWorkGroups(){
-        return workGroupService.listWorkGroups();
+    @GetMapping("/organisations/{oid}/workgroups")
+    public List<WorkGroup> getWorkGroups(@PathVariable Long oid){
+        return workGroupService.listWorkGroups(oid);
     }
 
     /**
@@ -38,7 +38,7 @@ public class WorkGroupController {
      * @param id
      * @return book with the given id
      */
-    @GetMapping("/workgroups/{id}")
+    @GetMapping("/organisations/{oid}/workgroups/{id}")
     public WorkGroup getWorkGroup(@PathVariable Long id){
         WorkGroup workGroup = workGroupService.getWorkGroup(id);
 
@@ -55,8 +55,8 @@ public class WorkGroupController {
      * @return list of all books
      */
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/workgroups")
-    public WorkGroup addWorkGroup(@RequestBody WorkGroup workGroup){
+    @PostMapping("/organisations/{oid}/workgroups")
+    public WorkGroup addWorkGroup(@PathVariable Long oid, @RequestBody WorkGroup workGroup){
         return workGroupService.addWorkGroup(workGroup);
     }
 
@@ -66,8 +66,8 @@ public class WorkGroupController {
      * @param newOrganisationInfo
      * @return the updated, or newly added book
      */
-    @PutMapping("/workgroups/{id}")
-    public WorkGroup updateWorkGroup(@PathVariable Long id, @RequestBody WorkGroup newWorkGroupInfo){
+    @PutMapping("/organisations/{oid}/workgroups/{id}")
+    public WorkGroup updateWorkGroup(@PathVariable Long oid, @PathVariable Long id, @RequestBody WorkGroup newWorkGroupInfo){
         WorkGroup workGroup = workGroupService.updateWorkGroup(id, newWorkGroupInfo);
         if(workGroup == null) return null;
         
@@ -79,12 +79,12 @@ public class WorkGroupController {
      * If there is no book with the given "id", throw a BookNotFoundException
      * @param id
      */
-    @DeleteMapping("/workgroups/{id}")
-    public void deleteWorkGroup(@PathVariable Long id){
+    @DeleteMapping("/organisations/{oid}/workgroups/{id}")
+    public void deleteWorkGroup(@PathVariable Long oid, @PathVariable Long id){
         try {
             workGroupService.deleteWorkGroup(id);
         } catch(EmptyResultDataAccessException e) {
-            // throw new BookNotFoundException(id);
+            // throw new WorkGroupNotFoundException(id);
         }
     }
 }

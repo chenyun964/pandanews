@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 
 import sg.edu.smu.cs203.pandanews.repository.UserRepository;
 import sg.edu.smu.cs203.pandanews.model.User;
-import sg.edu.smu.cs203.pandanews.model.UserDTO;
+import sg.edu.smu.cs203.pandanews.dto.UserDTO;
+import sg.edu.smu.cs203.pandanews.dto.AdminDTO;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
@@ -24,13 +25,14 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = users.findByUsername(username).orElse(null);
-		if (user == null) {
-			throw new UsernameNotFoundException("User not found with username: " + username);
-		}
+		return users.findByUsername(username)
+			.orElseThrow(() -> new UsernameNotFoundException("User '" + username + "' not found"));
+	
+	}
 
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-				new ArrayList<>());
+	public UserDetails loadAdminByUsername(String username) throws UsernameNotFoundException {
+		return users.findAdminByUsername(username, "ROLE_ADMIN")
+			.orElseThrow(() -> new UsernameNotFoundException("User '" + username + "' not found"));
 	}
 	
 	public User save(UserDTO user) {
@@ -41,4 +43,10 @@ public class JwtUserDetailsService implements UserDetailsService {
 		return users.save(newUser);
 	}
 
+	public User save(AdminDTO admin) {
+		User newAdmin = new User("ROLE_ADMIN");
+        newAdmin.setUsername(admin.getUsername());
+        newAdmin.setPassword(bcryptEncoder.encode(admin.getPassword()));
+		return users.save(newAdmin);
+	}
 }

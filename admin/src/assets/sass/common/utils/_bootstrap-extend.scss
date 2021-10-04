@@ -1,0 +1,24 @@
+.sm-gutter .row > [class^="col-"],
+.sm-gutter .row > [class*="col-"] {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+@media (max-width: 1280px) {
+	.card-group.card-group-lg {
+		display: block;
+		width: 100%;
+		margin-bottom: 0.75rem;
+		table-layout: fixed;
+		border-spacing: 1.25rem 0;
+
+		.card {
+			display: block;
+			margin-bottom: 0.75rem;
+			vertical-align: top;
+		}
+
+		.card:not(:first-child) {
+			margin-left: 0;
+		}
+	}
+}

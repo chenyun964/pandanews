@@ -13,13 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.*;
 
-import sg.edu.smu.cs203.pandanews.model.Organisation;
-import sg.edu.smu.cs203.pandanews.model.User;
 
 @Entity
 @Getter
@@ -30,16 +29,16 @@ import sg.edu.smu.cs203.pandanews.model.User;
 public class WorkGroup {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Setter
     private Long id;
 
     @Setter
-    private String workgroupname;
+    private String workGroupName;
 
     @Setter
+    @ElementCollection
     private List<Date> datesInOffice;
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "workgroup", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<User> users;
 

@@ -1,7 +1,5 @@
 package sg.edu.smu.cs203.pandanews.controller;
 
-import java.util.Objects;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,11 +17,13 @@ import javax.validation.Valid;
 import org.springframework.web.server.ResponseStatusException;
 
 import sg.edu.smu.cs203.pandanews.service.JwtUserDetailsService;
-import sg.edu.smu.cs203.pandanews.utility.JwtTokenUtil;
+import sg.edu.smu.cs203.pandanews.util.JwtTokenUtil;
 import sg.edu.smu.cs203.pandanews.model.JwtRequest;
 import sg.edu.smu.cs203.pandanews.model.JwtResponse;
+import sg.edu.smu.cs203.pandanews.dto.AdminDTO;
+import sg.edu.smu.cs203.pandanews.dto.UserDTO;
+
 import sg.edu.smu.cs203.pandanews.model.User;
-import sg.edu.smu.cs203.pandanews.model.UserDTO;
 
 @RestController
 @CrossOrigin
@@ -65,5 +65,20 @@ public class JwtAuthenticationController {
         } catch (BadCredentialsException e) {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/admin/authenticate")
+    public ResponseEntity<?> createAuthenticationTokenAdmin(@RequestBody JwtRequest authenticationRequest) throws Exception {
+        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        final UserDetails userDetails = userDetailsService.loadAdminByUsername(authenticationRequest.getUsername());
+        final String token = jwtTokenUtil.generateToken(userDetails);
+        return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/admin/register")
+    public ResponseEntity<?> addAdmin(@Valid @RequestBody AdminDTO adminDTO) throws Exception {
+        return ResponseEntity.ok(userDetailsService.save(adminDTO));
     }
 }
