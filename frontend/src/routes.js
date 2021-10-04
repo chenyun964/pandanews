@@ -8,6 +8,7 @@ import Demo from "./module/Demo";
 import Login from "./module/Login";
 import Signup from './module/Signup';
 import Dashboard from './module/Dashboard';
+import Map from './module/Map';
 
 class LoginRoutes extends Component {
   componentDidMount() {
@@ -39,6 +40,7 @@ class AllRoutes extends Component {
           <Route exact path="/" component={Demo} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          <Route exact path="/map" component={Map} />
           <LoginRoutes />
         </Switch>
       </Fragment>
