@@ -1,7 +1,13 @@
 package sg.edu.smu.cs203.pandanews.controller;
 
+import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import sg.edu.smu.cs203.pandanews.model.Measurement;
 import sg.edu.smu.cs203.pandanews.service.MeasurementService;
@@ -15,7 +21,7 @@ public class MeasurementController {
     }
 
     @GetMapping("/measurements")
-    public Measurement getMeasurements(){
+    public List<Measurement> getMeasurements(){
         return measurementService.displayMeasurements();
     }
 
@@ -23,7 +29,8 @@ public class MeasurementController {
     public Measurement getMeasurement(@PathVariable Long id){
         Measurement measurement = measurementService.getMeasurement(id);
 
-        if(measurement == null) return null;
+        if(measurement == null) 
+            return null;
         return measurementService.getMeasurement(id);
     }
 
@@ -36,11 +43,12 @@ public class MeasurementController {
 
     @DeleteMapping("/measurement/{id}")
     public void deleteMeasurement(@PathVariable Long id){
-        try{
-            measurementService.deleteMeasurement(id);
-         }catch(EmptyResultDataAccessException e) {
-            //throw new MeasurementNotFoundException(id);
-         }
+        // try{
+        //     measurementService.deleteMeasurement(id);
+        //  }catch(EmptyResultDataAccessException e) {
+        //     //throw new MeasurementNotFoundException(id);
+        //  }
+        measurementService.deleteMeasurement(id);
     }
 
 }

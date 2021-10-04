@@ -25,7 +25,7 @@ public class Measurement {
     private Long id;
 
     @Setter
-    private String image_url;
+    private String imageUrl;
 
     @Setter
     private String title;
@@ -34,8 +34,8 @@ public class Measurement {
     private String content;
 
     // did not manage to find the admin table
-    @OneToMany(mappedBy = "xxx", cascade = CascadeType.All, orphanRemoval = true)
-    private List<Admin> xxx ;
+    // @OneToMany(mappedBy = "xxx", cascade = CascadeType.All, orphanRemoval = true)
+    // private List<Admin> xxx ;
 
     @Column(name = "created_at", updatable = false)
     private Date createdAt;
@@ -57,5 +57,11 @@ public class Measurement {
         Object param = new java.sql.Timestamp(temp.getTime());
         updatedAt = (Date) param;
     }
+
+    // public Measurement(String title, String image_url, String content, DateTime date){
+    //     this.title = title;
+    //     this.image_url = image_url;
+    //     this.content = content;
+    // }
     
 }

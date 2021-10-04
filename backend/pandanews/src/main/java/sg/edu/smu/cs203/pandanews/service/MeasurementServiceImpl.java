@@ -2,6 +2,7 @@ package sg.edu.smu.cs203.pandanews.service;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import sg.edu.smu.cs203.pandanews.model.Measurement;
 import sg.edu.smu.cs203.pandanews.repository.MeasurementRepository;
 
@@ -16,25 +17,24 @@ public class MeasurementServiceImpl implements MeasurementService {
     }
 
     @Override
-    public Measurement deleteMeasurement(Long id, Measurement measurement) {
+    public void deleteMeasurement(Long id) {
         measurementRepo.deleteById(id);
     }
 
     @Override
     public Measurement updateMeasurement(Long id, Measurement newMeasurement){
         return measurementRepo.findById(id).map
-        (measurementRepo -> {
-            measurementRepo.setTitle(newMeasurement.getTitle());
-            measurementRepo.setImage(newMeasurement.getImage());
-            measurementRepo.setContent(newMeasurement.getDescr());
-            measurementRepo.setDate(newMeasurement.getDate());
-            return measurementRepo.save(measurementRepo);
+        (measurements -> {
+            measurements.setTitle(newMeasurement.getTitle());
+            measurements.setImageUrl(newMeasurement.getImageUrl());
+            measurements.setContent(newMeasurement.getContent());
+            return measurementRepo.save(newMeasurement);
         }).orElse(null);
     }
 
     @Override
     public List<Measurement> displayMeasurements(){
-        return new ArrayList(measurementRepo.values());
+        return measurementRepo.findAll();
 
     }
 }
