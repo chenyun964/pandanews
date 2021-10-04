@@ -9,34 +9,36 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Column;
-//import javax.validation.constraints.Size;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.*;
-
 
 @Entity
 @Getter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
-public class Measurement {
-    @Id 
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+public class Organisation {
+    @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Setter
-    private String imageUrl;
 
     @Setter
     private String title;
 
     @Setter
-    private String content;
+    private String address;
 
-    @Size(min = 5, max = 200, message = "Measurement's title should be at least 5 characters long")
+    @Setter
+    private String contact;
 
-    // did not manage to find the admin table
-    // @OneToMany(mappedBy = "xxx", cascade = CascadeType.All, orphanRemoval = true)
-    // private List<Admin> xxx ;
+    @Setter
+    private String code;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id", nullable = false)
+    private User owner;
 
     @Column(name = "created_at", updatable = false)
     private Date createdAt;

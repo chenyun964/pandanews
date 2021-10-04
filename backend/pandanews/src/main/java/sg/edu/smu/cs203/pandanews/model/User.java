@@ -1,7 +1,9 @@
 package sg.edu.smu.cs203.pandanews.model;
 
+import java.util.List;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,34 +11,39 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Column;
-//import javax.validation.constraints.Size;
+import javax.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.*;
-
 
 @Entity
 @Getter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
-public class Measurement {
-    @Id 
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+public class User {
+    @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter
-    private String imageUrl;
+    private String username;
 
     @Setter
-    private String title;
+    private String email;
 
     @Setter
-    private String content;
+    private String password;
 
-    @Size(min = 5, max = 200, message = "Measurement's title should be at least 5 characters long")
+    @Setter
+    private String name;
 
-    // did not manage to find the admin table
-    // @OneToMany(mappedBy = "xxx", cascade = CascadeType.All, orphanRemoval = true)
-    // private List<Admin> xxx ;
+    @Setter
+    private String contact;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Organisation> organisations;
 
     @Column(name = "created_at", updatable = false)
     private Date createdAt;
