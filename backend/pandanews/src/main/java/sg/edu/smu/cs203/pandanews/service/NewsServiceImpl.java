@@ -30,7 +30,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public News updateNews(int id, News news) {
-        return newsRepository.findById(id).map(newNews -> {
+        return newsRepository.findById((long) id).map(newNews -> {
             newNews.setTitle(news.getTitle());
             newNews.setContent(news.getContent());
             newNews.setCoverImage(news.getCoverImage());
@@ -43,7 +43,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public void deleteNews(int id) {
-        newsRepository.deleteById(id);
+        newsRepository.deleteById((long) id);
     }
 
     @Override
@@ -58,6 +58,6 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public News findNewsById(int id) {
-        return newsRepository.findById(id).orElse(null);
+        return newsRepository.findById((long) id).orElse(null);
     }
 }

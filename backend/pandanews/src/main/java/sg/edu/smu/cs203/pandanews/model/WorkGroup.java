@@ -1,5 +1,7 @@
 package sg.edu.smu.cs203.pandanews.model;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Date;
 
@@ -35,10 +37,13 @@ public class WorkGroup {
     private String workGroupName;
 
     @Setter
+    private LocalTime reportTime;
+
+    @Setter
     @ElementCollection
     private List<Date> datesInOffice;
 
-    @OneToMany(mappedBy = "workgroup", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "workgroup", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<User> users;
 

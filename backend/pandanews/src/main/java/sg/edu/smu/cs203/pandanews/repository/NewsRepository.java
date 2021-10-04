@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @Repository
-public interface NewsRepository extends JpaRepository<News, Integer> {
+public interface NewsRepository extends JpaRepository<News, Long> {
 
     //SELECT * FROM employee WHERE name="employee name" OR location="location name";
 
