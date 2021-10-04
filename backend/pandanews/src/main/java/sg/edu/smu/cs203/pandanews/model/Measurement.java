@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Column;
+//import javax.validation.constraints.Size;
 
 import lombok.*;
 
@@ -32,6 +33,8 @@ public class Measurement {
 
     @Setter
     private String content;
+
+    @Size(min = 5, max = 200, message = "Measurement's title should be at least 5 characters long")
 
     // did not manage to find the admin table
     // @OneToMany(mappedBy = "xxx", cascade = CascadeType.All, orphanRemoval = true)
@@ -57,11 +60,4 @@ public class Measurement {
         Object param = new java.sql.Timestamp(temp.getTime());
         updatedAt = (Date) param;
     }
-
-    // public Measurement(String title, String image_url, String content, DateTime date){
-    //     this.title = title;
-    //     this.image_url = image_url;
-    //     this.content = content;
-    // }
-    
 }

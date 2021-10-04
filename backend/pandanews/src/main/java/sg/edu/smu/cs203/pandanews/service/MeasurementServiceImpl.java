@@ -12,6 +12,15 @@ public class MeasurementServiceImpl implements MeasurementService {
     private MeasurementRepository measurementRepo;
 
     @Override
+    public Measurement addMeasurement(Measurement measurement) {
+        List<Measurement> sameTitles = measurementRepo.findByTitle(measurement.getTitle());
+        if(sameTitles.size() == 0)
+            return measurementRepo.save(measurement);
+        else
+            return null;
+    }
+
+    @Override
     public Measurement getMeasurement(Long id){
         return measurementRepo.findById(id).orElse(null);
     }
