@@ -6,6 +6,7 @@ import sg.edu.smu.cs203.pandanews.model.Measurement;
 @Service
 public interface MeasurementService {
     Measurement getMeasurement(Long id);
-    Measurement updateMeasurement(Measurement measurement);
+    Measurement updateMeasurement(Long id, Measurement newMeasurement);
     Measurement deleteMeasurement(Long id);
+    Measurement displayMeasurements();
 }

@@ -21,14 +21,20 @@ public class MeasurementServiceImpl implements MeasurementService {
     }
 
     @Override
-    public Measurement updateMeasurement(Long id, Measurement Newmeasurement){
+    public Measurement updateMeasurement(Long id, Measurement newMeasurement){
         return measurementRepo.findById(id).map
         (measurementRepo -> {
-            measurementRepo.setTitle(Newmeasurement.getTitle());
-            measurementRepo.setImage(Newmeasurement.getImage());
-            measurementRepo.setContent(Newmeasurement.getDescr());
-            measurementRepo.setDate(Newmeasurement.getDate());
+            measurementRepo.setTitle(newMeasurement.getTitle());
+            measurementRepo.setImage(newMeasurement.getImage());
+            measurementRepo.setContent(newMeasurement.getDescr());
+            measurementRepo.setDate(newMeasurement.getDate());
             return measurementRepo.save(measurementRepo);
         }).orElse(null);
+    }
+
+    @Override
+    public List<Measurement> displayMeasurements(){
+        return new ArrayList(measurementRepo.values());
+
     }
 }

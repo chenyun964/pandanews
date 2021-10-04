@@ -11,15 +11,14 @@ public class MeasurementsDAO{
     private String description;
     private DateTime date;
 
+    public MeasurementDAO(){
+    }
+    
     public MeasurementDAO(String title, Image image, String description, DateTime date){
         this.title = title;
         this.image = image;
         this.description = description;
         this.date = date;
-    }
-
-    public MeasurementDAO(){
-
     }
 
     public String getTitle(){
