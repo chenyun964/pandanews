@@ -8,5 +8,5 @@ import sg.edu.smu.cs203.pandanews.model.Measurement;
 
 @Repository
 public interface MeasurementRepository extends JpaRepository <Measurement, Long>{
-    //List<Measurement> findById(Long id);
+    List<Measurement> findByTitle(String title);
 }

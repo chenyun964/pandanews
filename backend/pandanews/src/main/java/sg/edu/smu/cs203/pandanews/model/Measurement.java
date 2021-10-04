@@ -9,7 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Column;
-//import javax.validation.constraints.Size;
+import javax.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.*;
 
@@ -27,20 +28,21 @@ public class Measurement {
     private String imageUrl;
 
     @Setter
+    @Size(min = 5, max = 200, message = "Measurement's title should be at least 5 characters long")
     private String title;
 
     @Setter
     private String content;
 
-    @Size(min = 5, max = 200, message = "Measurement's title should be at least 5 characters long")
-
     // did not manage to find the admin table
     // @OneToMany(mappedBy = "xxx", cascade = CascadeType.All, orphanRemoval = true)
     // private List<Admin> xxx ;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:MM:ss", timezone = "GMT+8")
     @Column(name = "created_at", updatable = false)
     private Date createdAt;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:MM:ss", timezone = "GMT+8")
     @Column(name = "updated_at")
     private Date updatedAt;
 

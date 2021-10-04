@@ -55,7 +55,7 @@ public class MeasurementController {
         return measurement;
     }
 
-    @DeleteMapping("/measurement/{id}")
+    @DeleteMapping("/measurements/{id}")
     public void deleteMeasurement(@PathVariable Long id){
         // try{
         //     measurementService.deleteMeasurement(id);
