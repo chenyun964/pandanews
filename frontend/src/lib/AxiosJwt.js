@@ -33,7 +33,13 @@ const axiosJwt = () => {
     return response;
 
   }, function (error) {
-    return Promise.reject(error);
+    if (error.response.status == 401) {
+      LoginModel.destoryAll().then(res => {
+        window.location.replace('/login?session=expired');
+      })
+    } else {
+      return Promise.reject(error);
+    }
   });
 
   return instance;

@@ -15,7 +15,7 @@ const axiosJwt = () => {
   // Set the AUTH token for any request
   instance.interceptors.request.use(function (config) {
     const token = LoginModel.retrieveToken();
-    config.headers.Authorization =  token ? `Bearer ${token}` : '';
+    config.headers.Authorization = token ? `Bearer ${token}` : '';
     return config;
   });
 
@@ -33,7 +33,14 @@ const axiosJwt = () => {
     return response;
 
   }, function (error) {
-    return Promise.reject(error);
+    if (error.response.status == 401) {
+      LoginModel.destoryAll().then(res => {
+        window.location.replace('/login?session=expired');
+      })
+    } else {
+      return Promise.reject(error);
+    }
+
   });
 
   return instance;

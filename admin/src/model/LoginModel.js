@@ -17,7 +17,7 @@ class LoginModel {
     cookies.set("_pandanewsadminot", data.token, { maxAge: maxage });
   }
 
-  destoryAll() {
+  async destoryAll() {
     cookies.remove('_pandanewsadminot', { path: '/' });
   }
 

@@ -8,6 +8,10 @@ import Demo from "./module/Demo";
 import Login from "./module/Login";
 import Signup from './module/Signup';
 import Dashboard from './module/Dashboard';
+import Profile from "./module/Profile";
+import NotFound from "./module/NotFound";
+import Employee from './module/Employee';
+import Invite from './module/Invite';
 
 class LoginRoutes extends Component {
   componentDidMount() {
@@ -15,16 +19,19 @@ class LoginRoutes extends Component {
       window.location.replace("/login");
     }
   }
-  
+
   render() {
     return (
       <Fragment>
-        <Switch>
-          <div className="d-flex">
-            <Sidebar />
+        <div className="d-flex">
+          <Sidebar />
+          <Switch>
             <Route exact path="/dashboard" component={Dashboard} />
-          </div>
-        </Switch>
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/employee" component={Employee} />
+            <Route path="*" component={NotFound} />
+          </Switch>
+        </div>
       </Fragment>
     );
   }
@@ -39,6 +46,10 @@ class AllRoutes extends Component {
           <Route exact path="/" component={Demo} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          <Route exact path="/employee/invite" component={Invite} />
+          {!LoginModel.retrieveToken() &&
+            <Route path="*" component={NotFound} />
+          }
           <LoginRoutes />
         </Switch>
       </Fragment>

@@ -31,8 +31,9 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class User implements UserDetails{
-    @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
+public class User implements UserDetails {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter
@@ -42,6 +43,7 @@ public class User implements UserDetails{
     private String email;
 
     @Setter
+    @JsonIgnore
     private String password;
 
     @Setter
@@ -49,6 +51,10 @@ public class User implements UserDetails{
 
     @Setter
     private String contact;
+
+    @Setter
+    @Column(columnDefinition = "bit(1) default 0")
+    private Boolean vaccinated;
 
     @Setter
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -74,13 +80,13 @@ public class User implements UserDetails{
 
     // We define three roles
     /*
-    * ROLE_USER
-    * ROLE_ADMIN
-    */
+     * ROLE_USER ROLE_ADMIN ROLE_MANAGER
+     */
+    @Setter
     @NotNull
     private String authorities = "ROLE_USER";
 
-    public User(String role){
+    public User(String role) {
         this.authorities = role;
     }
 
@@ -99,30 +105,33 @@ public class User implements UserDetails{
         updatedAt = (Date) param;
     }
 
-    
-    /* Return a collection of authorities granted to the user.
-    */
+    /*
+     * Return a collection of authorities granted to the user.
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority(authorities));
     }
 
     /*
-    The various is___Expired() methods return a boolean to indicate whether
-    or not the user’s account is enabled or expired.
-    */
+     * The various is___Expired() methods return a boolean to indicate whether or
+     * not the user’s account is enabled or expired.
+     */
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
+
     @Override
-        public boolean isAccountNonLocked() {
-    return true;
+    public boolean isAccountNonLocked() {
+        return true;
     }
+
     @Override
-        public boolean isCredentialsNonExpired() {
-    return true;
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
+
     @Override
     public boolean isEnabled() {
         return true;

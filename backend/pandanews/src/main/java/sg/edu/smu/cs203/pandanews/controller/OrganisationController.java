@@ -50,30 +50,15 @@ public class OrganisationController {
      * @param id
      * @return book with the given id
      */
-    @GetMapping("/organisation/{id}")
-    public Organisation getOrganisation(@PathVariable Long id){
-        Organisation organisation = orgService.getOrganisation(id);
+    // @GetMapping("/organisation/{id}")
+    // public Organisation getOrganisation(@PathVariable Long id){
+    //     Organisation organisation = orgService.getOrganisation(id);
 
-        // Need to handle "book not found" error using proper HTTP status code
-        // In this case it should be HTTP 404
-        if(organisation == null) return null;
-        return orgService.getOrganisation(id);
-    }
-
-    @GetMapping("/organisation/owner")
-    public Organisation getOrganisationByOnwer(){
-        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-        .getPrincipal();
-        
-        User user = users.getUserByUsername(userDetails.getUsername());
-        if(user == null) return null;
-
-        Organisation org = user.getOrganisation();
-        if(org == null) return null;
-
-        return orgService.getOrganisation(org.getId());
-    }
-
+    //     // Need to handle "book not found" error using proper HTTP status code
+    //     // In this case it should be HTTP 404
+    //     if(organisation == null) return null;
+    //     return orgService.getOrganisation(id);
+    // }
 
     /**
      * Add a new book with POST request to "/books"
@@ -115,7 +100,11 @@ public class OrganisationController {
     public Organisation approveOrganisation(@PathVariable Long id){
         Organisation organisation = orgService.approveOrganisation(id);
         if(organisation == null) return null;
-        
+
+        User user = organisation.getOwner();
+        if(user == null) return null;
+
+        users.updateUserRole(user, "ROLE_OWNER");
         return organisation;
     }
 
@@ -125,12 +114,41 @@ public class OrganisationController {
      * If there is no book with the given "id", throw a BookNotFoundException
      * @param id
      */
-    @DeleteMapping("/organisations/{id}")
+    @DeleteMapping("/organisation/{id}")
     public void deleteOrganisation(@PathVariable Long id){
         try{
             orgService.deleteOrganisation(id);
          }catch(EmptyResultDataAccessException e) {
             // throw new BookNotFoundException(id);
          }
+    }
+
+    @GetMapping("/organisations/employee")
+    public List<User> getOrganisationEmployees(){
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal();
+        
+        User user = users.getUserByUsername(userDetails.getUsername());
+        if(user == null) return null;
+
+        Organisation organisation = user.getOrganisation();
+        if(organisation == null) return null;
+
+        return organisation.getEmployee();
+    }
+
+    @PostMapping("/organisation/employee")
+    public Organisation addOgranisationEmployee(@RequestBody Organisation org){
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal();
+
+        User employee = users.getUserByUsername(userDetails.getUsername());
+        if(org.getCode() == null) return null;
+        return orgService.addEmployee(org.getCode(), employee);
+    }
+
+    @GetMapping("/organisation/{code}")
+    public Organisation addOgranisationEmployee(@PathVariable String code){
+        return orgService.getOrganisationByCode(code);
     }
 }
