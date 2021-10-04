@@ -1,0 +1,126 @@
+/*-----------------------------------------------------------------------
+APPLICATION LEVEL LAYOUT
+-----------------------------------------------------------------------*/
+body {
+	#app {
+		width: 100%;
+		display: flex;
+		position: relative;
+		min-height: 100vh;
+		.content-wrapper {
+			order: 2;
+			width: 100%;
+			.content {
+				display: flex;
+				flex: 1 0 auto;
+				flex-direction: column;
+				position: relative;
+				transition: all 0.3s ease;
+			}
+		}
+	}
+
+	&.mini-sidebar {
+		#app {
+			.content-wrapper {
+				padding-left: 60px;
+			}
+		}
+	}
+}
+/**
+// FIXED HEADER LAYOUT
+// For any vertical demo with layout-fixed class added to the body
+**/
+body {
+	&.layout-fixed {
+		.sidebar-left {
+			transition: all 300ms ease;
+			min-height: 100vh;
+			.sidebar-content {
+				.aside-toolbar {
+					transition: all 300ms ease;
+					position: fixed;
+					width: 255px;
+					top: 0;
+					z-index: 99;
+				}
+
+				.main-menu {
+					padding-top: 65px;
+				}
+			}
+		}
+
+		.content-wrapper {
+			.top-toolbar {
+				right: 0;
+				left: 255px;
+				position: fixed;
+			}
+
+			.content {
+				padding-top: 65px;
+				padding-left: 0;
+			}
+		}
+		@media (max-width: 992px) {
+			.content-wrapper {
+				.top-toolbar {
+					right: 0;
+					left: 0;
+				}
+
+				.content {
+					padding-top: 65px;
+					padding-left: 0;
+				}
+			}
+		}
+	}
+}
+/**
+// FIXED HEADER LAYOUT WITH MINI SIDEBAR
+// For any vertical demo with layout-fixed class added to the body
+**/
+body {
+	&.layout-fixed.mini-sidebar {
+		.sidebar-left {
+			.sidebar-content {
+				.aside-toolbar {
+					width: 60px;
+				}
+			}
+
+			&:hover {
+				.sidebar-content {
+					.aside-toolbar {
+						width: 255px;
+					}
+				}
+			}
+		}
+
+		.content-wrapper {
+			.top-toolbar {
+				left: 60px;
+			}
+		}
+	}
+}
+
+.mini-sidebar {
+	.content-wrapper {
+		padding-left: 30px;
+	}
+}
+@media (max-width: 992px) {
+	.sidebar-content {
+		.aside-toolbar {
+			display: none;
+		}
+		.main-menu {
+			padding-top: 0 !important;
+		}
+	}
+}

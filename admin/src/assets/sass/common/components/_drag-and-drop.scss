@@ -1,0 +1,8 @@
+.draggable{
+  &:hover{
+    cursor: move;
+    cursor: -webkit-grab;
+    cursor: grab;
+
+  }
+}

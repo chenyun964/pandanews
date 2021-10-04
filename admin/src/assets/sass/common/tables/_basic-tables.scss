@@ -1,0 +1,27 @@
+.table{
+	font-size: rem(14);
+}
+.table thead th{
+	    border-top:none;
+			font-weight:500;
+}
+.table td, .table th,.table thead th{
+	border-bottom: 1px solid rgba(234,243,253,.9);
+}
+.table-striped tbody tr:nth-of-type(odd){
+	background-color:#f0f6ff;
+}
+
+.table.table-bordered, .table.table-bordered td, .table.table-bordered thead th, .table.table-bordered th::after{
+	border: 1px solid rgba(234,243,253,.9);
+}
+
+.table.v-align-middle{
+	tr td{
+		vertical-align: middle;
+	}
+}
+
+.table.table-borderless td, .table.table-borderless th, .table.table-borderless thead th{
+	border:none!important;
+}

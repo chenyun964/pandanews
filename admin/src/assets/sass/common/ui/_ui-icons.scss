@@ -1,0 +1,44 @@
+.icon{
+	    display: inline-block;
+}
+
+i {
+	color: #788db4;
+}
+.icon-rounded {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	position: relative;
+	text-align: center;
+
+	i {
+		font-size: 24px;
+		padding-top: 12px;
+	}
+
+
+	&.icon-rounded-success {
+		background-color: rgba($color-success-state, .4);
+
+		i {
+			color: $color-success-state;
+		}
+	}
+
+	&.icon-rounded-info {
+		background-color: rgba($color-info-state, .4);
+
+		i {
+			color: $color-info-state;
+		}
+	}
+
+	&.icon-rounded-warning {
+		background-color: rgba($color-warning-state, .4);
+
+		i {
+			color: $color-warning-state;
+		}
+	}
+}

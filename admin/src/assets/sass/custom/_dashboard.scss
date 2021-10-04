@@ -1,0 +1,79 @@
+@import './variable.scss';
+
+.dashboard-page{
+  .page-title{
+    padding:20px 20px 10px 20px;
+  }
+  .card-header h5{
+    margin: 0;
+  }
+  .stats-container{
+    background: white;
+    color:black;
+    border-radius: 0.25em;
+    box-shadow: 0 10px 40px 0 rgba(18,106,211,.07), 0 2px 9px 0 rgba(18,106,211,.06);
+  }
+  .stats-content{
+    padding: 15px;
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .stats-label{
+    padding-bottom: 10px;
+  }
+  .copy-btn{
+    padding:0 5px;
+    background: none;
+  }
+  .stats-filter-btn{
+    padding:5px 20px;
+    background: none;
+    border:1px solid black;
+  }
+  .order-stats-succeed{
+    color: #28a745;
+  }
+  .order-stats-cancelled{
+    color: #dc3545;
+  }
+  .order-stats-delivering{
+    color: #ffc107;
+  }
+  .order-stats-processing{
+    color: #007bff;
+  }
+  .fb-page-title{
+    color: #000;
+    font-size: 20px;
+  }
+  .fb-page-link{
+    color: #ffc107;
+  }
+  .description-btn{
+    float:right;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    width: 25px;
+    box-shadow: none;
+    height: 15px;
+    line-height: 15px;
+  }
+  .fb-page-description{
+    font-size: 14px;
+    text-overflow:ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+  .col-p-r-0{
+    padding-right: 0;
+  }
+  .order-filter-selection{
+    display: none;
+  }
+  .btn-m-l-10{
+    margin-left: 10px;
+  }
+}

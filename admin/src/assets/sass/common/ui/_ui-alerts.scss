@@ -1,0 +1,264 @@
+.alert {
+	color: rgba(255, 255, 255, 1);
+	font-size: rem(14);
+	.alert-link {
+		font-weight: 400;
+		color: rgba(255, 255, 255, 0.85);
+		border-bottom: dotted 1px rgba(255, 255, 255, 0.85);
+		transition: all 0.15s ease;
+
+		&:hover {
+			color: rgba(255, 255, 255, 1);
+			border-bottom: none;
+		}
+	}
+
+	p {
+		color: rgba(255, 255, 255, 1);
+	}
+
+	&.alert-dismissible {
+		.close {
+			text-shadow: none;
+			padding: 9px 15px;
+			color: rgba(255, 255, 255, 0.75);
+
+			span {
+				font-size: rem(18);
+			}
+
+			&:hover {
+				cursor: pointer;
+				color: rgba(255, 255, 255, 1);
+
+				&:before {
+					content: "";
+					position: absolute;
+					width: 25px;
+					height: 25px;
+					border-radius: 50%;
+					background-color: rgba(255, 255, 255, 0.125);
+					top: 0;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					margin: 11px;
+				}
+			}
+
+			&:active,
+			&:focus {
+				outline: none;
+			}
+		}
+	}
+	&.alert-rounded {
+		border-radius: rem(30);
+	}
+	.icon {
+		position: absolute;
+		left: 15px;
+		top: 8px;
+		i {
+			font-size: rem(30);
+		}
+	}
+	.text {
+		padding-left: 40px;
+	}
+}
+.alert.alert-secondary {
+	background-color: $color-secondary-state;
+	border-color: $color-secondary-state;
+	color: rgba(255, 255, 255, 1);
+
+	&.alert-outline {
+		background-color: #fff;
+		color: $color-secondary-state;
+
+		.alert-link {
+			color: $color-secondary-state;
+			border-bottom: dotted 1px rgba($color-secondary-state, 0.85);
+
+			&:hover {
+				color: rgba($color-secondary-state, 1);
+				border-bottom: none;
+			}
+		}
+
+		.icon {
+			i {
+				color: $color-secondary-state;
+			}
+		}
+	}
+
+	&.alert-outline.alert-dismissible .close {
+		color: rgba($color-secondary-state, 0.85);
+
+		&:hover {
+			color: rgba($color-secondary-state, 1);
+
+			&:before {
+				content: "";
+				position: absolute;
+				width: 25px;
+				height: 25px;
+				border-radius: 50%;
+				background-color: rgba($color-secondary-state, 0.125);
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: 11px;
+			}
+		}
+	}
+}
+.alert.alert-success {
+	background-color: $color-success-state;
+	border-color: $color-success-state;
+	color: rgba(255, 255, 255, 1);
+	&.alert-outline {
+		background-color: #fff;
+		color: $color-success-state;
+		.alert-link {
+			color: $color-success-state;
+			border-bottom: dotted 1px rgba($color-success-state, 0.85);
+			&:hover {
+				color: rgba($color-success-state, 1);
+				border-bottom: none;
+			}
+		}
+	}
+	&.alert-outline.alert-dismissible .close {
+		color: rgba($color-success-state, 0.85);
+		&:hover {
+			color: rgba($color-success-state, 1);
+			&:before {
+				content: "";
+				position: absolute;
+				width: 25px;
+				height: 25px;
+				border-radius: 50%;
+				background-color: rgba($color-success-state, 0.125);
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: 11px;
+			}
+		}
+	}
+}
+
+.alert.alert-info {
+	background-color: $color-info-state;
+	border-color: $color-info-state;
+	color: rgba(255, 255, 255, 1);
+	&.alert-outline {
+		background-color: #fff;
+		color: $color-info-state;
+		.alert-link {
+			color: $color-info-state;
+			border-bottom: dotted 1px rgba($color-info-state, 0.85);
+			&:hover {
+				color: rgba($color-info-state, 1);
+				border-bottom: none;
+			}
+		}
+	}
+	&.alert-outline.alert-dismissible .close {
+		color: rgba($color-info-state, 0.85);
+		&:hover {
+			color: rgba($color-info-state, 1);
+			&:before {
+				content: "";
+				position: absolute;
+				width: 25px;
+				height: 25px;
+				border-radius: 50%;
+				background-color: rgba($color-info-state, 0.125);
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: 11px;
+			}
+		}
+	}
+}
+
+.alert.alert-warning {
+	background-color: $color-warning-state;
+	border-color: $color-warning-state;
+	color: rgba(255, 255, 255, 1);
+	&.alert-outline {
+		background-color: #fff;
+		color: $color-warning-state;
+		.alert-link {
+			color: $color-warning-state;
+			border-bottom: dotted 1px rgba($color-warning-state, 0.85);
+			&:hover {
+				color: rgba($color-warning-state, 1);
+				border-bottom: none;
+			}
+		}
+	}
+	&.alert-outline.alert-dismissible .close {
+		color: rgba($color-warning-state, 0.85);
+		&:hover {
+			color: rgba($color-warning-state, 1);
+			&:before {
+				content: "";
+				position: absolute;
+				width: 25px;
+				height: 25px;
+				border-radius: 50%;
+				background-color: rgba($color-warning-state, 0.125);
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: 11px;
+			}
+		}
+	}
+}
+
+.alert.alert-danger {
+	background-color: $color-danger-state;
+	border-color: $color-danger-state;
+	color: rgba(255, 255, 255, 1);
+	&.alert-outline {
+		background-color: #fff;
+		color: $color-danger-state;
+		.alert-link {
+			color: $color-danger-state;
+			border-bottom: dotted 1px rgba($color-danger-state, 0.85);
+			&:hover {
+				color: rgba($color-danger-state, 1);
+				border-bottom: none;
+			}
+		}
+	}
+	&.alert-outline.alert-dismissible .close {
+		color: rgba($color-danger-state, 0.85);
+		&:hover {
+			color: rgba($color-danger-state, 1);
+			&:before {
+				content: "";
+				position: absolute;
+				width: 25px;
+				height: 25px;
+				border-radius: 50%;
+				background-color: rgba($color-danger-state, 0.125);
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: 11px;
+			}
+		}
+	}
+}

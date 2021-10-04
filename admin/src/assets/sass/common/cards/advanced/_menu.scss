@@ -1,0 +1,13 @@
+.card.card-menu{
+	.metismenu{
+		list-style: none;
+		margin:0;
+		padding:0;
+		.nav-sub>li>a{
+			padding: 8px 0 8px 40px;
+		}
+		.nav-dropdown .nav-sub li:last-child{
+			padding:0;
+		}
+	}
+}

@@ -1,0 +1,127 @@
+.nav.metismenu {
+	padding: rem(10) 0 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	flex-wrap: nowrap;
+	flex-direction: column;
+	font-family: $font-family-menu;
+
+	> li,
+	> li > a {
+		display: block;
+		position: relative;
+	}
+
+	> li > a {
+		border-radius: 0 !important;
+		font-size: rem(13);
+		font-weight: 300;
+		border-left: solid 3px transparent;
+		padding: 12px 15px 5px 20px;
+		width: 100%;
+		position: relative;
+
+		i {
+			margin-right: 10px;
+			font-size: 18px;
+			display: inline-block;
+			vertical-align: top;
+			width: 24px;
+			height: 24px;
+		}
+	}
+
+	> li > a:active,
+	.open > a,
+	.open > a:focus,
+	.open > a:hover,
+	> li > a:hover {
+		opacity: 1;
+		width: 100%;
+	}
+
+	> li.active > a:focus,
+	> li.active > a:hover,
+	> li.active > a {
+		width: 100%;
+	}
+
+	> li + li {
+		margin-top: 0;
+		margin-left: 0;
+	}
+
+	.nav-dropdown {
+		.nav-sub {
+			list-style: none;
+			padding: 0;
+			position: relative;
+
+			li:last-child {
+				padding: 0 0 10px;
+			}
+		}
+	}
+
+	.nav-sub > li > a {
+		padding-right: rem(10);
+		font-size: rem(13);
+		font-weight: 300;
+		padding: 8px 0 8px 60px;
+		display: block;
+		position: relative;
+	}
+
+	> li.active > a:focus,
+	> li.active > a:hover,
+	> li.active > a {
+		//border-left: solid rem(3);
+	}
+
+	.nav.metismenu {
+		.nav-dropdown.active {
+			> a {
+				border-left: solid rem(3);
+			}
+
+			> .nav-sub {
+				border-left: solid rem(3);
+			}
+		}
+	}
+
+	> li > .nav-sub > li > .nav-sub > li > div.radio,
+	> li > .nav-sub > li > .nav-sub > li > a {
+		padding-left: rem(75);
+	}
+
+	> li > .nav-sub > li > .nav-sub > li > div.radio label {
+		font-weight: 300;
+	}
+
+	li .badge,
+	li .label {
+		display: block;
+		position: absolute;
+		right: rem(20);
+		bottom: rem(9);
+	}
+
+	.has-arrow::after {
+		right: 25px;
+	}
+
+	li {
+		a {
+			span {
+				//transition: opacity 200ms ease;
+			}
+		}
+
+		&.sidebar-header {
+			span {
+				//transition: opacity 200ms ease;
+			}
+		}
+	}
+}

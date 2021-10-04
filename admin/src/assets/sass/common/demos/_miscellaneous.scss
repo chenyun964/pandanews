@@ -1,0 +1,111 @@
+//-------------------------------------------/
+// This file is for demo purposes.
+//-------------------------------------------/
+//Buttons page
+.demo-buttons--preview {
+	.btn {
+	
+		margin-bottom: 15px;
+	}
+}
+//Badges page
+.demo-badge--preview {
+	.badge {
+		margin-bottom: 15px;
+	}
+}
+//Icon pages
+
+.icon-set {
+	.icon {
+		text-align: center;
+		margin: 15px auto;
+		
+		a {
+			display: block;
+			text-align: center;
+			color: #718eb1;
+			padding: 10px 0;
+			font-size: rem(11) !important;
+			text-align: center;
+			
+			&:hover {
+				border-radius: 3px;
+			}
+		}
+		
+		i {
+			display: block;
+			font-size: rem(26);
+			width: 100%;
+			color: #718eb1;
+		}
+		
+		span {
+			font-size: rem(11);
+			text-align: center;
+		}
+	}
+}
+
+.code-block {
+	::selection {
+		background: rgba(#fff1a8,.1%);
+		/* WebKit/Blink Browsers */
+		color: #fff1a8;
+	}
+	
+	::-moz-selection {
+		background: rgba(#fff1a8,.1%);
+		/* Gecko Browsers */
+		color: #fff1a8;
+	}
+}
+
+.bd-clipboard {
+	position: relative;
+	display: none;
+	float: right;
+}
+
+.btn-clipboard {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	z-index: 10;
+	display: block;
+	padding: 0.25rem 0.5rem;
+	font-size: 75%;
+	color: #ffe3af;
+	cursor: pointer;
+	background-color: transparent;
+	border: 0;
+	border-radius: 0.25rem;
+	
+	&:hover {
+		color: #151726;
+		background-color: #ffe3af;
+	}
+	
+	&:active,
+	&:focus {
+		outline: none;
+		box-shadow: none;
+	}
+}
+@media (min-width: 768px) {
+	.bd-clipboard {
+		display: block;
+	}
+}
+
+
+.bd-example>.form-control+.form-control {
+    margin-top: .5rem;
+}
+
+.btn-customizer{
+	position:fixed;
+	right: 30px;
+	bottom:30px;
+}

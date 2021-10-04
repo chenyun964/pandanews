@@ -1,0 +1,410 @@
+$spaceamounts: (
+0,
+5,
+10,
+15,
+20,
+25,
+30,
+35,
+40,
+45,
+50,
+75,
+100,
+125,
+150,
+175,
+200,
+250,
+300,
+350,
+400,
+450,
+500
+);
+$sides: (
+top,
+bottom,
+left,
+right
+);
+@each $space in $spaceamounts {
+	@each $side in $sides {
+		.m-#{str-slice($side, 0, 1)}-#{$space} {
+			margin-#{$side}: #{$space}px !important;
+		}
+
+		.p-#{str-slice($side, 0, 1)}-#{$space} {
+			padding-#{$side}: #{$space}px !important;
+		}
+
+		.p-#{$space} {
+			padding: #{$space}px !important;
+		}
+	}
+}
+@each $space in $spaceamounts {
+	.w-#{$space} {
+		width: #{$space}px !important;
+	}
+}
+@each $space in $spaceamounts {
+	.h-#{$space} {
+		height: #{$space}px !important;
+	}
+}
+@each $space in $spaceamounts {
+	.min-w-#{$space} {
+		min-width: #{$space}px !important;
+	}
+}
+@each $space in $spaceamounts {
+	.min-h-#{$space} {
+		min-height: #{$space}px !important;
+	}
+}
+@each $space in $spaceamounts {
+	.max-w-#{$space} {
+		max-width: #{$space}px !important;
+	}
+}
+@each $space in $spaceamounts {
+	.max-h-#{$space} {
+		max-height: #{$space}px !important;
+	}
+}
+
+.min-h-100vh {
+	min-height: 100vh !important;
+}
+
+.min-w-100vh {
+	min-width: 100vh !important;
+}
+
+.h-100vh {
+	height: 100vh;
+}
+
+.w-100vh {
+	width: 100vh;
+}
+
+.no-bullets {
+	list-style: none;
+}
+
+.bullets-inside {
+	list-style: inside;
+}
+
+.list-reset {
+	margin: 0;
+	padding: 0;
+	@extend .no-bullets;
+}
+
+.list-inline-block {
+	li {
+		display: inline-block;
+	}
+}
+/* Font Weight */
+.f-w-300,
+.font-w-300 {
+	font-weight: 300 !important;
+}
+
+.f-w-400,
+.font-w-400 {
+	font-weight: 400 !important;
+}
+
+.f-w-500,
+.font-weight-500 {
+	font-weight: 500 !important;
+}
+
+.f-w-600,
+.font-weight-600 {
+	font-weight: 600 !important;
+}
+
+.f-w-700,
+.font-weight-700 {
+	font-weight: 700 !important;
+}
+
+.f-w-800,
+.font-weight-800 {
+	font-weight: 800 !important;
+}
+
+.f-w-900,
+.font-weight-900 {
+	font-weight: 900 !important;
+}
+/* positions */
+.p-absolute {
+	position: absolute !important;
+}
+/* Font Size */
+.font-size-10 {
+	font-size: rem(10) !important;
+}
+
+.font-size-12 {
+	font-size: rem(12) !important;
+}
+
+.font-size-14 {
+	font-size: rem(14) !important;
+}
+
+.font-size-16 {
+	font-size: rem(16) !important;
+}
+
+.font-size-18 {
+	font-size: rem(18) !important;
+}
+
+.font-size-20 {
+	font-size: rem(20) !important;
+}
+
+.font-size-22 {
+	font-size: rem(22) !important;
+}
+
+.font-size-24 {
+	font-size: rem(24) !important;
+}
+
+.font-size-26 {
+	font-size: rem(26) !important;
+}
+
+.font-size-28 {
+	font-size: rem(28) !important;
+}
+
+.font-size-30 {
+	font-size: rem(30) !important;
+}
+
+.font-size-32 {
+	font-size: rem(32) !important;
+}
+
+.font-size-34 {
+	font-size: rem(34) !important;
+}
+
+.font-size-36 {
+	font-size: rem(36) !important;
+}
+
+.font-size-38 {
+	font-size: rem(38) !important;
+}
+
+.font-size-40 {
+	font-size: rem(40) !important;
+}
+
+.font-size-45 {
+	font-size: rem(45) !important;
+}
+
+.font-size-50 {
+	font-size: rem(50) !important;
+}
+
+.font-size-60 {
+	font-size: rem(60) !important;
+}
+
+.font-size-70 {
+	font-size: rem(47) !important;
+}
+
+.font-size-80 {
+	font-size: rem(80) !important;
+}
+
+.font-size-90 {
+	font-size: rem(90) !important;
+}
+
+.font-size-100 {
+	font-size: rem(100) !important;
+}
+
+.p-relative {
+	position: relative !important;
+}
+/* text-transform */
+.text-uppercase {
+	text-transform: uppercase !important;
+}
+
+.text-line-through {
+	text-decoration: line-through !important;
+}
+/* transparent */
+.transparent {
+	background: transparent !important;
+}
+/* no shadow */
+.no-shadow {
+	box-shadow: none !important;
+}
+/* border */
+.border-none,
+.no-border {
+	border: none !important;
+}
+
+.border {
+	border: 1px solid rgba(234, 243, 253, 1) !important;
+}
+
+.border-right-none {
+	border-right: none !important;
+}
+
+.border-left-none {
+	border-left: none !important;
+}
+
+.border-top-none {
+	border-top: none !important;
+}
+
+.border-bottom-none {
+	border-bottom: none !important;
+}
+
+.border-right {
+	border-right: 1px solid rgba(234, 243, 253, 1) !important;
+}
+
+.border-left {
+	border-left: 1px solid rgba(234, 243, 253, 1) !important;
+}
+
+.border-top {
+	border-top: 1px solid rgba(234, 243, 253, 1) !important;
+}
+
+.border-bottom {
+	border-bottom: 1px solid rgba(234, 243, 253, 1) !important;
+}
+
+.b-warning {
+	border-color: $color-warning-state !important;
+}
+
+.b-danger {
+	border-color: $color-danger-state !important;
+}
+
+.b-info {
+	border-color: $color-info-state !important;
+}
+
+.b-success {
+	border-color: $color-success-state !important;
+}
+
+.b-r-0 {
+	border-radius: 0 !important;
+}
+/* Responsive borders */
+.row[class*="col-border-"] > div {
+	border-right: none;
+	border-bottom: 1px solid rgba(234, 243, 253, 0.9);
+
+	&:last-child {
+		border-bottom: none;
+	}
+}
+@media (min-width: 1200px) {
+	.row.col-border-xl > div {
+		border-bottom: none;
+		border-right: 1px solid rgba(234, 243, 253, 0.9);
+
+		&:last-child {
+			border-right: none;
+		}
+	}
+}
+
+.blockquote-footer,
+.text-muted {
+	color: $grey-600 !important;
+}
+/* Display */
+.hide {
+	display: none !important;
+}
+/* Flex */
+.flex {
+	-ms-flex: 1 !important;
+	flex: 1 !important;
+}
+/* Rotate */
+.rotate-90 {
+	transform: rotate(90deg) !important;
+}
+
+.rotate-180 {
+	transform: rotate(180deg) !important;
+}
+/* Append/Prepend Content */
+.append-percent:after {
+	content: "%" !important;
+}
+
+.prepend-currency:before {
+	content: "$" !important;
+}
+/* TINT */
+.tint {
+	position: relative !important;
+
+	&:before {
+		content: "" !important;
+		position: absolute !important;
+		top: 0 !important;
+		bottom: 0 !important;
+		left: 0 !important;
+		right: 0 !important;
+		width: 100% !important;
+		height: 100% !important;
+		background-color: rgba(0, 0, 0, 0.5) !important;
+	}
+}
+/* ALIGN */
+.v-align-middle {
+	vertical-align: middle !important;
+}
+
+.v-align-text-bottom {
+	vertical-align: text-bottom !important;
+}
+
+.nowrap {
+	white-space: nowrap !important;
+}
+/* MOBILE ONLY */
+.mobile-only {
+	display: none!important;
+}
+@include media-breakpoint-down(md) {
+	.mobile-only {
+		display: flex!important;
+	}
+}
