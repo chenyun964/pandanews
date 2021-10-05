@@ -15,6 +15,9 @@ const org_join_api = API_HOSTS + '/users/organisation';
 const org_my_org_api = API_HOSTS + "/organisation/owner";
 const org_employee_api = API_HOSTS + "/organisations/employee";
 
+//Measurements
+const measurement_api = API_HOSTS + '/measurements';
+
 export default {
     API_HOSTS,
     authenticate_api,
@@ -25,5 +28,6 @@ export default {
     user_org_api,
     user_api,
     user_profile_api,
-    org_employee_api
+    org_employee_api,
+    measurement_api
 }

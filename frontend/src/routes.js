@@ -12,6 +12,7 @@ import Profile from "./module/Profile";
 import NotFound from "./module/NotFound";
 import Employee from './module/Employee';
 import Invite from './module/Invite';
+import Measurement from "./module/Measurement";
 
 class LoginRoutes extends Component {
   componentDidMount() {
@@ -50,6 +51,7 @@ class AllRoutes extends Component {
           {!LoginModel.retrieveToken() &&
             <Route path="*" component={NotFound} />
           }
+          <Route exact path="/measurements" component={Measurement} />
           <LoginRoutes />
         </Switch>
       </Fragment>

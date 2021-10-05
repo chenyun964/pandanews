@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Column;
+//import javax.validation.constraints.Size;
 
 import lombok.*;
 

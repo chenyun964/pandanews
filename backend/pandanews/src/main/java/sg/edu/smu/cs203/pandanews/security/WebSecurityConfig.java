@@ -63,10 +63,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// API Under development
 				// role-specific requests
 				.antMatchers(HttpMethod.GET, "/organisations/*/workgroups", "/organisations/*/workgroups/*").permitAll()
+				.antMatchers("/measurements/*").permitAll()
+				.antMatchers("/measurements").permitAll()
 				.antMatchers(HttpMethod.POST, "/organisations/*/workgroups").hasAnyRole("ADMIN", "MANAGER")
 				.antMatchers(HttpMethod.PUT, "/organisations/*/workgroups/*").hasAnyRole("ADMIN", "MANAGER")
 				.antMatchers(HttpMethod.DELETE, "/organisations/*/workgroups/*").hasAnyRole("ADMIN", "MANAGER")
-				
 				.antMatchers("/organisation/**").authenticated()
 				.antMatchers("/users/**").authenticated()
 
