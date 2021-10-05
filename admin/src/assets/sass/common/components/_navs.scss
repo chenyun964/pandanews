@@ -1,0 +1,33 @@
+//Navs
+//--------------------------------------------------------------------------->
+.nav {
+	.nav-item {
+		.nav-link {
+			color: #718eb1;
+			transition: all 0.15s ease;
+		}
+	}
+}
+// Vertical Sub Nav
+//--------------------------------------------------------------------------->
+
+.nav.sub-nav.v-sub-nav {
+	border: 0;
+	.nav-item {
+		.nav-link {
+			display: table;
+			table-layout: fixed;
+			width: 100%;
+			height: 100%;
+			text-decoration: none;
+			position: relative;
+			outline: none !important;
+			vertical-align: middle;
+			padding: 8px 0 8px 20px;
+			border: 0;
+		}
+		&:hover{
+			background-color: $grey-50;
+		}
+	}
+}

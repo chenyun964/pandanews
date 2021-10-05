@@ -10,10 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.validation.constraints.NotNull;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -21,8 +23,6 @@ import lombok.*;
 @Entity
 @Getter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @EqualsAndHashCode
 public class Organisation {
     @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -39,6 +39,9 @@ public class Organisation {
 
     @Setter
     private String code;
+
+    @Setter
+    private byte status;
 
     @Setter
     @ManyToOne

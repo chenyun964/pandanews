@@ -8,7 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Column;
+//import javax.validation.constraints.Size;
 
 import lombok.*;
 
@@ -18,7 +22,7 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class VacciSpot {
-    @Id @GeneratedValue (strategy = GenerationType.IDENTITY) @Setter
+    @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter
@@ -44,9 +48,11 @@ public class VacciSpot {
     private String vacciType;
 
     @Column(name = "created_at", updatable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:MM:ss", timezone = "GMT+8")
     private Date createdAt;
 
     @Column(name = "updated_at")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:MM:ss", timezone = "GMT+8")
     private Date updatedAt;
 
     @PrePersist

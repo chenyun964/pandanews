@@ -1,0 +1,163 @@
+.actions {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	position: absolute;
+	z-index: 5;
+
+	> a.btn-fab,
+	> li > a.btn-fab,
+	> .dropdown > a.btn-fab {
+		text-align: center;
+		width: 30px;
+		height: 30px;
+		display: inline-block;
+		position: relative;
+		padding-top: 5px;
+
+		> i {
+			font-size: rem(18);
+		}
+	}
+
+	> li {
+		display: inline-block;
+		vertical-align: baseline;
+		margin-left: 10px;
+	}
+
+	&.top-left {
+		left: 20px;
+		top: 15px;
+	}
+
+	&.top-right {
+		right: 20px;
+		top: 15px;
+	}
+
+	&.bottom-left {
+		left: 20px;
+		bottom: 15px;
+	}
+
+	&.bottom-right {
+		right: 20px;
+		bottom: 15px;
+	}
+
+	li > a:hover {
+		background-color: transparent;
+	}
+	li a i {
+		vertical-align: middle;
+		font-size: rem(18);
+	}
+	li button i {
+		vertical-align: middle;
+		font-size: rem(18);
+	}
+}
+
+.dropdown .dropdown-menu {
+	.actions {
+		li a.btn-fab {
+			display: inline;
+			border: none;
+			padding: 0;
+			width: 30px;
+			height: 30px;
+			text-align: center;
+
+			&:hover {
+				background-color: transparent;
+			}
+		}
+	}
+}
+
+.line-wrap,
+.line-wrap .line {
+	width: 18px;
+	-o-transition: all;
+}
+
+.actions > a.btn-fab > i,
+.actions > li > a.btn-fab > i {
+	font-size: rem(18);
+	position: relative;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.actions > li.open > a:before,
+.actions.open > a:before {
+	transform: scale(1);
+	opacity: 1;
+}
+
+.actions.open {
+	z-index: 4;
+}
+
+.action-header {
+	padding: 25px 30px;
+	line-height: 100%;
+	position: relative;
+	z-index: 1;
+	min-height: 65px;
+}
+
+.action-header .actions {
+	position: absolute;
+	top: 18px;
+	right: 17px;
+	z-index: 10;
+}
+
+.lg-header .actions {
+	position: absolute;
+	top: 5px;
+	right: 10px;
+}
+
+// Card Expand Fullscreen
+//--------------------------------------------------------------------------->
+.card.card-expand {
+	transition: all 300ms ease;
+	display: block;
+	position: fixed;
+	z-index: 10001;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	margin: 0;
+	border-radius: 0;
+	.card-header {
+		.actions {
+			[data-q-action="card-collapsed"] {
+				display: none;
+			}
+		}
+	}
+	.card-body {
+		height: calc(100vh - 65px);
+	}
+}
+// Animate Action Icon
+//--------------------------------------------------------------------------->
+.card {
+	.card-header {
+		.actions i {
+			transition: all 200ms ease;
+			&.collapsedRotate {
+				transform: rotate(-180deg);
+				margin-top: -17px;
+				transition: all 200ms ease;
+			}
+		}
+	}
+}

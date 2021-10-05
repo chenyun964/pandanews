@@ -1,0 +1,32 @@
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+}
+
+.mCSB_outside+.mCS-minimal-dark.mCSB_scrollTools_vertical,
+.mCSB_outside+.mCS-minimal.mCSB_scrollTools_vertical {
+
+  margin: 5px 0;
+}
+
+.mCustomScrollBox.mCS-minimal+.mCSB_scrollTools+.mCSB_scrollTools.mCSB_scrollTools_horizontal,
+.mCustomScrollBox.mCS-minimal+.mCSB_scrollTools.mCSB_scrollTools_horizontal,
+.mCustomScrollBox.mCS-minimal-dark+.mCSB_scrollTools+.mCSB_scrollTools.mCSB_scrollTools_horizontal,
+.mCustomScrollBox.mCS-minimal-dark+.mCSB_scrollTools.mCSB_scrollTools_horizontal {
+  margin: 10px 0 0;
+}
+
+.mCustomScrollbar[data-scrollbar-shown=true].mCS-autoHide > .mCustomScrollBox~.mCSB_scrollTools {
+  opacity: 0.7;
+}
+
+.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+  background: #d0e0f2;
+}
+
+.mCS-minimal-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {
+  background: #7C99BA;
+}

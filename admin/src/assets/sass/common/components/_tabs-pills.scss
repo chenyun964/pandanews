@@ -1,0 +1,365 @@
+// Tabs
+//--------------------------------------------------------------------------->
+
+.nav-tabs {
+	border-bottom: 1px solid rgba(210, 221, 234, 0.5);
+	margin-bottom: 20px;
+
+	.nav-item {
+		margin-bottom: -1px;
+
+		.nav-link {
+			border: none;
+			color: $grey-700;
+			font-size: rem(14);
+			transition: all 0.15s ease;
+			border-bottom: 1px solid transparent;
+			border-radius: 0;
+		}
+	}
+}
+// Basic Default Tab Color
+
+.nav.nav-tabs {
+	.nav-item {
+		.nav-link.active {
+			border-bottom: solid 1px #353a40;
+			color: #353a40;
+		}
+
+		.nav-link.active.show {
+			color: #353a40;
+		}
+
+		.nav-link:hover {
+			color: #353a40;
+		}
+
+		&.show .nav-link {
+			color: #353a40;
+		}
+	}
+
+	.nav-item.show .nav-link,
+	.nav-link.active {
+		border-color: #353a40;
+	}
+}
+// Secondary Color Tabs
+
+.nav-tabs.secondary-tabs {
+	.nav-item {
+		.nav-link.active {
+			border-bottom: solid 1px $color-secondary-state;
+			color: $color-secondary-state;
+		}
+
+		.nav-link.active.show {
+			color: $color-secondary-state;
+		}
+
+		.nav-link:hover {
+			color: $color-secondary-state;
+		}
+
+		&.show .nav-link {
+			color: $color-secondary-state;
+		}
+	}
+
+	.nav-item.show .nav-link,
+	.nav-link.active {
+		border-color: $color-secondary-state;
+	}
+}
+// Success Color Tabs
+
+.nav.nav-tabs.success-tabs {
+	.nav-item {
+		.nav-link.active {
+			border-bottom: solid 1px $color-success-state;
+			color: $color-success-state;
+		}
+
+		.nav-link.active.show {
+			color: $color-success-state;
+		}
+
+		.nav-link:hover {
+			color: $color-success-state;
+		}
+
+		&.show .nav-link {
+			color: $color-success-state;
+		}
+	}
+
+	.nav-item.show .nav-link,
+	.nav-link.active {
+		border-color: $color-success-state;
+	}
+}
+// Info Color Tabs
+
+.nav.nav-tabs.info-tabs {
+	.nav-item {
+		.nav-link.active {
+			border-bottom: solid 1px $color-info-state;
+			color: $color-info-state;
+		}
+
+		.nav-link.active.show {
+			color: $color-info-state;
+		}
+
+		.nav-link:hover {
+			color: $color-info-state;
+		}
+
+		&.show .nav-link {
+			color: $color-info-state;
+		}
+	}
+
+	.nav-item.show .nav-link,
+	.nav-link.active {
+		border-color: $color-info-state;
+	}
+}
+// Tabs on card header
+//--------------------------------------------------------------------------->
+
+.card.card-tabs {
+	.card-header {
+		border: none;
+		padding: 0;
+
+		.card-title {
+			position: absolute;
+			left: 20px;
+			    top: 20px;
+			    margin: 0;
+		}
+
+		.nav.nav-tabs {
+			margin-bottom: 5px;
+			li {
+				a {
+					font-size: rem(14);
+					height: 60px;
+					padding: 1.4rem 1.5rem 1.3rem;
+				}
+			}
+		}
+	}
+}
+// Pills
+//--------------------------------------------------------------------------->
+
+.nav-pills {
+	.nav-link {
+		color: #788db4;
+		border-radius: 80px;
+		font-size: rem(14);
+	    padding: 10px 25px;
+
+		i {
+			vertical-align: middle;
+			line-height: 0;
+			display: inline-block;
+			margin-right: 7px;
+			font-size: 17px;
+			margin-top: -4px;
+		}
+
+		&.active {
+			i {
+				color: #fff;
+			}
+		}
+	}
+
+	.nav-link.disabled {
+		color: #b1c6e0;
+
+		&:hover {
+			cursor: not-allowed;
+		}
+	}
+}
+
+.nav-pills {
+	.nav-link.active,
+	.show > .nav-link {
+		background-color: #E7F1FD;
+	}
+
+	.nav-link.btn-floating {
+		border-radius: 50px;
+		padding: 10px 25px;
+
+		&.active {
+			box-shadow: 0 5px 10px rgba(113,106,202,.4)!important;
+		}
+	}
+}
+// Nav Pills on card header
+//--------------------------------------------------------------------------->
+
+.card.card-pills {
+	.card-header {
+		    padding: 15px 20px;
+		.card-title {
+			position: absolute;
+			    left: 20px;
+			    top: 20px;
+			    margin: 0;
+		}
+	}
+}
+
+.card .card-toolbar {
+	position: absolute;
+
+	&.top-right {
+		right: 20px;
+		top: 17px;
+	}
+
+	&.top-left {
+		left: 20px;
+		top: 17px;
+	}
+
+	.nav-pills .nav-link {
+		font-size: rem(14);
+		padding: 7px 16px;
+	}
+}
+
+.card.card-overlay.card-overlay-top {
+	margin-top: 50px;
+
+	.card {
+		margin: -50px 15px 0;
+	}
+}
+
+.card.card-overlay.card-overlay-bottom {
+	margin-bottom: 50px;
+
+	.card {
+		margin: 0 15px -50px;
+	}
+}
+// Nav Pills states
+//--------------------------------------------------------------------------->
+
+.nav-pills.nav-pills-success {
+	.nav-item {
+		.nav-link.active {
+			color: #fff;
+		}
+	}
+
+	.nav-link.active,
+	.show > .nav-link {
+		background-color: $color-success-state;
+	}
+
+	.nav-link.btn-floating {
+		border-radius: 50px;
+		padding: 10px 25px;
+
+		&.active {
+			box-shadow: 0 5px 10px rgba($color-success-state,.4)!important;
+		}
+	}
+}
+
+.nav-pills.nav-pills-info {
+	.nav-item {
+		.nav-link.active {
+			color: #fff;
+		}
+	}
+
+	.nav-link.active,
+	.show > .nav-link {
+		background-color: $color-info-state;
+	}
+
+	.nav-link.btn-floating {
+		border-radius: 50px;
+		padding: 10px 25px;
+
+		&.active {
+			box-shadow: 0 5px 10px rgba($color-info-state,.4)!important;
+		}
+	}
+}
+
+.nav-pills.nav-pills-warning {
+	.nav-item {
+		.nav-link.active {
+			color: #fff;
+		}
+	}
+
+	.nav-link.active,
+	.show > .nav-link {
+		background-color: $color-warning-state;
+	}
+
+	.nav-link.btn-floating {
+		border-radius: 50px;
+		padding: 10px 25px;
+
+		&.active {
+			box-shadow: 0 5px 10px rgba($color-warning-state,.4)!important;
+		}
+	}
+}
+
+.nav-pills.nav-pills-danger {
+	.nav-item {
+		.nav-link.active {
+			color: #fff;
+		}
+	}
+
+	.nav-link.active,
+	.show > .nav-link {
+		background-color: $color-danger-state;
+	}
+
+	.nav-link.btn-floating {
+		border-radius: 50px;
+		padding: 10px 25px;
+
+		&.active {
+			box-shadow: 0 5px 10px rgba($color-danger-state,.4)!important;
+		}
+	}
+}
+
+.nav-pills.nav-pills-light {
+	.nav-item {
+		.nav-link {
+			color: rgba(255,255,255,.5);
+
+			&:hover {
+				color: #fff;
+			}
+		}
+
+		.nav-link.active {
+			color: #fff;
+		}
+	}
+
+	.nav-link.active,
+	.show > .nav-link {
+		background-color: rgba(0,0,0,.1);
+	}
+}

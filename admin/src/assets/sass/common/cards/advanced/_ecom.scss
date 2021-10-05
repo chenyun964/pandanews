@@ -1,0 +1,69 @@
+.card-ecom-sale {
+	&:after {
+		content: "";
+		position: absolute;
+		top: 40%;
+		right: -10px;
+		width: 0;
+		height: 0;
+		border-top: 10px solid transparent;
+		border-bottom: 10px solid transparent;
+		border-left: 10px solid #ac589a;
+		z-index: 5;
+	}
+}
+
+.swatch {
+	border: none;
+	padding: 12px;
+	border-radius: 100px;
+	border: #ccc solid 1px;
+	position: relative;
+	margin-right: 5px;
+	border:solid 1px #fff;
+	transition: all 300ms ease;
+	&:hover {
+			transition: all 300ms ease;
+cursor: pointer;
+			&:before{
+				content: " ";
+				content: " ";
+	    position: absolute;
+	    border: 2px solid #93acc6;
+	    top: -3px;
+	    left: -3px;
+	    right: 0;
+	    bottom: 0;
+	    padding: 13px;
+	    border-radius: 100px;
+			}
+	}
+
+	&:active,
+	&:focus {
+		outline: 0;
+	}
+
+	&.swatch-color_grey-200 {
+		background-color: #cbdaea;
+	}
+
+	&.swatch-color_danger {
+		background-color:$color-danger-state;
+	}
+	&.swatch-color_info {
+		background-color: $color-info-state;
+	}
+	
+	&.swatch-color_warning {
+		background-color: $color-warning-state;
+	}
+	
+	&.swatch-color_success {
+		background-color: $color-success-state;
+	}
+	&.swatch-color_black {
+		background-color: #000;
+	}
+	
+}

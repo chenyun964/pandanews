@@ -9,3 +9,6 @@ azure.bing.ApiKey = <API_KEY>
 azure.bing.endpoint = https://api.bing.microsoft.com/v7.0/news
 azure.bing.countryCode = sg
 azure.bing.phase = COVID
+
+positionstack.apikey = <ACCESS_KEY>
+positionstack.endpoint = http://api.positionstack.com/v1/forward

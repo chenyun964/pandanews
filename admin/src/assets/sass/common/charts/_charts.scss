@@ -1,0 +1,85 @@
+//Flot dashboard demos
+
+#website-stats {
+  .legend {
+    position: absolute;
+    top: -15px;
+
+    .legendColorBox {
+      > div {
+        border: none!important;
+
+        div {
+          border-radius: 50%;
+        }
+      }
+    }
+
+    .legendLabel {
+      padding: 0 5px;
+      font-size: em(13);
+      font-weight: 400;
+    }
+  }
+}
+
+.chartist-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.ct-line {
+  fill: none;
+  stroke-width: 1px;
+}
+
+.card.sparkline-card {
+  #sparkline-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
+  #sparkline-bar canvas {
+    z-index: 1;
+    width: 100%!important;
+    height: 50px!important;
+  }
+
+  #sparkline-line {
+    position: absolute;
+    bottom: -3px;
+    width: 100%;
+  }
+
+  #sparkline-line canvas {
+    display: inline-block;
+    width: 100%!important;
+    height: 45px!important;
+    vertical-align: top;
+  }
+
+  .card-footer {
+    padding: 20px 0 0;
+    min-height: initial;
+  }
+}
+
+#chartBarPie .chart-bar .ct-bar {
+  stroke: #665aa8;
+  stroke-width: 3%;
+}
+
+#totalVisitsChart .ct-series-a .ct-bar,
+#totalVisitsChart .ct-series-a .ct-line,
+#totalVisitsChart .ct-series-a .ct-point,
+#totalVisitsChart .ct-series-a .ct-slice-donut {
+  stroke: #5c57b1;
+}
+
+#totalUniqueVisitsChart .ct-series-a .ct-bar,
+#totalUniqueVisitsChart .ct-series-a .ct-line,
+#totalUniqueVisitsChart .ct-series-a .ct-point,
+#totalUniqueVisitsChart .ct-series-a .ct-slice-donut {
+  stroke: #e23b7b;
+}

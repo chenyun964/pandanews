@@ -15,18 +15,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import sg.edu.smu.cs203.pandanews.dto.VacciSpotDTO;
-import sg.edu.smu.cs203.pandanews.exception.VacciSpotNotFoundException;
+import sg.edu.smu.cs203.pandanews.exception.SpotNotFoundException;
 import sg.edu.smu.cs203.pandanews.model.VacciSpot;
 import sg.edu.smu.cs203.pandanews.service.VacciSpotService;
+import sg.edu.smu.cs203.pandanews.util.GeoCodeUtil;
 
 @RestController
 @RequestMapping(path = "/vaccispots")
 public class VacciSpotController {
     private VacciSpotService vacciSpotService;
 
+    private GeoCodeUtil geoCodeUtil;
+
     @Autowired
-    public VacciSpotController(VacciSpotService vss) {
+    public VacciSpotController(VacciSpotService vss, GeoCodeUtil gcu) {
         this.vacciSpotService = vss;
+        this.geoCodeUtil = gcu;
     }
 
     @GetMapping
@@ -40,7 +44,7 @@ public class VacciSpotController {
     public VacciSpot getById(@PathVariable Long id) {
         VacciSpot spot = vacciSpotService.getById(id);
         if (spot == null) {
-            throw new VacciSpotNotFoundException();
+            throw new SpotNotFoundException();
         }
         return spot;
     }
@@ -50,7 +54,7 @@ public class VacciSpotController {
     public VacciSpot getByName(@PathVariable String name) {
         VacciSpot spot = vacciSpotService.getByName(name);
         if (spot == null) {
-            throw new VacciSpotNotFoundException();
+            throw new SpotNotFoundException();
         }
         return spot;
     }
@@ -82,8 +86,9 @@ public class VacciSpotController {
         newSpot.setAddress(newSpotDTO.getAddress());
         newSpot.setRegion(newSpotDTO.getRegion());
         newSpot.setVacciType(newSpotDTO.getVacciType());
-        newSpot.setLatitude(newSpotDTO.getLatitude());
-        newSpot.setLongitude(newSpotDTO.getLongitude());
+        Double[] latLng = geoCodeUtil.getLatLng(newSpotDTO.getAddress());
+        newSpot.setLatitude(latLng[0]);
+        newSpot.setLongitude(latLng[1]);
         return vacciSpotService.add(newSpot);
     }
 
@@ -100,7 +105,7 @@ public class VacciSpotController {
         newSpot.setLongitude(newSpotDTO.getLongitude());
         newSpot = vacciSpotService.update(id, newSpot);
         if (newSpot == null) {
-            throw new VacciSpotNotFoundException();
+            throw new SpotNotFoundException();
         }
         return newSpot;
     }
@@ -110,7 +115,7 @@ public class VacciSpotController {
     public VacciSpot deleteById(@PathVariable Long id) {
         VacciSpot spot = vacciSpotService.deleteById(id);
         if (spot == null) {
-            throw new VacciSpotNotFoundException();
+            throw new SpotNotFoundException();
         }
         return spot;
     }

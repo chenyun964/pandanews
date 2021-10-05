@@ -1,0 +1,136 @@
+//== Left Sidebar
+//----------------------------------------------------------------------------->
+
+.sidebar-left {
+	z-index: 999;
+	order: 1;
+	transition: all 300ms ease;
+}
+//== Left Sidebar Open
+
+body.aside-left-open {
+	.sidebar-left {
+		z-index: 1005;
+	}
+}
+//== Right Sidebar
+//----------------------------------------------------------------------------->
+
+.sidebar-right {
+	order: 3;
+	display: block !important;
+	z-index: 1005;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	overflow: hidden;
+	backface-visibility: hidden;
+	width: 450px !important;
+	transition: all 0.3s ease;
+	right: -455px;
+	padding: 20px;
+	background-color: #fff;
+	transition: all 300ms ease;
+}
+//== Right Sidebar Open
+
+body.aside-right-open {
+	overflow: hidden;
+
+	.sidebar-right {
+		box-shadow: 0 0 15px 1px rgba(69, 65, 78, 0.2);
+		right: 0;
+	}
+}
+@media (max-width: 576px) {
+	.sidebar-right {
+		width: 320px !important;
+		right: -325px;
+	}
+}
+//== Sidebar
+
+.sidebar-content {
+	//== Sidebar tabs
+	#sidebar-tabs {
+		.nav-link {
+			font-size: rem(15);
+		}
+		.tab-content{
+			overflow-y: auto;
+			max-height: calc(100vh - 100px);
+			height: calc(100vh - 100px);
+		}
+		//== Contact List
+		.list-view-group-header {
+			text-transform: uppercase;
+			font-size: 18px;
+			padding-top: 15px;
+			position: absolute;
+			left: 15px;
+			z-index: 5;
+		}
+
+		.list-group {
+			.list-group-item {
+				padding: 0.75rem 0 0.75rem 15px;
+				border: none;
+				margin-left: 40px;
+				margin-right: 10px;
+
+				&:hover {
+					background-color: rgba(234, 243, 253, 1);
+					cursor: pointer;
+				}
+			}
+		}
+		//== Scrollbar Wrapper
+		.qt-scroll {
+			max-height: 100%;
+			height: calc(100vh - 200px);
+			position: absolute;
+			width: 420px;
+		}
+	}
+}
+//== Customizer Panel
+//----------------------------------------------------------------------------->
+
+.customizer-panel-wrapper {
+	display: block !important;
+	z-index: 1105;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	overflow: hidden;
+	backface-visibility: hidden;
+	width: 450px !important;
+	transition: all 0.3s ease;
+	right: -455px;
+	padding: 20px;
+	background-color: #fff;
+
+	&:before {
+		position: absolute;
+		content: '';
+		top: 25%;
+		left: -47px;
+		width: 48px;
+		height: 50px;
+		background-color: #fff;
+		-webkit-box-shadow: 0 0 9px rgba(0, 0, 0, 0.1);
+		box-shadow: 0 0 9px rgba(0, 0, 0, 0.1);
+		border-left: 1px solid rgba(0, 0, 0, 0.1);
+		border-radius: 0 4px 4px 0;
+	}
+
+	&:after {
+		position: absolute;
+		top: 25%;
+		left: 0;
+		content: '';
+		width: 5px;
+		height: 50px;
+		background-color: #fff;
+	}
+}

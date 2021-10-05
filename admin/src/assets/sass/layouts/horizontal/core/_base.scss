@@ -1,0 +1,15 @@
+/*-----------------------------------------------------------------------
+APPLICATION LEVEL LAYOUT
+-----------------------------------------------------------------------*/
+body{
+  &.layout-horizontal{
+    .content-wrapper{
+      padding:35px;
+    }
+    @media(max-width:992px) {
+      .content-wrapper{
+        padding:0;
+      }
+    }
+  }
+}

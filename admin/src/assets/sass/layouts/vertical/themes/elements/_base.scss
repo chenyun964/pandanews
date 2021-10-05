@@ -1,0 +1,80 @@
+/*=========================================================================
+General Elements
+========================================================================== */
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: $header_text_color;
+}
+
+a:link,
+a:visited {
+	color: #000000;
+}
+
+a.default-color,
+a.default-color:link,
+a.default-color:visited {
+	color: #000000;
+}
+
+a.default-color:active,
+a.default-color:hover,
+a:active,
+a:hover {
+	color: lighten($brand-primary-color, 7%);
+}
+
+a.accent:link,
+a.accent:visited {
+	color: $brand-accent-color;
+}
+
+a.accent:active,
+a.accent:hover {
+	color: darken($brand-accent-color, 5%);
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: $header_text_color;
+}
+
+p {
+	color: $body_text_color;
+}
+
+hr {
+	border-top: 1px solid #f0f6ff;
+
+	&.dashed {
+		border-top: 1px dashed darken(#f0f6ff,5%);
+	}
+
+	&.thick {
+		border-width: 2px;
+	}
+
+	&.thicker {
+		border-width: 3px;
+	}
+}

@@ -1,0 +1,52 @@
+.breadcrumb-wrapper {
+	display: inline-block;
+
+	.breadcrumb {
+		background-color: transparent;
+		border-radius: 0;
+		margin: 0;
+		padding: 0 1rem;
+
+		.breadcrumb-item {
+			font-size: rem(12);
+			font-weight: 400;
+			color: #839bb3;
+
+			> a {
+				font-size: rem(12);
+				color: #839bb3;
+				font-weight: 400;
+				vertical-align: middle;
+				&:active,
+				&:hover {
+					color: #716aca;
+				}
+			}
+
+			> a > i {
+				font-size: rem(15);
+				color: #839bb3;
+				&:active,
+				&:hover {
+					color: #716aca;
+				}
+			}
+		}
+	}
+
+	.breadcrumb-item + .breadcrumb-item::before {
+		display: inline-block;
+		padding-right: 4px;
+		padding-left: 4px;
+		color: #839bb3;
+		content: "-";
+		font-family: $lineAwesomeIcons;
+		font-size: rem(12);
+	}
+}
+
+@media (max-width: 768px) {
+	.breadcrumb-wrapper {
+		display: none;
+	}
+}
