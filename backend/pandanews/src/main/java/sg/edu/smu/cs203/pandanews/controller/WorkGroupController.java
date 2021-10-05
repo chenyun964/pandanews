@@ -14,10 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import sg.edu.smu.cs203.pandanews.service.WorkGroupService;
 import sg.edu.smu.cs203.pandanews.model.WorkGroup;
+import sg.edu.smu.cs203.pandanews.service.UserService;
+import sg.edu.smu.cs203.pandanews.repository.UserRepository;
+import sg.edu.smu.cs203.pandanews.model.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @RestController
 public class WorkGroupController {
     private WorkGroupService workGroupService;
+    private UserService userService;
+    private UserRepository users;
 
     public WorkGroupController(WorkGroupService workGroupService){
         this.workGroupService = workGroupService;
@@ -29,6 +36,15 @@ public class WorkGroupController {
      */
     @GetMapping("/organisations/{oid}/workgroups")
     public List<WorkGroup> getWorkGroups(@PathVariable Long oid){
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user = userService.getUserByUsername(userDetails.getUsername());
+        if(user == null) return null;
+        // throw new 401
+
+        if(!users.findByOrganisationId(oid).contains(user)) return null;
+        // throw new 403
+
         return workGroupService.listWorkGroups(oid);
     }
 
@@ -39,7 +55,16 @@ public class WorkGroupController {
      * @return book with the given id
      */
     @GetMapping("/organisations/{oid}/workgroups/{id}")
-    public WorkGroup getWorkGroup(@PathVariable Long id){
+    public WorkGroup getWorkGroup(@PathVariable Long oid, @PathVariable Long id){
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user = userService.getUserByUsername(userDetails.getUsername());
+        if(user == null) return null;
+        // throw new 401
+
+        if(!users.findByOrganisationId(oid).contains(user)) return null;
+        // throw new 403
+
         WorkGroup workGroup = workGroupService.getWorkGroup(id);
 
         // Need to handle "book not found" error using proper HTTP status code
@@ -57,6 +82,15 @@ public class WorkGroupController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/organisations/{oid}/workgroups")
     public WorkGroup addWorkGroup(@PathVariable Long oid, @RequestBody WorkGroup workGroup){
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user = userService.getUserByUsername(userDetails.getUsername());
+        if(user == null) return null;
+        // throw new 401
+
+        if(!users.findByOrganisationId(oid).contains(user)) return null;
+        // throw new 403
+
         return workGroupService.addWorkGroup(workGroup);
     }
 
@@ -68,6 +102,15 @@ public class WorkGroupController {
      */
     @PutMapping("/organisations/{oid}/workgroups/{id}")
     public WorkGroup updateWorkGroup(@PathVariable Long oid, @PathVariable Long id, @RequestBody WorkGroup newWorkGroupInfo){
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user = userService.getUserByUsername(userDetails.getUsername());
+        if(user == null) return null;
+        // throw new 401
+
+        if(!users.findByOrganisationId(oid).contains(user)) return null;
+        // throw new 403
+
         WorkGroup workGroup = workGroupService.updateWorkGroup(id, newWorkGroupInfo);
         if(workGroup == null) return null;
         
@@ -81,6 +124,15 @@ public class WorkGroupController {
      */
     @DeleteMapping("/organisations/{oid}/workgroups/{id}")
     public void deleteWorkGroup(@PathVariable Long oid, @PathVariable Long id){
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user = userService.getUserByUsername(userDetails.getUsername());
+        if(user == null) return;
+        // throw new 401
+
+        if(!users.findByOrganisationId(oid).contains(user)) return;
+        // throw new 403
+
         try {
             workGroupService.deleteWorkGroup(id);
         } catch(EmptyResultDataAccessException e) {

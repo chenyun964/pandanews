@@ -47,6 +47,12 @@ public class User {
     @JsonIgnore
     private List<Organisation> organisations;
 
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "organisation_id")
+    @JsonIgnore
+    private Organisation organisation;
+
     @ManyToOne
     @JoinColumn(name = "workgroup_id", nullable = false)
     private WorkGroup workgroup;

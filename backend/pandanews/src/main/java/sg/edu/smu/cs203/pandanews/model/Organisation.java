@@ -40,13 +40,16 @@ public class Organisation {
     @Setter
     private String code;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
+    @JsonIgnore
     private User owner;
 
-    @OneToMany(mappedBy = "organisation", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Setter
+    @OneToMany(mappedBy = "organisation", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Organisation> organisations;
+    private List<User> employee;
 
     @Column(name = "created_at", updatable = false)
     private Date createdAt;
