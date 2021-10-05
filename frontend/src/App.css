@@ -121,3 +121,8 @@
     display: none;
   }
 }
+
+.photo {
+  height: 20px;
+  width: 20px;
+}
