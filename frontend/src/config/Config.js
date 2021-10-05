@@ -18,7 +18,14 @@ const org_employee_api = API_HOSTS + "/organisations/employee";
 //Measurements
 const measurement_api = API_HOSTS + '/measurements';
 
-export default {
+// Vaccination Spots
+const vaccispots_api = API_HOSTS + '/vaccispots';
+const vaccispots_name_api = vaccispots_api + '/name';
+const vaccispots_region_api = vaccispots_api + '/region';
+const vaccispots_type_api = vaccispots_api + '/type';
+const vaccispots_vaccitype_api = vaccispots_api + '/vaccitype';
+
+export default{
     API_HOSTS,
     authenticate_api,
     register_api,
@@ -29,5 +36,10 @@ export default {
     user_api,
     user_profile_api,
     org_employee_api,
-    measurement_api
+    measurement_api,
+    vaccispots_api,
+    vaccispots_name_api,
+    vaccispots_region_api,
+    vaccispots_type_api,
+    vaccispots_vaccitype_api
 }

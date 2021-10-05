@@ -31,7 +31,7 @@ class Nav extends Component {
                 </ul>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/support">Support</a>
+                <a className="nav-link" href="/map">Support</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/search"><i className="fas fa-search"></i></a>

@@ -38,7 +38,7 @@ public class WorkGroup {
     @ElementCollection
     private List<Date> datesInOffice;
 
-    @OneToMany(mappedBy = "workgroup", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "workgroup", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<User> users;
 

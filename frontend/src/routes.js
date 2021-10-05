@@ -13,6 +13,7 @@ import NotFound from "./module/NotFound";
 import Employee from './module/Employee';
 import Invite from './module/Invite';
 import Measurement from "./module/Measurement";
+import Map from './module/Map';
 
 class LoginRoutes extends Component {
   componentDidMount() {
@@ -52,6 +53,7 @@ class AllRoutes extends Component {
             <Route path="*" component={NotFound} />
           }
           <Route exact path="/measurements" component={Measurement} />
+          <Route exact path="/map" component={Map} />
           <LoginRoutes />
         </Switch>
       </Fragment>
