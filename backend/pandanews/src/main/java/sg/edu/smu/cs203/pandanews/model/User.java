@@ -80,7 +80,11 @@ public class User implements UserDetails {
 
     // We define three roles
     /*
-     * ROLE_USER ROLE_ADMIN ROLE_MANAGER
+     * ROLE_USER 
+     * ROLE_MANAGER
+     * ROLE_OWNER
+     * 
+     * ROLE_ADMIN
      */
     @Setter
     @NotNull

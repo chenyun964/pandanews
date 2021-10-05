@@ -213,11 +213,7 @@ class Dashboard extends Component {
                         <div className="d-flex">
                             <div className="flex-fill text-center">
                                 <p>Vaccinated</p>
-                                <p>1.21 hrs</p>
-                            </div>
-                            <div className="flex-fill text-center">
-                                <p>No Test Status</p>
-                                <p>3 hrs</p>
+                                <p>Vaccinated or not</p>
                             </div>
                         </div>
                     </div>

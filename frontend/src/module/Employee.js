@@ -16,6 +16,11 @@ const columns = [
         key: 'age',
     },
     {
+        title: 'Email',
+        dataIndex: 'email',
+        key: 'email',
+    },
+    {
         title: 'Contact',
         dataIndex: 'contact',
         key: 'contact',
