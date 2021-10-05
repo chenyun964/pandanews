@@ -12,8 +12,6 @@ import javax.persistence.PreUpdate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 import lombok.*;
 
