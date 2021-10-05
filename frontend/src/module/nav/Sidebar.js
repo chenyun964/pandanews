@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import LoginModel from '../../model/LoginModel';
 
 class Sidebar extends Component {
-  logout(){
+  logout() {
     LoginModel.destoryAll();
     window.location.replace("/login");
   }
@@ -15,34 +15,37 @@ class Sidebar extends Component {
           <p className="section-title">Main</p>
           <ul className="nav nav-pills flex-column mb-auto section-nav">
             <li className="nav-item" >
-              <Link to="/dashboard" className="nav-link active" aria-current="page"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></Link>
+              <NavLink to="/dashboard" className="nav-link" aria-current="page"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></NavLink>
             </li>
           </ul>
 
           <p className="section-title">Employee</p>
           <ul className="nav nav-pills flex-column mb-auto section-nav">
             <li className="nav-item" >
-              <Link to="/dashboard" className="nav-link" ><i class="fas fa-users"></i><span>Schedule</span></Link>
+              <NavLink to="/schedule" className="nav-link" ><i class="fas fa-users"></i><span>Schedule</span></NavLink>
             </li>
             <li className="nav-item" >
-              <Link to="/dashboard" className="nav-link" ><i class="far fa-check-square"></i><span>Check-in</span></Link>
+              <NavLink to="/checkin" className="nav-link" ><i class="far fa-check-square"></i><span>Check-in</span></NavLink>
             </li>
           </ul>
 
           <p className="section-title">Manager</p>
           <ul className="nav nav-pills flex-column mb-auto section-nav">
             <li className="nav-item" >
-              <Link to="/dashboard" className="nav-link" ><i class="fas fa-users"></i><span>Workgroup</span></Link>
+              <NavLink to="/employee" className="nav-link" ><i class="fas fa-users"></i><span>Employee</span></NavLink>
+            </li>
+            <li className="nav-item" >
+              <NavLink to="/workgroup" className="nav-link" ><i class="fas fa-users"></i><span>Workgroup</span></NavLink>
             </li>
           </ul>
 
           <p className="section-title">Setting</p>
           <ul className="nav nav-pills flex-column mb-auto section-nav">
             <li className="nav-item" >
-              <Link to="/dashboard" className="nav-link"><i class="fas fa-user-alt"></i><span>Profile</span></Link>
+              <NavLink to="/profile" className="nav-link"><i class="fas fa-user-alt"></i><span>Profile</span></NavLink>
             </li>
             <li className="nav-item" >
-              <Link to="/dashboard" className="nav-link"><i class="fas fa-cog"></i><span>Preference</span></Link>
+              <NavLink to="/preference" className="nav-link"><i class="fas fa-cog"></i><span>Preference</span></NavLink>
             </li>
           </ul>
         </div>

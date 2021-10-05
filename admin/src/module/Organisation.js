@@ -2,7 +2,6 @@ import { Component, Fragment } from 'react';
 import { Link } from "react-router-dom";
 import OrganisationModel from "../model/OrganisationModel";
 
-
 class Organisation extends Component {
     constructor(props) {
         super(props);
@@ -36,7 +35,8 @@ class Organisation extends Component {
     renderOrg() {
         return this.state.organisations.map((org, i) => {
             return <tr key={i}>
-                <td><img class="align-self-center mr-3 ml-2 w-50 rounded-circle" src="../assets/img/avatars/27.jpg" alt="" />
+                <td>
+                    <img class="align-self-center mr-3 ml-2 w-50 rounded-circle" src="../assets/img/avatars/27.jpg" alt="" />
                     <strong class="nowrap">{org.title}</strong>
                 </td>
                 <td>{org.contact}</td>
@@ -64,10 +64,10 @@ class Organisation extends Component {
 
     render() {
         return (
-            <div class="content">
-                <header class="page-header">
-                    <div class="d-flex align-items-center">
-                        <div class="mr-auto">
+            <div className="content">
+                <header className="page-header">
+                    <div className="d-flex align-items-center">
+                        <div className="mr-auto">
                             <h1>Organisation</h1>
                         </div>
                         <ul class="actions top-right">
@@ -99,7 +99,6 @@ class Organisation extends Component {
 
                 <section class="page-content container-fluid">
                     <div class="row">
-
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">

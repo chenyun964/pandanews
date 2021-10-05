@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import sg.edu.smu.cs203.pandanews.model.User;
 import sg.edu.smu.cs203.pandanews.model.Organisation;
 import sg.edu.smu.cs203.pandanews.dto.OrganisationDTO;
+import sg.edu.smu.cs203.pandanews.model.User;
 
 @Service
 public interface OrganisationService {
@@ -21,4 +22,6 @@ public interface OrganisationService {
 
     Organisation getOrganisationByOwner(Long id);
     Organisation approveOrganisation(Long id);
+    Organisation getOrganisationByCode(String code);
+    Organisation addEmployee(String code, User employee);
 }

@@ -15,4 +15,6 @@ public interface UserService {
     void deleteUser(Long id);
     User getUserByUsername(String username);
     User updateUserCompany(Long id, Organisation organisation);
+    User updateUserRole(User user, String role);
+    User joinOrganisation(User user, Organisation organisation);
 }
