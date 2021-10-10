@@ -24,6 +24,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.*;
+import sg.edu.smu.cs203.pandanews.model.Attendance.Attendance;
 
 @Entity
 @Getter

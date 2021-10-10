@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.model;
+package sg.edu.smu.cs203.pandanews.model.Attendance;
 
 
 import lombok.*;

@@ -1,9 +1,11 @@
-package sg.edu.smu.cs203.pandanews.model;
+package sg.edu.smu.cs203.pandanews.model.Attendance;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
+import sg.edu.smu.cs203.pandanews.model.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -31,8 +33,10 @@ public class Attendance {
 
     private LocalTime aTime;
 
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean isOnline;
 
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean isCheckIn;
 
     @ManyToOne

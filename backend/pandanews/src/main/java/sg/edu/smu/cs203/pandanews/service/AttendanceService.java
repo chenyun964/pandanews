@@ -2,12 +2,10 @@ package sg.edu.smu.cs203.pandanews.service;
 
 
 
-import sg.edu.smu.cs203.pandanews.model.Attendance;
-import sg.edu.smu.cs203.pandanews.model.Status;
+import sg.edu.smu.cs203.pandanews.model.Attendance.Attendance;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
 public interface AttendanceService {
