@@ -30,7 +30,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         }
         LocalDate currDate = LocalDate.now();
         LocalTime currTime = LocalTime.now();
-        Attendance a = new Attendance(currDate, currTime, Status.PRESENT, true, u);
+        Attendance a = new Attendance(currDate, currTime, true, u);
         return attendanceRepository.save(a);
 
     }

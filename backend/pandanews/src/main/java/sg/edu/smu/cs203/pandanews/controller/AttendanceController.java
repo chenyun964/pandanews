@@ -36,11 +36,11 @@ public class AttendanceController {
         return ResponseEntity.ok(attendanceService.findAttendancesByUserid(userId));
     }
 
-
     @GetMapping(path = "attendance/get/{id}")
     public ResponseEntity<?> getAttendance(@PathVariable Long id) {
         return ResponseEntity.ok(attendanceService.findAttendancesByUserid(id));
     }
+
     @GetMapping(path = "attendance/get/date/{id}")
     public ResponseEntity<?> getUserAttendancesByDate(@PathVariable Long userId, @RequestParam LocalDate date) {
         return ResponseEntity.ok(attendanceService.findAttendanceByDate(userId, date));

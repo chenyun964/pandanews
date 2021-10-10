@@ -15,10 +15,9 @@ import java.util.Date;
 @Getter
 @Entity
 public class Attendance {
-    public Attendance(LocalDate aDate, LocalTime time, Status status, boolean isOnline, User user) {
+    public Attendance(LocalDate aDate, LocalTime time, boolean isOnline, User user) {
         this.aDate = aDate;
         this.aTime = time;
-        this.status = status;
         this.isOnline = isOnline;
         this.user = user;
     }
@@ -32,9 +31,9 @@ public class Attendance {
 
     private LocalTime aTime;
 
-    private Status status;
-
     private boolean isOnline;
+
+    private boolean isCheckIn;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -67,12 +66,6 @@ public class Attendance {
 
     public void setATime(LocalTime aTime) {
         this.aTime = aTime;
-        setStatus();
-    }
-
-    public void setStatus() {
-        //TODO: status will change based on the time
-        this.status = Status.PRESENT;
     }
 
     public void setOnline(boolean online) {
