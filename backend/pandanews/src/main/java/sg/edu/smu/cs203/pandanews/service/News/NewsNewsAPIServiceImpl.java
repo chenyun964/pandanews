@@ -61,7 +61,7 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
         List<News> newsList = new ArrayList<>();
 
         for (NewsDAO news : newsListDAO.getValue()) {
-            News n = new News(news.getName(), news.getDescription(), news.getUrl(),
+           News n = new News(news.getName(), news.getDescription(), news.getUrl(),
                     news.getImage().getThumbnail().getContentUrl(),
                     formatter(news.getDatePublished()));
             newsList.add(n);

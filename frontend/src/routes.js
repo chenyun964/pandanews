@@ -8,6 +8,10 @@ import Demo from "./module/Demo";
 import Login from "./module/Login";
 import Signup from './module/Signup';
 import Dashboard from './module/Dashboard';
+import News from './module/News';
+import Category from './module/Category';
+
+
 
 class LoginRoutes extends Component {
   componentDidMount() {
@@ -15,7 +19,7 @@ class LoginRoutes extends Component {
       window.location.replace("/login");
     }
   }
-  
+
   render() {
     return (
       <Fragment>
@@ -23,6 +27,7 @@ class LoginRoutes extends Component {
           <div className="d-flex">
             <Sidebar />
             <Route exact path="/dashboard" component={Dashboard} />
+
           </div>
         </Switch>
       </Fragment>
@@ -36,9 +41,11 @@ class AllRoutes extends Component {
       <Fragment>
         <Nav />
         <Switch>
-          <Route exact path="/" component={Demo} />
+          <Route exact path="/category/:category" component={Category} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          <Route exact path="/" component={News} />
+
           <LoginRoutes />
         </Switch>
       </Fragment>

@@ -7,12 +7,16 @@ const register_api = API_HOSTS + '/register';
 //News
 const news_list_api = API_HOSTS + '/news/list'
 
+//Category
+const category_list_api = API_HOSTS + '/category/list'
+
 //Ogranisation
 const org_create_api = API_HOSTS + '/organisation';
 const org_join_api = API_HOSTS + '/organisation/join';
 const org_my_org_api = API_HOSTS + "/organisation/owner";
 
 export default {
+    category_list_api,
     API_HOSTS,
     authenticate_api,
     register_api,

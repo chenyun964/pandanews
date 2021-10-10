@@ -43,4 +43,9 @@ public class NewsController {
     public ResponseEntity<?> findNewsById(@PathVariable int id) {
         return ResponseEntity.ok(newsService.findNewsById(id));
     }
+
+    @GetMapping(path = "/news/find/top4news")
+    public ResponseEntity<?> findTop4NewsPast7Days() {
+        return ResponseEntity.ok(newsService.findTop4NewsPast7Days());
+    }
 }
