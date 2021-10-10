@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from "react-router-dom";
 
 class Nav extends Component {
   render() {
@@ -19,24 +20,24 @@ class Nav extends Component {
                 <a className="nav-link active" aria-current="page" href="/">Home</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">COVID-19</a>
+                <a className="nav-link" href="/covid19">COVID-19</a>
               </li>
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a className="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Categories
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a className="dropdown-item" href="#">F&B</a></li>
+                  <li><a className="dropdown-item" href="/">F&B</a></li>
                 </ul>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Support</a>
+                <a className="nav-link" href="/map">Support</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#"><i className="fas fa-search"></i></a>
+                <a className="nav-link" href="/search"><i className="fas fa-search"></i></a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#"><i className="far fa-bell"></i></a>
+                <a className="nav-link" href="/notficiation"><i className="far fa-bell"></i></a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/login"><i className="far fa-user"></i></a>

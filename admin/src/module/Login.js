@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import { Link } from "react-router-dom";
 import LoginModel from "../model/LoginModel";
 
 class Login extends Component {
@@ -12,13 +11,21 @@ class Login extends Component {
             },
             errors: {},
             loading: false,
-            loginFailed: false
+            loginFailed: false,
+            expired: false
         }
     }
 
     componentDidMount() {
         if (LoginModel.retrieveToken()) {
             window.location.replace("/dashboard");
+        }
+
+        let expired = new URLSearchParams(this.props.location.search).get("session")
+        if (expired) {
+            this.setState({
+                expired: true
+            })
         }
     }
 
@@ -87,7 +94,13 @@ class Login extends Component {
                             {this.state.loginFailed &&
                                 <div class="mb-1 text-center">
                                     <span className="input-error-msg">Invalid useranem and password</span>
-                                </div>}
+                                </div>
+                            }
+                            {this.state.expired &&
+                                <div class="mb-1 text-center">
+                                    <span className="input-error-msg">Session has expired, please login again</span>
+                                </div>
+                            }
                             <div class="mb-3">
                                 <input type="text" class="form-control" placeholder="username" ref="username" onChange={this.handleChange.bind(this, "username")}
                                     value={this.state.fields["username"]} />
@@ -101,7 +114,7 @@ class Login extends Component {
                             <div class="checkbox m-b-10 m-t-20">
                                 <div class="custom-control custom-checkbox checkbox-primary form-check">
                                     <input type="checkbox" class="custom-control-input" id="stateCheck1" checked="" />
-                                    <label class="custom-control-label" for="stateCheck1">	Remember me</label>
+                                    <label class="custom-control-label" for="stateCheck1">Remember me</label>
                                 </div>
                             </div>
                             <button class="btn btn-primary btn-rounded btn-floating btn-lg btn-block" onClick={() => this.login()}>Sign In</button>

@@ -9,4 +9,5 @@ import sg.edu.smu.cs203.pandanews.model.Organisation;
 @Repository
 public interface OrganisationRepository extends JpaRepository <Organisation, Long>{
     Optional<Organisation> findByOwnerId(Long owner_id);
+    Optional<Organisation> findByCode(String code);
 }

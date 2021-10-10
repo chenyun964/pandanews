@@ -55,9 +55,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		httpSecurity.cors().and().csrf().disable()
 				// dont authenticate this particular request
 				.authorizeRequests()
+				// Production API
 				.antMatchers("/authenticate", "/register", "/admin/authenticate", "/admin/register").permitAll()
 				.antMatchers("/organisation/approve/*").hasRole("ADMIN")
-				.antMatchers("/organisation/**").authenticated()
+				.antMatchers("/organisation/employees").hasAnyRole("ADMIN", "MANAGER", "OWNER")
+
+				// API Under development
 				// role-specific requests
 				.antMatchers(HttpMethod.GET, "/organisations/*/workgroups", "/organisations/*/workgroups/*").permitAll()
 				.antMatchers(HttpMethod.GET, "/news/**").permitAll()
@@ -68,9 +71,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/category/*").permitAll()
 				.antMatchers(HttpMethod.PUT, "/category/*").permitAll()
 				.antMatchers(HttpMethod.DELETE, "/category/*").permitAll()
+				.antMatchers("/measurements/*").permitAll()
+				.antMatchers("/measurements").permitAll()
 				.antMatchers(HttpMethod.POST, "/organisations/*/workgroups").hasAnyRole("ADMIN", "MANAGER")
 				.antMatchers(HttpMethod.PUT, "/organisations/*/workgroups/*").hasAnyRole("ADMIN", "MANAGER")
 				.antMatchers(HttpMethod.DELETE, "/organisations/*/workgroups/*").hasAnyRole("ADMIN", "MANAGER")
+				.antMatchers("/organisation/**").authenticated()
+				.antMatchers("/users/**").authenticated()
+
 				// all other requests need to be authenticated
 				.anyRequest().authenticated().and()
 				// make sure we use stateless session; session won't be used to store user's state

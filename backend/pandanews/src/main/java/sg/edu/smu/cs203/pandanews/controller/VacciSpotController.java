@@ -18,15 +18,19 @@ import sg.edu.smu.cs203.pandanews.dto.VacciSpotDTO;
 import sg.edu.smu.cs203.pandanews.exception.SpotNotFoundException;
 import sg.edu.smu.cs203.pandanews.model.VacciSpot;
 import sg.edu.smu.cs203.pandanews.service.VacciSpotService;
+import sg.edu.smu.cs203.pandanews.util.GeoCodeUtil;
 
 @RestController
 @RequestMapping(path = "/vaccispots")
 public class VacciSpotController {
     private VacciSpotService vacciSpotService;
 
+    private GeoCodeUtil geoCodeUtil;
+
     @Autowired
-    public VacciSpotController(VacciSpotService vss) {
+    public VacciSpotController(VacciSpotService vss, GeoCodeUtil gcu) {
         this.vacciSpotService = vss;
+        this.geoCodeUtil = gcu;
     }
 
     @GetMapping
@@ -82,8 +86,9 @@ public class VacciSpotController {
         newSpot.setAddress(newSpotDTO.getAddress());
         newSpot.setRegion(newSpotDTO.getRegion());
         newSpot.setVacciType(newSpotDTO.getVacciType());
-        newSpot.setLatitude(newSpotDTO.getLatitude());
-        newSpot.setLongitude(newSpotDTO.getLongitude());
+        Double[] latLng = geoCodeUtil.getLatLng(newSpotDTO.getAddress());
+        newSpot.setLatitude(latLng[0]);
+        newSpot.setLongitude(latLng[1]);
         return vacciSpotService.add(newSpot);
     }
 

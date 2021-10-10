@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import sg.edu.smu.cs203.pandanews.model.Organisation;
 import sg.edu.smu.cs203.pandanews.model.User;
+import sg.edu.smu.cs203.pandanews.repository.OrganisationRepository;
 import sg.edu.smu.cs203.pandanews.repository.UserRepository;
 
 @Service
@@ -65,5 +66,18 @@ public class UserServiceImpl implements UserService {
             user.setOrganisation(organisation);
             return users.save(user);
         }).orElse(null);
+    }
+
+    @Override
+    public User updateUserRole(User user, String role){
+        user.setAuthorities(role);
+        return users.save(user);
+    }
+
+    @Override
+    public User joinOrganisation(User user, Organisation organisation){
+        user.setOrganisation(organisation);
+        users.save(user);
+        return user;
     }
 }
