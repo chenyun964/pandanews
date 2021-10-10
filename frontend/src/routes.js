@@ -8,12 +8,15 @@ import Demo from "./module/Demo";
 import Login from "./module/Login";
 import Signup from './module/Signup';
 import Dashboard from './module/Dashboard';
+import News from './module/News';
+import Category from './module/Category';
 import Profile from "./module/Profile";
 import NotFound from "./module/NotFound";
 import Employee from './module/Employee';
 import Invite from './module/Invite';
 import Measurement from "./module/Measurement";
 import Map from './module/Map';
+
 
 class LoginRoutes extends Component {
   componentDidMount() {
@@ -45,9 +48,10 @@ class AllRoutes extends Component {
       <Fragment>
         <Nav />
         <Switch>
-          <Route exact path="/" component={Demo} />
+          <Route exact path="/category/:category" component={Category} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          <Route exact path="/" component={News} />
           <Route exact path="/employee/invite" component={Invite} />
           {!LoginModel.retrieveToken() &&
             <Route path="*" component={NotFound} />
