@@ -11,16 +11,23 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.context.SecurityContextHolder;
 
+import sg.edu.smu.cs203.pandanews.service.OrganisationService;
 import sg.edu.smu.cs203.pandanews.service.UserService;
 import sg.edu.smu.cs203.pandanews.model.User;
+import sg.edu.smu.cs203.pandanews.model.Organisation;
 
 @RestController
 public class UserController {
     private UserService userService;
 
-    public UserController(UserService us){
+    private OrganisationService orgService;
+
+    public UserController(UserService us, OrganisationService orgs){
         this.userService = us;
+        this.orgService = orgs;
     }
 
     /**
@@ -38,15 +45,14 @@ public class UserController {
      * @param id
      * @return book with the given id
      */
-    @GetMapping("/users/{id}")
-    public User getUser(@PathVariable Long id){
-        User user = userService.getUser(id);
-
-        // Need to handle "book not found" error using proper HTTP status code
-        // In this case it should be HTTP 404
+    @GetMapping("/users/profile")
+    public User getUserProfile(){
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal();
+        
+        User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) return null;
-        return userService.getUser(id);
-
+        return user;
     }
     /**
      * Add a new book with POST request to "/books"
@@ -66,9 +72,15 @@ public class UserController {
      * @param newUserInfo
      * @return the updated, or newly added book
      */
-    @PutMapping("/users/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User newUserInfo){
-        User user = userService.updateUser(id, newUserInfo);
+    @PutMapping("/users/profile")
+    public User updateUser(@RequestBody User newUserInfo){
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal();
+        
+        User user = userService.getUserByUsername(userDetails.getUsername());
+        if(user == null) return null;
+        System.out.println(user.getId());
+        user = userService.updateUser(user.getId(), newUserInfo);
         if(user == null) return null;
         
         return user;
@@ -86,5 +98,30 @@ public class UserController {
          }catch(EmptyResultDataAccessException e) {
             // throw new BookNotFoundException(id);
          }
+    }
+    
+    @GetMapping("/users/organisation")
+    public Organisation getUserOrganisation(){
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal();
+        
+        User user = userService.getUserByUsername(userDetails.getUsername());
+        if(user == null) return null;
+
+        return user.getOrganisation();
+    }
+
+    @PostMapping("/users/organisation")
+    public User addUserOrganisation(@RequestBody Organisation organisation){
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal();
+        
+        User user = userService.getUserByUsername(userDetails.getUsername());
+        if(user == null) return null;
+
+        Organisation org = orgService.getOrganisationByCode(organisation.getCode());
+        if(org == null) return null;
+
+        return userService.joinOrganisation(user, org);
     }
 }

@@ -1,0 +1,187 @@
+@import "../../../bootstrap/functions";
+@import "../../../bootstrap/variables";
+@import "../../../bootstrap/mixins";
+@import "../../../common/utils/var";
+@import "../../../common/utils/mixins";
+@import "../../../common/utils/functions";
+
+//== COMPACT MENU STYLE DEMO 3
+//----------------------------------------------------------------------------->
+
+body.compact-menu {
+  .sidebar.sidebar-left {
+    .sidebar-content {
+      .aside-toolbar {
+        .site-logo li .logo {
+          position: absolute;
+          top: 15px;
+          left: 46px;
+
+          svg {
+            width: 35px;
+            height: 35px;
+          }
+        }
+      }
+      width: 130px;
+      height: 100%;
+
+      .main-menu {
+        width: inherit;
+        padding-bottom: 65px;
+        padding-top: 20px;
+        @import "../../../common/components/menu";
+
+        .nav.metismenu {
+          overflow: visible;
+          transition: none;
+          padding: 0;
+
+          > li {
+            position: relative;
+            transition: none;
+            margin-bottom: 10px;
+
+            > a {
+              font-size: 12px;
+              height: 65px;
+              margin-bottom: 0;
+              transition: none;
+              text-align: center;
+              border-radius: 0 !important;
+              border-left: 0;
+              padding: 10px 0 0;
+              width: 100px;
+              margin: auto;
+              position: relative;
+              font-weight: 300!important;
+
+              i {
+                font-size: 18px;
+                display: block;
+                vertical-align: middle;
+                margin: auto;
+              }
+
+              span {
+                display: block;
+              }
+            }
+
+            &:hover {
+              > a {
+                transition: none;
+
+                > span {
+                  display: inline-flex;
+                }
+              }
+
+              > ul {
+                display: block;
+                position: absolute!important;
+                border-radius: 0 3px 3px 0;
+                padding: 10px 0!important;
+
+                li {
+                  a {
+                    padding: 8px 0 8px 22px;
+                    transition: color 300ms ease;
+                  }
+                }
+              }
+            }
+
+            &.active {
+              > a {
+                width: 100px!important;
+                margin: auto;
+                border-radius: 3px!important;
+              }
+            }
+          }
+
+          > li > ul {
+            position: absolute;
+            left: 130px;
+            top: 0;
+            width: 215px;
+            z-index: 1001;
+            display: none;
+            padding: 10px 0;
+          }
+
+          > li > .nav-sub > li > .nav-sub > li > a {
+            padding-left: 35px;
+          }
+
+          > .nav-dropdown > .nav-sub {
+            height: auto!important;
+          }
+        }
+
+        .metismenu > li > a.has-arrow:after {
+          display: none;
+        }
+      }
+    }
+  }
+  @media (max-width: 992px) {
+    .sidebar.sidebar-left {
+      .sidebar-content {
+        position: absolute;
+        min-height: 100vh;
+        height: 100%!important;
+        transform: translate3D(-100%,0,0);
+      }
+    }
+  }
+}
+//== COMPACT MENU & FIXED LAYOUT
+//----------------------------------------------------------------------------->
+
+body.compact-menu.layout-fixed {
+  .sidebar {
+    .sidebar-content {
+      .aside-toolbar {
+        width: 130px;
+      }
+
+      .main-menu {
+        padding-top: 100px!important;
+      }
+      @media (max-width: 992px) {
+        .main-menu {
+          padding-top: 65px!important;
+        }
+      }
+    }
+  }
+
+  .content-wrapper {
+    .top-toolbar {
+      left: 130px;
+    }
+    @media (max-width: 992px) {
+      .top-toolbar {
+        left: 0;
+      }
+    }
+  }
+}
+//== MOBILE MENU
+//----------------------------------------------------------------------------->
+
+body.compact-menu.aside-left-open {
+  .sidebar.sidebar-left {
+    overflow: scroll;
+    .sidebar-content {
+      transform: translate3D(0,0,0);
+      overflow: visible;
+      height: 100vh;
+      .main-menu {
+        padding-top: 30px!important;
+      }
+    }
+  }
+}

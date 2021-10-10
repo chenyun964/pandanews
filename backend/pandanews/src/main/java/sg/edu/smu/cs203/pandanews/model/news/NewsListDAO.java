@@ -39,6 +39,7 @@ public class NewsListDAO {
     public void setValue(ArrayList<NewsDAO> value) {
         this.value = value;
     }
+
 }
 
 

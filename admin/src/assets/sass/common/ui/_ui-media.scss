@@ -1,0 +1,16 @@
+.media {
+  display: flex;
+  align-items: flex-start;
+}
+
+.media-body {
+  flex: 1;
+	p{
+		font-size: rem(14);
+		padding:0;
+	}
+	span{
+		font-size: rem(12);
+		font-weight: 400;
+	}
+}

@@ -20,7 +20,10 @@ import sg.edu.smu.cs203.pandanews.service.JwtUserDetailsService;
 import sg.edu.smu.cs203.pandanews.util.JwtTokenUtil;
 import sg.edu.smu.cs203.pandanews.model.JwtRequest;
 import sg.edu.smu.cs203.pandanews.model.JwtResponse;
+import sg.edu.smu.cs203.pandanews.dto.AdminDTO;
 import sg.edu.smu.cs203.pandanews.dto.UserDTO;
+
+import sg.edu.smu.cs203.pandanews.model.User;
 
 @RestController
 @CrossOrigin
@@ -62,5 +65,20 @@ public class JwtAuthenticationController {
         } catch (BadCredentialsException e) {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/admin/authenticate")
+    public ResponseEntity<?> createAuthenticationTokenAdmin(@RequestBody JwtRequest authenticationRequest) throws Exception {
+        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        final UserDetails userDetails = userDetailsService.loadAdminByUsername(authenticationRequest.getUsername());
+        final String token = jwtTokenUtil.generateToken(userDetails);
+        return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/admin/register")
+    public ResponseEntity<?> addAdmin(@Valid @RequestBody AdminDTO adminDTO) throws Exception {
+        return ResponseEntity.ok(userDetailsService.save(adminDTO));
     }
 }

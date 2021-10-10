@@ -1,0 +1,123 @@
+
+/*=========================================================================
+ Bootstrap Datepicker
+ ========================================================================== */
+.datepicker td, .datepicker th{
+	font-weight:400;
+	    font-size: 14px;
+			    color: #617182;
+}
+
+.datepicker-dropdown {
+    margin: .5rem 0 0;
+    border: none;
+    box-shadow: 0 4px 14px rgba(174,197,231,.5);
+    font-size: rem(14);
+		&:before {
+		    border-bottom-color: #fff
+		}
+}
+
+.datepicker table tr td.new, .datepicker table tr td.old {
+    color: #CCD9E9;
+}
+
+.datepicker td, .datepicker th {
+    width: 25px;
+    height: 25px;
+		width: 25px;
+		height: 25px;
+		text-align: center;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		border: none;
+}
+
+
+
+.datepicker-inline,.note-editor.note-frame {
+    border: 1px solid #f0f6ff
+}
+
+.datepicker,.datetimepicker {
+    z-index: 12000;
+    width: 260px;
+    padding: 10px
+}
+
+.datepicker table,.datetimepicker table,.dt-cont {
+    width: 100%
+}
+
+
+.dt-cont {
+    position: relative;
+    height: 400px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ccc
+}
+
+
+
+.datepicker table tr td.active,.datepicker table tr td.active.disabled,.datepicker table tr td.active.disabled:hover,.datepicker table tr td.active:hover,.datetimepicker table tr td span.active.active,.datetimepicker table tr td span.active.disabled.active,.datetimepicker table tr td span.active.disabled:active,.datetimepicker table tr td span.active.disabled:hover.active,.datetimepicker table tr td span.active.disabled:hover:active,.datetimepicker table tr td span.active:active,.datetimepicker table tr td span.active:hover.active,.datetimepicker table tr td span.active:hover:active,.datetimepicker table tr td.active,.datetimepicker table tr td.active.disabled,.datetimepicker table tr td.active.disabled:hover,.datetimepicker table tr td.active:hover {
+    background-image: none;
+    text-shadow: none
+}
+
+.datepicker .datepicker-switch:hover,.datepicker .next:hover,.datepicker .prev:hover,.datepicker table tr td.day.focused,.datepicker table tr td.day:hover,.datepicker tfoot tr th:hover,.datetimepicker table tr td span:hover,.datetimepicker table tr td.day:hover,.datetimepicker tfoot tr:first-child th:hover,.datetimepicker thead tr:first-child th:hover {
+    background: #f0f6ff
+}
+
+.bootstrap-timepicker table td a:hover {
+    border-color: #f0f6ff;
+    border-radius: 4px;
+    background-color: #f0f6ff
+}
+
+.bootstrap-timepicker table td input {
+    width: 35px;
+    border: 1px solid #f0f6ff
+}
+
+/*=========================================================================
+ Bootstrap Date Range Picker
+ ========================================================================== */
+ .daterangepicker td, .daterangepicker th{
+	 font-size: rem(14);
+ }
+ .daterangepicker .input-mini{
+	 border: 1px solid rgba(141,166,195,.3);
+ }
+ .daterangepicker td.off, .daterangepicker td.off.end-date, .daterangepicker td.off.in-range, .daterangepicker td.off.start-date {
+    color: #CCD9E9;
+}
+.daterangepicker td.available:hover, .daterangepicker th.available:hover {
+    background-color: #f0f6ff;
+}
+.daterangepicker select.monthselect, .daterangepicker select.yearselect, .daterangepicker select.hourselect, .daterangepicker select.minuteselect, .daterangepicker select.ampmselect {
+    border: 1px solid #EEF4FF;
+}
+.daterangepicker select.ampmselect, .daterangepicker select.hourselect, .daterangepicker select.minuteselect, .daterangepicker select.monthselect, .daterangepicker select.yearselect {
+    border: 1px solid #dfe7f3;
+    background: #f0f6ff;
+    color: #7d93b7;
+    font-size: 12px;
+    padding: 5px 10px;
+}
+.daterangepicker select.ampmselect, .daterangepicker select.hourselect, .daterangepicker select.minuteselect, .daterangepicker select.secondselect{
+	height:25px;
+}
+.daterangepicker.dropdown-menu{
+	    box-shadow: 0 4px 14px rgba(174,197,231,.5);
+border: 1px solid rgba(141,166,195,.3);
+}
+/***************************
+Predefined Ranges
+***************************/
+
+.ranges li {
+	background-color: $grey-50;
+	border: 1px solid $grey-50;
+}

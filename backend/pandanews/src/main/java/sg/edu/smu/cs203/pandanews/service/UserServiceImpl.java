@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import sg.edu.smu.cs203.pandanews.model.Organisation;
 import sg.edu.smu.cs203.pandanews.model.User;
+import sg.edu.smu.cs203.pandanews.repository.OrganisationRepository;
 import sg.edu.smu.cs203.pandanews.repository.UserRepository;
 
 @Service
@@ -34,9 +36,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User addUser(User user){
         User newUser = new User();
+        newUser.setEmail(user.getEmail());
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-        return users.save(user);
+        return users.save(newUser);
     }
 
     @Override
@@ -56,5 +59,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByUsername(String username){
         return users.findByUsername(username).orElse(null);
+    }
+
+    public User updateUserCompany(Long id, Organisation organisation){
+        return users.findById(id).map(user -> {
+            user.setOrganisation(organisation);
+            return users.save(user);
+        }).orElse(null);
+    }
+
+    @Override
+    public User updateUserRole(User user, String role){
+        user.setAuthorities(role);
+        return users.save(user);
+    }
+
+    @Override
+    public User joinOrganisation(User user, Organisation organisation){
+        user.setOrganisation(organisation);
+        users.save(user);
+        return user;
     }
 }

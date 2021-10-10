@@ -1,0 +1,230 @@
+//== Checkbox and Radio
+//------------------------------------
+.form-check{
+	margin-bottom:8px;
+	&.custom-control{
+			margin-bottom:6px;
+	}
+}
+.custom-control-input:focus~.custom-control-label::before {
+	box-shadow: none;
+}
+.custom-control-label{
+	vertical-align: middle;
+}
+.custom-control-input:disabled~.custom-control-label{
+     color: #839bb3
+}
+.custom-control-input:disabled~.custom-control-label:before {
+    background-color: #e0ecff;
+}
+
+/***************************
+Custom Solid Checkbox/Radio
+***************************/
+.custom-checkbox.checkbox-secondary .custom-control-input:checked~.custom-control-label::before,
+.custom-checkbox.checkbox-secondary .custom-control-input:indeterminate~.custom-control-label::before,
+.custom-checkbox.checkbox-secondary .custom-control-input:checked~.custom-control-label::before,
+.custom-radio.radio-secondary .custom-control-input:checked~.custom-control-label::before {
+	background-color: $color-secondary-state;
+}
+
+.custom-checkbox.checkbox-success .custom-control-input:checked~.custom-control-label::before,
+.custom-checkbox.checkbox-success .custom-control-input:indeterminate~.custom-control-label::before,
+.custom-checkbox.checkbox-success .custom-control-input:checked~.custom-control-label::before,
+.custom-radio.radio-success .custom-control-input:checked~.custom-control-label::before {
+	background-color: $color-success-state;
+}
+.custom-checkbox.checkbox-warning .custom-control-input:checked~.custom-control-label::before,
+.custom-checkbox.checkbox-warning .custom-control-input:indeterminate~.custom-control-label::before,
+.custom-checkbox.checkbox-warning .custom-control-input:checked~.custom-control-label::before,
+.custom-radio.radio-warning .custom-control-input:checked~.custom-control-label::before {
+	background-color: $color-warning-state;
+}
+.custom-checkbox.checkbox-info .custom-control-input:checked~.custom-control-label::before,
+.custom-checkbox.checkbox-info .custom-control-input:indeterminate~.custom-control-label::before,
+.custom-checkbox.checkbox-info .custom-control-input:checked~.custom-control-label::before,
+.custom-radio.radio-info .custom-control-input:checked~.custom-control-label::before {
+	background-color: $color-info-state;
+}
+.custom-checkbox.checkbox-danger .custom-control-input:checked~.custom-control-label::before,
+.custom-checkbox.checkbox-danger .custom-control-input:indeterminate~.custom-control-label::before,
+.custom-checkbox.checkbox-danger .custom-control-input:checked~.custom-control-label::before,
+.custom-radio.radio-danger .custom-control-input:checked~.custom-control-label::before {
+	background-color: $color-danger-state;
+}
+/***************************
+Custom Outline Checkbox/Radio
+***************************/
+control-group {
+  display: inline-block;
+  vertical-align: top;
+  background: #fff;
+  text-align: left;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  padding: 30px;
+  width: 200px;
+  height: 210px;
+  margin: 10px;
+}
+.control.control-outline {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 9px;
+  cursor: pointer;
+	input {
+	  position: absolute;
+	  z-index: -1;
+	  opacity: 0;
+	}
+	.control__indicator {
+		position: absolute;
+		    top: 2px;
+		    left: 0;
+		    width: 20px;
+		    height: 20px;
+		    border: 1px solid #e5e9ec;
+		    border-radius: 3px;
+		    background: #fff;
+	}
+	&:hover input ~ .control__indicfator,
+    input:focus ~ .control__indicator {
+	  background: #fff;
+	}
+	input:checked ~ .control__indicator {
+		border: 1px solid $color-secondary-state;
+		background: 0 0;
+	}
+	&:hover input:not([disabled]):checked ~ .control__indicator,
+	 input:checked:focus ~ .control__indicator {
+	  background: #fff;
+	}
+	input:disabled ~ .control__indicator {
+	  background: #e6e6e6;
+	  opacity: 0.6;
+	  pointer-events: none;
+	}
+	.control__indicator:after {
+	  content: '';
+	  position: absolute;
+	  display: none;
+	}
+	input:checked ~ .control__indicator:after {
+	  display: block;
+	}
+	&.control--checkbox .control__indicator:after {
+	top: 3px;
+	left: 7px;
+	width: 5px;
+	height: 9px;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+	border-width: 0 2px 2px 0;
+	border: solid $color-secondary-state;
+	border-width: 0 2px 2px 0;
+	}
+	&.control--checkbox input:disabled ~ .control__indicator:after {
+	  border-color: #c7d9ee;
+	}
+	&.control--radio .control__indicator {
+	  border-radius: 50%;
+		    
+	}
+	&.control--radio .control__indicator:after {
+		top: 6px;
+		    left: 6px;
+		    width: 6px;
+		    height: 6px;
+		    border-radius: 50%;
+	  background: #fff;
+
+	}
+
+	&.control--radio .control__indicator:after {
+	    border-radius: 50%;
+	    background: $color-secondary-state;
+	}
+	&.control--radio input:disabled ~ .control__indicator:after {
+	  background: #c7d9ee;
+	}
+}
+
+
+
+.control.control-outline {
+	&.control-secondary{
+		input:checked ~ .control__indicator {
+			border: 1px solid $color-secondary-state;
+		}
+		
+		&.control--checkbox .control__indicator:after {
+			border: solid $color-secondary-state;
+		}
+		
+		&.control--radio .control__indicator:after {
+			background: $color-secondary-state;
+		}
+	}
+	&.control-success{
+		input:checked ~ .control__indicator {
+			border: 1px solid $color-success-state;
+		}
+		
+		&.control--checkbox .control__indicator:after {
+			border: solid $color-success-state;
+		}
+		
+		&.control--radio .control__indicator:after {
+			background: $color-success-state;
+		}
+	}
+	
+	&.control-warning {
+		input:checked ~ .control__indicator {
+			border:1px solid $color-warning-state;
+		}
+		
+		&.control--checkbox .control__indicator:after {
+			border:solid $color-warning-state;
+		}
+		
+		&.control--radio .control__indicator:after {
+			background: $color-warning-state;
+		}
+	}
+	&.control-info {
+		input:checked ~ .control__indicator {
+			border:1px solid $color-info-state;
+		}
+		
+		&.control--checkbox .control__indicator:after {
+			border:solid $color-info-state;
+		}
+		
+		&.control--radio .control__indicator:after {
+			background: $color-info-state;
+		}
+	}
+	&.control-danger {
+		input:checked ~ .control__indicator {
+			border:1px solid $color-danger-state;
+		}
+		
+		&.control--checkbox .control__indicator:after {
+			border:solid $color-danger-state;
+		}
+		
+		&.control--radio .control__indicator:after {
+			background: $color-danger-state;
+		}
+	}
+}
+.control.control-outline.control-secondary.control--checkbox .control__indicator:after,
+.control.control-outline.control-info.control--checkbox .control__indicator:after,
+.control.control-outline.control-success.control--checkbox .control__indicator:after,
+.control.control-outline.control-warning.control--checkbox .control__indicator:after,
+.control.control-outline.control-danger.control--checkbox .control__indicator:after{
+		border-width: 0 2px 2px 0;
+}

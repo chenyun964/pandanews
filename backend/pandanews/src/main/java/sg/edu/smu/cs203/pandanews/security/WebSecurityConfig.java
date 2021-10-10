@@ -3,6 +3,7 @@ package sg.edu.smu.cs203.pandanews.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -50,14 +51,38 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		// We don't need CSRF for this example
-		httpSecurity.csrf().disable()
+		httpSecurity.cors().and().csrf().disable()
 				// dont authenticate this particular request
-				.authorizeRequests().antMatchers("/authenticate", "/register").permitAll().
+				.authorizeRequests()
+				// Production API
+				.antMatchers("/authenticate", "/register", "/admin/authenticate", "/admin/register").permitAll()
+				.antMatchers("/organisation/approve/*").hasRole("ADMIN")
+				.antMatchers("/organisation/employees").hasAnyRole("ADMIN", "MANAGER", "OWNER")
+
+				// API Under development
+				// role-specific requests
+				.antMatchers(HttpMethod.GET, "/organisations/*/workgroups", "/organisations/*/workgroups/*").permitAll()
+				.antMatchers(HttpMethod.GET, "/news/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/news/**").permitAll()
+				.antMatchers(HttpMethod.PUT, "/news/**").permitAll()
+				.antMatchers(HttpMethod.DELETE, "/news/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/category/*").permitAll()
+				.antMatchers(HttpMethod.POST, "/category/*").permitAll()
+				.antMatchers(HttpMethod.PUT, "/category/*").permitAll()
+				.antMatchers(HttpMethod.DELETE, "/category/*").permitAll()
+				.antMatchers("/measurements/*").permitAll()
+				.antMatchers("/measurements").permitAll()
+				.antMatchers(HttpMethod.POST, "/organisations/*/workgroups").hasAnyRole("ADMIN", "MANAGER")
+				.antMatchers(HttpMethod.PUT, "/organisations/*/workgroups/*").hasAnyRole("ADMIN", "MANAGER")
+				.antMatchers(HttpMethod.DELETE, "/organisations/*/workgroups/*").hasAnyRole("ADMIN", "MANAGER")
+				.antMatchers("/organisation/**").authenticated()
+				.antMatchers("/users/**").authenticated()
+
 				// all other requests need to be authenticated
-						anyRequest().permitAll().and().
-				// make sure we use stateless session; session won't be used to store user's
-				// state.
-						exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+
+				.anyRequest().authenticated().and()
+				// make sure we use stateless session; session won't be used to store user's state
+				.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 		// Add a filter to validate the tokens with every request

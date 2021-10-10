@@ -1,0 +1,68 @@
+@import '../../custom/variable.scss';
+
+
+table.dataTable {
+	border-collapse: collapse!important;
+}
+.dataTables_info,
+.dataTables_paginate{
+			margin: 25px 0 15px 0!important;
+}
+.pagination {
+	.page-item.disabled .page-link {
+		color: #6c757d;
+		background-color: transparent;
+		border-color: transparent;
+	}
+
+	.page-link {
+		color: #6c757d;
+		background-color: transparent;
+		border-color: transparent;
+	}
+
+	.page-item.active .page-link {
+		z-index: 1;
+		color: #000;
+		background-color: $brand-color;
+		border-color: $brand-color;
+		border-radius: 100%;
+		box-shadow: none;
+		outline:0;
+		width: 30px;
+        height: 30px;
+		text-align: center;
+		padding: 8px 0 0 0;
+	}
+
+	a:link,
+	a:visited {
+		color: #000;
+		    line-height: 1;
+	}
+	a:hover{
+		color:#000;
+	}
+	a:active,
+	a:focus{
+		box-shadow: none;
+		outline:0;
+	}
+}
+
+.table-bordered.dataTable,
+.table-bordered.dataTable td,
+.table-bordered.dataTable th {
+	border: 1px solid rgba(234,243,253,.9);
+}
+table{
+	thead tr th{
+		font-weight: 400;
+	}
+	tbody tr td{
+		font-weight: 300;
+	}
+	tfoot tr th{
+		font-weight: 400;
+	}
+}
