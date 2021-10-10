@@ -25,7 +25,6 @@ public class GeoCodeUtil {
         GeoCodeListDAO geoCodeListDAO = new GeoCodeListDAO();
         String url = String.format(
                 "%s?access_key=%s&query={address}", endpoint, apikey);
-        System.out.println(url);
         ObjectMapper mapper = new ObjectMapper()
                     .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                     .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, false);
