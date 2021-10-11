@@ -24,8 +24,8 @@ const columns = [
                 value: 'North',
             },
             {
-                text: 'South',
-                value: 'South',
+                text: 'North East',
+                value: 'North East',
             },
             {
                 text: 'East',
@@ -76,7 +76,7 @@ class VacciSpotList extends Component {
     }
 
     componentDidMount() {
-        VacciSpotModel.getByType(this.state.type).then((res) => {
+        VacciSpotModel.getByType(this.state.type).then(res => {
             this.setState({ data: res.data });
         }).catch(error => {
             console.log(error);

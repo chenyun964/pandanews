@@ -87,14 +87,14 @@ class VacciSpotAdminTable extends Component {
     }
 
     handleAdd() {
-        const newData = [...this.state.data, {
+        const newData = [{
             id: 0,
             name: '',
             type: '',
             region: '',
             address: '',
             vacciType: '',
-        }];
+        }, ...this.state.data];
         this.setState({
             data: newData,
         });
@@ -111,8 +111,9 @@ class VacciSpotAdminTable extends Component {
                     newData.splice(index, 1, item);
                     VacciSpotModel.update(id, item);
                 } else {
-                    console.log(item);
-                    newData.splice(index, 1, VacciSpotModel.add(item).then((res) => res.data));
+                    VacciSpotModel.add(item).then(res => {
+                        newData.splice(index, 1, res.data);
+                    });
                 }
             }
             this.setState({ data: newData, editingId: -1 });
@@ -126,32 +127,88 @@ class VacciSpotAdminTable extends Component {
             {
                 title: 'Name',
                 dataIndex: 'name',
+                key: 'name',
                 width: '22%',
                 editable: true,
+                sorter: (a, b) => a.name.localeCompare(b.name),
+                sortDirections: ['ascend', 'descend'],
             },
             {
                 title: 'Type',
                 dataIndex: 'type',
-                width: '13%',
+                key: 'type',
+                width: '12%',
                 editable: true,
+                filters: [
+                    {
+                        text: 'Vaccination Centre',
+                        value: 'Vaccination Centre',
+                    },
+                    {
+                        text: 'Polyclinic',
+                        value: 'Polyclinic',
+                    },
+                    {
+                        text: 'Clinic',
+                        value: 'Clinic',
+                    },
+                ],
+                onFilter: (value, record) => record.region.indexOf(value) === 0,
             },
             {
                 title: 'Region',
                 dataIndex: 'region',
-                width: '7%',
+                key: 'region',
+                width: '10%',
                 editable: true,
+                filters: [
+                    {
+                        text: 'Central',
+                        value: 'Central',
+                    },
+                    {
+                        text: 'North',
+                        value: 'North',
+                    },
+                    {
+                        text: 'North East',
+                        value: 'North East',
+                    },
+                    {
+                        text: 'East',
+                        value: 'East',
+                    },
+                    {
+                        text: 'West',
+                        value: 'West',
+                    },
+                ],
+                onFilter: (value, record) => record.region.indexOf(value) === 0,
             },
             {
                 title: 'Address',
                 dataIndex: 'address',
+                key: 'address',
                 width: '35%',
                 editable: true,
             },
             {
                 title: 'Vaccination Type',
                 dataIndex: 'vacciType',
+                key: 'vacciType',
                 width: '10%',
                 editable: true,
+                filters: [
+                    {
+                        text: 'Moderna',
+                        value: 'Moderna',
+                    },
+                    {
+                        text: 'Pfizer/Comirnaty',
+                        value: 'Pfizer/Comirnaty',
+                    },
+                ],
+                onFilter: (value, record) => record.vacciType.indexOf(value) === 0,
             },
             {
                 title: 'operation',
@@ -161,7 +218,7 @@ class VacciSpotAdminTable extends Component {
                         return (
                             <span>
                                 <a
-                                    href="javascript:;"
+                                    href='javascript:;'
                                     onClick={() => this.save(record.id)}
                                     style={{
                                         marginRight: 8,
