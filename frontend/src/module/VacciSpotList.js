@@ -77,7 +77,7 @@ class VacciSpotList extends Component {
 
     componentDidMount() {
         VacciSpotModel.getByType(this.state.type).then((res) => {
-            this.setState({ data: res.data, loading: false });
+            this.setState({ data: res.data });
         }).catch(error => {
             console.log(error);
         })

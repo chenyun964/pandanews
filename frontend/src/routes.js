@@ -14,6 +14,7 @@ import Employee from './module/Employee';
 import Invite from './module/Invite';
 import Measurement from "./module/Measurement";
 import VacciSpotTabs from './module/VacciSpotTabs';
+import VacciSpotAdminTable from './module/VacciSpotAdminTable';
 
 class LoginRoutes extends Component {
   componentDidMount() {
@@ -54,6 +55,7 @@ class AllRoutes extends Component {
           }
           <Route exact path="/measurements" component={Measurement} />
           <Route exact path="/vaccispots" component={VacciSpotTabs} />
+          <Route exact path="/vaccispotsadmin" component={VacciSpotAdminTable} />
           <LoginRoutes />
         </Switch>
       </Fragment>
