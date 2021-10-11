@@ -12,7 +12,7 @@ class Demo extends Component {
                     />
                     <Marker position={[1.30270, 103.851959]}>
                         <Popup>
-                            A pretty CSS3 popup. <br/> Easily customizable.
+                            A pretty CSS3 popup. <br /> Easily customizable.
                         </Popup>
                     </Marker>
                 </MapContainer>

@@ -11,7 +11,6 @@ import sg.edu.smu.cs203.pandanews.model.User;
 public interface UserRepository extends JpaRepository <User, Long>{
     Optional<User> findByUsername(String username);
 
-
     // SELECT * FROM pandanews.user where username = "test" AND authorities="ROLE_ADMIN";
     @Query("SELECT u FROM User u WHERE u.username = :username AND u.authorities = :role")
     Optional<User> findAdminByUsername(String username, String role);

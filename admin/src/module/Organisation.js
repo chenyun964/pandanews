@@ -1,16 +1,24 @@
 import { Component, Fragment } from 'react';
 import { Link } from "react-router-dom";
 import OrganisationModel from "../model/OrganisationModel";
+import { Modal, Button, Typography } from 'antd';
+
+const { Text } = Typography;
 
 class Organisation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            organisations: []
+            organisations: [],
+            deleteModal: false
         }
     }
 
     componentDidMount() {
+        this.listOrg();
+    }
+
+    listOrg(){
         OrganisationModel.list().then(res => {
             this.setState({
                 organisations: res.data
@@ -32,6 +40,30 @@ class Organisation extends Component {
         })
     }
 
+    info(id, i) {
+        Modal.confirm({
+            title: 'This action is non reversible',
+            content: (
+                <div>
+                    <p>Are you sure you wanto to delete <Text mark>{this.state.organisations[i].title}</Text></p>
+                </div>
+            ),
+            okText: "Delete",
+            okType: "danger",
+            onOk: () => {
+                this.confirmDelete(id, i);
+            }
+        });
+    }
+
+    confirmDelete(id, i) {
+        OrganisationModel.delete(id).then(res => {
+            this.listOrg();
+        }).catch(e => {
+            console.log(e)
+        })
+    }
+
     renderOrg() {
         return this.state.organisations.map((org, i) => {
             return <tr key={i}>
@@ -44,6 +76,13 @@ class Organisation extends Component {
                 <td>
                     {org.status == 0 &&
                         <button className="btn btn-primary" onClick={() => this.approveOrg(org.id, i)}>Approve</button>
+                    }
+                    {org.status ? 
+                        <Fragment>
+                            <Button danger onClick={() => this.info(org.id, i)}>Delete</Button>
+                        </Fragment>
+                        :
+                        ""
                     }
                 </td>
             </tr>

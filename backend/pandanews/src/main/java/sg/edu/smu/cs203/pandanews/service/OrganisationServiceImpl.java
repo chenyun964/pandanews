@@ -55,6 +55,7 @@ public class OrganisationServiceImpl implements OrganisationService {
 
     @Override
     public void deleteOrganisation(Long id){
+        organisations.setOrganisationToNull(id);
         organisations.deleteById(id);
     }
 

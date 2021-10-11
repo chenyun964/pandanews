@@ -8,12 +8,15 @@ const register_api = API_HOSTS + '/register';
 const user_api = API_HOSTS + '/users';
 const user_profile_api = API_HOSTS + '/users/profile';
 const user_org_api = API_HOSTS + '/users/organisation';
+const user_vaccine_api = API_HOSTS + "/users/vaccine";
 
 //Ogranisation
 const org_api = API_HOSTS + '/organisation';
 const org_join_api = API_HOSTS + '/users/organisation';
 const org_my_org_api = API_HOSTS + "/organisation/owner";
-const org_employee_api = API_HOSTS + "/organisations/employee";
+const org_employee_api = API_HOSTS + "/organisation/employee";
+const org_employee_promote_api = API_HOSTS + "/organisation/promote";
+const org_employee_demote_api = API_HOSTS + "/organisation/demote";
 
 //Measurements
 const measurement_api = API_HOSTS + '/measurements';
@@ -41,5 +44,8 @@ export default{
     vaccispots_name_api,
     vaccispots_region_api,
     vaccispots_type_api,
-    vaccispots_vaccitype_api
+    vaccispots_vaccitype_api,
+    user_vaccine_api,
+    org_employee_promote_api,
+    org_employee_demote_api
 }
