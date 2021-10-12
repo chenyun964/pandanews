@@ -13,6 +13,10 @@ class UserModel {
     async userOrg(){
         return axiosJwt.get(config["user_org_api"]);
     }
+
+    async vaccinated(){
+        return axiosJwt.put(config['user_vaccine_api']);
+    }
 }
 
 export default new UserModel();

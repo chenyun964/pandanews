@@ -80,4 +80,17 @@ public class UserServiceImpl implements UserService {
         users.save(user);
         return user;
     }
+
+    @Override
+    public void quitOrganisation(User user){
+        user.setOrganisation(null);
+        users.save(user);
+    }
+
+    @Override
+    public User updateVaccine(User user){
+        user.setVaccinated(true);
+        users.save(user);
+        return user;
+    }
 }

@@ -30,53 +30,57 @@ public class OrganisationController {
 
     private UserService users;
 
-    public OrganisationController(OrganisationService os, UserService users){
+    public OrganisationController(OrganisationService os, UserService users) {
         this.orgService = os;
         this.users = users;
     }
 
     /**
      * List all books in the system
+     * 
      * @return list of all books
      */
     @GetMapping("/organisation")
-    public List<Organisation> getOrganisations(){
+    public List<Organisation> getOrganisations() {
         return orgService.listOrganisations();
     }
 
     /**
-     * Search for book with the given id
-     * If there is no book with the given "id", throw a BookNotFoundException
+     * Search for book with the given id If there is no book with the given "id",
+     * throw a BookNotFoundException
+     * 
      * @param id
      * @return book with the given id
      */
     // @GetMapping("/organisation/{id}")
     // public Organisation getOrganisation(@PathVariable Long id){
-    //     Organisation organisation = orgService.getOrganisation(id);
+    // Organisation organisation = orgService.getOrganisation(id);
 
-    //     // Need to handle "book not found" error using proper HTTP status code
-    //     // In this case it should be HTTP 404
-    //     if(organisation == null) return null;
-    //     return orgService.getOrganisation(id);
+    // // Need to handle "book not found" error using proper HTTP status code
+    // // In this case it should be HTTP 404
+    // if(organisation == null) return null;
+    // return orgService.getOrganisation(id);
     // }
 
     /**
-     * Add a new book with POST request to "/books"
-     * Note the use of @RequestBody
+     * Add a new book with POST request to "/books" Note the use of @RequestBody
+     * 
      * @param organisation
      * @return list of all books
      */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/organisation")
-    public Organisation addOrganisation(@RequestBody OrganisationDTO organisation){
+    public Organisation addOrganisation(@RequestBody OrganisationDTO organisation) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-        .getPrincipal();
-        
+                .getPrincipal();
+
         User user = users.getUserByUsername(userDetails.getUsername());
-        if(user == null) return null;
+        if (user == null)
+            return null;
 
         Organisation newOrg = orgService.addOrganisation(organisation, user);
-        if(newOrg == null) return null;
+        if (newOrg == null)
+            return null;
 
         users.updateUserCompany(user.getId(), newOrg);
         return newOrg;
@@ -84,71 +88,126 @@ public class OrganisationController {
 
     /**
      * If there is no book with the given "id", throw a BookNotFoundException
+     * 
      * @param id
      * @param newOrganisationInfo
      * @return the updated, or newly added book
      */
     @PutMapping("/organisation/{id}")
-    public Organisation updateOrganisation(@PathVariable Long id, @RequestBody Organisation newOrganisationInfo){
+    public Organisation updateOrganisation(@PathVariable Long id, @RequestBody Organisation newOrganisationInfo) {
         Organisation organisation = orgService.updateOrganisation(id, newOrganisationInfo);
-        if(organisation == null) return null;
-        
+        if (organisation == null)
+            return null;
+
         return organisation;
     }
 
     @PutMapping("/organisation/approve/{id}")
-    public Organisation approveOrganisation(@PathVariable Long id){
+    public Organisation approveOrganisation(@PathVariable Long id) {
         Organisation organisation = orgService.approveOrganisation(id);
-        if(organisation == null) return null;
+        if (organisation == null)
+            return null;
 
         User user = organisation.getOwner();
-        if(user == null) return null;
+        if (user == null)
+            return null;
 
         users.updateUserRole(user, "ROLE_OWNER");
         return organisation;
     }
 
-
     /**
-     * Remove a book with the DELETE request to "/books/{id}"
-     * If there is no book with the given "id", throw a BookNotFoundException
+     * Remove a book with the DELETE request to "/books/{id}" If there is no book
+     * with the given "id", throw a BookNotFoundException
+     * 
      * @param id
      */
     @DeleteMapping("/organisation/{id}")
-    public void deleteOrganisation(@PathVariable Long id){
-        try{
+    public void deleteOrganisation(@PathVariable Long id) {
+        try {
             orgService.deleteOrganisation(id);
-         }catch(EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             // throw new BookNotFoundException(id);
-         }
+        }
     }
 
-    @GetMapping("/organisations/employee")
-    public List<User> getOrganisationEmployees(){
+    @GetMapping("/organisation/employee")
+    public List<User> getOrganisationEmployees() {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-        .getPrincipal();
-        
+                .getPrincipal();
+
         User user = users.getUserByUsername(userDetails.getUsername());
-        if(user == null) return null;
+        if (user == null)
+            return null;
 
         Organisation organisation = user.getOrganisation();
-        if(organisation == null) return null;
+        if (organisation == null)
+            return null;
 
         return organisation.getEmployee();
     }
 
     @PostMapping("/organisation/employee")
-    public Organisation addOgranisationEmployee(@RequestBody Organisation org){
+    public Organisation addOgranisationEmployee(@RequestBody Organisation org) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-        .getPrincipal();
+                .getPrincipal();
 
         User employee = users.getUserByUsername(userDetails.getUsername());
-        if(org.getCode() == null) return null;
+        if (org.getCode() == null)
+            return null;
         return orgService.addEmployee(org.getCode(), employee);
     }
 
+    @DeleteMapping("/organisation/employee/{id}")
+    public void removeOgranisationEmployee(@PathVariable Long id) {
+        User employee = users.getUser(id);
+        users.updateUserRole(employee, "ROLE_USER");
+
+        users.quitOrganisation(employee);
+    }
+
     @GetMapping("/organisation/{code}")
-    public Organisation addOgranisationEmployee(@PathVariable String code){
+    public Organisation addOgranisationEmployee(@PathVariable String code) {
         return orgService.getOrganisationByCode(code);
+    }
+
+    @PutMapping("/organisation/promote/{id}")
+    public Organisation promoteEmployee(@PathVariable Long id) {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+
+        User manager = users.getUserByUsername(userDetails.getUsername());
+        if (manager == null)
+            return null;
+
+        User employee = users.getUser(id);
+        if (employee == null)
+            return null;
+
+        if (manager.getOrganisation() != employee.getOrganisation())
+            return null;
+
+        users.updateUserRole(employee, "ROLE_MANAGER");
+        return null;
+    }
+
+    @PutMapping("/organisation/demote/{id}")
+    public Organisation demoteEmployee(@PathVariable Long id) {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+
+        User manager = users.getUserByUsername(userDetails.getUsername());
+        if (manager == null)
+            return null;
+
+        User employee = users.getUser(id);
+        if (employee == null)
+            return null;
+
+        if (manager.getOrganisation() != employee.getOrganisation())
+            return null;
+
+        users.updateUserRole(employee, "ROLE_USER");
+        return null;
     }
 }
