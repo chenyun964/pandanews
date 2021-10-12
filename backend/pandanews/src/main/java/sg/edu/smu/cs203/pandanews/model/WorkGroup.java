@@ -1,5 +1,7 @@
 package sg.edu.smu.cs203.pandanews.model;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Date;
 
@@ -33,6 +35,9 @@ public class WorkGroup {
 
     @Setter
     private String workGroupName;
+
+    @Setter
+    private LocalTime reportTime;
 
     @Setter
     @ElementCollection

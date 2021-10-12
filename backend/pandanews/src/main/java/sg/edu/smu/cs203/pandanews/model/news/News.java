@@ -14,7 +14,7 @@ public class News {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String title;
 
@@ -72,7 +72,7 @@ public class News {
         updatedAt = (Date) param;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

@@ -6,6 +6,7 @@ const register_api = API_HOSTS + '/register';
 
 //News
 const news_list_api = API_HOSTS + '/news/list'
+const news_get_top_4_api = API_HOSTS + '/news/find/top4news'
 
 //Category
 const category_list_api = API_HOSTS + '/category/list'
@@ -37,6 +38,7 @@ const vaccispots_vaccitype_api = vaccispots_api + '/vaccitype';
 
 export default{
     API_HOSTS,
+    news_get_top_4_api,
     authenticate_api,
     register_api,
     org_api,

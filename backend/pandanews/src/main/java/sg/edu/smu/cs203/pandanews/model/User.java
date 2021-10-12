@@ -24,6 +24,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.*;
+import sg.edu.smu.cs203.pandanews.model.Attendance.Attendance;
 
 @Entity
 @Getter
@@ -51,6 +52,10 @@ public class User implements UserDetails {
 
     @Setter
     private String contact;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Attendance> attendances;
 
     @Setter
     @Column(columnDefinition = "bit(1) default 0")
@@ -80,9 +85,7 @@ public class User implements UserDetails {
 
     // We define three roles
     /*
-     * ROLE_USER 
-     * ROLE_MANAGER
-     * ROLE_OWNER
+     * ROLE_USER ROLE_MANAGER ROLE_OWNER
      * 
      * ROLE_ADMIN
      */

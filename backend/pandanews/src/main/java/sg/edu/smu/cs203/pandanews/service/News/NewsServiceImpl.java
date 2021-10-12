@@ -5,11 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 import sg.edu.smu.cs203.pandanews.model.news.News;
-import sg.edu.smu.cs203.pandanews.model.news.NewsListDAO;import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
+import sg.edu.smu.cs203.pandanews.model.news.NewsListDAO;
+import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
 
 import java.time.LocalDate;
 import java.util.List;
-
 
 @Service
 public class NewsServiceImpl implements NewsService {
@@ -19,7 +19,6 @@ public class NewsServiceImpl implements NewsService {
 
     @Autowired
     private NewsRepository newsRepository;
-
 
     @Override
     public News createNewsByManual(News news) {
@@ -32,6 +31,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+
     public News updateNews(long id, News news) {
         return newsRepository.findById(id).map(newNews -> {
             newNews.setTitle(news.getTitle());
@@ -46,6 +46,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+
     public void deleteNews(long id) {
         newsRepository.deleteById(id);
     }
