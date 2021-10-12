@@ -12,12 +12,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import sg.edu.smu.cs203.pandanews.service.WorkGroupService;
+import sg.edu.smu.cs203.pandanews.exception.UnauthenticatedException;
+import sg.edu.smu.cs203.pandanews.exception.UnauthorizedUserException;
+import sg.edu.smu.cs203.pandanews.service.WorkGroup.WorkGroupService;
 import sg.edu.smu.cs203.pandanews.model.WorkGroup;
+import sg.edu.smu.cs203.pandanews.service.User.UserService;
+import sg.edu.smu.cs203.pandanews.repository.UserRepository;
+import sg.edu.smu.cs203.pandanews.model.User.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @RestController
 public class WorkGroupController {
     private WorkGroupService workGroupService;
+    private UserService userService;
+    private UserRepository users;
 
     public WorkGroupController(WorkGroupService workGroupService){
         this.workGroupService = workGroupService;
@@ -28,7 +37,14 @@ public class WorkGroupController {
      * @return list of all books
      */
     @GetMapping("/organisations/{oid}/workgroups")
-    public List<WorkGroup> getWorkGroups(@PathVariable Long oid){
+    public List<WorkGroup> getWorkGroups(@PathVariable Long oid) throws UnauthenticatedException, UnauthorizedUserException {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user = userService.getUserByUsername(userDetails.getUsername());
+        if(user == null) throw new UnauthenticatedException();
+
+        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+
         return workGroupService.listWorkGroups(oid);
     }
 
@@ -39,7 +55,14 @@ public class WorkGroupController {
      * @return book with the given id
      */
     @GetMapping("/organisations/{oid}/workgroups/{id}")
-    public WorkGroup getWorkGroup(@PathVariable Long id){
+    public WorkGroup getWorkGroup(@PathVariable Long oid, @PathVariable Long id) throws UnauthenticatedException, UnauthorizedUserException {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user = userService.getUserByUsername(userDetails.getUsername());
+        if(user == null) throw new UnauthenticatedException();
+
+        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+
         WorkGroup workGroup = workGroupService.getWorkGroup(id);
 
         // Need to handle "book not found" error using proper HTTP status code
@@ -56,7 +79,14 @@ public class WorkGroupController {
      */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/organisations/{oid}/workgroups")
-    public WorkGroup addWorkGroup(@PathVariable Long oid, @RequestBody WorkGroup workGroup){
+    public WorkGroup addWorkGroup(@PathVariable Long oid, @RequestBody WorkGroup workGroup) throws UnauthenticatedException, UnauthorizedUserException {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user = userService.getUserByUsername(userDetails.getUsername());
+        if(user == null) throw new UnauthenticatedException();
+
+        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+
         return workGroupService.addWorkGroup(workGroup);
     }
 
@@ -67,7 +97,14 @@ public class WorkGroupController {
      * @return the updated, or newly added book
      */
     @PutMapping("/organisations/{oid}/workgroups/{id}")
-    public WorkGroup updateWorkGroup(@PathVariable Long oid, @PathVariable Long id, @RequestBody WorkGroup newWorkGroupInfo){
+    public WorkGroup updateWorkGroup(@PathVariable Long oid, @PathVariable Long id, @RequestBody WorkGroup newWorkGroupInfo) throws UnauthenticatedException, UnauthorizedUserException {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user = userService.getUserByUsername(userDetails.getUsername());
+        if(user == null) throw new UnauthenticatedException();
+
+        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+
         WorkGroup workGroup = workGroupService.updateWorkGroup(id, newWorkGroupInfo);
         if(workGroup == null) return null;
         
@@ -80,7 +117,14 @@ public class WorkGroupController {
      * @param id
      */
     @DeleteMapping("/organisations/{oid}/workgroups/{id}")
-    public void deleteWorkGroup(@PathVariable Long oid, @PathVariable Long id){
+    public void deleteWorkGroup(@PathVariable Long oid, @PathVariable Long id) throws UnauthenticatedException, UnauthorizedUserException {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user = userService.getUserByUsername(userDetails.getUsername());
+        if(user == null) throw new UnauthenticatedException();
+
+        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+
         try {
             workGroupService.deleteWorkGroup(id);
         } catch(EmptyResultDataAccessException e) {

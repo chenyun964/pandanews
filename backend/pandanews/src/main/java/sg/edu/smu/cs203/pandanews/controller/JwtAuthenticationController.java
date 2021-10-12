@@ -16,14 +16,12 @@ import org.springframework.http.HttpStatus;
 import javax.validation.Valid;
 import org.springframework.web.server.ResponseStatusException;
 
-import sg.edu.smu.cs203.pandanews.service.JwtUserDetailsService;
+import sg.edu.smu.cs203.pandanews.service.User.JwtUserDetailsService;
 import sg.edu.smu.cs203.pandanews.util.JwtTokenUtil;
-import sg.edu.smu.cs203.pandanews.model.JwtRequest;
-import sg.edu.smu.cs203.pandanews.model.JwtResponse;
+import sg.edu.smu.cs203.pandanews.model.User.JwtRequest;
+import sg.edu.smu.cs203.pandanews.model.User.JwtResponse;
 import sg.edu.smu.cs203.pandanews.dto.AdminDTO;
 import sg.edu.smu.cs203.pandanews.dto.UserDTO;
-
-import sg.edu.smu.cs203.pandanews.model.User;
 
 @RestController
 @CrossOrigin

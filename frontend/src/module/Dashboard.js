@@ -1,30 +1,39 @@
 import { Component, Fragment } from 'react';
-import LoginModel from '../model/LoginModel';
 import OrganisationModel from '../model/OrganisationModel';
+import UserModel from '../model/UserModel';
+import { Modal, Button, Typography, Result } from 'antd';
+
+const { Text } = Typography;
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            profile: {},
             fields: {},
             errors: {},
+            company: {},
             loading: false,
             loginFailed: false
         }
     }
 
     componentDidMount() {
-        if (!LoginModel.retrieveToken()) {
-            this.props.history.push("/login");
-        } else {
-            OrganisationModel.myOrg().then(res => {
-                this.setState({
-                    company: res.data
-                })
-            }).catch(e => {
-                console.log(e)
+        UserModel.userOrg().then(res => {
+            this.setState({
+                company: res.data
             })
-        }
+        }).catch(e => {
+            console.log(e)
+        })
+
+        UserModel.profile().then(res => {
+            this.setState({
+                profile: res.data
+            })
+        }).catch(e => {
+            console.log(e)
+        })
     }
 
     handleChange(field, e) {
@@ -70,7 +79,6 @@ class Dashboard extends Component {
             errors["contact"] = "Contact cannot be empty";
         }
 
-
         if (typeof fields["contact"] !== "undefined") {
             if (!fields["contact"].match(/^[0-9+-]+$/)) {
                 formIsValid = false;
@@ -103,7 +111,7 @@ class Dashboard extends Component {
     }
 
     renderOptions() {
-        if (this.state.company === undefined || this.state.company == null) {
+        if (this.state.company === "" || this.state.company === undefined || this.state.company == null) {
             return this.renderBothForm();
         } else if (this.state.company.status === 0) {
             return this.renderPending(1);
@@ -150,7 +158,7 @@ class Dashboard extends Component {
                                     value={this.state.fields["contact"]} />
                                 <span className="input-error-msg">{this.state.errors["contact"]}</span>
                             </div>
-                            <a href="#" class="btn btn-primary" onClick={() => this.createOrg()}>Create Now</a>
+                            <button class="btn btn-primary" onClick={() => this.createOrg()}>Create Now</button>
                         </div>
                     </div>
                 </div>
@@ -203,13 +211,106 @@ class Dashboard extends Component {
         </Fragment>
     }
 
+    info() {
+        Modal.confirm({
+            title: 'This action is non reversible',
+            content: (
+                <div>
+                    <p>Are you sure you wanto to delete <Text mark>{this.state.company.title}</Text></p>
+                </div>
+            ),
+            okText: "Delete",
+            okType: "danger",
+            onOk: () => {
+                this.confirmDelete();
+            }
+        });
+    }
+
+    confirmDelete() {
+        OrganisationModel.delete(this.state.company.id).then(res => {
+            window.location.reload();
+        }).catch(e => {
+            console.log(e)
+        })
+    }
+
+    updateVaccinated(){
+        UserModel.vaccinated().then(res => {
+            this.setState({
+                profile: res.data
+            })
+        }).catch(e => {
+            console.log(e);
+        })
+    }
+
     renderDashboard() {
         return <Fragment>
-            <div class="row">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Ogranisation Name: {this.state.company.title}</h5>
-                        <p class="card-text">Contact Number: {this.state.company.contact}</p>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Ogranisation Name: {this.state.company.title}</h5>
+                    <p class="card-text">Contact Number: {this.state.company.contact}</p>
+                    <Button danger onClick={() => this.info()}>Delete</Button>
+                </div>
+            </div>
+            <div className="d-flex card-container">
+                <div class="card mb-3 flex-fill">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Hi, {this.state.profile.name ? this.state.profile.name : this.state.profile.username}</h5>
+                        <div className="d-flex">
+                            <div className="flex-fill text-center">
+                                {this.state.profile.vaccinated ?
+                                    <Result
+                                        status="success"
+                                        title="Vaccinated"
+                                    />
+                                    :
+                                    <Result
+                                        status="warning"
+                                        title="Not Vaccinated"
+                                        extra={
+                                            <Button type="primary" key="console" onClick={() => this.updateVaccinated()}>
+                                                Vaccinate Now
+                                            </Button>
+                                        }
+                                    />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3 flex-fill">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Timesheet <span>11 Oct 2021</span></h5>
+                        <div>
+                            <p>Punch in at</p>
+                            <p>Wed, 11th Oct 2021 10.00 AM</p>
+                        </div>
+                        <div classname="text-center">
+                            <div class="progress blue">
+                                <span class="progress-left">
+                                    <span class="progress-bar"></span>
+                                </span>
+                                <span class="progress-right">
+                                    <span class="progress-bar"></span>
+                                </span>
+                                <div class="progress-value">90%</div>
+                            </div>
+                        </div>
+
+                        <button className="btn btn-primary mt-3">Punch Out</button>
+                        <hr />
+                        <div className="d-flex">
+                            <div className="flex-fill text-center">
+                                <p>BREAK</p>
+                                <p>1.21 hrs</p>
+                            </div>
+                            <div className="flex-fill text-center">
+                                <p>Overtime</p>
+                                <p>3 hrs</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -218,9 +319,11 @@ class Dashboard extends Component {
 
     render() {
         return (
-            <div className="flex-fill p-5">
-                <h1 className="text-center">Dashboard</h1>
-                {this.renderOptions()}
+            <div className="p-5 flex-fill">
+                <div className="flex-fill">
+                    <h1>Dashboard</h1>
+                    {this.renderOptions()}
+                </div>
             </div>
         );
     }

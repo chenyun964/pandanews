@@ -48,25 +48,41 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
-
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		// We don't need CSRF for this example
 		httpSecurity.cors().and().csrf().disable()
 				// dont authenticate this particular request
 				.authorizeRequests()
+				// Production API
 				.antMatchers("/authenticate", "/register", "/admin/authenticate", "/admin/register").permitAll()
 				.antMatchers("/organisation/approve/*").hasRole("ADMIN")
-				.antMatchers("/organisation/**").authenticated()
+				.antMatchers("/organisation/employee").hasAnyRole("ADMIN", "MANAGER", "OWNER")
+
+				// API Under development
 				// role-specific requests
 				.antMatchers(HttpMethod.GET, "/organisations/*/workgroups", "/organisations/*/workgroups/*").permitAll()
+				.antMatchers(HttpMethod.GET, "/news/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/news/**").permitAll()
+				.antMatchers(HttpMethod.PUT, "/news/**").permitAll()
+				.antMatchers(HttpMethod.DELETE, "/news/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/category/*").permitAll()
+				.antMatchers(HttpMethod.POST, "/category/*").permitAll()
+				.antMatchers(HttpMethod.PUT, "/category/*").permitAll()
+				.antMatchers(HttpMethod.DELETE, "/category/*").permitAll()
 				.antMatchers("/measurements/*").permitAll()
 				.antMatchers("/measurements").permitAll()
 				.antMatchers(HttpMethod.POST, "/organisations/*/workgroups").hasAnyRole("ADMIN", "MANAGER")
 				.antMatchers(HttpMethod.PUT, "/organisations/*/workgroups/*").hasAnyRole("ADMIN", "MANAGER")
 				.antMatchers(HttpMethod.DELETE, "/organisations/*/workgroups/*").hasAnyRole("ADMIN", "MANAGER")
+				.antMatchers("/organisation/promote/*").hasRole("OWNER")
+				.antMatchers("/organisation/demote/*").hasRole("OWNER")
+				.antMatchers("/organisation/employee/*").hasAnyRole("OWNER", "MANAGER")
+				.antMatchers("/organisation/**").authenticated()
+				.antMatchers("/users/**").authenticated()
 
 				// all other requests need to be authenticated
+
 				.anyRequest().authenticated().and()
 				// make sure we use stateless session; session won't be used to store user's state
 				.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
@@ -75,4 +91,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// Add a filter to validate the tokens with every request
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 	}
+
+
+//	@Override
+//	protected void configure(HttpSecurity httpSecurity) throws Exception {
+//		// We don't need CSRF for this example
+//		httpSecurity.csrf().disable()
+//				// dont authenticate this particular request
+//				.authorizeRequests().antMatchers("/authenticate", "/register").permitAll().
+//				// all other requests need to be authenticated
+//				anyRequest().authenticated().and().
+//				// make sure we use stateless session; session won't be used to store user's
+//				// state.
+//				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+//				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//
+//		// Add a filter to validate the tokens with every request
+//		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+//	}
 }

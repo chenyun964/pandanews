@@ -21,6 +21,7 @@ class LoginRoutes extends Component {
             <div class="content-wrapper">
                 <TopNav />
                 <Switch>
+                    <Route exact path="/" component={Dashboard} />
                     <Route exact path="/dashboard" component={Dashboard} />
                     <Route exact path="/organisation" component={Organisation} />
                 </Switch>
@@ -34,6 +35,7 @@ class AllRoutes extends Component {
         return (
             <Fragment>
                 <Switch>
+                    <Route exact path="/news" component={Login} />
                     <Route exact path="/login" component={Login} />
                     <LoginRoutes />
                 </Switch>

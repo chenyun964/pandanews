@@ -3,7 +3,7 @@ import config from '../config/Config';
 
 class OrganisationModel {
   async create(data) {
-    return axiosJwt.post(config['org_create_api'], data);
+    return axiosJwt.post(config['org_api'], data);
   }
 
   async join(data) {
@@ -12,6 +12,30 @@ class OrganisationModel {
 
   async myOrg() {
     return axiosJwt.get(config["org_my_org_api"]);
+  }
+
+  async employee() {
+    return axiosJwt.get(config["org_employee_api"]);
+  }
+
+  async getByCode(code){
+    return axiosJwt.get(config['org_api'] + "/" + code);
+  }
+
+  async delete(id) {
+    return axiosJwt.delete(config['org_api'] + "/" + id);
+  }
+
+  async promote(id){
+    return axiosJwt.put(config['org_employee_promote_api'] + "/" + id);
+  }
+
+  async demote(id){
+    return axiosJwt.put(config['org_employee_demote_api'] + "/" + id);
+  }
+
+  async remove(id){
+    return axiosJwt.delete(config['org_employee_api'] + "/" + id);
   }
 }
 

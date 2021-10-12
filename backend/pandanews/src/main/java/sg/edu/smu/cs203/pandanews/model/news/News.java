@@ -1,7 +1,10 @@
 package sg.edu.smu.cs203.pandanews.model.news;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Setter;
 import org.hibernate.annotations.Type;
+import sg.edu.smu.cs203.pandanews.model.category.Category;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,7 +14,7 @@ public class News {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String title;
 
@@ -34,6 +37,12 @@ public class News {
         this.coverImage = coverImage;
         this.date = date;
     }
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    @JsonIgnore
+    private Category category;
+
 
     public News() {
     }
@@ -63,7 +72,7 @@ public class News {
         updatedAt = (Date) param;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -142,4 +151,5 @@ public class News {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
 }

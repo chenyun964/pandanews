@@ -12,14 +12,21 @@ class Login extends Component {
             },
             errors: {},
             loading: false,
-            loginFailed: false
+            loginFailed: false,
+            expired: false
         }
     }
 
-    
     componentDidMount() {
         if (LoginModel.retrieveToken()) {
             window.location.replace("/dashboard");
+        }
+
+        let expired = new URLSearchParams(this.props.location.search).get("session")
+        if (expired) {
+            this.setState({
+                expired: true
+            })
         }
     }
 
@@ -55,9 +62,9 @@ class Login extends Component {
             loading: true
         })
         if (this.handleValidation()) {
+            // if everyone is verfied
             LoginModel.authenticate(this.state.fields).then(res => {
                 this.storeToken(res.data);
-                this.props.history.push("/dashboard");
             }).catch(e => {
                 this.setState({
                     loginFailed: true
@@ -75,7 +82,15 @@ class Login extends Component {
      * @return void
      */
     storeToken(data) {
-        LoginModel.storeTokens(data);
+        LoginModel.storeTokens(data).then(res => {
+            let redirect = new URLSearchParams(this.props.location.search).get("redirect");
+            console.log(redirect);
+            if (redirect) {
+                window.location.replace(decodeURIComponent(redirect));
+            } else {
+                window.location.replace("/dashboard");
+            }
+        });
     }
 
     render() {
@@ -95,7 +110,13 @@ class Login extends Component {
                                     {this.state.loginFailed &&
                                         <div class="mb-1 text-center">
                                             <span className="input-error-msg">Invalid useranem and password</span>
-                                        </div>}
+                                        </div>
+                                    }
+                                    {this.state.expired &&
+                                        <div class="mb-1 text-center">
+                                            <span className="input-error-msg">Session has expired, please login again</span>
+                                        </div>
+                                    }
                                     <div class="mb-3">
                                         <input type="text" class="form-control" placeholder="username" ref="username" onChange={this.handleChange.bind(this, "username")}
                                             value={this.state.fields["username"]} />

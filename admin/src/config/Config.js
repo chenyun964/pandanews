@@ -8,7 +8,10 @@ const register_api = API_HOSTS + '/admin/register';
 const org_api = API_HOSTS + '/organisation';
 const org_approve_api = API_HOSTS + '/organisation/approve';
 
+const news_list_api = '/news/list';
+
 export default {
+    news_list_api,
     API_HOSTS,
     authenticate_api,
     register_api,
