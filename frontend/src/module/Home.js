@@ -1,21 +1,31 @@
-import { Component, Fragment } from 'react';
+import { Component } from 'react';
 import NewsModel from '../model/NewsModel';
 import CategoryModel from '../model/CategoryModel';
 import { Link } from "react-router-dom";
+import { Carousel } from 'antd';
+import Measurement from './Measurement';
 import moment from 'moment';
 
-class Category extends Component {
+const contentStyle = {
+    height: '500px',
+    color: '#fff',
+    textAlign: 'center',
+};
+
+class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
             news: [],
             category: [],
-            slug: this.props.match.params.category
+            top_4_news: []
         }
+
     }
 
     componentDidMount() {
         CategoryModel.list().then(res => {
+            console.log(res.data);
             this.setState({
                 category: res.data
             })
@@ -24,28 +34,44 @@ class Category extends Component {
         })
 
         NewsModel.list().then(res => {
+            console.log(res.data);
             this.setState({
                 news: res.data
             })
         }).catch(e => {
             console.log(e);
         })
-    }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.match.params.category !== this.props.match.params.category) {
+        NewsModel.list_top_4().then(res => {
+            console.log(res.data);
             this.setState({
-                slug: this.props.match.params.category,
-            });
-        }
+                top_4_news: res.data
+            })
+        }).catch(e => {
+            console.log(e);
+        })
     }
 
     render() {
         return (
-            <Fragment>
-                <div className="category-container text-center">
-                    <h1 className="title">Category: {this.state.slug}</h1>
-                </div>
+            <div>
+                <Carousel autoplay>
+                    {this.state.top_4_news.map((news, i) => {
+                        return (
+                            <div className="carousel-item" style={contentStyle}>
+                                <div style={contentStyle}>
+                                    <img className=" w-100" src={news.coverImage} alt=""></img>
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5>{news.title}</h5>
+                                        <p>{news.description}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </Carousel>
+
+                <Measurement />
                 <div className="element-container">
                     <div className="container">
                         <div className="row">
@@ -82,12 +108,13 @@ class Category extends Component {
                             </div>
                         </div>
                     </div>
+
                 </div>
-            </Fragment>
+            </div>
         );
     }
 
 }
 
-export default Category;
+export default Home;
 
