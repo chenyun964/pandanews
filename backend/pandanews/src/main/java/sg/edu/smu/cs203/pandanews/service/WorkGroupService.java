@@ -7,7 +7,7 @@ import sg.edu.smu.cs203.pandanews.model.WorkGroup;
 
 @Service
 public interface WorkGroupService {
-    List<WorkGroup> getWorkGroups(Long organisationId);
+    List<WorkGroup> listWorkGroups(Long organisationId);
     WorkGroup getWorkGroup(Long id);
     WorkGroup addWorkGroup(WorkGroup workgroup);
     WorkGroup updateWorkGroup(Long id, WorkGroup workgroup);
