@@ -267,7 +267,7 @@ class VacciSpotAdminTable extends Component {
         return (
             <div>
                 <Button
-                    onClick={() => this.handleAdd()}
+                    onClick={() => {this.handleAdd(); this.edit(this.state.data[0])}}
                     type="primary"
                     style={{
                         marginBottom: 16,
