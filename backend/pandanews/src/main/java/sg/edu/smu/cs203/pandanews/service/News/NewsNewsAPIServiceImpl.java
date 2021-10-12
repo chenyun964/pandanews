@@ -65,6 +65,10 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
         for (NewsDAO news : newsListDAO.getValue()) {
             News n = null;
             if (news.getImage() != null) {
+                String url = news.getImage().getThumbnail().getContentUrl();
+                if(url.contains("&pid=News")){
+                    news.getImage().getThumbnail().setContentUrl(url.substring(0, url.length() - 9));
+                }
                 n = new News(news.getName(), news.getDescription(), news.getUrl(),
                         news.getImage().getThumbnail().getContentUrl(),
                         formatter(news.getDatePublished()));
