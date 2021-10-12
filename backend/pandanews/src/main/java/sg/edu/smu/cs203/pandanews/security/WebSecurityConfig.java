@@ -58,16 +58,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// Production API
 				.antMatchers("/authenticate", "/register", "/admin/authenticate", "/admin/register").permitAll()
 				.antMatchers("/organisation/approve/*").hasRole("ADMIN")
-				.antMatchers("/organisation/employees").hasAnyRole("ADMIN", "MANAGER", "OWNER")
+				.antMatchers("/organisation/employee").hasAnyRole("ADMIN", "MANAGER", "OWNER")
 
 				// API Under development
 				// role-specific requests
 				.antMatchers(HttpMethod.GET, "/organisations/*/workgroups", "/organisations/*/workgroups/*").permitAll()
+				.antMatchers(HttpMethod.GET, "/news/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/news/**").permitAll()
+				.antMatchers(HttpMethod.PUT, "/news/**").permitAll()
+				.antMatchers(HttpMethod.DELETE, "/news/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/category/*").permitAll()
+				.antMatchers(HttpMethod.POST, "/category/*").permitAll()
+				.antMatchers(HttpMethod.PUT, "/category/*").permitAll()
+				.antMatchers(HttpMethod.DELETE, "/category/*").permitAll()
 				.antMatchers("/measurements/*").permitAll()
 				.antMatchers("/measurements").permitAll()
 				.antMatchers(HttpMethod.POST, "/organisations/*/workgroups").hasAnyRole("ADMIN", "MANAGER")
 				.antMatchers(HttpMethod.PUT, "/organisations/*/workgroups/*").hasAnyRole("ADMIN", "MANAGER")
 				.antMatchers(HttpMethod.DELETE, "/organisations/*/workgroups/*").hasAnyRole("ADMIN", "MANAGER")
+				.antMatchers("/organisation/promote/*").hasRole("OWNER")
+				.antMatchers("/organisation/demote/*").hasRole("OWNER")
+				.antMatchers("/organisation/employee/*").hasAnyRole("OWNER", "MANAGER")
 				.antMatchers("/organisation/**").authenticated()
 				.antMatchers("/users/**").authenticated()
 

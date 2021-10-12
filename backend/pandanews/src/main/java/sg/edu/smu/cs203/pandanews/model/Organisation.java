@@ -45,12 +45,12 @@ public class Organisation {
 
     @Setter
     @ManyToOne
-    @JoinColumn(name = "owner_id", nullable = false)
+    @JoinColumn(name = "owner_id")
     @JsonIgnore
     private User owner;
 
     @Setter
-    @OneToMany(mappedBy = "organisation", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "organisation")
     @JsonIgnore
     private List<User> employee;
 

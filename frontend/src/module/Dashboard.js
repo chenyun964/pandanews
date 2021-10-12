@@ -1,13 +1,18 @@
 import { Component, Fragment } from 'react';
 import OrganisationModel from '../model/OrganisationModel';
 import UserModel from '../model/UserModel';
+import { Modal, Button, Typography, Result } from 'antd';
+
+const { Text } = Typography;
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            profile: {},
             fields: {},
             errors: {},
+            company: {},
             loading: false,
             loginFailed: false
         }
@@ -17,6 +22,14 @@ class Dashboard extends Component {
         UserModel.userOrg().then(res => {
             this.setState({
                 company: res.data
+            })
+        }).catch(e => {
+            console.log(e)
+        })
+
+        UserModel.profile().then(res => {
+            this.setState({
+                profile: res.data
             })
         }).catch(e => {
             console.log(e)
@@ -198,22 +211,71 @@ class Dashboard extends Component {
         </Fragment>
     }
 
+    info() {
+        Modal.confirm({
+            title: 'This action is non reversible',
+            content: (
+                <div>
+                    <p>Are you sure you wanto to delete <Text mark>{this.state.company.title}</Text></p>
+                </div>
+            ),
+            okText: "Delete",
+            okType: "danger",
+            onOk: () => {
+                this.confirmDelete();
+            }
+        });
+    }
+
+    confirmDelete() {
+        OrganisationModel.delete(this.state.company.id).then(res => {
+            window.location.reload();
+        }).catch(e => {
+            console.log(e)
+        })
+    }
+
+    updateVaccinated(){
+        UserModel.vaccinated().then(res => {
+            this.setState({
+                profile: res.data
+            })
+        }).catch(e => {
+            console.log(e);
+        })
+    }
+
     renderDashboard() {
         return <Fragment>
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Ogranisation Name: {this.state.company.title}</h5>
                     <p class="card-text">Contact Number: {this.state.company.contact}</p>
+                    <Button danger onClick={() => this.info()}>Delete</Button>
                 </div>
             </div>
             <div className="d-flex card-container">
                 <div class="card mb-3 flex-fill">
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Hi, Test</h5>
+                        <h5 class="card-title">Hi, {this.state.profile.name ? this.state.profile.name : this.state.profile.username}</h5>
                         <div className="d-flex">
                             <div className="flex-fill text-center">
-                                <p>Vaccinated</p>
-                                <p>Vaccinated or not</p>
+                                {this.state.profile.vaccinated ?
+                                    <Result
+                                        status="success"
+                                        title="Vaccinated"
+                                    />
+                                    :
+                                    <Result
+                                        status="warning"
+                                        title="Not Vaccinated"
+                                        extra={
+                                            <Button type="primary" key="console" onClick={() => this.updateVaccinated()}>
+                                                Vaccinate Now
+                                            </Button>
+                                        }
+                                    />
+                                }
                             </div>
                         </div>
                     </div>
