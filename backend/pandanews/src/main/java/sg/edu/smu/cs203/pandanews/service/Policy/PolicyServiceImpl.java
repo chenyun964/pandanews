@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.service;
+package sg.edu.smu.cs203.pandanews.service.Policy;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class PolicyServiceImpl implements PolicyService {
     public Policy updatePolicy(Long id, Policy newPolicy) {
         return policies.findById(id).map(policy -> {
             policy.setMessage(newPolicy.getMessage());
-            policy.setValidity(newPolicy.getValidity())
+            policy.setValidity(newPolicy.getValidity());
             return policies.save(policy);
         }).orElse(null);
     }

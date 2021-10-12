@@ -1,11 +1,12 @@
-package sg.edu.smu.cs203.pandanews.service;
+package sg.edu.smu.cs203.pandanews.service.Attendance;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sg.edu.smu.cs203.pandanews.model.Attendance.Attendance;
-import sg.edu.smu.cs203.pandanews.model.User;
+import sg.edu.smu.cs203.pandanews.model.User.User;
 import sg.edu.smu.cs203.pandanews.repository.AttendanceRepository;
+import sg.edu.smu.cs203.pandanews.service.User.UserServiceImpl;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

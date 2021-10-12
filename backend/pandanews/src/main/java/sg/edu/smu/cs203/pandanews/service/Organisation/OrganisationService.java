@@ -1,11 +1,10 @@
-package sg.edu.smu.cs203.pandanews.service;
+package sg.edu.smu.cs203.pandanews.service.Organisation;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
-import sg.edu.smu.cs203.pandanews.model.User;
+import sg.edu.smu.cs203.pandanews.model.User.User;
 import sg.edu.smu.cs203.pandanews.model.Organisation;
 import sg.edu.smu.cs203.pandanews.dto.OrganisationDTO;
-import sg.edu.smu.cs203.pandanews.model.User;
 
 @Service
 public interface OrganisationService {

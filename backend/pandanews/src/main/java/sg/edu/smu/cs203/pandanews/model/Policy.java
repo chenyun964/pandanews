@@ -32,7 +32,7 @@ public class Policy {
 
     @Setter
     @Column
-    private boolean validity;
+    private Boolean validity;
 
     @ManyToOne
     @JoinColumn(name = "organisation_id", nullable = false)

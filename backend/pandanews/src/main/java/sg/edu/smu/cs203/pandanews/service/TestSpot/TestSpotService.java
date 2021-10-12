@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.service;
+package sg.edu.smu.cs203.pandanews.service.TestSpot;
 
 import java.util.List;
 

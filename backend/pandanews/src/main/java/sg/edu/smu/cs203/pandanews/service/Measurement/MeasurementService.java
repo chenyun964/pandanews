@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.service;
+package sg.edu.smu.cs203.pandanews.service.Measurement;
 
 import java.util.List;
 import org.springframework.stereotype.Service;

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sg.edu.smu.cs203.pandanews.model.Attendance.AttendanceUpdateDTO;
-import sg.edu.smu.cs203.pandanews.service.AttendanceServiceImpl;
+import sg.edu.smu.cs203.pandanews.service.Attendance.AttendanceServiceImpl;
 
 import java.time.LocalDate;
 
