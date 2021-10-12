@@ -11,6 +11,7 @@ const org_my_org_api = API_HOSTS + "/organisation/owner";
 
 //Measurements
 const measurement_api = API_HOSTS + '/measurements';
+const mea_create_api = API_HOSTS + '/measurements';
 
 export default {
     API_HOSTS,
@@ -19,5 +20,6 @@ export default {
     org_create_api,
     org_join_api,
     org_my_org_api,
-    measurement_api
+    measurement_api,
+    mea_create_api
 }

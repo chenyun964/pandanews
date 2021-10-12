@@ -1,19 +1,9 @@
 import { Component } from 'react';
 import MeasurementModel from "../model/MeasurementModel";
-
 import React from 'react';
-import {
-    Header,
-    Item
-} from 'semantic-ui-react';
 import "../App.css";
+import"../index.js";
 
-const style = {
-    h3: {
-      marginTop: '2em',
-      padding: '2em 0em',
-    }
-  }
 // import ReactDOM from "react-dom";
 // import { Col, Row, Container } from "@kunukn/react-bootstrap-grid";
 
@@ -36,26 +26,18 @@ class Measurement extends Component {
     }
 
     render() {
-        //const {measurements} = this.state;
         return (
             <div className="meaInfographic">
                 <header className="App-header">
                     <div className="App-intro">
-                        <Header as='h3' content='Latest Measurements' style={style.h3} textAlign='center' />
+                        <h2 style={{'padding-top':'0%'}}>Latest Measurements</h2>
                         {this.state.measurements.map((m, i) => {
-                            return (<div key={m.id}>
-                                <Item.Group>
-                                    <Item>
-                                    <Item.Image size='small' height="150px" src='https://react.semantic-ui.com/images/wireframe/image.png' />
-
-                                    <Item.Content>
-                                        <Item.Header as='a' >{m.title}</Item.Header>
-                                        <Item.Description >
-                                        <p>{m.content}</p>
-                                        </Item.Description>
-                                    </Item.Content>
-                                    </Item>
-                                </Item.Group>
+                            return (<div key={m.id} class="grid-container-element">
+                                    <div class="grid-child-element">
+                                        <img style={{ "display": "inline-block" }} height="50px" src='https://react.semantic-ui.com/images/wireframe/image.png' />
+                                        <h3 style={{ "color": "White", "display": "inline-block",'padding-left': '0.3cm'}}>{m.title}</h3>
+                                        <p style={{ "size": "1pt", 'paddingRight':"0.5cm"}}>{m.content}</p>
+                                    </div>
                             </div>
                             )
                         }
