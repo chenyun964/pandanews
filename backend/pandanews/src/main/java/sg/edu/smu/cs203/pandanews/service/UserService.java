@@ -17,4 +17,6 @@ public interface UserService {
     User updateUserCompany(Long id, Organisation organisation);
     User updateUserRole(User user, String role);
     User joinOrganisation(User user, Organisation organisation);
+    User updateVaccine(User user);
+    void quitOrganisation(User user);
 }

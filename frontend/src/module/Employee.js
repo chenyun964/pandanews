@@ -3,43 +3,7 @@ import { message, Modal, Table, Tag, Space, Button } from 'antd';
 import OrganisationModel from '../model/OrganisationModel';
 import UserModel from '../model/UserModel';
 
-const columns = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-        render: text => <a>{text}</a>,
-    },
-    {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
-    },
-    {
-        title: 'Email',
-        dataIndex: 'email',
-        key: 'email',
-    },
-    {
-        title: 'Contact',
-        dataIndex: 'contact',
-        key: 'contact',
-    },
-    {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
-    },
-    {
-        title: 'Action',
-        key: 'action',
-        render: (text, record) => (
-            <Space size="middle">
-                <button className="btn btn-primary">Delete</button>
-            </Space>
-        ),
-    },
-];
+const { Column } = Table;
 
 class Employee extends Component {
     constructor(props) {
@@ -52,13 +16,7 @@ class Employee extends Component {
     }
 
     componentDidMount() {
-        OrganisationModel.employee().then(res => {
-            this.setState({
-                employee: res.data
-            })
-        }).catch(e => {
-            console.log(e)
-        })
+        this.listEmployee();
 
         UserModel.userOrg().then(res => {
             this.setState({
@@ -66,6 +24,17 @@ class Employee extends Component {
             })
         }).catch(e => {
             console.log(e);
+        })
+    }
+
+
+    listEmployee() {
+        OrganisationModel.employee().then(res => {
+            this.setState({
+                employee: res.data
+            })
+        }).catch(e => {
+            console.log(e)
         })
     }
 
@@ -77,8 +46,49 @@ class Employee extends Component {
         this.setState({ visible: false });
     };
 
+    promoteEmployee(employee) {
+        OrganisationModel.promote(employee.id).then(res => {
+            this.listEmployee();
+        }).catch(e => {
+            console.log(e)
+        })
+    }
+
+    demoteEmployee(employee) {
+        OrganisationModel.demote(employee.id).then(res => {
+            this.listEmployee();
+        }).catch(e => {
+            console.log(e)
+        })
+    }
+
+    removeAlert(employee) {
+        Modal.confirm({
+            title: 'This action is non reversible',
+            content: (
+                <div>
+                    <p>Are you sure you wanto to remove <strong>{employee.name ? employee.name : employee.username}</strong></p>
+                </div>
+            ),
+            okText: "Delete",
+            okType: "danger",
+            onOk: () => {
+                this.removeEmployee(employee);
+            }
+        });
+    }
+
+    removeEmployee(employee) {
+        OrganisationModel.remove(employee.id).then(res => {
+            this.listEmployee();
+        }).catch(e => {
+            console.log(e)
+        })
+    }
+
+
     copyCode = () => {
-        navigator.clipboard.writeText(window.location.origin + "/employee/invite?code=" +this.state.code)
+        navigator.clipboard.writeText(window.location.origin + "/employee/invite?code=" + this.state.code)
         message.info('Copyed to Clipboard');
     };
 
@@ -91,12 +101,58 @@ class Employee extends Component {
                             <h1>Employee</h1>
                             <Button type="primary" onClick={this.showModal}>Add</Button>
                         </div>
-                        <Table columns={columns} dataSource={this.state.employee} />
+                        <Table dataSource={this.state.employee}>
+                            <Column title="Username" dataIndex="username" key="username" />
+                            <Column title="Name" dataIndex="name" key="name" />
+                            <Column title="Contact" dataIndex="contact" key="contact" />
+                            <Column
+                                title="Vaccinated"
+                                dataIndex="vaccinated"
+                                key="vaccinated"
+                                render={vaccinated => (
+                                    <>
+                                        <Tag color={vaccinated ? 'green' : "red"} key={vaccinated}>
+                                            {vaccinated ? "Vaccinated" : "Unvaccinated"}
+                                        </Tag>
+                                    </>
+                                )}
+                            />
+                            <Column
+                                title="Role"
+                                key="authorities"
+                                dataIndex='authorities'
+                                render={authorities => (
+                                    <>
+                                        {authorities.map(auth => {
+                                            return (
+                                                <Tag color="geekblue" key={auth.authority}>
+                                                    {auth.authority.slice(5)}
+                                                </Tag>
+                                            );
+                                        })}
+                                    </>
+                                )}
+                            />
+                            <Column
+                                title="Action"
+                                key="id"
+                                render={(id, record) => (
+                                    <Space size="middle">
+                                        {id.authorities[0].authority == "ROLE_MANAGER" ?
+                                            <button className="btn btn-primary" onClick={() => this.demoteEmployee(id)}> Demote </button>
+                                            :
+                                            <button className="btn btn-primary" onClick={() => this.promoteEmployee(id)}> Promote </button>
+                                        }
+                                        <button className="btn btn-danger" onClick={() => this.removeAlert(id)}>Remove</button>
+                                    </Space>
+                                )}
+                            />
+                        </Table>
                     </div>
                 </div>
                 <Modal title="Add New Employee" visible={this.state.visible} onCancel={this.hideModel} footer={null}>
                     <p className="text-center"><strong >Copy & send the following link to the new Employee</strong></p>
-                    <div className="text-center" onClick={this.copyCode}><kbd>{window.location.origin + "/employee/invite?code=" +this.state.code}</kbd></div>
+                    <div className="text-center" onClick={this.copyCode}><kbd>{window.location.origin + "/employee/invite?code=" + this.state.code}</kbd></div>
                 </Modal>
             </Fragment>
 

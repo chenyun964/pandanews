@@ -53,11 +53,13 @@ class AllRoutes extends Component {
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/" component={News} />
           <Route exact path="/employee/invite" component={Invite} />
+          <Route exact path="/map" component={Map} />
+          <Route exact path="/measurements" component={Measurement} />
+
+          {/* Add your routes above this */}
           {!LoginModel.retrieveToken() &&
             <Route path="*" component={NotFound} />
           }
-          <Route exact path="/measurements" component={Measurement} />
-          <Route exact path="/map" component={Map} />
           <LoginRoutes />
         </Switch>
       </Fragment>

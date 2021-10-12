@@ -21,6 +21,7 @@ class LoginRoutes extends Component {
             <div class="content-wrapper">
                 <TopNav />
                 <Switch>
+                    <Route exact path="/" component={Dashboard} />
                     <Route exact path="/dashboard" component={Dashboard} />
                     <Route exact path="/organisation" component={Organisation} />
                 </Switch>

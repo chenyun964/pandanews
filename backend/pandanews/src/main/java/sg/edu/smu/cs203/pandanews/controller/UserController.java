@@ -124,4 +124,15 @@ public class UserController {
 
         return userService.joinOrganisation(user, org);
     }
+
+    @PutMapping("/users/vaccine")
+    public User updateUserVaacine(){
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal();
+        
+        User user = userService.getUserByUsername(userDetails.getUsername());
+        if(user == null) return null;
+
+        return userService.updateVaccine(user);
+    }
 }

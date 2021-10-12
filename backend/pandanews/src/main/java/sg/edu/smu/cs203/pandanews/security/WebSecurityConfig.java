@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// Production API
 				.antMatchers("/authenticate", "/register", "/admin/authenticate", "/admin/register").permitAll()
 				.antMatchers("/organisation/approve/*").hasRole("ADMIN")
-				.antMatchers("/organisation/employees").hasAnyRole("ADMIN", "MANAGER", "OWNER")
+				.antMatchers("/organisation/employee").hasAnyRole("ADMIN", "MANAGER", "OWNER")
 
 				// API Under development
 				// role-specific requests
@@ -75,6 +75,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/organisations/*/workgroups").hasAnyRole("ADMIN", "MANAGER")
 				.antMatchers(HttpMethod.PUT, "/organisations/*/workgroups/*").hasAnyRole("ADMIN", "MANAGER")
 				.antMatchers(HttpMethod.DELETE, "/organisations/*/workgroups/*").hasAnyRole("ADMIN", "MANAGER")
+				.antMatchers("/organisation/promote/*").hasRole("OWNER")
+				.antMatchers("/organisation/demote/*").hasRole("OWNER")
+				.antMatchers("/organisation/employee/*").hasAnyRole("OWNER", "MANAGER")
 				.antMatchers("/organisation/**").authenticated()
 				.antMatchers("/users/**").authenticated()
 
