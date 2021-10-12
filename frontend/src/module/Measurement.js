@@ -1,21 +1,6 @@
 import { Component } from 'react';
 import MeasurementModel from "../model/MeasurementModel";
-
 import React from 'react';
-import {
-    Header,
-    Item
-} from 'semantic-ui-react';
-import "../App.css";
-
-const style = {
-    h3: {
-      marginTop: '2em',
-      padding: '2em 0em',
-    }
-  }
-// import ReactDOM from "react-dom";
-// import { Col, Row, Container } from "@kunukn/react-bootstrap-grid";
 
 class Measurement extends Component {
     constructor(props) {
@@ -36,36 +21,41 @@ class Measurement extends Component {
     }
 
     render() {
-        //const {measurements} = this.state;
         return (
-            <div className="meaInfographic">
-                <header className="App-header">
-                    <div className="App-intro">
-                        <Header as='h3' content='Latest Measurements' style={style.h3} textAlign='center' />
-                        {this.state.measurements.map((m, i) => {
-                            return (<div key={m.id}>
-                                <Item.Group>
-                                    <Item>
-                                    <Item.Image size='small' height="150px" src='https://react.semantic-ui.com/images/wireframe/image.png' />
+            <div className="element-container mea-container">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12">
+                            <h3 className="text-center title"> Latest Measurements </h3>
+                            <p className="subtitle mb-4">
+                                <div className="mea-subtitle">
+                                    <strong >Here's what you can or cannot do from 19 August (updates 8 September):</strong>
+                                </div>
+                            </p>
 
-                                    <Item.Content>
-                                        <Item.Header as='a' >{m.title}</Item.Header>
-                                        <Item.Description >
-                                        <p>{m.content}</p>
-                                        </Item.Description>
-                                    </Item.Content>
-                                    </Item>
-                                </Item.Group>
+                            <div className="row">
+                                {this.state.measurements.map((m, i) => {
+                                    return (
+                                        <div className="col-lg-4 col-md-6 mea-item mb-3">
+                                            <div className="d-flex">
+                                                <img src={m.imageUrl} height="50" />
+                                                <div className="d-flex flex-column">
+                                                    <strong>{m.title}</strong>
+                                                    <div dangerouslySetInnerHTML={{ __html: m.content }} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                                )}
                             </div>
-                            )
-                        }
-                        )}
+                        </div>
                     </div>
-                </header>
+                </div>
+
             </div>
         );
     }
-
 }
 
 export default Measurement;

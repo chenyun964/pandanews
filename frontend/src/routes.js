@@ -4,11 +4,10 @@ import LoginModel from './model/LoginModel';
 
 import Sidebar from "./module/nav/Sidebar";
 import Nav from "./module/nav/Nav";
-import Demo from "./module/Demo";
 import Login from "./module/Login";
 import Signup from './module/Signup';
 import Dashboard from './module/Dashboard';
-import News from './module/News';
+import Home from './module/Home';
 import Category from './module/Category';
 import Profile from "./module/Profile";
 import NotFound from "./module/NotFound";
@@ -49,22 +48,21 @@ class AllRoutes extends Component {
       <Fragment>
         <Nav />
         <Switch>
+          <Route exact path="/" component={Home} />
           <Route exact path="/category/:category" component={Category} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
-          <Route exact path="/" component={News} />
           <Route exact path="/employee/invite" component={Invite} />
           <Route exact path="/map" component={Map} />
           <Route exact path="/measurements" component={Measurement} />
-
-          {/* Add your routes above this */}
-          {!LoginModel.retrieveToken() &&
-            <Route path="*" component={NotFound} />
-          }
           <Route exact path="/measurements" component={Measurement} />
           <Route exact path="/vaccispots" component={VacciSpotTabs} />
           <Route exact path="/vaccispotsadmin" component={VacciSpotAdminTable} />
-          <LoginRoutes />
+          {LoginModel.retrieveToken() &&
+            <LoginRoutes />
+          }
+          {/* Add your routes above this */}
+          <Route path="*" component={NotFound} />
         </Switch>
       </Fragment>
     );
