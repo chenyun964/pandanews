@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 import sg.edu.smu.cs203.pandanews.model.Measurement;
-import sg.edu.smu.cs203.pandanews.service.MeasurementService;
+import sg.edu.smu.cs203.pandanews.service.Measurement.MeasurementService;
 
 @RestController
 public class MeasurementController {

@@ -3,9 +3,8 @@ package sg.edu.smu.cs203.pandanews.model.Attendance;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.Type;
-import sg.edu.smu.cs203.pandanews.model.User;
+import sg.edu.smu.cs203.pandanews.model.User.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;

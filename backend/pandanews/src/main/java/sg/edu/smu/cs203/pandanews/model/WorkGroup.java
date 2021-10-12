@@ -1,6 +1,5 @@
 package sg.edu.smu.cs203.pandanews.model;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Date;
@@ -20,6 +19,7 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.*;
+import sg.edu.smu.cs203.pandanews.model.User.User;
 
 
 @Entity

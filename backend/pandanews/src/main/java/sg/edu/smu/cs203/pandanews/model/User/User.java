@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.model;
+package sg.edu.smu.cs203.pandanews.model.User;
 
 import java.util.List;
 import java.util.Date;
@@ -25,6 +25,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.*;
 import sg.edu.smu.cs203.pandanews.model.Attendance.Attendance;
+import sg.edu.smu.cs203.pandanews.model.Organisation;
+import sg.edu.smu.cs203.pandanews.model.WorkGroup;
 
 @Entity
 @Getter

@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import sg.edu.smu.cs203.pandanews.model.Attendance.Attendance;
-import sg.edu.smu.cs203.pandanews.model.User;
+import sg.edu.smu.cs203.pandanews.model.User.User;
 
 import java.time.LocalDate;
 import java.util.List;

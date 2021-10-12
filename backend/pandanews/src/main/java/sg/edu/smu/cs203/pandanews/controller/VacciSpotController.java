@@ -17,7 +17,7 @@ import org.springframework.http.HttpStatus;
 import sg.edu.smu.cs203.pandanews.dto.VacciSpotDTO;
 import sg.edu.smu.cs203.pandanews.exception.SpotNotFoundException;
 import sg.edu.smu.cs203.pandanews.model.VacciSpot;
-import sg.edu.smu.cs203.pandanews.service.VacciSpotService;
+import sg.edu.smu.cs203.pandanews.service.VacciSpot.VacciSpotService;
 import sg.edu.smu.cs203.pandanews.util.GeoCodeUtil;
 
 @RestController

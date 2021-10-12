@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import sg.edu.smu.cs203.pandanews.service.OrganisationService;
-import sg.edu.smu.cs203.pandanews.service.UserService;
-import sg.edu.smu.cs203.pandanews.service.UserServiceImpl;
+import sg.edu.smu.cs203.pandanews.service.Organisation.OrganisationService;
+import sg.edu.smu.cs203.pandanews.service.User.UserService;
 import sg.edu.smu.cs203.pandanews.dto.OrganisationDTO;
-import sg.edu.smu.cs203.pandanews.model.User;
+import sg.edu.smu.cs203.pandanews.model.User.User;
 import sg.edu.smu.cs203.pandanews.model.Organisation;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;

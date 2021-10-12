@@ -1,6 +1,4 @@
-package sg.edu.smu.cs203.pandanews.model;
-
-import java.util.ArrayList;
+package sg.edu.smu.cs203.pandanews.model.GeoCode;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GeoCodeListDAO {
-    private ArrayList<GeoCodeDAO> data;
+public class GeoCodeDAO {
+    private Double latitude;
+    private Double longitude;
 }

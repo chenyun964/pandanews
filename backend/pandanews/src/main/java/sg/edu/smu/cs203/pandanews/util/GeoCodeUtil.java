@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
-import sg.edu.smu.cs203.pandanews.model.GeoCodeListDAO;
+import sg.edu.smu.cs203.pandanews.model.GeoCode.GeoCodeListDAO;
 
 @Component
 public class GeoCodeUtil {
