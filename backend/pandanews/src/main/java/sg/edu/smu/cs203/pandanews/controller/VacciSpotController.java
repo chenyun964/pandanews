@@ -101,8 +101,9 @@ public class VacciSpotController {
         newSpot.setAddress(newSpotDTO.getAddress());
         newSpot.setRegion(newSpotDTO.getRegion());
         newSpot.setVacciType(newSpotDTO.getVacciType());
-        newSpot.setLatitude(newSpotDTO.getLatitude());
-        newSpot.setLongitude(newSpotDTO.getLongitude());
+        Double[] latLng = geoCodeUtil.getLatLng(newSpotDTO.getAddress());
+        newSpot.setLatitude(latLng[0]);
+        newSpot.setLongitude(latLng[1]);
         newSpot = vacciSpotService.update(id, newSpot);
         if (newSpot == null) {
             throw new SpotNotFoundException();

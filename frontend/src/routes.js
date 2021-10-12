@@ -15,7 +15,8 @@ import NotFound from "./module/NotFound";
 import Employee from './module/Employee';
 import Invite from './module/Invite';
 import Measurement from "./module/Measurement";
-import Map from './module/Map';
+import VacciSpotTabs from './module/VacciSpotTabs';
+import VacciSpotAdminTable from './module/VacciSpotAdminTable';
 
 
 class LoginRoutes extends Component {
@@ -60,6 +61,9 @@ class AllRoutes extends Component {
           {!LoginModel.retrieveToken() &&
             <Route path="*" component={NotFound} />
           }
+          <Route exact path="/measurements" component={Measurement} />
+          <Route exact path="/vaccispots" component={VacciSpotTabs} />
+          <Route exact path="/vaccispotsadmin" component={VacciSpotAdminTable} />
           <LoginRoutes />
         </Switch>
       </Fragment>

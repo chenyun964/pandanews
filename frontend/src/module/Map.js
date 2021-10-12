@@ -6,6 +6,7 @@ class Map extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            type: props.type,
             markers: [],
             loading: true,
         }
@@ -16,7 +17,7 @@ class Map extends Component {
     }
 
     getMarkers() {
-        VacciSpotModel.getAll().then((res) => {
+        VacciSpotModel.getByType(this.state.type).then((res) => {
             this.setState({markers: res.data, loading: false});
         }).catch(error => {
             console.log(error);
