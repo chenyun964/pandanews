@@ -63,6 +63,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// API Under development
 				// role-specific requests
 				.antMatchers(HttpMethod.GET, "/organisations/*/workgroups", "/organisations/*/workgroups/*").permitAll()
+				.antMatchers(HttpMethod.GET, "/news/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/news/**").permitAll()
+				.antMatchers(HttpMethod.PUT, "/news/**").permitAll()
+				.antMatchers(HttpMethod.DELETE, "/news/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/category/*").permitAll()
+				.antMatchers(HttpMethod.POST, "/category/*").permitAll()
+				.antMatchers(HttpMethod.PUT, "/category/*").permitAll()
+				.antMatchers(HttpMethod.DELETE, "/category/*").permitAll()
 				.antMatchers("/measurements/*").permitAll()
 				.antMatchers("/measurements").permitAll()
 				.antMatchers(HttpMethod.POST, "/organisations/*/workgroups").hasAnyRole("ADMIN", "MANAGER")

@@ -35,7 +35,7 @@ class AllRoutes extends Component {
         return (
             <Fragment>
                 <Switch>
-                    
+                    <Route exact path="/news" component={Login} />
                     <Route exact path="/login" component={Login} />
                     <LoginRoutes />
                 </Switch>
