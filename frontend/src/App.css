@@ -506,3 +506,13 @@
 .nav-link:hover{
   color: #4299e1 !important;
 }
+
+.slick-slide .carousel-caption{
+  left: 5%;
+}
+
+.slick-slide .carousel-caption p, .slick-slide .carousel-caption h5{
+  color: white;
+  text-align: left;
+  text-shadow: 2px 2px 4px #000000;
+}
