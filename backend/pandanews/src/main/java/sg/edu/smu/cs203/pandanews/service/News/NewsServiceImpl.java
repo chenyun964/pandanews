@@ -46,7 +46,6 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-
     public void deleteNews(long id) {
         newsRepository.deleteById(id);
     }
@@ -78,4 +77,5 @@ public class NewsServiceImpl implements NewsService {
     public List<News> findTop4NewsPast7Days() {
         return newsRepository.findByViewCountAndCreatedAtBetween();
     }
+
 }
