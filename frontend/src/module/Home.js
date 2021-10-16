@@ -20,7 +20,6 @@ class Home extends Component {
             category: [],
             top_4_news: []
         }
-
     }
 
     componentDidMount() {
@@ -61,10 +60,12 @@ class Home extends Component {
                             <div className="carousel-item" style={contentStyle}>
                                 <div style={contentStyle}>
                                     <img className=" w-100" src={news.coverImage} alt=""></img>
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>{news.title}</h5>
-                                        <p>{news.description}</p>
-                                    </div>
+                                    <a href={news.content} target="_blank">
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <h5>{news.title}</h5>
+                                            <p>{news.description}</p>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         )

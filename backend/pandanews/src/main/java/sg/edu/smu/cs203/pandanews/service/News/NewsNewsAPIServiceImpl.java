@@ -59,7 +59,7 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
         } catch (Exception exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
         }
-//    public News(String title, String description, String content, String coverImage, Date date) {
+        //public News(String title, String description, String content, String coverImage, Date date) {
         List<News> newsList = new ArrayList<>();
 
         for (NewsDAO news : newsListDAO.getValue()) {
