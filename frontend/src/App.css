@@ -124,8 +124,21 @@
   }
 }
 
-/* Progress Bard */
+.grid-container-element { 
+  display: inline-block; 
+  grid-template-columns: 2fr 2fr; 
+  grid-gap: 20px;  
+  width: 33%; 
+  margin-bottom: 2%;
+  margin-top: 0%;
+}
 
+.grid-child-element { 
+  margin: 10px; 
+  /*border: 1px solid red; */
+}
+
+/* Progress Bard */
 .progress {
   width: 150px;
   height: 150px !important;
