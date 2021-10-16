@@ -15,6 +15,7 @@ import NotFound from "./module/NotFound";
 import Employee from './module/Employee';
 import Invite from './module/Invite';
 import Measurement from "./module/Measurement";
+import MeaAdminTable from "./module/MeaAdminTable";
 import VacciSpotTabs from './module/VacciSpotTabs';
 import VacciSpotAdminTable from './module/VacciSpotAdminTable';
 
@@ -56,12 +57,13 @@ class AllRoutes extends Component {
           <Route exact path="/employee/invite" component={Invite} />
           <Route exact path="/map" component={Map} />
           <Route exact path="/measurements" component={Measurement} />
+          <Route exact path="/measurements/admin" component={MeaAdminTable} />
 
           {/* Add your routes above this */}
           {!LoginModel.retrieveToken() &&
             <Route path="*" component={NotFound} />
           }
-          <Route exact path="/measurements" component={Measurement} />
+
           <Route exact path="/vaccispots" component={VacciSpotTabs} />
           <Route exact path="/vaccispotsadmin" component={VacciSpotAdminTable} />
           <LoginRoutes />

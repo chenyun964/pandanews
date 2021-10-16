@@ -26,7 +26,7 @@ public class MeasurementController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/measurements")
+    @PostMapping("/measurements/admin")
     public Measurement addMeasurement(@Valid @RequestBody Measurement measurement){
         Measurement savedMeasurement = measurementService.addMeasurement(measurement);
         // if (savedMeasurement ==  null) throw new BookExistsException(measurement.getTitle());

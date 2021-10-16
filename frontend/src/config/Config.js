@@ -28,7 +28,7 @@ const org_employee_demote_api = API_HOSTS + "/organisation/demote";
 
 //Measurements
 const measurement_api = API_HOSTS + '/measurements';
-const mea_create_api = API_HOSTS + '/measurements';
+const mea_create_api = API_HOSTS + '/measurements/admin';
 
 // Vaccination Spots
 const vaccispots_api = API_HOSTS + '/vaccispots';
@@ -60,6 +60,5 @@ export default{
     user_vaccine_api,
     org_employee_promote_api,
     org_employee_demote_api,
-    measurement_api,
     mea_create_api
 }
