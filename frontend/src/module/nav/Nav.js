@@ -1,10 +1,29 @@
 import React, { Component } from 'react';
 import { NavLink } from "react-router-dom";
+import CategoryModel from '../../model/CategoryModel';
 
 class Nav extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      category: []
+    }
+  }
+
+  componentDidMount() {
+    CategoryModel.list().then(res => {
+      console.log(res.data);
+      this.setState({
+        category: res.data
+      })
+    }).catch(e => {
+      console.log(e);
+    })
+  }
+
   render() {
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light head-navbar">
         <div className="container-fluid">
           <a className="navbar-brand" href="/">
             <img src="../img/logo.png" alt="" height="30" />
@@ -26,12 +45,17 @@ class Nav extends Component {
                 <a className="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Categories
                 </a>
-                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a className="dropdown-item" href="/">F&B</a></li>
+                <ul className="dropdown-menu cate-dropdown" aria-labelledby="navbarDropdown">
+                  {this.state.category.map((category, i) => {
+                    return (
+                      <li><a className="dropdown-item" href={"/category/" + category.title}>{category.title}</a></li>
+                    )
+                  })}
+
                 </ul>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/map">Support</a>
+                <a className="nav-link" href="/vaccispots">Support</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/search"><i className="fas fa-search"></i></a>

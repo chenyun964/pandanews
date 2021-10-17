@@ -18,7 +18,6 @@ class News extends Component {
             category: [],
             top_4_news: []
         }
-
     }
 
     componentDidMount() {

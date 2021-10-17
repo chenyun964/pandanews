@@ -33,7 +33,8 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
     private String countryCode;
     @Value("${azure.bing.phase}")
     private String phase;
-
+    @Value("${azure.bing.freshness}")
+    private String freshness;
     @Autowired
     private NewsRepository newsRepository;
 
@@ -52,18 +53,30 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
                     .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, false);
             newsListDAO = mapper.
-                    readValue(restTemplate.exchange(String.format(endpoint + "?cc=%s&q=%s", countryCode, phase), HttpMethod.GET,
+                    readValue(restTemplate.exchange(String.format(endpoint + "?cc=%s&q=%s&freshness=%s", countryCode,
+                            phase, freshness), HttpMethod.GET,
                             entity, String.class, 1).getBody(), NewsListDAO.class);
         } catch (Exception exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
         }
-//    public News(String title, String description, String content, String coverImage, Date date) {
+        //public News(String title, String description, String content, String coverImage, Date date) {
         List<News> newsList = new ArrayList<>();
 
         for (NewsDAO news : newsListDAO.getValue()) {
-           News n = new News(news.getName(), news.getDescription(), news.getUrl(),
-                    news.getImage().getThumbnail().getContentUrl(),
-                    formatter(news.getDatePublished()));
+            News n = null;
+            if (news.getImage() != null) {
+                String url = news.getImage().getThumbnail().getContentUrl();
+                if(url.contains("&pid=News")){
+                    news.getImage().getThumbnail().setContentUrl(url.substring(0, url.length() - 9));
+                }
+                n = new News(news.getName(), news.getDescription(), news.getUrl(),
+                        news.getImage().getThumbnail().getContentUrl(),
+                        formatter(news.getDatePublished()));
+            } else {
+                n = new News(news.getName(), news.getDescription(), news.getUrl(),
+                        null,
+                        formatter(news.getDatePublished()));
+            }
             newsList.add(n);
             newsRepository.save(n);
         }
