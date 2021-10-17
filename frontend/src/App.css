@@ -124,8 +124,21 @@
   }
 }
 
-/* Progress Bard */
+.grid-container-element { 
+  display: inline-block; 
+  grid-template-columns: 2fr 2fr; 
+  grid-gap: 20px;  
+  width: 33%; 
+  margin-bottom: 2%;
+  margin-top: 0%;
+}
 
+.grid-child-element { 
+  margin: 10px; 
+  /*border: 1px solid red; */
+}
+
+/* Progress Bard */
 .progress {
   width: 150px;
   height: 150px !important;
@@ -506,3 +519,32 @@
 .nav-link:hover{
   color: #4299e1 !important;
 }
+
+.carousel-caption{
+  bottom: 4rem;
+  padding: 0px;
+}
+
+.slick-slide .carousel-caption{
+  left: 5%;
+}
+
+.slick-slide .carousel-caption p, .slick-slide .carousel-caption h5{
+  color: white;
+  text-align: left;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+.head-navbar{
+  background: white;
+}
+
+.head-navbar .navbar-brand{
+  margin-left: 1rem;
+}
+/* 
+.ant-carousel .slick-dots li.slick-active button{
+  height: 15px;
+    border-radius: 50px;
+    width: 15px;
+} */

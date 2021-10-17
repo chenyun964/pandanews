@@ -58,8 +58,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/authenticate", "/register", "/admin/authenticate", "/admin/register").permitAll()
 				.antMatchers("/organisation/approve/*").hasRole("ADMIN")
 				.antMatchers("/organisation/employee").hasAnyRole("ADMIN", "MANAGER", "OWNER")
-
-				// API Under development
+				.antMatchers("/v2/api-docs",           // swagger
+						"/webjars/**",            // swagger-ui webjars
+						"/swagger-resources/**",  // swagger-ui resources
+						"/configuration/**",      // swagger configuration
+						"/*.html",
+						"/favicon.ico",
+						"/**/*.html",
+						"/**/*.css",
+						"/**/*.js",
+						"/swagger-ui.html#/",
+						// Auth API
+						"/authenticate",
+						"/register",
+						"/confirmemail",
+						"/reset",
+						"/resetpassword",
+						// User API
+						"/user/forget/**").permitAll()				// API Under development
 				// role-specific requests
 				.antMatchers(HttpMethod.GET, "/organisations/*/workgroups", "/organisations/*/workgroups/*").permitAll()
 				.antMatchers(HttpMethod.GET, "/news/**").permitAll()

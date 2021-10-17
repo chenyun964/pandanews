@@ -35,7 +35,6 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-
     public News updateNews(long id, News news) {
         return newsRepository.findById(id).map(newNews -> {
             newNews.setTitle(news.getTitle());

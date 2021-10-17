@@ -23,7 +23,7 @@ class Nav extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light head-navbar">
         <div className="container-fluid">
           <a className="navbar-brand" href="/">
             <img src="../img/logo.png" alt="" height="30" />
