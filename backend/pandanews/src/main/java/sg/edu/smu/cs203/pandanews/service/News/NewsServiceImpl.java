@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.model.news.NewsListDAO;
+import sg.edu.smu.cs203.pandanews.repository.CategoryRepository;
 import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
 
 import java.time.LocalDate;
@@ -19,6 +20,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Autowired
     private NewsRepository newsRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public News createNewsByManual(News news) {
@@ -58,6 +62,12 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public List<News> findNewsByKeywords(String keyword) {
         return newsRepository.findAllByKeyword(keyword);
+    }
+
+    @Override
+    public List<News> findNewsByCategory(String s) {
+        List<Category> c = categoryRepository.findByTitle(s);
+        return newsRepository.findByCategory(c.get(0));
     }
 
     @Override

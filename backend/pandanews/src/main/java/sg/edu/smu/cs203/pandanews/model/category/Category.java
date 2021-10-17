@@ -27,6 +27,7 @@ public class Category {
     private Long id;
 
     @Setter
+    @Column(unique = true)
     private String title;
 
     @Setter
