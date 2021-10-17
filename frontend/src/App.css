@@ -1,5 +1,4 @@
 @import '~antd/dist/antd.css';
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -132,14 +131,14 @@
   width: 33%; 
   margin-bottom: 2%;
   margin-top: 0%;
-} 
+}
+
 .grid-child-element { 
   margin: 10px; 
   /*border: 1px solid red; */
 }
 
 /* Progress Bard */
-
 .progress {
   width: 150px;
   height: 150px !important;
@@ -385,11 +384,11 @@
   background: #fff;
 }
 
-.ant-menu-horizontal{
+.ant-menu-horizontal {
   float: right;
 }
 
-.ant-layout{
+.ant-layout {
   min-height: 100vh;
 }
 
@@ -403,7 +402,6 @@
   top: 100%;
   font-size: 12px;
 }
-
 
 /* popup styling*/
 body {
@@ -461,3 +459,149 @@ p1 {
 #add {
   margin: 10px;
 }
+
+.element-container {
+  padding: 50px;
+}
+
+.mea-container {
+  background-color: white;
+}
+
+.mea-subtitle {
+  display: inline-block;
+  background: #ffc02f;
+  padding: 5px 10px;
+}
+
+.mea-item img {
+  margin-right: 15px;
+}
+
+.element-container .title {
+  margin-bottom: 50px;
+  font-size: 2rem;
+}
+
+.section-container {
+  background-color: white;
+  padding: 30px 20px;
+}
+
+.cate-badge {
+  margin: 5px 5px 5px 0px;
+  font-size: 1rem;
+  padding: .45em .65em;
+  font-weight: normal;
+  background: #378ef0;
+}
+
+.cate-badge:hover {
+  color: white;
+  background: #3277af;
+}
+
+.news-item {
+  background: white;
+  margin: 0px;
+}
+
+.news-title{
+  font-family: IBM Plex Serif;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.news-info {
+  padding: 5px 0px;
+  color: rgb(0 0 0 / 50%);
+  font-size: .9rem;
+  font-weight: 400;
+}
+
+.news-descr {
+  padding: 10px 0px;
+  color: rgb(0 0 0 / 75%);
+}
+
+.news-read-btn {
+  color: black;
+  font-weight: 500;
+}
+
+.news-read-btn i {
+  margin-left: 3px;
+}
+
+.news-image {
+  padding: 0px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 220px;
+}
+
+.category-container {
+  background-image: url("./assets/img/sectionbg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 50px;
+}
+
+.category-container .title {
+  color: white
+}
+
+.cate-dropdown {
+  border: none;
+  background: black;
+  color: white;
+  top: 48px;
+  border-radius: 0px;
+  padding: 15px 5px;
+}
+
+.cate-dropdown .dropdown-item {
+  color: white;
+  font-size: 1rem;
+  padding: .45rem 1rem;
+}
+
+.cate-dropdown .dropdown-item:hover {
+  background-color: black;
+  color: #4299e1
+}
+
+.nav-link:hover{
+  color: #4299e1 !important;
+}
+
+.carousel-caption{
+  bottom: 4rem;
+  padding: 0px;
+}
+
+.slick-slide .carousel-caption{
+  left: 5%;
+}
+
+.slick-slide .carousel-caption p, .slick-slide .carousel-caption h5{
+  color: white;
+  text-align: left;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+.head-navbar{
+  background: white;
+}
+
+.head-navbar .navbar-brand{
+  margin-left: 1rem;
+}
+/* 
+.ant-carousel .slick-dots li.slick-active button{
+  height: 15px;
+    border-radius: 50px;
+    width: 15px;
+} */

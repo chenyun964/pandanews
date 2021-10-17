@@ -31,7 +31,6 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-
     public News updateNews(long id, News news) {
         return newsRepository.findById(id).map(newNews -> {
             newNews.setTitle(news.getTitle());
@@ -46,7 +45,6 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-
     public void deleteNews(long id) {
         newsRepository.deleteById(id);
     }

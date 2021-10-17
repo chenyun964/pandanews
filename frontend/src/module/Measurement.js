@@ -27,27 +27,40 @@ class Measurement extends Component {
 
     render() {
         return (
-            <div className="meaInfographic">
-                <header className="App-header">
-                    <div className="App-intro">
-                        <h2 style={{'padding-top':'0%'}}>Latest Measurements</h2>
-                        {this.state.measurements.map((m, i) => {
-                            return (<div key={m.id} class="grid-container-element">
-                                    <div class="grid-child-element">
-                                        <img style={{ "display": "inline-block" }} height="50px" src='https://react.semantic-ui.com/images/wireframe/image.png' />
-                                        <h3 style={{ "color": "White", "display": "inline-block",'padding-left': '0.3cm'}}>{m.title}</h3>
-                                        <p style={{ "size": "1pt", 'paddingRight':"0.5cm"}}>{m.content}</p>
-                                    </div>
+            <div className="element-container mea-container">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12">
+                            <h3 className="text-center title"> Latest Measurements </h3>
+                            <p className="subtitle mb-4">
+                                <div className="mea-subtitle">
+                                    <strong >Here's what you can or cannot do from 19 August (updates 8 September):</strong>
+                                </div>
+                            </p>
+
+                            <div className="row">
+                                {this.state.measurements.map((m, i) => {
+                                    return (
+                                        <div className="col-lg-4 col-md-6 mea-item mb-3">
+                                            <div className="d-flex">
+                                                <img src={m.imageUrl} height="50" />
+                                                <div className="d-flex flex-column">
+                                                    <strong>{m.title}</strong>
+                                                    <div dangerouslySetInnerHTML={{ __html: m.content }} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                                )}
                             </div>
-                            )
-                        }
-                        )}
+                        </div>
                     </div>
-                </header>
+                </div>
+
             </div>
         );
     }
-
 }
 
 export default Measurement;
