@@ -293,4 +293,20 @@ class MeaAdminTable extends Component {
 
 }
 
+/* 
+<div id="popup">
+                        <form id="form">
+                            <button type="button" id="close" onclick="hide()">X</button>
+                            <p1>Name:</p1>
+                            <input id="name" name="name" type="text" />
+                            <p1>Age:</p1>
+                            <input id="age" name="age" type="text" />
+                            <p1>Country:</p1>
+                            <input id="country" name="country" type="text" />
+                            <button type="button" id="submit" onclick="add()">Save</button>
+                        </form>
+                    </div>
+
+*/
+
 export default MeaAdminTable;
