@@ -2,6 +2,7 @@ import { Component } from 'react';
 import MeasurementModel from "../model/MeasurementModel";
 import React from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography, Space, Button } from 'antd';
+import '../App.css';
 
 const EditableCell = ({
     editing,
@@ -32,14 +33,14 @@ const EditableCell = ({
                     {inputNode}
                 </Form.Item>
             ) : (
-                children
-            )}
+                    children
+                )}
         </td>
     );
 };
 
 class MeaAdminTable extends Component {
-    
+
     formRef = React.createRef();
 
     constructor(props) {
@@ -64,10 +65,9 @@ class MeaAdminTable extends Component {
 
     edit(record) {
         this.formRef.current.setFieldsValue({
-            name: '',
-            type: '',
-            region: '',
-            address: '',
+            title: '',
+            content: '',
+            date: '',
             ...record,
         });
         this.setState({ editingId: record.id });
@@ -91,16 +91,45 @@ class MeaAdminTable extends Component {
     handleAdd() {
         const newData = [{
             id: 0,
-            name: '',
-            type: '',
-            region: '',
-            address: '',
-            vacciType: '',
+            title: '',
+            content: '',
         }, ...this.state.data];
         this.setState({
             data: newData,
         });
     }
+
+    show(){
+        document.getElementById("popup").style.display = "block";
+    }
+
+    hide() {
+        document.getElementById("popup").style.display = "none";
+        
+        document.getElementById("imageUrl").value = "";
+        document.getElementById("title").value = "";
+        document.getElementById("content").value = "";
+    }
+
+    add() {
+        var imageUrl = document.getElementById("imageUrl").value;
+        var title = document.getElementById("title").value;
+        var content = document.getElementById("content").value;
+        
+        if (imageUrl == "" || title == "" || content == "") {
+          alert("Please fill all fields.")
+        } else {
+          document.getElementById("popup").style.display = "none";
+          var newdiv = document.createElement("div");
+          newdiv.className += "cont";
+          newdiv.innerHTML = "Icon Link: "+ imageUrl + "<br>Industry: " + title + "<br>Measurement Details: " + content;
+          document.getElementById("results").appendChild(newdiv);
+          
+          document.getElementById("imageUrl").value = "";
+          document.getElementById("title").value = "";
+          document.getElementById("content").value = "";
+        }
+      }
 
     async save(id) {
         try {
@@ -108,7 +137,7 @@ class MeaAdminTable extends Component {
             const newData = [...this.state.data];
             const index = newData.findIndex((item) => id === item.id);
             if (index > -1) {
-                const item = {...newData[index], ...row, latitude: 0.0, longitude: 0.0};
+                const item = { ...newData[index], ...row, latitude: 0.0, longitude: 0.0 };
                 if (id > 0) {
                     newData.splice(index, 1, item);
                     MeasurementModel.update(id, item);
@@ -127,6 +156,13 @@ class MeaAdminTable extends Component {
     renderColumns() {
         return [
             {
+                title: 'Icon Link',
+                dataIndex: 'imageUrl',
+                key: 'imageUrl',
+                width: '18%',
+                editable: true,
+            },
+            {
                 title: 'Industry',
                 dataIndex: 'title',
                 key: 'title',
@@ -141,15 +177,15 @@ class MeaAdminTable extends Component {
                 key: 'content',
                 width: '45%',
                 editable: true,
-                
+
             },
             {
                 title: 'Last Updated By',
-                dataIndex: 'date',
-                key: 'date',
+                dataIndex: 'updatedAt',
+                key: 'updatedAt',
                 width: '20%',
                 editable: true,
-                
+
             },
             {
                 title: 'operation',
@@ -207,15 +243,6 @@ class MeaAdminTable extends Component {
     render() {
         return (
             <div>
-                <Button
-                    onClick={() => {this.handleAdd(); this.edit(this.state.data[0])}}
-                    type="primary"
-                    style={{
-                        marginBottom: 16,
-                    }}
-                >
-                    Update a measurement
-                </Button>
                 <Form ref={this.formRef} name="control-ref">
                     <Table
                         components={{
@@ -231,7 +258,35 @@ class MeaAdminTable extends Component {
                             onChange: () => this.cancel(),
                         }}
                     />
+                    <Button
+                        id="add"
+                        onclick= {() => {this.add()}}
+                        //onClick={() => {this.handleAdd(); this.edit(this.state.data[0])}}
+                        type="primary"
+                        style={{
+                            marginBottom: 16,
+                        }}
+                    >
+                        Add a new measurement
+                    </Button>
+
+                    <div id="popup">
+                        <form id="form">
+                            <button type="button" id="close" onclick="hide()">X</button>
+                            <p1>Name:</p1>
+                            <input id="name" name="name" type="text" />
+                            <p1>Age:</p1>
+                            <input id="age" name="age" type="text" />
+                            <p1>Country:</p1>
+                            <input id="country" name="country" type="text" />
+                            <button type="button" id="submit" onclick="add()">Save</button>
+                        </form>
+                    </div>
+
                 </Form>
+
+
+
             </div>
         );
     }

@@ -28,7 +28,7 @@ const org_employee_demote_api = API_HOSTS + "/organisation/demote";
 
 //Measurements
 const measurement_api = API_HOSTS + '/measurements';
-const mea_create_api = API_HOSTS + '/measurements/admin';
+const mea_create_api = API_HOSTS + '/measurements';
 
 // Vaccination Spots
 const vaccispots_api = API_HOSTS + '/vaccispots';
