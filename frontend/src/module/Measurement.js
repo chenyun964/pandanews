@@ -1,6 +1,11 @@
 import { Component } from 'react';
 import MeasurementModel from "../model/MeasurementModel";
 import React from 'react';
+import "../App.css";
+import"../index.js";
+
+// import ReactDOM from "react-dom";
+// import { Col, Row, Container } from "@kunukn/react-bootstrap-grid";
 
 class Measurement extends Component {
     constructor(props) {
