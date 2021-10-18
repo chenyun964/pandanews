@@ -80,9 +80,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/organisation/employee/*").hasAnyRole("OWNER", "MANAGER")
 				.antMatchers("/organisation/**").authenticated()
 				.antMatchers("/users/**").authenticated()
+				.antMatchers(HttpMethod.GET, "/vaccispots/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/vaccispots/**").permitAll()
+				.antMatchers(HttpMethod.PUT, "/vaccispots/**").permitAll()
+				.antMatchers(HttpMethod.DELETE, "/vaccispots/**").permitAll()
 
 				// all other requests need to be authenticated
-
 				.anyRequest().authenticated().and()
 				// make sure we use stateless session; session won't be used to store user's state
 				.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
