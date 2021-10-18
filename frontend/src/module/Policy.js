@@ -5,18 +5,18 @@ import UserModel from '../model/UserModel';
 
 const { Column } = Table;
 
-class Employee extends Component {
+class Policy extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            employee: [],
+            policy: [],
             code: "",
             visible: false
         }
     }
 
     componentDidMount() {
-        this.listEmployee();
+        this.listPolicy();
 
         UserModel.userOrg().then(res => {
             this.setState({
@@ -28,7 +28,7 @@ class Employee extends Component {
     }
 
 
-    listEmployee() {
+    listPolicy() {
         OrganisationModel.employee().then(res => {
             this.setState({
                 employee: res.data
@@ -160,5 +160,5 @@ class Employee extends Component {
     }
 }
 
-export default Employee;
+export default Policy;
 

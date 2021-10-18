@@ -17,14 +17,14 @@ const user_profile_api = API_HOSTS + '/users/profile';
 const user_org_api = API_HOSTS + '/users/organisation';
 const user_vaccine_api = API_HOSTS + "/users/vaccine";
 
-
-//Ogranisation
+//Organisation
 const org_api = API_HOSTS + '/organisation';
 const org_join_api = API_HOSTS + '/users/organisation';
 const org_my_org_api = API_HOSTS + "/organisation/owner";
 const org_employee_api = API_HOSTS + "/organisation/employee";
 const org_employee_promote_api = API_HOSTS + "/organisation/promote";
 const org_employee_demote_api = API_HOSTS + "/organisation/demote";
+const org_policy_api = API_HOSTS + "/organisation/policy";
 
 //Measurements
 const measurement_api = API_HOSTS + '/measurements';
