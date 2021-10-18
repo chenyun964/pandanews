@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Table, Input, InputNumber, Popconfirm, Form, Typography, Space, Button } from 'antd';
+import { Table, Modal, Select, Input, InputNumber, Popconfirm, Form, Typography, Space, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import VacciSpotModel from '../model/VacciSpotModel';
+
+const { Option } = Select;
 
 const EditableCell = ({
     editing,
@@ -39,6 +41,106 @@ const EditableCell = ({
     );
 };
 
+const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
+    const [form] = Form.useForm();
+    return (
+        <Modal
+            visible={visible}
+            title="Create a new collection"
+            okText="Create"
+            cancelText="Cancel"
+            onCancel={onCancel}
+            onOk={() => {
+                form
+                    .validateFields()
+                    .then((values) => {
+                        form.resetFields();
+                        onCreate(values);
+                    })
+                    .catch((info) => {
+                        console.log('Validate Failed:', info);
+                    });
+            }}
+        >
+            <Form
+                form={form}
+                labelCol={{ span: 6 }}
+                wrapperCol={{ span: 16 }}
+                layout="horizontal"
+                name="form_in_modal"
+                requiredMark={false}
+            >
+                <Form.Item
+                    name="name"
+                    label="Name"
+                    rules={[{
+                        required: true,
+                        message: 'Please input name of the vaccination spot!',
+                    }]}
+                >
+                    <Input placeholder="Please input name of the vaccination spot" />
+                </Form.Item>
+                <Form.Item
+                    name="address"
+                    label="Address"
+                    rules={[{
+                        required: true,
+                        message: 'Please input address!',
+                    }]}
+                >
+                    <Input placeholder="Please input address" />
+                </Form.Item>
+                <Form.Item
+                    name="type"
+                    label="Type"
+                    hasFeedback
+                    rules={[{
+                        required: true,
+                        message: 'Please select type of building!'
+                    }]}
+                >
+                    <Select placeholder="Please select type of building">
+                        <Option value="Vaccination Centre">Vaccination Centre</Option>
+                        <Option value="Polyclinic">Polyclinic</Option>
+                        <Option value="Clinic">Clinic</Option>
+                    </Select>
+                </Form.Item>
+                <Form.Item
+                    name="region"
+                    label="Region"
+                    hasFeedback
+                    rules={[{
+                        required: true,
+                        message: 'Please select region!'
+                    }]}
+                >
+                    <Select placeholder="Please select region">
+                        <Option value="Central">Central</Option>
+                        <Option value="North">North</Option>
+                        <Option value="West">West</Option>
+                        <Option value="East">East</Option>
+                        <Option value="North East">North East</Option>
+                    </Select>
+                </Form.Item>
+                <Form.Item
+                    name="vacciType"
+                    label="Vaccine Type"
+                    hasFeedback
+                    rules={[{
+                        required: true,
+                        message: 'Please select vaccine type!'
+                    }]}
+                >
+                    <Select placeholder="Please select vaccine type">
+                        <Option value="Moderna">Moderna</Option>
+                        <Option value="Pfizer/Comirnaty">Pfizer/Comirnaty</Option>
+                    </Select>
+                </Form.Item>
+            </Form>
+        </Modal>
+    );
+};
+
 class VacciSpotTable extends Component {
     formRef = React.createRef();
 
@@ -49,6 +151,7 @@ class VacciSpotTable extends Component {
             editingId: -1,
             searchText: '',
             searchedColumn: '',
+            visible: false,
         }
     }
 
@@ -90,18 +193,15 @@ class VacciSpotTable extends Component {
         }
     }
 
-    handleAdd() {
+    handleAdd(values) {
         const newData = [{
             id: 0,
-            name: '',
-            type: '',
-            region: '',
-            address: '',
-            vacciType: '',
+            ...values
         }, ...this.state.data];
         this.setState({
             data: newData,
         });
+        this.save(0);
     }
 
     async save(id) {
@@ -266,7 +366,7 @@ class VacciSpotTable extends Component {
                 ...this.getColumnSearchProps('address'),
             },
             {
-                title: 'Vaccination Type',
+                title: 'Vaccine Type',
                 dataIndex: 'vacciType',
                 key: 'vacciType',
                 width: '10%',
@@ -340,14 +440,20 @@ class VacciSpotTable extends Component {
         return (
             <div>
                 <Button
-                    onClick={() => { this.handleAdd(); this.edit(this.state.data[0]) }}
                     type="primary"
-                    style={{
-                        marginBottom: 16,
+                    onClick={() => {
+                        this.setState({visible : true});
                     }}
                 >
-                    Add a new spot
+                    New Vaccination Spot
                 </Button>
+                <CollectionCreateForm
+                    visible={this.state.visible}
+                    onCreate={this.handleAdd}
+                    onCancel={() => {
+                        this.setState({visible : false});
+                    }}
+                />
                 <Form ref={this.formRef} name="control-ref">
                     <Table
                         components={{
