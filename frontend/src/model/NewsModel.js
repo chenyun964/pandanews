@@ -9,6 +9,10 @@ class NewsModel {
   async list_top_4(data) {
     return axios.get(config['news_get_top_4_api']);
   }
+
+  async list_category_news(title) {
+    return axios.get(config['category__news_api'] + '/' + title);
+  }
 }
 
 export default new NewsModel();

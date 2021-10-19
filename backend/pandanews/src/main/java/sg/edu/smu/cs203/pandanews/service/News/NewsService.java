@@ -24,6 +24,8 @@ public interface NewsService {
 
     List<News> findNewsByKeywords(String keyword);
 
+    List<News> findNewsByCategory(String s);
+
     News findNewsById(long id);
 
     News updateNewsCategory(long id, Category c);

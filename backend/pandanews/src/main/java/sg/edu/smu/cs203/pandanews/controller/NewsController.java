@@ -48,4 +48,15 @@ public class NewsController {
     public ResponseEntity<?> findTop4NewsPast7Days() {
         return ResponseEntity.ok(newsService.findTop4NewsPast7Days());
     }
+
+    @GetMapping(path = "/news/find/category/{category}")
+    public ResponseEntity<?> findNewsByCategory(@PathVariable String category) {
+        return ResponseEntity.ok(newsService.findNewsByCategory(category));
+    }
+
+    @DeleteMapping(path = "/news/delete/{id}")
+    public ResponseEntity<?> deleteNews(@PathVariable long id) {
+        newsService.deleteNews(id);
+        return ResponseEntity.ok(null);
+    }
 }
