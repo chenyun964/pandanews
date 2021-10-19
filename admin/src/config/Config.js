@@ -16,6 +16,13 @@ const news_create_api = '/news/create';
 const news_delete_api = '/news/delete';
 const news_generate_bing_api = '/news/api';
 
+// Vaccination Spots
+const vaccispots_api = API_HOSTS + '/vaccispots';
+const vaccispots_name_api = vaccispots_api + '/name';
+const vaccispots_region_api = vaccispots_api + '/region';
+const vaccispots_type_api = vaccispots_api + '/type';
+const vaccispots_vaccitype_api = vaccispots_api + '/vaccitype';
+
 export default {
     news_find_api,
     news_update_api,
@@ -27,5 +34,10 @@ export default {
     authenticate_api,
     register_api,
     org_api,
-    org_approve_api
+    org_approve_api,
+    vaccispots_api,
+    vaccispots_name_api,
+    vaccispots_region_api,
+    vaccispots_type_api,
+    vaccispots_vaccitype_api,
 }
