@@ -2,8 +2,8 @@ import { Component } from 'react';
 import MeasurementModel from "../model/MeasurementModel";
 import React from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography, Space, Button } from 'antd';
-import Popup from "reactjs-popup";
-import "reactjs-popup/dist/index.css";
+//import Popup from "reactjs-popup";
+//import "reactjs-popup/dist/index.css";
 import '../App.css';
 
 const EditableCell = ({
