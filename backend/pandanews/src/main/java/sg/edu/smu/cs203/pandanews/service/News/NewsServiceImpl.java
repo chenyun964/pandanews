@@ -65,6 +65,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public List<News> findNewsByCategory(String s) {
+        System.out.println(s);
         List<Category> c = categoryRepository.findByTitle(s);
         return newsRepository.findByCategory(c.get(0));
     }

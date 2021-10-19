@@ -10,8 +10,8 @@ class NewsModel {
     return axios.get(config['news_get_top_4_api']);
   }
 
-  async list_category_news(data) {
-    return axios.get(config['category__news_api']);
+  async list_category_news(title) {
+    return axios.get(config['category__news_api'] + '/' + title);
   }
 }
 
