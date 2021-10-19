@@ -72,17 +72,16 @@ class Policy extends Component {
                             <Button type="primary" onClick={this.showModel}>Add</Button>
                         </div>
                         <Table dataSource={this.state.policy}>
-                            <Column title="Username" dataIndex="username" key="username" />
-                            <Column title="Name" dataIndex="name" key="name" />
-                            <Column title="Contact" dataIndex="contact" key="contact" />
+                            <Column title="Policy ID" dataIndex="id" key="id" />
+                            <Column title="Content" dataIndex="message" key="message" />
                             <Column
-                                title="Vaccinated"
-                                dataIndex="vaccinated"
-                                key="vaccinated"
-                                render={vaccinated => (
+                                title="Active Policy?"
+                                dataIndex="validity"
+                                key="validity"
+                                render={validity => (
                                     <>
-                                        <Tag color={vaccinated ? 'green' : "red"} key={vaccinated}>
-                                            {vaccinated ? "Vaccinated" : "Unvaccinated"}
+                                        <Tag color={validity ? 'green' : "red"} key={validity}>
+                                            {validity ? "Yes" : "No"}
                                         </Tag>
                                     </>
                                 )}
