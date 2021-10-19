@@ -193,15 +193,15 @@ class VacciSpotTable extends Component {
         }
     }
 
-    handleAdd(values) {
-        const newData = [{
-            id: 0,
-            ...values
-        }, ...this.state.data];
-        this.setState({
-            data: newData,
+    async onCreate(values) {
+        const newData = [...this.state.data];
+        VacciSpotModel.add(values).then(res => {
+            newData.push(res.data);
+            this.setState({
+                data: newData,
+                visible: false,
+            });
         });
-        this.save(0);
     }
 
     async save(id) {
@@ -442,16 +442,16 @@ class VacciSpotTable extends Component {
                 <Button
                     type="primary"
                     onClick={() => {
-                        this.setState({visible : true});
+                        this.setState({ visible: true });
                     }}
                 >
                     New Vaccination Spot
                 </Button>
                 <CollectionCreateForm
                     visible={this.state.visible}
-                    onCreate={this.handleAdd}
+                    onCreate={(values) => this.onCreate(values)}
                     onCancel={() => {
-                        this.setState({visible : false});
+                        this.setState({ visible: false });
                     }}
                 />
                 <Form ref={this.formRef} name="control-ref">

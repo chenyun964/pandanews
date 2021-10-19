@@ -16,8 +16,6 @@ import Invite from './module/Invite';
 import Measurement from "./module/Measurement";
 import MeaAdminTable from "./module/MeaAdminTable";
 import VacciSpotTabs from './module/VacciSpotTabs';
-import VacciSpotAdminTable from './module/VacciSpotAdminTable';
-
 
 class LoginRoutes extends Component {
   componentDidMount() {
@@ -64,7 +62,6 @@ class AllRoutes extends Component {
           }
 
           <Route exact path="/vaccispots" component={VacciSpotTabs} />
-          <Route exact path="/vaccispotsadmin" component={VacciSpotAdminTable} />
           {LoginModel.retrieveToken() &&
             <LoginRoutes />
           }

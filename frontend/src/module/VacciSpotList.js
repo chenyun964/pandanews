@@ -1,5 +1,7 @@
-import { Table } from 'antd';
 import { Component } from 'react';
+import { Table, Input, Space, Button } from 'antd';
+import Highlighter from 'react-highlight-words';
+import { SearchOutlined } from '@ant-design/icons';
 import VacciSpotModel from '../model/VacciSpotModel';
 
 class VacciSpotList extends Component {
