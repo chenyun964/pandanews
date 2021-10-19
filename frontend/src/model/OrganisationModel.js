@@ -18,7 +18,19 @@ class OrganisationModel {
     return axiosJwt.get(config["org_employee_api"]);
   }
 
-  async getByCode(code){
+  async policy() {
+    return axiosJwt.get(config["org_policy_api"]);
+  }
+
+  async activate() {
+    return axiosJwt.get(config["org_policy_activate_api"] + "/" + id);
+  }
+
+  async deactivate() {
+    return axiosJwt.get(config["org_policy_activate_api"] + "/" + id);
+  }
+
+  async getByCode(code) {
     return axiosJwt.get(config['org_api'] + "/" + code);
   }
 
@@ -26,15 +38,15 @@ class OrganisationModel {
     return axiosJwt.delete(config['org_api'] + "/" + id);
   }
 
-  async promote(id){
+  async promote(id) {
     return axiosJwt.put(config['org_employee_promote_api'] + "/" + id);
   }
 
-  async demote(id){
+  async demote(id) {
     return axiosJwt.put(config['org_employee_demote_api'] + "/" + id);
   }
 
-  async remove(id){
+  async remove(id) {
     return axiosJwt.delete(config['org_employee_api'] + "/" + id);
   }
 }

@@ -67,7 +67,7 @@ class Employee extends Component {
             title: 'This action is non reversible',
             content: (
                 <div>
-                    <p>Are you sure you wanto to remove <strong>{employee.name ? employee.name : employee.username}</strong></p>
+                    <p>Are you sure you want to remove <strong>{employee.name ? employee.name : employee.username}</strong></p>
                 </div>
             ),
             okText: "Delete",

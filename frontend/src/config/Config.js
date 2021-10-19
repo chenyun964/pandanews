@@ -25,6 +25,8 @@ const org_employee_api = API_HOSTS + "/organisation/employee";
 const org_employee_promote_api = API_HOSTS + "/organisation/promote";
 const org_employee_demote_api = API_HOSTS + "/organisation/demote";
 const org_policy_api = API_HOSTS + "/organisation/policy";
+const org_policy_activate_api = API_HOSTS + "/organisation/activate";
+const org_policy_deactivate_api = API_HOSTS + "/organisation/deactivate";
 
 //Measurements
 const measurement_api = API_HOSTS + '/measurements';
@@ -51,6 +53,7 @@ export default{
     user_api,
     user_profile_api,
     org_employee_api,
+    org_policy_api,
     measurement_api,
     vaccispots_api,
     vaccispots_name_api,
@@ -60,5 +63,7 @@ export default{
     user_vaccine_api,
     org_employee_promote_api,
     org_employee_demote_api,
+    org_policy_activate_api,
+    org_policy_deactivate_api,
     mea_create_api
 }
