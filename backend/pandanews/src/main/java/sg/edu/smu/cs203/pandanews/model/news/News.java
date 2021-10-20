@@ -2,6 +2,7 @@ package sg.edu.smu.cs203.pandanews.model.news;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@AllArgsConstructor
 public class News {
 
     @Id
@@ -151,6 +153,15 @@ public class News {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public News(Long id, String title, String description, String content, String coverImage, Date date) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.content = content;
+        this.coverImage = coverImage;
+        this.date = date;
     }
 
 }

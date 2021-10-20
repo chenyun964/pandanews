@@ -88,13 +88,16 @@ public class NewsServiceTests {
             return;
         }
         try {
-             oldNews = new News("Not updated", "123456", "1", "1", formatter.parse("2020-01-01"));
+             oldNews = new News(1L, "Not updated", "123456", "1", "1", formatter.parse("2020-01-01"));
         } catch (ParseException e) {
             return;
         }
-        Long newsId = 10L;
+        long newsId = 1L;
 
-        when(newsRepository.findById(newsId)).thenReturn(Optional.of(oldNews));
+        when(newsRepository.findById(any(long.class))).thenReturn(Optional.of(oldNews));
+
+        when(newsRepository.save(any(News.class))).thenReturn(news);
+
         News newNews = newsService.updateNews(newsId, news);
 
         assertNotNull(newNews);
@@ -120,4 +123,6 @@ public class NewsServiceTests {
         assertNull(newNews);
         verify(newsRepository).findById(newsId);
     }
+
+
 }

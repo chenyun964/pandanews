@@ -4,6 +4,8 @@ package sg.edu.smu.cs203.pandanews.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sg.edu.smu.cs203.pandanews.exception.news.NewsDuplicationException;
+import sg.edu.smu.cs203.pandanews.exception.news.NewsNotFoundException;
 import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.service.news.NewsServiceImpl;
 
@@ -15,7 +17,11 @@ public class NewsController {
 
     @PostMapping(path = "/news/create")
     public ResponseEntity<?> createNewsByManual(@RequestBody News news) {
-        return ResponseEntity.ok(newsService.createNewsByManual(news));
+        News n = newsService.createNewsByManual(news);
+        if (n == null){
+            throw new NewsDuplicationException("News Duplicated");
+        }
+        return ResponseEntity.ok(n);
     }
 
     @PostMapping(path = "/news/api")
@@ -41,8 +47,14 @@ public class NewsController {
 
     @GetMapping(path = "/news/find/id/{id}")
     public ResponseEntity<?> findNewsById(@PathVariable int id) {
-        return ResponseEntity.ok(newsService.findNewsById(id));
+        News n = newsService.findNewsById(id);
+        if (n == null){
+            throw new NewsNotFoundException("News Not Found");
+        }
+        return ResponseEntity.ok(n);
     }
+
+
 
     @GetMapping(path = "/news/find/top4news")
     public ResponseEntity<?> findTop4NewsPast7Days() {
