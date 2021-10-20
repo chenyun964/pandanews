@@ -1,12 +1,12 @@
-package sg.edu.smu.cs203.pandanews.service.Attendance;
+package sg.edu.smu.cs203.pandanews.service.attendance;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sg.edu.smu.cs203.pandanews.model.Attendance.Attendance;
-import sg.edu.smu.cs203.pandanews.model.User.User;
+import sg.edu.smu.cs203.pandanews.model.attendance.Attendance;
+import sg.edu.smu.cs203.pandanews.model.user.User;
 import sg.edu.smu.cs203.pandanews.repository.AttendanceRepository;
-import sg.edu.smu.cs203.pandanews.service.User.UserServiceImpl;
+import sg.edu.smu.cs203.pandanews.service.user.UserServiceImpl;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -27,10 +27,13 @@ public class AttendanceServiceImpl implements AttendanceService {
             return null;
         }
         LocalDate currDate = LocalDate.now();
-        LocalTime currTime = LocalTime.now();
-        Attendance a = new Attendance(currDate, currTime, true, u);
+        if (attendanceRepository.findByADate(u.getId(), currDate) != null){
+//            throw RuntimeException("Taken");
+            return null;
+        }
+            LocalTime currTime = LocalTime.now();
+        Attendance a = new Attendance(currDate, currTime, false, u);
         return attendanceRepository.save(a);
-
     }
 
     @Override

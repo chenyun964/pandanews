@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.service.News;
+package sg.edu.smu.cs203.pandanews.service.news;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;

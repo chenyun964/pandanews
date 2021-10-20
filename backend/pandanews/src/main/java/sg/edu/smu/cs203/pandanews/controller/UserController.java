@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import sg.edu.smu.cs203.pandanews.service.Organisation.OrganisationService;
-import sg.edu.smu.cs203.pandanews.service.User.UserService;
-import sg.edu.smu.cs203.pandanews.model.User.User;
+import sg.edu.smu.cs203.pandanews.service.organisation.OrganisationService;
+import sg.edu.smu.cs203.pandanews.service.user.UserService;
+import sg.edu.smu.cs203.pandanews.model.user.User;
 import sg.edu.smu.cs203.pandanews.model.Organisation;
 
 @RestController

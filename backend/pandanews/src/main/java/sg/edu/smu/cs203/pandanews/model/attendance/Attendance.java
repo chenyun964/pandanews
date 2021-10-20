@@ -1,10 +1,12 @@
-package sg.edu.smu.cs203.pandanews.model.Attendance;
+package sg.edu.smu.cs203.pandanews.model.attendance;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
-import sg.edu.smu.cs203.pandanews.model.User.User;
+import sg.edu.smu.cs203.pandanews.model.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,10 +18,10 @@ import java.util.Date;
 @Getter
 @Entity
 public class Attendance {
-    public Attendance(LocalDate aDate, LocalTime time, boolean isOnline, User user) {
+    public Attendance(LocalDate aDate, LocalTime time, boolean isInOffice, User user) {
         this.aDate = aDate;
         this.aTime = time;
-        this.isOnline = isOnline;
+        this.isInOffice = isInOffice;
         this.user = user;
     }
 
@@ -28,23 +30,25 @@ public class Attendance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private LocalDate aDate;
 
     private LocalTime aTime;
 
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private boolean isOnline;
+    private boolean isInOffice;
 
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    private boolean isCheckIn;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:MM:ss", timezone = "GMT+8")
     @Column(name = "created_at", updatable = false)
     private Date createdAt;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:MM:ss", timezone = "GMT+8")
     @Column(name = "updated_at")
     private Date updatedAt;
 
@@ -72,6 +76,6 @@ public class Attendance {
     }
 
     public void setOnline(boolean online) {
-        isOnline = online;
+        isInOffice = online;
     }
 }

@@ -1,8 +1,8 @@
-package sg.edu.smu.cs203.pandanews.service.Attendance;
+package sg.edu.smu.cs203.pandanews.service.attendance;
 
 
 
-import sg.edu.smu.cs203.pandanews.model.Attendance.Attendance;
+import sg.edu.smu.cs203.pandanews.model.attendance.Attendance;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,7 +13,6 @@ public interface AttendanceService {
     Attendance markAttendance(Long userId);
 
     Attendance updateAttendance(Long userId, LocalDate date, LocalTime time);
-
 
     List<Attendance> findAttendancesByUserid(Long userId);
 

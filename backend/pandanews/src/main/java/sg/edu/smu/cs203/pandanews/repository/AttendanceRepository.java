@@ -4,8 +4,8 @@ package sg.edu.smu.cs203.pandanews.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import sg.edu.smu.cs203.pandanews.model.Attendance.Attendance;
-import sg.edu.smu.cs203.pandanews.model.User.User;
+import sg.edu.smu.cs203.pandanews.model.attendance.Attendance;
+import sg.edu.smu.cs203.pandanews.model.user.User;
 
 import java.time.LocalDate;
 import java.util.List;

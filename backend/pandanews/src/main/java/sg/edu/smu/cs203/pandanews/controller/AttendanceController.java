@@ -4,8 +4,8 @@ package sg.edu.smu.cs203.pandanews.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sg.edu.smu.cs203.pandanews.model.Attendance.AttendanceUpdateDTO;
-import sg.edu.smu.cs203.pandanews.service.Attendance.AttendanceServiceImpl;
+import sg.edu.smu.cs203.pandanews.model.attendance.AttendanceUpdateDTO;
+import sg.edu.smu.cs203.pandanews.service.attendance.AttendanceServiceImpl;
 
 import java.time.LocalDate;
 
@@ -35,7 +35,7 @@ public class AttendanceController {
 
     @GetMapping(path = "attendance/get/{id}")
     public ResponseEntity<?> getAttendance(@PathVariable Long id) {
-        return ResponseEntity.ok(attendanceService.findAttendancesByUserid(id));
+        return ResponseEntity.ok(attendanceService.findAttendanceById(id));
     }
 
     @GetMapping(path = "attendance/get/date/{id}")

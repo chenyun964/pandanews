@@ -1,15 +1,12 @@
-package sg.edu.smu.cs203.pandanews.service.News;
+package sg.edu.smu.cs203.pandanews.service.news;
 
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 import sg.edu.smu.cs203.pandanews.model.news.News;
-import sg.edu.smu.cs203.pandanews.model.news.NewsListDAO;
 import sg.edu.smu.cs203.pandanews.repository.CategoryRepository;
 import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -26,6 +23,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public News createNewsByManual(News news) {
+
         return newsRepository.save(news);
     }
 
@@ -86,6 +84,13 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public List<News> findTop4NewsPast7Days() {
         return newsRepository.findByViewCountAndCreatedAtBetween();
+    }
+
+    @Override
+    public int testNews(int a) {
+        if (a == 1)
+            return 1;
+        return 123;
     }
 
 }

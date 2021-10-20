@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.model.User;
+package sg.edu.smu.cs203.pandanews.model.user;
 
 import java.io.Serializable;
 
