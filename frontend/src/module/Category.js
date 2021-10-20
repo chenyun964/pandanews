@@ -3,6 +3,8 @@ import NewsModel from '../model/NewsModel';
 import CategoryModel from '../model/CategoryModel';
 import { Link } from "react-router-dom";
 import moment from 'moment';
+import { Carousel, Input } from 'antd';
+const { Search } = Input;
 
 class Category extends Component {
     constructor(props) {
@@ -23,7 +25,7 @@ class Category extends Component {
             console.log(e);
         })
 
-       //NewsModel.list().then(res => {
+        //NewsModel.list().then(res => {
         NewsModel.list_category_news(this.state.slug).then(res => {
             console.log(this.state.slug);
             this.setState({
@@ -40,6 +42,10 @@ class Category extends Component {
                 slug: this.props.match.params.category,
             });
         }
+    }
+    
+    onSearch(value) {
+        window.location.replace("/search" + "/" + value);
     }
 
     render() {
@@ -71,7 +77,11 @@ class Category extends Component {
                             </div>
 
                             <div class="col-lg-4 col-12">
-                                <div className="section-container">
+                                <div className="section-container mb-4">
+                                    <Search placeholder="Search for news..." onSearch={(value) => this.onSearch(value)} enterButton />
+                                </div>
+
+                                <div className="section-container mb-4">
                                     <h4>Categories</h4>
                                     <div className="d-flex flex-wrap">
                                         {this.state.category.map((category, i) => {

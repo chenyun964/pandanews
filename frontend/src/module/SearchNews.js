@@ -1,16 +1,22 @@
 import { Component, Fragment } from 'react';
 import NewsModel from '../model/NewsModel';
 import CategoryModel from '../model/CategoryModel';
+import { Carousel, Input } from 'antd';
 import { Link } from "react-router-dom";
 import moment from 'moment';
 
+
+
+const { Search } = Input;
 class SearchNews extends Component {
+    
+
     constructor(props) {
         super(props);
         this.state = {
             news: [],
             category: [],
-            slug: this.props.match.params.category
+            slug: this.props.match.params.keyword
         }
     }
 
@@ -24,8 +30,8 @@ class SearchNews extends Component {
         })
 
        //NewsModel.list().then(res => {
-        NewsModel.search_news_api(this.state.slug).then(res => {
-            console.log(this.state.slug);
+        NewsModel.search_news(this.state.slug).then(res => {
+            console.log("abc" + this.state.slug);
             this.setState({
                 news: res.data
             })
@@ -35,18 +41,21 @@ class SearchNews extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.match.params.category !== this.props.match.params.category) {
+        if (prevProps.match.params.keyword !== this.props.match.params.keyword) {
             this.setState({
-                slug: this.props.match.params.category,
+                slug: this.props.match.params.keyword,
             });
         }
     }
-
+    onSearch(value) {
+        window.location.replace("/search" + "/" + value);
+        }
+        
     render() {
         return (
             <Fragment>
                 <div className="category-container text-center">
-                    <h1 className="title">Category: {this.state.slug}</h1>
+                    <h1 className="title">Keyword: {this.state.slug}</h1>
                 </div>
                 <div className="element-container">
                     <div className="container">
@@ -71,7 +80,11 @@ class SearchNews extends Component {
                             </div>
 
                             <div class="col-lg-4 col-12">
-                                <div className="section-container">
+                                <div className="section-container mb-4">
+                                    <Search placeholder="Search for news..." onSearch={(value) => this.onSearch(value)} enterButton />
+                                </div>
+
+                                <div className="section-container mb-4">
                                     <h4>Categories</h4>
                                     <div className="d-flex flex-wrap">
                                         {this.state.category.map((category, i) => {

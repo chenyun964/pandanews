@@ -6,6 +6,7 @@ import { Carousel, Input } from 'antd';
 import Measurement from './Measurement';
 import moment from 'moment';
 
+
 const { Search } = Input;
 const contentStyle = {
     height: '500px',
@@ -53,8 +54,8 @@ class Home extends Component {
     }
 
     onSearch(value) {
-        console.log(value);
-    }
+        window.location.replace("/search" + "/" + value);
+        }
 
     render() {
         return (

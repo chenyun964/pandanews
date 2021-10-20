@@ -50,7 +50,7 @@ class AllRoutes extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/category/:category" component={Category} />
-          <Route exact path="/category/:keyword" component={SearchNews} />
+          <Route exact path="/search/:keyword" component={SearchNews} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/employee/invite" component={Invite} />
