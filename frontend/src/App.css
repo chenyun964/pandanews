@@ -605,3 +605,7 @@ p1 {
     border-radius: 50px;
     width: 15px;
 } */
+
+.ant-input-search-button{
+  max-width: 50px;
+}
