@@ -14,6 +14,7 @@ import sg.edu.smu.cs203.pandanews.model.news.NewsDAO;
 import sg.edu.smu.cs203.pandanews.model.news.NewsListDAO;
 import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -77,9 +78,13 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
                         null,
                         formatter(news.getDatePublished()));
             }
+            List<News> listSet = newsRepository.findByTitle(n.getTitle());
+            if (listSet.size() > 0){
+                return null;
+            }
             newsList.add(n);
-            newsRepository.save(n);
         }
+        newsRepository.saveAll(newsList);
         return newsList;
     }
 

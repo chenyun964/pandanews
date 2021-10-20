@@ -21,33 +21,32 @@ public class AttendanceServiceImpl implements AttendanceService {
     UserServiceImpl userServiceImpl;
 
     @Override
-    public Attendance markAttendance(Long userId) {
+    public Attendance punchInOrOut(Long userId) {
         User u = userServiceImpl.getUser(userId);
         if (u == null) {
             return null;
         }
+        Attendance a = null;
         LocalDate currDate = LocalDate.now();
-        if (attendanceRepository.findByADate(u.getId(), currDate) != null){
-//            throw RuntimeException("Taken");
+        List<Attendance> temp = attendanceRepository.findByADate(u.getId(), currDate);
+        LocalTime currTime = LocalTime.now();
+
+        if (temp == null || temp.size() == 0) {
+            a = new Attendance(currDate, currTime, false, true, u);
+        } else if (temp.size() == 1 && temp.get(0).isPunchedIn() == true) {
+            a = new Attendance(currDate, currTime, false, false, u);
+        } else {
             return null;
         }
-            LocalTime currTime = LocalTime.now();
-        Attendance a = new Attendance(currDate, currTime, false, u);
         return attendanceRepository.save(a);
     }
 
     @Override
-    public Attendance updateAttendance(Long userId, LocalDate date, LocalTime time) {
-        User u = userServiceImpl.getUser(userId);
-        if (u == null) {
-            return null;
-        }
-        LocalTime currTime = LocalTime.now();
-        Attendance a = attendanceRepository.findByADate(userId,date);
+    public Attendance updateAttendance(Long id, LocalTime time) {
+        Attendance a = attendanceRepository.findById(id).orElse(null);
         a.setATime(time);
         return attendanceRepository.save(a);
     }
-
 
     @Override
     public List<Attendance> findAttendancesByUserid(Long userId) {
@@ -55,8 +54,8 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public Attendance findAttendanceByDate(Long userId, LocalDate date) {
-        return attendanceRepository.findByADate(userId,date);
+    public List<Attendance> findAttendanceByDate(Long userId, LocalDate date) {
+        return attendanceRepository.findByADate(userId, date);
     }
 
     @Override

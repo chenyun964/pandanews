@@ -10,13 +10,13 @@ import java.util.List;
 
 public interface AttendanceService {
 
-    Attendance markAttendance(Long userId);
+    Attendance punchInOrOut(Long userId);
 
-    Attendance updateAttendance(Long userId, LocalDate date, LocalTime time);
+    Attendance updateAttendance(Long id, LocalTime time);
 
     List<Attendance> findAttendancesByUserid(Long userId);
 
-    Attendance findAttendanceByDate(Long userId, LocalDate date);
+    List<Attendance> findAttendanceByDate(Long userId, LocalDate date);
 
     Attendance findAttendanceById (Long id);
 }

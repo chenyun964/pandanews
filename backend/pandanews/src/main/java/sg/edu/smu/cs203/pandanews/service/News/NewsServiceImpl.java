@@ -23,13 +23,17 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public News createNewsByManual(News news) {
-
-        return newsRepository.save(news);
+        List<News> newsList = newsRepository.findByTitle(news.getTitle());
+        if (newsList.size() == 0) {
+            return newsRepository.save(news);
+        }
+        return null;
     }
 
     @Override
     public List<News> createNewsByAPI() {
-        return newsAPIServiceImpl.apiCall();
+        List<News> result = newsAPIServiceImpl.apiCall();
+        return result.size() == 0 ? null : result;
     }
 
     @Override
@@ -41,7 +45,6 @@ public class NewsServiceImpl implements NewsService {
             newNews.setDate(news.getDate());
             newNews.setDescription(news.getDescription());
             newNews.setPinned(news.isPinned());
-
             return newsRepository.save(newNews);
         }).orElse(null);
     }

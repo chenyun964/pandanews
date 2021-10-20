@@ -15,7 +15,7 @@ import java.util.List;
 public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
 
     @Query("SELECT a FROM Attendance a WHERE a.aDate = :date AND a.user.id = :userId")
-    Attendance findByADate(Long userId, LocalDate date);
+    List<Attendance> findByADate(Long userId, LocalDate date);
 
     List<Attendance> findByUser(User u);
 }

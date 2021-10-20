@@ -18,11 +18,12 @@ import java.util.Date;
 @Getter
 @Entity
 public class Attendance {
-    public Attendance(LocalDate aDate, LocalTime time, boolean isInOffice, User user) {
+    public Attendance(LocalDate aDate, LocalTime time, boolean isInOffice,boolean isPunchedIn, User user) {
         this.aDate = aDate;
         this.aTime = time;
         this.isInOffice = isInOffice;
         this.user = user;
+        this.isPunchedIn = isPunchedIn;
     }
 
 
@@ -38,6 +39,8 @@ public class Attendance {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean isInOffice;
 
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private boolean isPunchedIn;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
