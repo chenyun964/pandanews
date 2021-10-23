@@ -17,8 +17,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class Category {
-    public Category(Long id, String title) {
-        this.id = id;
+    public Category(String title) {
         this.title = title;
     }
 
@@ -57,8 +56,6 @@ public class Category {
         Object param = new java.sql.Timestamp(temp.getTime());
         updatedAt = (Date) param;
     }
-
-
 
 
 }

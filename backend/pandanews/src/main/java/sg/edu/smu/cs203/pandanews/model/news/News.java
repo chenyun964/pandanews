@@ -139,22 +139,6 @@ public class News {
         this.pinned = pinned;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     public News(Long id, String title, String description, String content, String coverImage, Date date) {
         this.id = id;
         this.title = title;
@@ -164,4 +148,11 @@ public class News {
         this.date = date;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }
