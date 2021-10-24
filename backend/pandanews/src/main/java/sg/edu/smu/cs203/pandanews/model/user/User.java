@@ -99,6 +99,15 @@ public class User implements UserDetails {
         this.authorities = role;
     }
 
+    public User(String username, String email, String password, String name, String contact, Boolean vaccinated) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.contact = contact;
+        this.vaccinated = vaccinated;
+    }
+
     @PrePersist
     public void logCreation() {
         Date temp = new Date();
@@ -145,4 +154,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

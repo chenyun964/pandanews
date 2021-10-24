@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.net.URI;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
@@ -14,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
@@ -24,7 +21,7 @@ import sg.edu.smu.cs203.pandanews.repository.CategoryRepository;
 import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class NewsIntegrationTest {
+public class NewsIntegrationTests {
 
     @LocalServerPort
     private int port;
@@ -64,7 +61,7 @@ public class NewsIntegrationTest {
     public void listNews_Success() throws Exception {
 
         URI uri = new URI(baseUrl + port + "/news/list");
-        newsRepository.save(NewsIntegrationTest.newsFormatter());
+        newsRepository.save(NewsIntegrationTests.newsFormatter());
 
         // Need to use array with a ResponseEntity here
         ResponseEntity<News[]> result = restTemplate.getForEntity(uri, News[].class);
@@ -76,7 +73,7 @@ public class NewsIntegrationTest {
 
     @Test
     public void findNewsByCategory_Success() throws Exception {
-        News n = NewsIntegrationTest.newsFormatter();
+        News n = NewsIntegrationTests.newsFormatter();
         Category c = categoryRepository.save(new Category("business"));
         n.setCategory(c);
         newsRepository.save(n);
@@ -99,7 +96,7 @@ public class NewsIntegrationTest {
 
     @Test
     public void deleteNews_Success() throws Exception {
-        News n = NewsIntegrationTest.newsFormatter();
+        News n = NewsIntegrationTests.newsFormatter();
         long id = newsRepository.save(n).getId();
         // Need to use array with a ResponseEntity here
         URI uri = new URI(baseUrl + port + "/news/delete/" + id);
@@ -111,7 +108,7 @@ public class NewsIntegrationTest {
     @Test
     public void getNewsById_Success() throws Exception {
 
-        Long id = newsRepository.save(NewsIntegrationTest.newsFormatter()).getId();
+        Long id = newsRepository.save(NewsIntegrationTests.newsFormatter()).getId();
         URI uri = new URI(baseUrl + port + "/news/find/id/" + id);
 
         // Need to use array with a ResponseEntity here
@@ -137,7 +134,7 @@ public class NewsIntegrationTest {
     //Test pass
     @Test
     public void addNewsByManual_Success() throws Exception {
-        News n = NewsIntegrationTest.newsFormatter();
+        News n = NewsIntegrationTests.newsFormatter();
         URI uri = new URI(baseUrl + port + "/news/create");
 
         // Need to use array with a ResponseEntity here
@@ -152,7 +149,7 @@ public class NewsIntegrationTest {
     @Test
     public void addNewsByManual_Failure_DuplicationOfTitle() throws Exception {
 
-        News n = NewsIntegrationTest.newsFormatter();
+        News n = NewsIntegrationTests.newsFormatter();
         URI uri = new URI(baseUrl + port + "/news/create");
         // Need to use array with a ResponseEntity here
         restTemplate.postForEntity(uri, n, News.class);
@@ -163,7 +160,7 @@ public class NewsIntegrationTest {
     //Test pass
     @Test
     public void updateNews_Success() throws Exception {
-        News n = NewsIntegrationTest.newsFormatter();
+        News n = NewsIntegrationTests.newsFormatter();
         URI uri1 = new URI(baseUrl + port + "/news/create");
 
         // Need to use array with a ResponseEntity here
@@ -183,7 +180,7 @@ public class NewsIntegrationTest {
     @Test
     public void updateNews_Failure_NotFound() throws Exception {
 
-        News n = NewsIntegrationTest.newsFormatter();
+        News n = NewsIntegrationTests.newsFormatter();
         URI uri = new URI(baseUrl + port + "/news/update/" + 10L);
         ResponseEntity<News> result = restTemplate.postForEntity(uri, n, News.class);
 
@@ -192,12 +189,12 @@ public class NewsIntegrationTest {
 
     @Test
     public void findNewsByKeyword_Success() throws Exception {
-        News n = NewsIntegrationTest.newsFormatter();
+        News n = NewsIntegrationTests.newsFormatter();
         String title = newsRepository.save(n).getTitle();
-        News n1 = NewsIntegrationTest.newsFormatter();
+        News n1 = NewsIntegrationTests.newsFormatter();
         n1.setTitle(title + "1");
         newsRepository.save(n1);
-        News n2 = NewsIntegrationTest.newsFormatter();
+        News n2 = NewsIntegrationTests.newsFormatter();
         n2.setTitle(title + "2");
         newsRepository.save(n2);
         URI uri = new URI(baseUrl + port + "/news/find/keyword/" + title);
@@ -234,17 +231,17 @@ public class NewsIntegrationTest {
 
     @Test
     public void findTop4NewsPast7Days_Success() throws Exception {
-        News n = NewsIntegrationTest.newsFormatter();
+        News n = NewsIntegrationTests.newsFormatter();
         String title = newsRepository.save(n).getTitle();
-        News n1 = NewsIntegrationTest.newsFormatter();
+        News n1 = NewsIntegrationTests.newsFormatter();
         n1.setTitle(title + "1");
         n1.setViewCount(200);
         newsRepository.save(n1);
-        News n2 = NewsIntegrationTest.newsFormatter();
+        News n2 = NewsIntegrationTests.newsFormatter();
         n2.setTitle(title + "2");
         n2.setViewCount(200);
         newsRepository.save(n2);
-        News n3 = NewsIntegrationTest.newsFormatter();
+        News n3 = NewsIntegrationTests.newsFormatter();
         n3.setTitle(title + "3");
         n3.setViewCount(200);
         newsRepository.save(n3);
