@@ -7,7 +7,8 @@ const register_api = API_HOSTS + '/register';
 //News
 const news_list_api = API_HOSTS + '/news/list'
 const news_get_top_4_api = API_HOSTS + '/news/find/top4news'
-const category__news_api = API_HOSTS + '/news/find/category'
+const category_news_api = API_HOSTS + '/news/find/category'
+const search_news_api = API_HOSTS + '/news/find/keyword'
 
 
 //Category
@@ -39,9 +40,14 @@ const vaccispots_region_api = vaccispots_api + '/region';
 const vaccispots_type_api = vaccispots_api + '/type';
 const vaccispots_vaccitype_api = vaccispots_api + '/vaccitype';
 
+//Attendance
+const mark_attendance_api = API_HOSTS + '/attendance/mark';
+
 export default{
     API_HOSTS,
-    category__news_api,
+    search_news_api,
+    mark_attendance_api,
+    category_news_api,
     news_get_top_4_api,
     authenticate_api,
     register_api,

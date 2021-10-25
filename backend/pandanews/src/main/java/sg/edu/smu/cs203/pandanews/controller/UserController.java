@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import sg.edu.smu.cs203.pandanews.service.Organisation.OrganisationService;
-import sg.edu.smu.cs203.pandanews.service.User.UserService;
-import sg.edu.smu.cs203.pandanews.model.User.User;
+import sg.edu.smu.cs203.pandanews.service.organisation.OrganisationService;
+import sg.edu.smu.cs203.pandanews.service.user.UserService;
+import sg.edu.smu.cs203.pandanews.model.user.User;
 import sg.edu.smu.cs203.pandanews.model.Organisation;
 
 @RestController
@@ -49,7 +49,6 @@ public class UserController {
     public User getUserProfile(){
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
         .getPrincipal();
-        
         User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) return null;
         return user;
@@ -60,11 +59,11 @@ public class UserController {
      * @param user
      * @return list of all books
      */
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/users")
-    public User addUser(@RequestBody User user){
-        return userService.addUser(user);
-    }
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @PostMapping("/users")
+//    public User addUser(@RequestBody User user){
+//        return userService.addUser(user);
+//    }
 
     /**
      * If there is no book with the given "id", throw a BookNotFoundException

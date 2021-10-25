@@ -4,8 +4,12 @@ package sg.edu.smu.cs203.pandanews.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sg.edu.smu.cs203.pandanews.exception.news.NewsDuplicationException;
+import sg.edu.smu.cs203.pandanews.exception.news.NewsNotFoundException;
 import sg.edu.smu.cs203.pandanews.model.news.News;
-import sg.edu.smu.cs203.pandanews.service.News.NewsServiceImpl;
+import sg.edu.smu.cs203.pandanews.service.news.NewsServiceImpl;
+
+import java.util.List;
 
 @RestController
 public class NewsController {
@@ -15,7 +19,11 @@ public class NewsController {
 
     @PostMapping(path = "/news/create")
     public ResponseEntity<?> createNewsByManual(@RequestBody News news) {
-        return ResponseEntity.ok(newsService.createNewsByManual(news));
+        News n = newsService.createNewsByManual(news);
+        if (n == null) {
+            throw new NewsDuplicationException("News Duplicated");
+        }
+        return ResponseEntity.ok(n);
     }
 
     @PostMapping(path = "/news/api")
@@ -26,6 +34,9 @@ public class NewsController {
     @PostMapping(path = "/news/update/{id}")
     public ResponseEntity<?> updateNews(@PathVariable int id, @RequestBody News newNews) {
         News news = newsService.updateNews(id, newNews);
+        if (news == null) {
+            throw new NewsNotFoundException("News Not Found");
+        }
         return ResponseEntity.ok(news);
     }
 
@@ -36,13 +47,20 @@ public class NewsController {
 
     @GetMapping(path = "/news/find/keyword/{keyword}")
     public ResponseEntity<?> findNewsByKeyword(@PathVariable String keyword) {
-        return ResponseEntity.ok(newsService.findNewsByKeywords(keyword));
+        List<News> list = newsService.findNewsByKeywords(keyword);
+        if (list.size() == 0) throw new NewsNotFoundException("News Not Found");
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping(path = "/news/find/id/{id}")
     public ResponseEntity<?> findNewsById(@PathVariable int id) {
-        return ResponseEntity.ok(newsService.findNewsById(id));
+        News n = newsService.findNewsById(id);
+        if (n == null) {
+            throw new NewsNotFoundException("News Not Found");
+        }
+        return ResponseEntity.ok(n);
     }
+
 
     @GetMapping(path = "/news/find/top4news")
     public ResponseEntity<?> findTop4NewsPast7Days() {

@@ -11,7 +11,11 @@ class NewsModel {
   }
 
   async list_category_news(title) {
-    return axios.get(config['category__news_api'] + '/' + title);
+    return axios.get(config['category_news_api'] + '/' + title);
+  }
+
+  async search_news(keyword) {
+    return axios.get(config['search_news_api'] + '/' + keyword);
   }
 }
 

@@ -2,10 +2,12 @@ import { Component } from 'react';
 import NewsModel from '../model/NewsModel';
 import CategoryModel from '../model/CategoryModel';
 import { Link } from "react-router-dom";
-import { Carousel } from 'antd';
+import { Carousel, Input } from 'antd';
 import Measurement from './Measurement';
 import moment from 'moment';
 
+
+const { Search } = Input;
 const contentStyle = {
     height: '500px',
     color: '#fff',
@@ -50,6 +52,10 @@ class Home extends Component {
             console.log(e);
         })
     }
+
+    onSearch(value) {
+        window.location.replace("/search" + "/" + value);
+        }
 
     render() {
         return (
@@ -96,7 +102,11 @@ class Home extends Component {
                             </div>
 
                             <div class="col-lg-4 col-12">
-                                <div className="section-container">
+                                <div className="section-container mb-4">
+                                    <Search placeholder="Search for news..." onSearch={(value) => this.onSearch(value)} enterButton />
+                                </div>
+
+                                <div className="section-container mb-4">
                                     <h4>Categories</h4>
                                     <div className="d-flex flex-wrap">
                                         {this.state.category.map((category, i) => {

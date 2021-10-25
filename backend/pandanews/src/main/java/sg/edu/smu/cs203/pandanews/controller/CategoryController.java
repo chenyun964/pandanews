@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
-import sg.edu.smu.cs203.pandanews.service.Category.CategoryServiceImpl;
+import sg.edu.smu.cs203.pandanews.service.category.CategoryServiceImpl;
 
 @RestController
 public class CategoryController {

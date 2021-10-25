@@ -25,4 +25,6 @@ public interface NewsRepository extends JpaRepository<News, Long> {
     List<News> findByViewCountAndCreatedAtBetween();
 
     List<News> findByCategory(Category c);
+
+    List<News> findByTitle(String s);
 }
