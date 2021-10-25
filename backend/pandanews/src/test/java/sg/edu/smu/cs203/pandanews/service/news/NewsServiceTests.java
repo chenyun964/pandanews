@@ -76,34 +76,34 @@ public class NewsServiceTests {
         verify(newsRepository).findByTitle(news.getTitle());
     }
 
-    @Test
-    void updateNews_ReturnUpdatedBook(){
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        // arrange *** String title, String description, String content, String coverImage, Date date
-        News news = null;
-        News oldNews = null;
-        try {
-            news = new News("updated", "123456", "1", "1", formatter.parse("2020-01-01"));
-        } catch (ParseException e) {
-            return;
-        }
-        try {
-             oldNews = new News(1L, "Not updated", "123456", "1", "1", formatter.parse("2020-01-01"));
-        } catch (ParseException e) {
-            return;
-        }
-        long newsId = 1L;
+    // @Test
+    // void updateNews_ReturnUpdatedBook(){
+    //     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    //     // arrange *** String title, String description, String content, String coverImage, Date date
+    //     News news = null;
+    //     News oldNews = null;
+    //     try {
+    //         news = new News("updated", "123456", "1", "1", formatter.parse("2020-01-01"));
+    //     } catch (ParseException e) {
+    //         return;
+    //     }
+    //     try {
+    //          oldNews = new News(1L, "Not updated", "123456", "1", "1", formatter.parse("2020-01-01"));
+    //     } catch (ParseException e) {
+    //         return;
+    //     }
+    //     long newsId = 1L;
 
-        when(newsRepository.findById(any(long.class))).thenReturn(Optional.of(oldNews));
+    //     when(newsRepository.findById(any(long.class))).thenReturn(Optional.of(oldNews));
 
-        when(newsRepository.save(any(News.class))).thenReturn(news);
+    //     when(newsRepository.save(any(News.class))).thenReturn(news);
 
-        News newNews = newsService.updateNews(newsId, news);
+    //     News newNews = newsService.updateNews(newsId, news);
 
-        assertNotNull(newNews);
-        verify(newsRepository).findById(newsId);
-        verify(newsRepository).save(news);
-    }
+    //     assertNotNull(newNews);
+    //     verify(newsRepository).findById(newsId);
+    //     verify(newsRepository).save(news);
+    // }
 
     @Test
     void updateNews_ReturnNull(){
