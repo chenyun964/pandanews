@@ -2,8 +2,6 @@ import { Component } from 'react';
 import MeasurementModel from "../model/MeasurementModel";
 import React from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography, Space, Button } from 'antd';
-import Popup from "reactjs-popup";
-import "reactjs-popup/dist/index.css";
 import '../App.css';
 
 const EditableCell = ({
@@ -48,12 +46,6 @@ class MeaAdminTable extends Component {
     constructor(props) {
         super(props);
 
-
-        // this.onChangeIcon = this.onChangeIcon.bind(this);
-        // this.onChangeIndustry = this.onChangeIndustry.bind(this);
-        // this.onChangeContent = this.onChangeContent.bind(this);
-        // this.onSubmit = this.onSubmit.bind(this);
-
         this.state = {
             imageUrl: '',
             title: '',
@@ -61,12 +53,6 @@ class MeaAdminTable extends Component {
             data: [],
             editingId: -1,
         }
-
-
-        // this.state = {
-        //     data: [],
-        //     editingId: -1,
-        // }
     }
 
     componentDidMount() {
@@ -130,12 +116,6 @@ class MeaAdminTable extends Component {
     //         });
     // }
 
-    onEdit(){
-        this.save(this.state.data[0]);
-        this.edit(this.state.data[0]);
-    }
-
-
     onAdd() {
         const newData = [{
                 id:0,
@@ -146,7 +126,6 @@ class MeaAdminTable extends Component {
             this.setState({
                 data: newData,
             });
-        this.onEdit();
     }
 
     async save(id) {
@@ -261,22 +240,15 @@ class MeaAdminTable extends Component {
     render() {
         return (
             <div>
+                <Button
+                    onClick={() => {this.onAdd(); this.edit(this.state.data[0])}}
+                    type="primary"
+                    style={{
+                        marginBottom: 16,
+                    }}
+                >Add Measurement </Button>
+                
                 <Form ref={this.formRef} name="control-ref">
-                    {/* <Popup trigger={<button>Add</button>}>
-                        <div> 
-                        <form id="form">
-                                <button type="button" id="close" onclick="hide()">X</button>
-                                <p1>Icon Link:</p1>
-                                <input id="imageUrl" name="imageUrl" type="text" value={this.state.imageUrl} onChange={this.onChangeIcon} />
-                                <p1>Industry:</p1>
-                                <input id="title" name="title" type="text" value={this.state.title} onChange={this.onChangeIndustry}/>
-                                <p1>Measurement Details:</p1>
-                                <input id="content" name="content" type="text" value={this.state.content} onChange={this.onChangeContent}/>
-                                <button onClick={() => {this.onSubmit()}}>Save</button>
-                            </form>
-
-                        </div>
-                    </Popup> */}
                     <Table
                         components={{
                             body: {
@@ -291,24 +263,9 @@ class MeaAdminTable extends Component {
                             onChange: () => this.cancel(),
                         }}
                     />
-                    <Button
-                        id="add"
-                        onClick= {() => {this.onAdd()}}
-                        //onClick={() => {this.onAdd(); this.edit(this.state.data[0])}}
-                        type="primary"
-                        style={{
-                            marginBottom: 16,
-                        }}
-                    >
-                        Add a new measurement
-                    </Button> 
-                   
-
                 </Form>
-
-
-
             </div>
+            
         );
     }
 
