@@ -31,50 +31,50 @@ public class NewsServiceTests {
     private NewsServiceImpl newsService;
 
 
-    @Test
-    void createNewsByManual_ReturnSavedNews() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        // arrange ** String title, String description, String content, String coverImage, Date date
-        News news = null;
-        try {
-            news = new News("123456", "123456", "1", "1", formatter.parse("2020-01-01"));
-        } catch (Exception e) {
-            return;
-        }
-        // mock the "findById" operation
-        when(newsRepository.findByTitle(any(String.class))).thenReturn(new ArrayList<News>());
-        // mock the "save" operation
-        when(newsRepository.save(any(News.class))).thenReturn(news);
-        // act ***
-        News savedBook = newsService.createNewsByManual(news);
-        // assert ***
-        assertNotNull(savedBook);
-        verify(newsRepository).findByTitle(savedBook.getTitle());
-        verify(newsRepository).save(news);
-    }
-
-
-    @Test
-    void createNewsByManual_ReturnNull() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        // arrange *** String title, String description, String content, String coverImage, Date date
-        News news = null;
-        try {
-            news = new News("exists", "123456", "1", "1", formatter.parse("2020-01-01"));
-        } catch (Exception e) {
-            return;
-        }
-        List<News> someNews = new ArrayList<>();
-        someNews.add(news);
-
-        // mock the "findByTitle" operation
-        when(newsRepository.findByTitle(news.getTitle())).thenReturn(someNews);
-        // act ***
-        News savedBook = newsService.createNewsByManual(news);
-        // assert ***
-        assertNull(savedBook);
-        verify(newsRepository).findByTitle(news.getTitle());
-    }
+//    @Test
+//    void createNewsByManual_ReturnSavedNews() {
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//        // arrange ** String title, String description, String content, String coverImage, Date date
+//        News news = null;
+//        try {
+//            news = new News("123456", "123456", "1", "1", formatter.parse("2020-01-01"));
+//        } catch (Exception e) {
+//            return;
+//        }
+//        // mock the "findById" operation
+//        when(newsRepository.findByTitle(any(String.class))).thenReturn(new ArrayList<News>());
+//        // mock the "save" operation
+//        when(newsRepository.save(any(News.class))).thenReturn(news);
+//        // act ***
+//        News savedBook = newsService.createNewsByManual(news);
+//        // assert ***
+//        assertNotNull(savedBook);
+//        verify(newsRepository).findByTitle(savedBook.getTitle());
+//        verify(newsRepository).save(news);
+//    }
+//
+//
+//    @Test
+//    void createNewsByManual_ReturnNull() {
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//        // arrange *** String title, String description, String content, String coverImage, Date date
+//        News news = null;
+//        try {
+//            news = new News("exists", "123456", "1", "1", formatter.parse("2020-01-01"));
+//        } catch (Exception e) {
+//            return;
+//        }
+//        List<News> someNews = new ArrayList<>();
+//        someNews.add(news);
+//
+//        // mock the "findByTitle" operation
+//        when(newsRepository.findByTitle(news.getTitle())).thenReturn(someNews);
+//        // act ***
+//        News savedBook = newsService.createNewsByManual(news);
+//        // assert ***
+//        assertNull(savedBook);
+//        verify(newsRepository).findByTitle(news.getTitle());
+//    }
 
     // @Test
     // void updateNews_ReturnUpdatedBook(){
@@ -105,24 +105,24 @@ public class NewsServiceTests {
     //     verify(newsRepository).save(news);
     // }
 
-    @Test
-    void updateNews_ReturnNull(){
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        // arrange *** String title, String description, String content, String coverImage, Date date
-        News news = null;
-        try {
-            news = new News("updated", "123456", "1", "1", formatter.parse("2020-01-01"));
-        } catch (Exception e) {
-            return;
-        }
-        Long newsId = 10L;
-        when(newsRepository.findById(newsId)).thenReturn(Optional.empty());
-
-        News newNews = newsService.updateNews(newsId, news);
-
-        assertNull(newNews);
-        verify(newsRepository).findById(newsId);
-    }
+//    @Test
+//    void updateNews_ReturnNull(){
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//        // arrange *** String title, String description, String content, String coverImage, Date date
+//        News news = null;
+//        try {
+//            news = new News("updated", "123456", "1", "1", formatter.parse("2020-01-01"));
+//        } catch (Exception e) {
+//            return;
+//        }
+//        Long newsId = 10L;
+//        when(newsRepository.findById(newsId)).thenReturn(Optional.empty());
+//
+//        News newNews = newsService.updateNews(newsId, news);
+//
+//        assertNull(newNews);
+//        verify(newsRepository).findById(newsId);
+//    }
 
 
 }
