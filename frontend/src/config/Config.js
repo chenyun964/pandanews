@@ -40,6 +40,11 @@ const vaccispots_region_api = vaccispots_api + '/region';
 const vaccispots_type_api = vaccispots_api + '/type';
 const vaccispots_vaccitype_api = vaccispots_api + '/vaccitype';
 
+// Test Spots
+const testspots_api = API_HOSTS + '/testspots';
+const testspots_name_api = testspots_api + '/name';
+const testspots_type_api = testspots_api + '/type';
+
 //Attendance
 const mark_attendance_api = API_HOSTS + '/attendance/mark';
 
@@ -66,6 +71,9 @@ export default{
     vaccispots_region_api,
     vaccispots_type_api,
     vaccispots_vaccitype_api,
+    testspots_api,
+    testspots_name_api,
+    testspots_type_api,
     user_vaccine_api,
     org_employee_promote_api,
     org_employee_demote_api,

@@ -54,8 +54,17 @@ class Nav extends Component {
 
                 </ul>
               </li>
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Map
+                </a>
+                <ul className="dropdown-menu cate-dropdown" aria-labelledby="navbarDropdown">
+                  <li><a className="dropdown-item" href={"/vaccispots"}>Vaccination Spots</a></li>
+                  <li><a className="dropdown-item" href={"/testspots"}>Swab Test Spots</a></li>
+                </ul>
+              </li>
               <li className="nav-item">
-                <a className="nav-link" href="/vaccispots">Support</a>
+                <a className="nav-link" href="/support">Support</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/search"><i className="fas fa-search"></i></a>

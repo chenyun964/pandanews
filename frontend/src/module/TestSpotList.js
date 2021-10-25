@@ -2,9 +2,9 @@ import { Component } from 'react';
 import { Table, Input, Space, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
-import VacciSpotModel from '../model/VacciSpotModel';
+import TestSpotModel from '../model/TestSpotModel';
 
-class VacciSpotList extends Component {
+class TestSpotList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,7 +17,7 @@ class VacciSpotList extends Component {
     }
 
     componentDidMount() {
-        VacciSpotModel.getByType(this.state.type).then(res => {
+        TestSpotModel.getByType(this.state.type).then(res => {
             this.setState({ data: res.data });
         }).catch(error => {
             console.log(error);
@@ -103,35 +103,6 @@ class VacciSpotList extends Component {
                 render: text => <a>{text}</a>,
             },
             {
-                title: 'Region',
-                dataIndex: 'region',
-                filters: [
-                    {
-                        text: 'Central',
-                        value: 'Central',
-                    },
-                    {
-                        text: 'North',
-                        value: 'North',
-                    },
-                    {
-                        text: 'North East',
-                        value: 'North East',
-                    },
-                    {
-                        text: 'East',
-                        value: 'East',
-                    },
-                    {
-                        text: 'West',
-                        value: 'West',
-                    },
-                ],
-                onFilter: (value, record) => record.region.indexOf(value) === 0,
-                key: 'region',
-                responsive: ['lg'],
-            },
-            {
                 title: 'Address',
                 dataIndex: 'address',
                 key: 'address',
@@ -139,22 +110,17 @@ class VacciSpotList extends Component {
                 ...this.getColumnSearchProps('address'),
             },
             {
-                title: 'Vaccine Type',
-                dataIndex: 'vacciType',
-                filters: [
-                    {
-                        text: 'Moderna',
-                        value: 'Moderna',
-                    },
-                    {
-                        text: 'Pfizer/Comirnaty',
-                        value: 'Pfizer/Comirnaty',
-                    },
-                ],
-                onFilter: (value, record) => record.vacciType.indexOf(value) === 0,
-                key: 'vacciType',
+                title: 'Operating Hours',
+                dataIndex: 'opHours',
+                key: 'opHours',
                 responsive: ['lg'],
-            }
+            },
+            {
+                title: 'Contact',
+                dataIndex: 'contact',
+                key: 'contact',
+                responsive: ['lg'],
+            },
         ];
         return (
             <Table columns={columns} dataSource={this.state.data} />
@@ -162,4 +128,4 @@ class VacciSpotList extends Component {
     }
 }
 
-export default VacciSpotList;
+export default TestSpotList;

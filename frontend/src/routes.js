@@ -17,6 +17,7 @@ import Measurement from "./module/Measurement";
 import MeaAdminTable from "./module/MeaAdminTable";
 import VacciSpotTabs from './module/VacciSpotTabs';
 import SearchNews from './module/SearchNews';
+import TestSpotTabs from './module/TestSpotTabs';
 
 class LoginRoutes extends Component {
   componentDidMount() {
@@ -64,6 +65,7 @@ class AllRoutes extends Component {
           }
 
           <Route exact path="/vaccispots" component={VacciSpotTabs} />
+          <Route exact path="/testspots" component={TestSpotTabs} />
           {LoginModel.retrieveToken() &&
             <LoginRoutes />
           }
