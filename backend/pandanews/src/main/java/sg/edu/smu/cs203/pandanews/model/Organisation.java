@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import sg.edu.smu.cs203.pandanews.model.User.User;
+import sg.edu.smu.cs203.pandanews.model.user.User;
 
 @Entity
 @Getter

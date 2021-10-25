@@ -1,10 +1,8 @@
-package sg.edu.smu.cs203.pandanews.service.News;
+package sg.edu.smu.cs203.pandanews.service.news;
 
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import sg.edu.smu.cs203.pandanews.model.news.News;
-import sg.edu.smu.cs203.pandanews.model.news.NewsListDAO;
 
 import java.util.List;
 

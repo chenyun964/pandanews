@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import VacciSpotModel from '../model/VacciSpotModel';
+import TestSpotModel from '../model/TestSpotModel';
 
-class Map extends Component {
+class TestSpotMap extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,7 +17,9 @@ class Map extends Component {
     }
 
     getMarkers() {
-        VacciSpotModel.getByType(this.state.type).then((res) => {
+        console.log(this.state.type);
+        TestSpotModel.getByType(this.state.type).then((res) => {
+            console.log(res.data);
             this.setState({markers: res.data, loading: false});
         }).catch(error => {
             console.log(error);
@@ -42,7 +44,8 @@ class Map extends Component {
                                 <b>Name:</b> {marker.name} <br />
                                 <b>Building Type:</b> {marker.type} <br />
                                 <b>Address:</b> {marker.address} <br />
-                                <b>Vaccine Type:</b> {marker.vacciType}
+                                <b>Operation Hours:</b> {marker.opHours} <br />
+                                <b>Contact:</b> {marker.contact}
                             </Popup>
                         </Marker>
                     ))}
@@ -53,5 +56,5 @@ class Map extends Component {
 
 }
 
-export default Map;
+export default TestSpotMap;
 

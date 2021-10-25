@@ -404,13 +404,7 @@
 }
 
 /* popup styling*/
-body {
-  text-align: center;
-}
-button {
-  width: 200px;
-  height: 30px;
-}
+
 #popup {
   display: none;
   width: 100%;
@@ -420,6 +414,7 @@ button {
   position: fixed;
   background-color: rgba(50, 50, 50, 0.9);
 }
+
 #form {
   position: absolute;
   background-color: #f5f5f5;
@@ -431,10 +426,7 @@ button {
   top: 10%;
   margin-left: -150px;
 }
-input {
-  width: 250px;
-  margin-bottom: 20px;
-}
+
 #close {
   position: absolute;
   font-weight: bold;
@@ -443,10 +435,7 @@ input {
   width: 30px;
   height: 27px;
 }
-p1 {
-  float: left;
-  margin-left: 30px;
-}
+
 .cont {
   background-color: #e3f2fd;
   border-radius: 2px;
@@ -456,6 +445,7 @@ p1 {
   text-align: left;
   overflow: auto;
 }
+
 #add {
   margin: 10px;
 }

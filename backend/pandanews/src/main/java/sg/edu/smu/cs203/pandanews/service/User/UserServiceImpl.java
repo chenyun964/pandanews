@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.service.User;
+package sg.edu.smu.cs203.pandanews.service.user;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import sg.edu.smu.cs203.pandanews.model.Organisation;
-import sg.edu.smu.cs203.pandanews.model.User.User;
+import sg.edu.smu.cs203.pandanews.model.user.User;
 import sg.edu.smu.cs203.pandanews.repository.UserRepository;
 
 @Service

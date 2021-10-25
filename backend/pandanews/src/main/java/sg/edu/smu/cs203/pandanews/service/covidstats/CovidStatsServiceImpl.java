@@ -1,8 +1,9 @@
 package sg.edu.smu.cs203.pandanews.service.covidstats;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sg.edu.smu.cs203.pandanews.model.CovidStats.CovidCase;
+import sg.edu.smu.cs203.pandanews.model.covidStats.CovidCase;
 import sg.edu.smu.cs203.pandanews.repository.CovidCaseRepository;
 
 import java.util.List;

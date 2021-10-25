@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.service.Category;
+package sg.edu.smu.cs203.pandanews.service.category;
 
 
 import sg.edu.smu.cs203.pandanews.model.category.Category;

@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.model.User;
+package sg.edu.smu.cs203.pandanews.model.user;
 
 import java.util.List;
 import java.util.Date;
@@ -24,7 +24,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.*;
-import sg.edu.smu.cs203.pandanews.model.Attendance.Attendance;
+import sg.edu.smu.cs203.pandanews.model.attendance.Attendance;
 import sg.edu.smu.cs203.pandanews.model.Organisation;
 import sg.edu.smu.cs203.pandanews.model.WorkGroup;
 
@@ -99,6 +99,15 @@ public class User implements UserDetails {
         this.authorities = role;
     }
 
+    public User(String username, String email, String password, String name, String contact, Boolean vaccinated) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.contact = contact;
+        this.vaccinated = vaccinated;
+    }
+
     @PrePersist
     public void logCreation() {
         Date temp = new Date();
@@ -145,4 +154,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

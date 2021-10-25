@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import sg.edu.smu.cs203.pandanews.model.Measurement;
-import sg.edu.smu.cs203.pandanews.service.Measurement.MeasurementService;
+import sg.edu.smu.cs203.pandanews.service.measurement.MeasurementService;
 
 @RestController
 public class MeasurementController {
