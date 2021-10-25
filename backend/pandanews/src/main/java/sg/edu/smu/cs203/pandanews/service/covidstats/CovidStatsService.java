@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.service.covidStats;
+package sg.edu.smu.cs203.pandanews.service.covidstats;
 
 import sg.edu.smu.cs203.pandanews.model.covidStats.CovidCase;
 

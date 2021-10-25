@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sg.edu.smu.cs203.pandanews.model.covidStats.CovidCase;
-import sg.edu.smu.cs203.pandanews.service.covidStats.CovidStatsServiceImpl;
+import sg.edu.smu.cs203.pandanews.service.covidstats.CovidStatsServiceImpl;
 
 @RestController
 public class CovidStatsController {
