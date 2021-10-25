@@ -22,6 +22,8 @@ import sg.edu.smu.cs203.pandanews.dto.UserDTO;
 import sg.edu.smu.cs203.pandanews.model.user.JwtRequest;
 import sg.edu.smu.cs203.pandanews.model.user.User;
 import sg.edu.smu.cs203.pandanews.repository.UserRepository;
+import sg.edu.smu.cs203.pandanews.service.user.JwtUserDetailsService;
+import sg.edu.smu.cs203.pandanews.service.user.UserServiceImpl;
 import sg.edu.smu.cs203.pandanews.util.JwtTokenUtil;
 
 import java.net.URI;
