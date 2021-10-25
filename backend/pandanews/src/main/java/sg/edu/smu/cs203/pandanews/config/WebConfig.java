@@ -2,14 +2,20 @@ package sg.edu.smu.cs203.pandanews.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
-    
+    @Value("${pandanews.frontend.uri}")
+    private String frontendUri;
+
+    @Value("${pandanews.admin.uri}")
+    private String adminUri;
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("http://localhost:3000", "http://localhost:3001")
+        registry.addMapping("/**").allowedOrigins(frontendUri, adminUri)
                 .allowedMethods("GET", "POST","PUT", "DELETE", "OPTIONS");
     }
 
