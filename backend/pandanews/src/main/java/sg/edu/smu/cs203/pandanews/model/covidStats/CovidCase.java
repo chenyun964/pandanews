@@ -1,7 +1,6 @@
-package sg.edu.smu.cs203.pandanews.model.CovidStats;
+package sg.edu.smu.cs203.pandanews.model.covidStats;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.service.Category;
+package sg.edu.smu.cs203.pandanews.service.category;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -91,6 +91,9 @@ class News extends Component {
                             })}
                         </div>
                         <div class="col-4">
+                            <div>
+                                
+                            </div>
                             <div className="d-flex flex-wrap">
                                 {this.state.category.map((category, i) => {
                                     return (
@@ -98,8 +101,6 @@ class News extends Component {
                                     )
                                 })}
                             </div>
-
-
                         </div>
                     </div>
                 </div>

@@ -17,7 +17,7 @@ import org.springframework.http.HttpStatus;
 import sg.edu.smu.cs203.pandanews.dto.TestSpotDTO;
 import sg.edu.smu.cs203.pandanews.exception.SpotNotFoundException;
 import sg.edu.smu.cs203.pandanews.model.TestSpot;
-import sg.edu.smu.cs203.pandanews.service.TestSpot.TestSpotService;
+import sg.edu.smu.cs203.pandanews.service.testSpot.TestSpotService;
 
 @RestController
 @RequestMapping(path = "/testspots")

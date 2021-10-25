@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import sg.edu.smu.cs203.pandanews.service.User.JwtUserDetailsService;
+import sg.edu.smu.cs203.pandanews.service.user.JwtUserDetailsService;
 import sg.edu.smu.cs203.pandanews.util.JwtTokenUtil;
 
 import io.jsonwebtoken.ExpiredJwtException;

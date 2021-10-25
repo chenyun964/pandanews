@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.model.GeoCode;
+package sg.edu.smu.cs203.pandanews.model.geoCode;
 
 import java.util.ArrayList;
 

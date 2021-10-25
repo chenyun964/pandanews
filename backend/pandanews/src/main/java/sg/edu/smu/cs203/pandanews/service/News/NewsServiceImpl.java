@@ -1,14 +1,12 @@
-package sg.edu.smu.cs203.pandanews.service.News;
+package sg.edu.smu.cs203.pandanews.service.news;
 
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 import sg.edu.smu.cs203.pandanews.model.news.News;
-import sg.edu.smu.cs203.pandanews.model.news.NewsListDAO;
+import sg.edu.smu.cs203.pandanews.repository.CategoryRepository;
 import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -20,14 +18,22 @@ public class NewsServiceImpl implements NewsService {
     @Autowired
     private NewsRepository newsRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public News createNewsByManual(News news) {
-        return newsRepository.save(news);
+        List<News> newsList = newsRepository.findByTitle(news.getTitle());
+        if (newsList.size() == 0) {
+            return newsRepository.save(news);
+        }
+        return null;
     }
 
     @Override
     public List<News> createNewsByAPI() {
-        return newsAPIServiceImpl.apiCall();
+        List<News> result = newsAPIServiceImpl.apiCall();
+        return result.size() == 0 ? null : result;
     }
 
     @Override
@@ -39,7 +45,6 @@ public class NewsServiceImpl implements NewsService {
             newNews.setDate(news.getDate());
             newNews.setDescription(news.getDescription());
             newNews.setPinned(news.isPinned());
-
             return newsRepository.save(newNews);
         }).orElse(null);
     }
@@ -60,6 +65,15 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    public List<News> findNewsByCategory(String s) {
+        List<Category> c = categoryRepository.findByTitle(s);
+        if(c.size() != 1){
+            return null;
+        }
+        return newsRepository.findByCategory(c.get(0));
+    }
+
+    @Override
     public News findNewsById(long id) {
         return newsRepository.findById(id).orElse(null);
     }
@@ -76,4 +90,12 @@ public class NewsServiceImpl implements NewsService {
     public List<News> findTop4NewsPast7Days() {
         return newsRepository.findByViewCountAndCreatedAtBetween();
     }
+
+    @Override
+    public int testNews(int a) {
+        if (a == 1)
+            return 1;
+        return 123;
+    }
+
 }

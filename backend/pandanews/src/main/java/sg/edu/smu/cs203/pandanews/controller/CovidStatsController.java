@@ -4,10 +4,8 @@ package sg.edu.smu.cs203.pandanews.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sg.edu.smu.cs203.pandanews.model.CovidStats.CovidCase;
-import sg.edu.smu.cs203.pandanews.model.news.News;
-import sg.edu.smu.cs203.pandanews.service.News.NewsServiceImpl;
-import sg.edu.smu.cs203.pandanews.service.covidstats.CovidStatsServiceImpl;
+import sg.edu.smu.cs203.pandanews.model.covidStats.CovidCase;
+import sg.edu.smu.cs203.pandanews.service.covidStats.CovidStatsServiceImpl;
 
 @RestController
 public class CovidStatsController {

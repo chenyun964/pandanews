@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.service.WorkGroup;
+package sg.edu.smu.cs203.pandanews.service.workGroup;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
