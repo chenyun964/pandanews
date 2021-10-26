@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import MeasurementModel from "../model/MeasurementModel";
 import React from 'react';
-import { Table, Input, InputNumber, Popconfirm, Form, Typography, Space, Button } from 'antd';
+import { Table, Input, InputNumber, Popconfirm, Form, Typography, Space, Button, Modal, Select } from 'antd';
 import '../App.css';
 
 
