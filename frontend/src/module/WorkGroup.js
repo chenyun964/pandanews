@@ -27,7 +27,6 @@ class WorkGroup extends Component {
         })
     }
 
-
     listWorkGroup() {
         OrganisationModel.policy().then(res => {
             this.setState({
@@ -68,11 +67,11 @@ class WorkGroup extends Component {
                 <div className="p-5 flex-fill">
                     <div className="flex-fill">
                         <div className="d-flex justify-content-between">
-                            <h1>Policy</h1>
+                            <h1>WorkGroup</h1>
                             <Button type="primary" onClick={this.showModel}>Add</Button>
                         </div>
                         <Table dataSource={this.state.policy}>
-                            <Column title="Policy ID" dataIndex="id" key="id" />
+                            <Column title="Work Group ID" dataIndex="id" key="id" />
                             <Column title="Content" dataIndex="message" key="message" />
                             <Column
                                 title="Active Policy?"

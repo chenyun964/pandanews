@@ -3,7 +3,7 @@ import config from '../config/Config';
 
 class WorkGroupModel {
   async create(organisationid, data) {
-    return axiosJwt.post(config['workgroup_api'] + "/" + organisationid + "workgroups", data);
+    return axiosJwt.post(config['workgroup_api'] + "/" + organisationid + "workgroup", data);
   }
 
   async join(data) {
@@ -11,6 +11,6 @@ class WorkGroupModel {
   }
 
   async delete(organisationid, id) {
-    return axiosJwt.delete(config['workgroup_api'] + "/" + organisationid + "workgroups", data);
+    return axiosJwt.delete(config['workgroup_api'] + "/" + organisationid + "workgroup", data);
   }
 }

@@ -27,7 +27,6 @@ class Policy extends Component {
         })
     }
 
-
     listPolicy() {
         OrganisationModel.policy().then(res => {
             this.setState({

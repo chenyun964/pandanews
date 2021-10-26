@@ -21,4 +21,5 @@ public interface UserService {
     User joinWorkGroup(User user, WorkGroup workGroup);
     User updateVaccine(User user);
     void quitOrganisation(User user);
+    void quitWorkGroup(User user);
 }

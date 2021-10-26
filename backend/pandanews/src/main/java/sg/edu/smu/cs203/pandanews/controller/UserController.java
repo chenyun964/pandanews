@@ -138,10 +138,7 @@ public class UserController {
     }
 
     @PostMapping("/users/workgroup")
-    public User addUserWorkGroup(@RequestBody WorkGroup workGroup){
-        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-        .getPrincipal();
-        
+    public User addUserWorkGroup(@RequestBody WorkGroup workGroup, @RequestBody User user){
         User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) return null;
 
