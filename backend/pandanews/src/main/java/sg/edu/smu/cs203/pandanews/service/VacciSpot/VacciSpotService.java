@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.service.VacciSpot;
+package sg.edu.smu.cs203.pandanews.service.vaccispot;
 
 import java.util.List;
 

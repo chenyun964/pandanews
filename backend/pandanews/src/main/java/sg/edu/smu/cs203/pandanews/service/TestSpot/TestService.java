@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.service.TestSpot;
+package sg.edu.smu.cs203.pandanews.service.testspot;
 
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.*;

@@ -1,13 +1,9 @@
-package sg.edu.smu.cs203.pandanews.service.News;
+package sg.edu.smu.cs203.pandanews.service.news;
 
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 import sg.edu.smu.cs203.pandanews.model.news.News;
-import sg.edu.smu.cs203.pandanews.model.news.NewsListDAO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface NewsService {
@@ -24,11 +20,15 @@ public interface NewsService {
 
     List<News> findNewsByKeywords(String keyword);
 
+    List<News> findNewsByCategory(String s);
+
     News findNewsById(long id);
 
     News updateNewsCategory(long id, Category c);
 
     List<News> findTop4NewsPast7Days();
+
+    int testNews(int a);
 
 
 

@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.service.Measurement;
+package sg.edu.smu.cs203.pandanews.service.measurement;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;

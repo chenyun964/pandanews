@@ -16,8 +16,8 @@ import Invite from './module/Invite';
 import Measurement from "./module/Measurement";
 import MeaAdminTable from "./module/MeaAdminTable";
 import VacciSpotTabs from './module/VacciSpotTabs';
-import VacciSpotAdminTable from './module/VacciSpotAdminTable';
-
+import SearchNews from './module/SearchNews';
+import TestSpotTabs from './module/TestSpotTabs';
 
 class LoginRoutes extends Component {
   componentDidMount() {
@@ -51,6 +51,7 @@ class AllRoutes extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/category/:category" component={Category} />
+          <Route exact path="/search/:keyword" component={SearchNews} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/employee/invite" component={Invite} />
@@ -64,7 +65,7 @@ class AllRoutes extends Component {
           }
 
           <Route exact path="/vaccispots" component={VacciSpotTabs} />
-          <Route exact path="/vaccispotsadmin" component={VacciSpotAdminTable} />
+          <Route exact path="/testspots" component={TestSpotTabs} />
           {LoginModel.retrieveToken() &&
             <LoginRoutes />
           }

@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.service.Policy;
+package sg.edu.smu.cs203.pandanews.service.policy;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
