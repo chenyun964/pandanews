@@ -13,15 +13,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    env:
-      jwt.secret: ${{secrets.JWT_SECRET}}
-      azure.bing.ApiKey: ${{secrets.AZURE_BING_APIKEY}}
-      azure.bing.endpoint: https://api.bing.microsoft.com/v7.0/news
-      azure.bing.countryCode: sg
-      azure.bing.phase: COVID19
-      azure.bing.freshness: Day
-      positionstack.apikey: ${{secrets.POSITIONSTACK_APIKEY}}
-      positionstack.endpoint: http://api.positionstack.com/v1/forward
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11
@@ -30,16 +21,16 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         cache: maven
-        
+
     - name: Adding secret
-      run: |
-          printf "jwt.secret = $JWT_SECRET \n azure.bing.ApiKey = $AZURE_BING_APIKEY \n azure.bing.endpoint = https://api.bing.microsoft.com/v7.0/news \n azure.bing.countryCode = sg \n azure.bing.phase = COVID19 \n azure.bing.freshness = Day \n positionstack.apikey = $POSITIONSTACK_APIKEY \n positionstack.endpoint = http://api.positionstack.com/v1/forward \n" > /backend/pandanews/src/main/resources/application.properties
-      shell: bash
       env:
         JWT_SECRET: ${{secrets.JWT_SECRET}}
         AZURE_BING_APIKEY: ${{secrets.AZURE_BING_APIKEY}}
         POSITIONSTACK_APIKEY: ${{secrets.POSITIONSTACK_APIKEY}}
-        
+      shell: bash
+      run: |
+          printf "jwt.secret = $JWT_SECRET \n azure.bing.ApiKey = $AZURE_BING_APIKEY \n azure.bing.endpoint = https://api.bing.microsoft.com/v7.0/news \n azure.bing.countryCode = sg \n azure.bing.phase = COVID19 \n azure.bing.freshness = Day \n positionstack.apikey = $POSITIONSTACK_APIKEY \n positionstack.endpoint = http://api.positionstack.com/v1/forward \n" > /backend/pandanews/src/main/resources/application.properties
+          
     - name: Build with Maven
       run: mvn clean install -DskiTests -f "./backend/pandanews/pom.xml"
       
