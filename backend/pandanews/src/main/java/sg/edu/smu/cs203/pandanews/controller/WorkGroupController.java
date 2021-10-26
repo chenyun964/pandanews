@@ -133,10 +133,8 @@ public class WorkGroupController {
     }
 
     @DeleteMapping("/organisation/{oid}/workgroup/{wgid}/employee/{id}")
-    public void removeOrganisationEmployee(@PathVariable Long oid, @PathVariable Long wgid, @PathVariable Long id) {
+    public void removeWorkGroupEmployee(@PathVariable Long oid, @PathVariable Long wgid, @PathVariable Long id) {
         User employee = users.getUser(id);
-        users.updateUserRole(employee, "ROLE_USER");
-
-        users.quitOrganisation(employee);
+        users.quitWorkGroup(employee);
     }
 }
