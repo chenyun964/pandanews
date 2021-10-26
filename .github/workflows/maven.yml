@@ -14,13 +14,13 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      jwt.secret: ${{JWT_SECRET}}
-      azure.bing.ApiKey: ${{AZURE_BING_APIKEY}}
+      jwt.secret: ${{secrets.JWT_SECRET}}
+      azure.bing.ApiKey: ${{secrets.AZURE_BING_APIKEY}}
       azure.bing.endpoint: https://api.bing.microsoft.com/v7.0/news
       azure.bing.countryCode: sg
       azure.bing.phase: COVID19
       azure.bing.freshness: Day
-      positionstack.apikey: ${{POSITIONSTACK_APIKEY}}
+      positionstack.apikey: ${{secrets.POSITIONSTACK_APIKEY}}
       positionstack.endpoint: http://api.positionstack.com/v1/forward
     steps:
     - uses: actions/checkout@v2
