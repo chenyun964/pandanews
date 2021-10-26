@@ -72,19 +72,9 @@ class WorkGroup extends Component {
                         </div>
                         <Table dataSource={this.state.policy}>
                             <Column title="Work Group ID" dataIndex="id" key="id" />
-                            <Column title="Content" dataIndex="message" key="message" />
-                            <Column
-                                title="Active Policy?"
-                                dataIndex="validity"
-                                key="validity"
-                                render={validity => (
-                                    <>
-                                        <Tag color={validity ? 'green' : "red"} key={validity}>
-                                            {validity ? "Yes" : "No"}
-                                        </Tag>
-                                    </>
-                                )}
-                            />
+                            <Column title="Name" dataIndex="workGroupName" key="workGroupName" />
+                            <Column title="Report Time" dataIndex="reportTime" key="reportTime" />
+                            {/* need to implement adding user to work group button
                             <Column
                                 title="Action"
                                 key="id"
@@ -99,6 +89,7 @@ class WorkGroup extends Component {
                                     </Space>
                                 )}
                             />
+                                    */}
                         </Table>
                     </div>
                 </div>
