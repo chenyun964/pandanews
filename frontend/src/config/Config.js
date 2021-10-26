@@ -36,7 +36,7 @@ const workgroup_join_api = API_HOSTS + "/users/workgroup"
 const measurement_api = API_HOSTS + '/measurements';
 const mea_create_api = API_HOSTS + '/measurements';
 
-// Vaccination Spots
+//Vaccination Spots
 const vaccispots_api = API_HOSTS + '/vaccispots';
 const vaccispots_name_api = vaccispots_api + '/name';
 const vaccispots_region_api = vaccispots_api + '/region';

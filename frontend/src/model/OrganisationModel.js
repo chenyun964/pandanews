@@ -22,6 +22,10 @@ class OrganisationModel {
     return axiosJwt.get(config["org_policy_api"]);
   }
 
+  async workGroup() {
+    return axiosJwt.get(config["org_workgroup_api"]);
+  }
+
   async activate() {
     return axiosJwt.get(config["org_policy_activate_api"] + "/" + id);
   }

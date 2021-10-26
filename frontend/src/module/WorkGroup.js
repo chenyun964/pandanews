@@ -28,7 +28,7 @@ class WorkGroup extends Component {
     }
 
 
-    listPolicy() {
+    listWorkGroup() {
         OrganisationModel.policy().then(res => {
             this.setState({
                 employee: res.data
