@@ -1,10 +1,11 @@
 import { Component } from 'react';
 import MeasurementModel from "../model/MeasurementModel";
 import React from 'react';
-import { Table, Input, InputNumber, Popconfirm, Form, Typography, Space, Button } from 'antd';
-//import Popup from "reactjs-popup";
-//import "reactjs-popup/dist/index.css";
+import { Table, Input, InputNumber, Popconfirm, Form, Typography, Space, Button, Modal, Select } from 'antd';
 import '../App.css';
+
+
+const { Option } = Select;
 
 const EditableCell = ({
     editing,
@@ -41,18 +42,76 @@ const EditableCell = ({
     );
 };
 
+const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
+    const [form] = Form.useForm();
+    return (
+        <Modal
+            visible={visible}
+            title="Add a new measurement"
+            okText="Create"
+            cancelText="Cancel"
+            onCancel={onCancel}
+            onOk={() => {
+                form
+                    .validateFields()
+                    .then((values) => {
+                        form.resetFields();
+                        onCreate(values);
+                    })
+                    .catch((info) => {
+                        console.log('Validate Failed:', info);
+                    });
+            }}
+        >
+            <Form
+                form={form}
+                labelCol={{ span: 6 }}
+                wrapperCol={{ span: 16 }}
+                layout="horizontal"
+                name="form_in_modal"
+                requiredMark={false}
+            >
+                <Form.Item
+                    name="title"
+                    label="Industry"
+                    rules={[{
+                        required: true,
+                        message: 'Please input an industry name!',
+                    }]}
+                >
+                    <Input placeholder="Please input an industry name" />
+                </Form.Item>
+                <Form.Item
+                    name="content"
+                    label="Measurement"
+                    rules={[{
+                        required: true,
+                        message: 'Please input the measurement details!',
+                    }]}
+                >
+                    <Input placeholder="Please input measurement details" />
+                </Form.Item>
+                <Form.Item
+                    name="imageUrl"
+                    label="Icon Link"
+                    rules={[{
+                        required: true,
+                        message: 'Please input the icon link!',
+                    }]}
+                >
+                    <Input placeholder="Please input industry icon link" />
+                </Form.Item>
+            </Form>
+        </Modal>
+    );
+};
+
 class MeaAdminTable extends Component {
 
     formRef = React.createRef();
 
     constructor(props) {
         super(props);
-
-
-        // this.onChangeIcon = this.onChangeIcon.bind(this);
-        // this.onChangeIndustry = this.onChangeIndustry.bind(this);
-        // this.onChangeContent = this.onChangeContent.bind(this);
-        // this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             imageUrl: '',
@@ -61,12 +120,6 @@ class MeaAdminTable extends Component {
             data: [],
             editingId: -1,
         }
-
-
-        // this.state = {
-        //     data: [],
-        //     editingId: -1,
-        // }
     }
 
     componentDidMount() {
@@ -130,23 +183,16 @@ class MeaAdminTable extends Component {
     //         });
     // }
 
-    onEdit(){
-        this.save(this.state.data[0]);
-        this.edit(this.state.data[0]);
-    }
 
-
-    onAdd() {
-        const newData = [{
-                id:0,
-                imageUrl: '',
-                title: '',
-                content: ''
-        }, ...this.state.data];
+    async onAdd(values) {
+        const newData = [...this.state.data];
+        MeasurementModel.add(values).then(res => {
+            newData.push(res.data);
             this.setState({
                 data: newData,
+                visible: false,
             });
-        this.onEdit();
+        });
     }
 
     async save(id) {
@@ -261,6 +307,19 @@ class MeaAdminTable extends Component {
     render() {
         return (
             <div>
+                <Button
+                    type="primary"
+                    onClick={() => {
+                        this.setState({ visible: true });
+                    }}
+                >Add Measurement </Button>
+                <CollectionCreateForm
+                    visible={this.state.visible}
+                    onCreate={(values) => this.onAdd(values)}
+                    onCancel={() => {
+                        this.setState({ visible: false });
+                    }}
+                />
                 <Form ref={this.formRef} name="control-ref">
                     {/* <Popup trigger={<button>Add</button>}>
                         <div> 
@@ -291,23 +350,7 @@ class MeaAdminTable extends Component {
                             onChange: () => this.cancel(),
                         }}
                     />
-                    <Button
-                        id="add"
-                        onClick= {() => {this.onAdd()}}
-                        //onClick={() => {this.onAdd(); this.edit(this.state.data[0])}}
-                        type="primary"
-                        style={{
-                            marginBottom: 16,
-                        }}
-                    >
-                        Add a new measurement
-                    </Button> 
-                   
-
                 </Form>
-
-
-
             </div>
         );
     }

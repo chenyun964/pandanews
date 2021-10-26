@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import sg.edu.smu.cs203.pandanews.exception.UnauthenticatedException;
 import sg.edu.smu.cs203.pandanews.exception.UnauthorizedUserException;
-import sg.edu.smu.cs203.pandanews.service.workGroup.WorkGroupService;
-import sg.edu.smu.cs203.pandanews.model.WorkGroup;
 import sg.edu.smu.cs203.pandanews.service.user.UserService;
+import sg.edu.smu.cs203.pandanews.service.workgroup.WorkGroupService;
+import sg.edu.smu.cs203.pandanews.model.WorkGroup;
 import sg.edu.smu.cs203.pandanews.repository.UserRepository;
 import sg.edu.smu.cs203.pandanews.model.user.User;
 import org.springframework.security.core.userdetails.UserDetails;

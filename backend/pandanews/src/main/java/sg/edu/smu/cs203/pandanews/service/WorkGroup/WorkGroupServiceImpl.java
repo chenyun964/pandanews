@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.service.workGroup;
+package sg.edu.smu.cs203.pandanews.service.workgroup;
 
 import java.util.List;
 

@@ -104,6 +104,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/vaccispots/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/vaccispots/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/vaccispots/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/testspots/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/testspots/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/testspots/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/testspots/**").permitAll()
 
                 // all other requests need to be authenticated
                 .anyRequest().authenticated().and()

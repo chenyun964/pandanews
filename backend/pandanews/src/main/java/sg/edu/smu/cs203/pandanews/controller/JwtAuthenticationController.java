@@ -16,10 +16,10 @@ import org.springframework.http.HttpStatus;
 import javax.validation.Valid;
 import org.springframework.web.server.ResponseStatusException;
 
-import sg.edu.smu.cs203.pandanews.service.user.JwtUserDetailsService;
 import sg.edu.smu.cs203.pandanews.util.JwtTokenUtil;
 import sg.edu.smu.cs203.pandanews.model.user.JwtRequest;
 import sg.edu.smu.cs203.pandanews.model.user.JwtResponse;
+import sg.edu.smu.cs203.pandanews.service.user.JwtUserDetailsService;
 import sg.edu.smu.cs203.pandanews.dto.AdminDTO;
 import sg.edu.smu.cs203.pandanews.dto.UserDTO;
 

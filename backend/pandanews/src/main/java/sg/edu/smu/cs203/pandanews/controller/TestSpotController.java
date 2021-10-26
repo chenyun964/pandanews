@@ -17,16 +17,20 @@ import org.springframework.http.HttpStatus;
 import sg.edu.smu.cs203.pandanews.dto.TestSpotDTO;
 import sg.edu.smu.cs203.pandanews.exception.SpotNotFoundException;
 import sg.edu.smu.cs203.pandanews.model.TestSpot;
-import sg.edu.smu.cs203.pandanews.service.testSpot.TestSpotService;
+import sg.edu.smu.cs203.pandanews.service.testspot.TestSpotService;
+import sg.edu.smu.cs203.pandanews.util.GeoCodeUtil;
 
 @RestController
 @RequestMapping(path = "/testspots")
 public class TestSpotController {
     private TestSpotService testSpotService;
 
+    private GeoCodeUtil geoCodeUtil;
+
     @Autowired
-    public TestSpotController(TestSpotService tss) {
+    public TestSpotController(TestSpotService tss, GeoCodeUtil gcu) {
         this.testSpotService = tss;
+        this.geoCodeUtil = gcu;
     }
 
     @GetMapping
@@ -68,10 +72,11 @@ public class TestSpotController {
         newSpot.setName(newSpotDTO.getName());
         newSpot.setType(newSpotDTO.getType());
         newSpot.setAddress(newSpotDTO.getAddress());
-        newSpot.setLatitude(newSpotDTO.getLatitude());
-        newSpot.setLongitude(newSpotDTO.getLongitude());
         newSpot.setOpHours(newSpotDTO.getOpHours());
         newSpot.setContact(newSpotDTO.getContact());
+        Double[] latLng = geoCodeUtil.getLatLng(newSpotDTO.getAddress());
+        newSpot.setLatitude(latLng[0]);
+        newSpot.setLongitude(latLng[1]);
         return testSpotService.add(newSpot);
     }
 
@@ -82,10 +87,11 @@ public class TestSpotController {
         newSpot.setName(newSpotDTO.getName());
         newSpot.setType(newSpotDTO.getType());
         newSpot.setAddress(newSpotDTO.getAddress());
-        newSpot.setLatitude(newSpotDTO.getLatitude());
-        newSpot.setLongitude(newSpotDTO.getLongitude());
         newSpot.setOpHours(newSpotDTO.getOpHours());
         newSpot.setContact(newSpotDTO.getContact());
+        Double[] latLng = geoCodeUtil.getLatLng(newSpotDTO.getAddress());
+        newSpot.setLatitude(latLng[0]);
+        newSpot.setLongitude(latLng[1]);
         newSpot = testSpotService.update(id, newSpot);
         if (newSpot == null) {
             throw new SpotNotFoundException();
