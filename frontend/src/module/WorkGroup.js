@@ -5,18 +5,18 @@ import UserModel from '../model/UserModel';
 
 const { Column } = Table;
 
-class Policy extends Component {
+class WorkGroup extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            policy: [],
+            workGroup: [],
             code: "",
             visible: false
         }
     }
 
     componentDidMount() {
-        this.listPolicy();
+        this.listWorkGroup();
 
         UserModel.userOrg().then(res => {
             this.setState({
@@ -109,4 +109,4 @@ class Policy extends Component {
     }
 }
 
-export default Policy;
+export default WorkGroup;

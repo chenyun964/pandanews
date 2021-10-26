@@ -15,14 +15,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import sg.edu.smu.cs203.pandanews.service.Organisation.OrganisationService;
+import sg.edu.smu.cs203.pandanews.service.WorkGroup.WorkGroupService;
 import sg.edu.smu.cs203.pandanews.service.User.UserService;
 import sg.edu.smu.cs203.pandanews.model.User.User;
 import sg.edu.smu.cs203.pandanews.model.Organisation;
+import sg.edu.smu.cs203.pandanews.model.WorkGroup;
 
 @RestController
 public class UserController {
     private UserService userService;
-
+    private WorkGroup workGroupService;
     private OrganisationService orgService;
 
     public UserController(UserService us, OrganisationService orgs){
@@ -123,6 +125,31 @@ public class UserController {
         if(org == null) return null;
 
         return userService.joinOrganisation(user, org);
+    }
+
+    @GetMapping("/users/workgroup")
+    public WorkGroup getWorkGroup(){
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal();
+        
+        User user = userService.getUserByUsername(userDetails.getUsername());
+        if(user == null) return null;
+
+        return user.getWorkGroup();
+    }
+
+    @PostMapping("/users/workgroup")
+    public User addUserWorkGroup(@RequestBody WorkGroup workGroup){
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal();
+        
+        User user = userService.getUserByUsername(userDetails.getUsername());
+        if(user == null) return null;
+
+        WorkGroup wg = workGroupService.getWorkGroup(workGroup.getId());
+        if(wg == null) return null;
+
+        return userService.joinWorkGroup(user, wg);
     }
 
     @PutMapping("/users/vaccine")

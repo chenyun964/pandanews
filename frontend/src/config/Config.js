@@ -28,6 +28,10 @@ const org_policy_api = API_HOSTS + "/organisation/policy";
 const org_policy_activate_api = API_HOSTS + "/organisation/activate";
 const org_policy_deactivate_api = API_HOSTS + "/organisation/deactivate";
 
+//WorkGroups
+const workgroup_api = API_HOSTS + "/organisation"
+const workgroup_join_api = API_HOSTS + "/users/workgroup"
+
 //Measurements
 const measurement_api = API_HOSTS + '/measurements';
 const mea_create_api = API_HOSTS + '/measurements';
@@ -65,5 +69,7 @@ export default{
     org_employee_demote_api,
     org_policy_activate_api,
     org_policy_deactivate_api,
-    mea_create_api
+    mea_create_api,
+    workgroup_api,
+    workgroup_join_api
 }
