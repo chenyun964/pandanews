@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.model.CovidStats;
+package sg.edu.smu.cs203.pandanews.model;
 
 import java.util.Date;
 
@@ -15,19 +15,31 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 @Entity
+@Getter
+@ToString
+@EqualsAndHashCode
 public class Statistic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     private int newCases;
+
+    @Setter
     private int totalCases;
 
+    @Setter
     private int newDeaths;
+
+    @Setter
     private int totalDeaths;
 
-    private int newRecovered;
-    private int totalRecovered;
+    @Setter
+    private int newRecovery;
+
+    @Setter
+    private int totalRecovery;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:MM:ss", timezone = "GMT+8")
     @Column(name = "created_at", updatable = false)
@@ -42,15 +54,15 @@ public class Statistic {
     public void logTime() {
         Date temp = new Date();
         Object param = new java.sql.Timestamp(temp.getTime());
-        created_at = (Date) param;
-        updated_at = created_at;
+        createdAt = (Date) param;
+        updatedAt = createdAt;
     }
 
     @PreUpdate
     public void logUpdate() {
         Date temp = new Date();
         Object param = new java.sql.Timestamp(temp.getTime());
-        updated_at = (Date) param;
+        updatedAt = (Date) param;
     }
 
 }

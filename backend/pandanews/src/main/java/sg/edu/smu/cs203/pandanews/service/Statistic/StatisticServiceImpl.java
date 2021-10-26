@@ -3,7 +3,7 @@ package sg.edu.smu.cs203.pandanews.service.Statistic;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
-import sg.edu.smu.cs203.pandanews.model.CovidStats.Statistic;
+import sg.edu.smu.cs203.pandanews.model.Statistic;
 import sg.edu.smu.cs203.pandanews.repository.StatisticRepository;
 
 @Service
@@ -13,11 +13,9 @@ public class StatisticServiceImpl implements StatisticService {
     private StatisticRepository StatisticRepo;
     @Override
     public Statistic addStatistic(Statistic Statistic) {
-        List<Statistic> sameId = StatisticRepo.findById(Statistic.getId());
-        if(sameId.size() == 0)
+        
             return StatisticRepo.save(Statistic);
-        else
-            return null;
+
     }
 
     @Override
@@ -47,6 +45,5 @@ public class StatisticServiceImpl implements StatisticService {
     @Override
     public List<Statistic> displayStatistics(){
         return StatisticRepo.findAll();
-
     }
 }
