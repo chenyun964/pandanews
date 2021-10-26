@@ -186,6 +186,22 @@ public class OrganisationController {
         return organisation.getPolicy();
     }
 
+    @GetMapping("/organisation/workgroup")
+    public List<WorkGroup> getOrganisationWorkGroups() {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+
+        User user = users.getUserByUsername(userDetails.getUsername());
+        if (user == null)
+            return null;
+
+        Organisation organisation = user.getOrganisation();
+        if (organisation == null)
+            return null;
+
+        return organisation.getWorkGroup();
+    }
+
     @PutMapping("/organisation/promote/{id}")
     public Organisation promoteEmployee(@PathVariable Long id) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
