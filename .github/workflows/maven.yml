@@ -33,13 +33,14 @@ jobs:
         
     - name: Adding secret
       run: |
-          echo $DEV_PROP_FILE >> /backend/pandanews/src/main/resources/application.properties
+          echo $prop_file >> /backend/pandanews/src/main/resources/application.properties
           cat /backend/pandanews/src/main/resources/application.properties
       shell: bash
       env:
-        DEV_PROP_FILE: ${{secrets.JWT_SECRET}}
+        prop_file: ${{secrets.JWT_SECRET}}
         
     - name: Build with Maven
       run: mvn clean install -DskiTests -f "./backend/pandanews/pom.xml"
+      
     - name: Maven Verify
       run: mvn -B clean verify
