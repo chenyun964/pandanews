@@ -19,13 +19,13 @@ class VacciSpotTabs extends Component {
                                 <VacciSpotList type="Vaccination Centre" />
                                 <VacciSpotMap type="Vaccination Centre" />
                             </TabPane>
-                            <TabPane tab="Clinics" key="2">
-                                <VacciSpotList type="Clinic" />
-                                <VacciSpotMap type="Clinic" />
-                            </TabPane>
-                            <TabPane tab="Polyclinics" key="3">
+                            <TabPane tab="Polyclinics" key="2">
                                 <VacciSpotList type="Polyclinic" />
                                 <VacciSpotMap type="Polyclinic" />
+                            </TabPane>
+                            <TabPane tab="Clinics" key="3">
+                                <VacciSpotList type="Clinic" />
+                                <VacciSpotMap type="Clinic" />
                             </TabPane>
                         </Tabs>
                     </div>

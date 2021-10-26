@@ -183,16 +183,17 @@ class MeaAdminTable extends Component {
     //         });
     // }
 
-
-    async onAdd(values) {
-        const newData = [...this.state.data];
-        MeasurementModel.add(values).then(res => {
-            newData.push(res.data);
+    onAdd() {
+        const newData = [{
+                id:0,
+                imageUrl: '',
+                title: '',
+                content: ''
+        }, ...this.state.data];
             this.setState({
                 data: newData,
                 visible: false,
             });
-        });
     }
 
     async save(id) {
@@ -308,34 +309,14 @@ class MeaAdminTable extends Component {
         return (
             <div>
                 <Button
+                    onClick={() => {this.onAdd(); this.edit(this.state.data[0])}}
                     type="primary"
-                    onClick={() => {
-                        this.setState({ visible: true });
+                    style={{
+                        marginBottom: 16,
                     }}
                 >Add Measurement </Button>
-                <CollectionCreateForm
-                    visible={this.state.visible}
-                    onCreate={(values) => this.onAdd(values)}
-                    onCancel={() => {
-                        this.setState({ visible: false });
-                    }}
-                />
+                
                 <Form ref={this.formRef} name="control-ref">
-                    {/* <Popup trigger={<button>Add</button>}>
-                        <div> 
-                        <form id="form">
-                                <button type="button" id="close" onclick="hide()">X</button>
-                                <p1>Icon Link:</p1>
-                                <input id="imageUrl" name="imageUrl" type="text" value={this.state.imageUrl} onChange={this.onChangeIcon} />
-                                <p1>Industry:</p1>
-                                <input id="title" name="title" type="text" value={this.state.title} onChange={this.onChangeIndustry}/>
-                                <p1>Measurement Details:</p1>
-                                <input id="content" name="content" type="text" value={this.state.content} onChange={this.onChangeContent}/>
-                                <button onClick={() => {this.onSubmit()}}>Save</button>
-                            </form>
-
-                        </div>
-                    </Popup> */}
                     <Table
                         components={{
                             body: {
@@ -352,6 +333,7 @@ class MeaAdminTable extends Component {
                     />
                 </Form>
             </div>
+            
         );
     }
 

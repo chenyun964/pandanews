@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Table, Modal, Select, Input, InputNumber, Popconfirm, Form, Typography, Space, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
-import VacciSpotModel from '../model/VacciSpotModel';
+import TestSpotModel from '../model/TestSpotModel';
 
 const { Option } = Select;
 
@@ -46,7 +46,7 @@ const SpotCreateForm = ({ visible, onCreate, onCancel }) => {
     return (
         <Modal
             visible={visible}
-            title="Create a new vaccination spot"
+            title="Create a new swab test spot"
             okText="Create"
             cancelText="Cancel"
             onCancel={onCancel}
@@ -64,7 +64,7 @@ const SpotCreateForm = ({ visible, onCreate, onCancel }) => {
         >
             <Form
                 form={form}
-                labelCol={{ span: 6}}
+                labelCol={{ span: 6 }}
                 wrapperCol={{ span: 16 }}
                 layout="horizontal"
                 name="form_in_modal"
@@ -75,10 +75,10 @@ const SpotCreateForm = ({ visible, onCreate, onCancel }) => {
                     label="Name"
                     rules={[{
                         required: true,
-                        message: 'Please input name of the vaccination spot!',
+                        message: 'Please input name of the swab test spot!',
                     }]}
                 >
-                    <Input placeholder="Please input name of the vaccination spot" />
+                    <Input placeholder="Please input name of the swab test spot" />
                 </Form.Item>
                 <Form.Item
                     name="address"
@@ -88,7 +88,7 @@ const SpotCreateForm = ({ visible, onCreate, onCancel }) => {
                         message: 'Please input address!',
                     }]}
                 >
-                    <Input.TextArea placeholder="Please input address" />
+                    <Input placeholder="Please input address" />
                 </Form.Item>
                 <Form.Item
                     name="type"
@@ -96,52 +96,40 @@ const SpotCreateForm = ({ visible, onCreate, onCancel }) => {
                     hasFeedback
                     rules={[{
                         required: true,
-                        message: 'Please select type of building!'
+                        message: 'Please select type of test!'
                     }]}
                 >
-                    <Select placeholder="Please select type of building">
-                        <Option value="Vaccination Centre">Vaccination Centre</Option>
-                        <Option value="Polyclinic">Polyclinic</Option>
-                        <Option value="Clinic">Clinic</Option>
+                    <Select placeholder="Please select type of test">
+                        <Option value="PCR">PCR</Option>
+                        <Option value="ART">ART</Option>
                     </Select>
                 </Form.Item>
                 <Form.Item
-                    name="region"
-                    label="Region"
-                    hasFeedback
+                    name="opHours"
+                    label="Operation Hours"
                     rules={[{
                         required: true,
-                        message: 'Please select region!'
+                        message: 'Please input operaton hours!',
                     }]}
                 >
-                    <Select placeholder="Please select region">
-                        <Option value="Central">Central</Option>
-                        <Option value="North">North</Option>
-                        <Option value="West">West</Option>
-                        <Option value="East">East</Option>
-                        <Option value="North East">North East</Option>
-                    </Select>
+                    <Input placeholder="Please input operation hours" />
                 </Form.Item>
                 <Form.Item
-                    name="vacciType"
-                    label="Vaccine Type"
-                    hasFeedback
+                    name="contact"
+                    label="Contact"
                     rules={[{
                         required: true,
-                        message: 'Please select vaccine type!'
+                        message: 'Please input contact!',
                     }]}
                 >
-                    <Select placeholder="Please select vaccine type">
-                        <Option value="Moderna">Moderna</Option>
-                        <Option value="Pfizer/Comirnaty">Pfizer/Comirnaty</Option>
-                    </Select>
+                    <Input placeholder="Please input contact" />
                 </Form.Item>
             </Form>
         </Modal>
     );
 };
 
-class VacciSpotTable extends Component {
+class TestSpotTable extends Component {
     formRef = React.createRef();
 
     constructor(props) {
@@ -156,7 +144,7 @@ class VacciSpotTable extends Component {
     }
 
     componentDidMount() {
-        VacciSpotModel.getAll().then((res) => {
+        TestSpotModel.getAll().then((res) => {
             this.setState({ data: res.data });
         }).catch(error => {
             console.log(error);
@@ -171,8 +159,9 @@ class VacciSpotTable extends Component {
         this.formRef.current.setFieldsValue({
             name: '',
             type: '',
-            region: '',
             address: '',
+            opHours: '',
+            contact: '',
             ...record,
         });
         this.setState({ editingId: record.id });
@@ -184,7 +173,7 @@ class VacciSpotTable extends Component {
 
     handleDelete(id) {
         try {
-            VacciSpotModel.delete(id);
+            TestSpotModel.delete(id);
             this.setState({
                 data: this.state.data.filter((item) => item.id !== id),
             });
@@ -195,7 +184,7 @@ class VacciSpotTable extends Component {
 
     async onCreate(values) {
         const newData = [...this.state.data];
-        VacciSpotModel.add(values).then(res => {
+        TestSpotModel.add(values).then(res => {
             newData.push(res.data);
             this.setState({
                 data: newData,
@@ -213,9 +202,9 @@ class VacciSpotTable extends Component {
                 const item = { ...newData[index], ...row, latitude: 0.0, longitude: 0.0 };
                 if (id > 0) {
                     newData.splice(index, 1, item);
-                    VacciSpotModel.update(id, item);
+                    TestSpotModel.update(id, item);
                 } else {
-                    VacciSpotModel.add(item).then(res => {
+                    TestSpotModel.add(item).then(res => {
                         newData.splice(index, 1, res.data);
                     });
                 }
@@ -299,7 +288,7 @@ class VacciSpotTable extends Component {
                 title: 'Name',
                 dataIndex: 'name',
                 key: 'name',
-                width: '22%',
+                width: '20%',
                 editable: true,
                 sorter: (a, b) => a.name.localeCompare(b.name),
                 sortDirections: ['ascend', 'descend'],
@@ -309,51 +298,17 @@ class VacciSpotTable extends Component {
                 title: 'Type',
                 dataIndex: 'type',
                 key: 'type',
-                width: '12%',
+                width: '5%',
                 editable: true,
                 filters: [
                     {
-                        text: 'Vaccination Centre',
-                        value: 'Vaccination Centre',
+                        text: 'PCR',
+                        value: 'PCR',
                     },
                     {
-                        text: 'Polyclinic',
-                        value: 'Polyclinic',
-                    },
-                    {
-                        text: 'Clinic',
-                        value: 'Clinic',
-                    },
-                ],
-                onFilter: (value, record) => record.region.indexOf(value) === 0,
-            },
-            {
-                title: 'Region',
-                dataIndex: 'region',
-                key: 'region',
-                width: '10%',
-                editable: true,
-                filters: [
-                    {
-                        text: 'Central',
-                        value: 'Central',
-                    },
-                    {
-                        text: 'North',
-                        value: 'North',
-                    },
-                    {
-                        text: 'North East',
-                        value: 'North East',
-                    },
-                    {
-                        text: 'East',
-                        value: 'East',
-                    },
-                    {
-                        text: 'West',
-                        value: 'West',
-                    },
+                        text: 'ART',
+                        value: 'ART',
+                    }
                 ],
                 onFilter: (value, record) => record.region.indexOf(value) === 0,
             },
@@ -366,22 +321,18 @@ class VacciSpotTable extends Component {
                 ...this.getColumnSearchProps('address'),
             },
             {
-                title: 'Vaccine Type',
-                dataIndex: 'vacciType',
-                key: 'vacciType',
-                width: '10%',
+                title: 'Operation Hours',
+                dataIndex: 'opHours',
+                key: 'upHours',
+                width: '35%',
                 editable: true,
-                filters: [
-                    {
-                        text: 'Moderna',
-                        value: 'Moderna',
-                    },
-                    {
-                        text: 'Pfizer/Comirnaty',
-                        value: 'Pfizer/Comirnaty',
-                    },
-                ],
-                onFilter: (value, record) => record.vacciType.indexOf(value) === 0,
+            },
+            {
+                title: 'Contact',
+                dataIndex: 'contact',
+                key: 'contact',
+                width: '8%',
+                editable: true,
             },
             {
                 title: 'operation',
@@ -439,53 +390,40 @@ class VacciSpotTable extends Component {
     render() {
         return (
             <div>
-                <header className="page-header">
-                    <div className="d-flex align-items-center">
-                        <div className="mr-auto">
-                            <h1>Vaccination Spots</h1>
-                        </div>
-                        <ul class="actions top-right">
-                            <Button
-                                type="primary"
-                                size="large"
-                                onClick={() => {
-                                    this.setState({ visible: true });
-                                }}
-                            >
-                                New Vaccination Spot
-                            </Button>
-                        </ul>
-                    </div>
-                </header>
+                <Button
+                    type="primary"
+                    onClick={() => {
+                        this.setState({ visible: true });
+                    }}
+                >
+                    New Test Spot
+                </Button>
                 <SpotCreateForm
                     visible={this.state.visible}
                     onCreate={(values) => this.onCreate(values)}
                     onCancel={() => {
                         this.setState({ visible: false });
                     }}
-                    size="large"
                 />
-                <div class="card" style={{ margin: 28 }}>
-                    <Form ref={this.formRef} name="control-ref">
-                        <Table
-                            components={{
-                                body: {
-                                    cell: EditableCell,
-                                },
-                            }}
-                            bordered
-                            dataSource={this.state.data}
-                            columns={this.renderColumns()}
-                            rowClassName="editable-row"
-                            pagination={{
-                                onChange: () => this.cancel(),
-                            }}
-                        />
-                    </Form>
-                </div>
+                <Form ref={this.formRef} name="control-ref">
+                    <Table
+                        components={{
+                            body: {
+                                cell: EditableCell,
+                            },
+                        }}
+                        bordered
+                        dataSource={this.state.data}
+                        columns={this.renderColumns()}
+                        rowClassName="editable-row"
+                        pagination={{
+                            onChange: () => this.cancel(),
+                        }}
+                    />
+                </Form>
             </div>
         );
     }
 }
 
-export default VacciSpotTable;
+export default TestSpotTable;
