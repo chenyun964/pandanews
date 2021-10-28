@@ -22,17 +22,5 @@ jobs:
         distribution: 'adopt'
         cache: maven
 
-    - name: Adding secret
-      env:
-        JWT_SECRET: ${{secrets.JWT_SECRET}}
-        AZURE_BING_APIKEY: ${{secrets.AZURE_BING_APIKEY}}
-        POSITIONSTACK_APIKEY: ${{secrets.POSITIONSTACK_APIKEY}}
-      shell: bash
-      run: |
-          printf "jwt.secret = $JWT_SECRET \n azure.bing.ApiKey = $AZURE_BING_APIKEY \n azure.bing.endpoint = https://api.bing.microsoft.com/v7.0/news \n azure.bing.countryCode = sg \n azure.bing.phase = COVID19 \n azure.bing.freshness = Day \n positionstack.apikey = $POSITIONSTACK_APIKEY \n positionstack.endpoint = http://api.positionstack.com/v1/forward \n" > /backend/pandanews/src/main/resources/application.properties
-          
-    - name: Build with Maven
-      run: mvn clean install -DskiTests -f "./backend/pandanews/pom.xml"
-      
-    - name: Maven Verify
-      run: mvn -B clean verify
+    - name: Unit Test
+      run: mvn clean test
