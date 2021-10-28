@@ -398,6 +398,7 @@ class TestSpotTable extends Component {
                         <ul class="actions top-right">
                             <Button
                                 type="primary"
+                                size="large"
                                 onClick={() => {
                                     this.setState({ visible: true });
                                 }}
