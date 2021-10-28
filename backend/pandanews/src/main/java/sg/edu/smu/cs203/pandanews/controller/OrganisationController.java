@@ -158,11 +158,11 @@ public class OrganisationController {
     }
 
     @DeleteMapping("/organisation/employee/{id}")
-    public void removeOgranisationEmployee(@PathVariable Long id) {
+    public User removeOgranisationEmployee(@PathVariable Long id) {
         User employee = users.getUser(id);
         users.updateUserRole(employee, "ROLE_USER");
 
-        users.quitOrganisation(employee);
+       return users.quitOrganisation(employee);
     }
 
     @GetMapping("/organisation/{code}")

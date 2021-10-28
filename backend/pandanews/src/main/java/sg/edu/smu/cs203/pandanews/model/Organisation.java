@@ -22,6 +22,7 @@ import sg.edu.smu.cs203.pandanews.model.user.User;
 @Getter
 @ToString
 @EqualsAndHashCode
+@NoArgsConstructor
 public class Organisation {
     @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
@@ -71,5 +72,9 @@ public class Organisation {
         Date temp = new Date();
         Object param = new java.sql.Timestamp(temp.getTime());
         updatedAt = (Date) param;
+    }
+
+    public Organisation(String title) {
+        this.title = title;
     }
 }

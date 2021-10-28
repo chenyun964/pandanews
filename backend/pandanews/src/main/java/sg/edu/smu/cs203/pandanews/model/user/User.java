@@ -99,13 +99,10 @@ public class User implements UserDetails {
         this.authorities = role;
     }
 
-    public User(String username, String email, String password, String name, String contact, Boolean vaccinated) {
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.name = name;
-        this.contact = contact;
-        this.vaccinated = vaccinated;
     }
 
     @PrePersist

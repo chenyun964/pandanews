@@ -11,6 +11,7 @@ public class MeasurementServiceImpl implements MeasurementService {
 @Autowired
 
     private MeasurementRepository measurementRepo;
+
     @Override
     public Measurement addMeasurement(Measurement measurement) {
         List<Measurement> sameTitles = measurementRepo.findByTitle(measurement.getTitle());

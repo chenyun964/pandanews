@@ -11,6 +11,7 @@ public class StatisticServiceImpl implements StatisticService {
 @Autowired
 
     private StatisticRepository StatisticRepo;
+
     @Override
     public Statistic addStatistic(Statistic Statistic) {
         

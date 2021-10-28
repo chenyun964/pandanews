@@ -109,7 +109,8 @@ public class UserIntegrationTest {
 //    }
 
 
+
     private User generateTestUser() {
-        return new User("name", "abc@gmail.com", "abc", "name", "12345678", false);
+        return new User("name", "abc@gmail.com", "abc");
     }
 }
