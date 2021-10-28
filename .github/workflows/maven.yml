@@ -23,4 +23,4 @@ jobs:
         cache: maven
 
     - name: Unit Test
-      run: mvn clean test
+      run: mvn clean test -f "./backend/pandanews/pom.xml"
