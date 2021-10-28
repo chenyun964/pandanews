@@ -57,19 +57,19 @@ public class NewsIntegrationTests {
     }
 
     //Test pass
-//    @Test
-//    public void listNews_Success() throws Exception {
-//
-//        URI uri = new URI(baseUrl + port + "/news/list");
-//        newsRepository.save(NewsIntegrationTests.newsFormatter());
-//
-//        // Need to use array with a ResponseEntity here
-//        ResponseEntity<News[]> result = restTemplate.getForEntity(uri, News[].class);
-//        News[] newsList = result.getBody();
-//
-//        assertEquals(200, result.getStatusCode().value());
-//        assertEquals(1, newsList.length);
-//    }
+    @Test
+    public void listNews_Success() throws Exception {
+
+        URI uri = new URI(baseUrl + port + "/news/list");
+        newsRepository.save(NewsIntegrationTests.newsFormatter());
+
+        // Need to use array with a ResponseEntity here
+        ResponseEntity<News[]> result = restTemplate.getForEntity(uri, News[].class);
+        News[] newsList = result.getBody();
+
+        assertEquals(200, result.getStatusCode().value());
+        assertEquals(1, newsList.length);
+    }
 //
 //    @Test
 //    public void findNewsByCategory_Success() throws Exception {
