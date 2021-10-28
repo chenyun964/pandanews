@@ -53,7 +53,7 @@ public class NewsIntegrationTests {
         // clear the database after each test
         newsRepository.deleteAll();
         categoryRepository.deleteAll();
-        //test1
+        //test12
     }
 
     //Test pass
