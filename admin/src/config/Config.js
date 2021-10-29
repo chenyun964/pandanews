@@ -23,6 +23,10 @@ const vaccispots_region_api = vaccispots_api + '/region';
 const vaccispots_type_api = vaccispots_api + '/type';
 const vaccispots_vaccitype_api = vaccispots_api + '/vaccitype';
 
+//Measurements
+const measurement_api = API_HOSTS + '/measurements';
+const mea_create_api = API_HOSTS + '/measurements';
+
 export default {
     news_find_api,
     news_update_api,
@@ -40,4 +44,6 @@ export default {
     vaccispots_region_api,
     vaccispots_type_api,
     vaccispots_vaccitype_api,
+    measurement_api,
+    mea_create_api
 }
