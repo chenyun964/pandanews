@@ -32,7 +32,7 @@ public class PolicyController {
         this.policyService = policyService;
     }
 
-    @GetMapping("/organisations/{oid}/policies")
+    @GetMapping("/organisation/{oid}/policies")
     public List<Policy> getPolicies(@PathVariable Long oid) throws UnauthenticatedException, UnauthorizedUserException {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -44,7 +44,7 @@ public class PolicyController {
         return policyService.listPolicies(oid);
     }
 
-    @GetMapping("/organisations/{oid}/policies/{id}")
+    @GetMapping("/organisation/{oid}/policies/{id}")
     public Policy getPolicy(@PathVariable Long oid, @PathVariable Long id){
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -61,7 +61,7 @@ public class PolicyController {
     }
     
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/organisations/{oid}/policies")
+    @PostMapping("/organisation/{oid}/policies")
     public Policy addPolicy(@PathVariable Long oid, @RequestBody Policy policy){
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -73,7 +73,7 @@ public class PolicyController {
         return policyService.addPolicy(policy);
     }
 
-    @PutMapping("/organisations/{oid}/policies/{id}")
+    @PutMapping("/organisation/{oid}/policies/{id}")
     public Policy updatePolicy(@PathVariable Long oid, @PathVariable Long id, @RequestBody Policy newPolicyInfo){
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -88,7 +88,7 @@ public class PolicyController {
         return policy;
     }
 
-    @DeleteMapping("/organisations/{oid}/policies/{id}")
+    @DeleteMapping("/organisation/{oid}/policies/{id}")
     public void deletePolicy(@PathVariable Long oid, @PathVariable Long id){
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

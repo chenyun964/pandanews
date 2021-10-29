@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import sg.edu.smu.cs203.pandanews.model.user.User;
+import sg.edu.smu.cs203.pandanews.model.Policy;
 
 @Entity
 @Getter
@@ -51,6 +52,11 @@ public class Organisation {
     @OneToMany(mappedBy = "organisation")
     @JsonIgnore
     private List<User> employee;
+
+    @Setter
+    @OneToMany(mappedBy = "organisation")
+    @JsonIgnore
+    private List<Policy> policy;
 
     @Column(name = "created_at", updatable = false)
     private Date createdAt;

@@ -38,7 +38,7 @@ class Employee extends Component {
         })
     }
 
-    showModal = () => {
+    showModel = () => {
         this.setState({ visible: true });
     };
 
@@ -67,7 +67,7 @@ class Employee extends Component {
             title: 'This action is non reversible',
             content: (
                 <div>
-                    <p>Are you sure you wanto to remove <strong>{employee.name ? employee.name : employee.username}</strong></p>
+                    <p>Are you sure you want to remove <strong>{employee.name ? employee.name : employee.username}</strong></p>
                 </div>
             ),
             okText: "Delete",
@@ -89,7 +89,7 @@ class Employee extends Component {
 
     copyCode = () => {
         navigator.clipboard.writeText(window.location.origin + "/employee/invite?code=" + this.state.code)
-        message.info('Copyed to Clipboard');
+        message.info('Copied to Clipboard');
     };
 
     render() {
@@ -99,7 +99,7 @@ class Employee extends Component {
                     <div className="flex-fill">
                         <div className="d-flex justify-content-between">
                             <h1>Employee</h1>
-                            <Button type="primary" onClick={this.showModal}>Add</Button>
+                            <Button type="primary" onClick={this.showModel}>Add</Button>
                         </div>
                         <Table dataSource={this.state.employee}>
                             <Column title="Username" dataIndex="username" key="username" />

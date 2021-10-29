@@ -147,7 +147,7 @@ public class OrganisationController {
     }
 
     @PostMapping("/organisation/employee")
-    public Organisation addOgranisationEmployee(@RequestBody Organisation org) {
+    public Organisation addOrganisationEmployee(@RequestBody Organisation org) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
@@ -158,7 +158,7 @@ public class OrganisationController {
     }
 
     @DeleteMapping("/organisation/employee/{id}")
-    public void removeOgranisationEmployee(@PathVariable Long id) {
+    public void removeOrganisationEmployee(@PathVariable Long id) {
         User employee = users.getUser(id);
         users.updateUserRole(employee, "ROLE_USER");
 
@@ -166,8 +166,40 @@ public class OrganisationController {
     }
 
     @GetMapping("/organisation/{code}")
-    public Organisation addOgranisationEmployee(@PathVariable String code) {
+    public Organisation addOrganisationEmployee(@PathVariable String code) {
         return orgService.getOrganisationByCode(code);
+    }
+
+    @GetMapping("/organisation/policy")
+    public List<Policy> getOrganisationPolicies() {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+
+        User user = users.getUserByUsername(userDetails.getUsername());
+        if (user == null)
+            return null;
+
+        Organisation organisation = user.getOrganisation();
+        if (organisation == null)
+            return null;
+
+        return organisation.getPolicy();
+    }
+
+    @GetMapping("/organisation/workgroup")
+    public List<WorkGroup> getOrganisationWorkGroups() {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+
+        User user = users.getUserByUsername(userDetails.getUsername());
+        if (user == null)
+            return null;
+
+        Organisation organisation = user.getOrganisation();
+        if (organisation == null)
+            return null;
+
+        return organisation.getWorkGroup();
     }
 
     @PutMapping("/organisation/promote/{id}")
