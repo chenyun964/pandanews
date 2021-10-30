@@ -18,8 +18,12 @@ import sg.edu.smu.cs203.pandanews.service.user.UserService;
 import sg.edu.smu.cs203.pandanews.dto.OrganisationDTO;
 import sg.edu.smu.cs203.pandanews.model.user.User;
 import sg.edu.smu.cs203.pandanews.model.Organisation;
+import sg.edu.smu.cs203.pandanews.model.Policy;
+import sg.edu.smu.cs203.pandanews.model.WorkGroup;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 @RestController
 @CrossOrigin
@@ -29,6 +33,7 @@ public class OrganisationController {
 
     private UserService users;
 
+    @Autowired
     public OrganisationController(OrganisationService os, UserService users) {
         this.orgService = os;
         this.users = users;

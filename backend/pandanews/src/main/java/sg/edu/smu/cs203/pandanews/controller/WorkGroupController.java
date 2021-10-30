@@ -1,6 +1,8 @@
 package sg.edu.smu.cs203.pandanews.controller;
 
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +23,7 @@ import sg.edu.smu.cs203.pandanews.repository.UserRepository;
 import sg.edu.smu.cs203.pandanews.model.user.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 public class WorkGroupController {
@@ -28,8 +31,11 @@ public class WorkGroupController {
     private UserService userService;
     private UserRepository users;
 
-    public WorkGroupController(WorkGroupService workGroupService){
+    @Autowired
+    public WorkGroupController(WorkGroupService workGroupService, UserService userService, UserRepository users){
         this.workGroupService = workGroupService;
+        this.userService = userService;
+        this.users = users;
     }
 
     /**
