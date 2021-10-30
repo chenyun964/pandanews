@@ -28,6 +28,11 @@ const testspots_api = API_HOSTS + '/testspots';
 const testspots_name_api = vaccispots_api + '/name';
 const testspots_type_api = vaccispots_api + '/type';
 
+//Measurements
+const measurement_api = API_HOSTS + '/measurements';
+const mea_create_api = API_HOSTS + '/measurements';
+
+
 export default {
     news_find_api,
     news_update_api,
@@ -48,4 +53,6 @@ export default {
     testspots_api,
     testspots_name_api,
     testspots_type_api,
+    measurement_api,
+    mea_create_api
 }

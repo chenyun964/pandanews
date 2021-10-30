@@ -18,8 +18,11 @@ import sg.edu.smu.cs203.pandanews.service.user.UserService;
 import sg.edu.smu.cs203.pandanews.dto.OrganisationDTO;
 import sg.edu.smu.cs203.pandanews.model.user.User;
 import sg.edu.smu.cs203.pandanews.model.Organisation;
+import sg.edu.smu.cs203.pandanews.model.Policy;
+import sg.edu.smu.cs203.pandanews.model.WorkGroup;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 @CrossOrigin
@@ -29,6 +32,7 @@ public class OrganisationController {
 
     private UserService users;
 
+    @Autowired
     public OrganisationController(OrganisationService os, UserService users) {
         this.orgService = os;
         this.users = users;
@@ -147,7 +151,7 @@ public class OrganisationController {
     }
 
     @PostMapping("/organisation/employee")
-    public Organisation addOgranisationEmployee(@RequestBody Organisation org) {
+    public Organisation addOrganisationEmployee(@RequestBody Organisation org) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
@@ -159,15 +163,48 @@ public class OrganisationController {
 
     @DeleteMapping("/organisation/employee/{id}")
     public User removeOgranisationEmployee(@PathVariable Long id) {
+
         User employee = users.getUser(id);
         users.updateUserRole(employee, "ROLE_USER");
 
-       return users.quitOrganisation(employee);
+        return users.quitOrganisation(employee);
     }
 
     @GetMapping("/organisation/{code}")
-    public Organisation addOgranisationEmployee(@PathVariable String code) {
+    public Organisation addOrganisationEmployee(@PathVariable String code) {
         return orgService.getOrganisationByCode(code);
+    }
+
+    @GetMapping("/organisation/policy")
+    public List<Policy> getOrganisationPolicies() {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+
+        User user = users.getUserByUsername(userDetails.getUsername());
+        if (user == null)
+            return null;
+
+        Organisation organisation = user.getOrganisation();
+        if (organisation == null)
+            return null;
+
+        return organisation.getPolicy();
+    }
+
+    @GetMapping("/organisation/workgroup")
+    public List<WorkGroup> getOrganisationWorkGroups() {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+
+        User user = users.getUserByUsername(userDetails.getUsername());
+        if (user == null)
+            return null;
+
+        Organisation organisation = user.getOrganisation();
+        if (organisation == null)
+            return null;
+
+        return organisation.getWorkGroup();
     }
 
     @PutMapping("/organisation/promote/{id}")

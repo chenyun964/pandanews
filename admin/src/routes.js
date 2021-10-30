@@ -9,6 +9,8 @@ import Dashboard from './module/Dashboard';
 import Organisation from "./module/Organisation";
 import VacciSpotTable from "./module/VacciSpotTable";
 import TestSpotTable from './module/TestSpotTable';
+import MeaAdminTable from "./module/MeaAdminTable";
+
 
 class LoginRoutes extends Component {
     componentDidMount() {
@@ -28,6 +30,7 @@ class LoginRoutes extends Component {
                     <Route exact path="/organisation" component={Organisation} />
                     <Route exact path="/vaccispot" component={VacciSpotTable} />
                     <Route exact path="/testspot" component={TestSpotTable} />
+                    <Route exact path="/measurement" component={MeaAdminTable} />
                 </Switch>
             </div>
         </Fragment>

@@ -1,6 +1,8 @@
 package sg.edu.smu.cs203.pandanews.controller;
 
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +23,7 @@ import sg.edu.smu.cs203.pandanews.repository.UserRepository;
 import sg.edu.smu.cs203.pandanews.model.user.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 public class WorkGroupController {
@@ -28,15 +31,18 @@ public class WorkGroupController {
     private UserService userService;
     private UserRepository users;
 
-    public WorkGroupController(WorkGroupService workGroupService){
+    @Autowired
+    public WorkGroupController(WorkGroupService workGroupService, UserService userService, UserRepository users){
         this.workGroupService = workGroupService;
+        this.userService = userService;
+        this.users = users;
     }
 
     /**
      * List all books in the system
      * @return list of all books
      */
-    @GetMapping("/organisations/{oid}/workgroups")
+    @GetMapping("/organisation/{oid}/workgroup")
     public List<WorkGroup> getWorkGroups(@PathVariable Long oid) throws UnauthenticatedException, UnauthorizedUserException {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -54,7 +60,7 @@ public class WorkGroupController {
      * @param id
      * @return book with the given id
      */
-    @GetMapping("/organisations/{oid}/workgroups/{id}")
+    @GetMapping("/organisation/{oid}/workgroup/{id}")
     public WorkGroup getWorkGroup(@PathVariable Long oid, @PathVariable Long id) throws UnauthenticatedException, UnauthorizedUserException {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -78,7 +84,7 @@ public class WorkGroupController {
      * @return list of all books
      */
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/organisations/{oid}/workgroups")
+    @PostMapping("/organisation/{oid}/workgroup")
     public WorkGroup addWorkGroup(@PathVariable Long oid, @RequestBody WorkGroup workGroup) throws UnauthenticatedException, UnauthorizedUserException {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -96,7 +102,7 @@ public class WorkGroupController {
      * @param newOrganisationInfo
      * @return the updated, or newly added book
      */
-    @PutMapping("/organisations/{oid}/workgroups/{id}")
+    @PutMapping("/organisation/{oid}/workgroup/{id}")
     public WorkGroup updateWorkGroup(@PathVariable Long oid, @PathVariable Long id, @RequestBody WorkGroup newWorkGroupInfo) throws UnauthenticatedException, UnauthorizedUserException {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -116,7 +122,7 @@ public class WorkGroupController {
      * If there is no book with the given "id", throw a BookNotFoundException
      * @param id
      */
-    @DeleteMapping("/organisations/{oid}/workgroups/{id}")
+    @DeleteMapping("/organisation/{oid}/workgroup/{id}")
     public void deleteWorkGroup(@PathVariable Long oid, @PathVariable Long id) throws UnauthenticatedException, UnauthorizedUserException {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -130,5 +136,11 @@ public class WorkGroupController {
         } catch(EmptyResultDataAccessException e) {
             // throw new WorkGroupNotFoundException(id);
         }
+    }
+
+    @DeleteMapping("/organisation/{oid}/workgroup/{wgid}/employee/{id}")
+    public void removeWorkGroupEmployee(@PathVariable Long oid, @PathVariable Long wgid, @PathVariable Long id) {
+        User employee = users.getUser(id);
+        users.quitWorkGroup(employee);
     }
 }

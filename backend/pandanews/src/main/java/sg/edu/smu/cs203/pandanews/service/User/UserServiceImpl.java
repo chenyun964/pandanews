@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import sg.edu.smu.cs203.pandanews.model.Organisation;
+import sg.edu.smu.cs203.pandanews.model.WorkGroup;
 import sg.edu.smu.cs203.pandanews.model.user.User;
 import sg.edu.smu.cs203.pandanews.repository.UserRepository;
 
@@ -85,6 +86,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateVaccine(User user) {
+        return null;
+    }
+
+    public User joinWorkGroup(User user, WorkGroup workGroup){
+        user.setWorkGroup(workGroup);
+        users.save(user);
+        return user;
+    }
+
+    @Override
+    public void quitWorkGroup(User user){
+        user.setWorkGroup(null);
+        users.save(user);
+    }
+
+    @Override
+    public User updateVaccine(User user){
         user.setVaccinated(true);
         users.save(user);
         return user;

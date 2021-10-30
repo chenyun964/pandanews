@@ -15,19 +15,23 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import sg.edu.smu.cs203.pandanews.service.organisation.OrganisationService;
+import sg.edu.smu.cs203.pandanews.service.workgroup.WorkGroupService;
 import sg.edu.smu.cs203.pandanews.service.user.UserService;
 import sg.edu.smu.cs203.pandanews.model.user.User;
 import sg.edu.smu.cs203.pandanews.model.Organisation;
+import sg.edu.smu.cs203.pandanews.model.WorkGroup;
+import org.springframework.beans.factory.annotation.Autowired;
 
-@RestController
 public class UserController {
     private UserService userService;
-
+    private WorkGroup workGroupService;
     private OrganisationService orgService;
 
-    public UserController(UserService us, OrganisationService orgs){
+    @Autowired
+    public UserController(UserService us, OrganisationService orgs, WorkGroup workGroupService){
         this.userService = us;
         this.orgService = orgs;
+        this.workGroupService = workGroupService;
     }
 
     /**
@@ -122,6 +126,28 @@ public class UserController {
         if(org == null) return null;
 
         return userService.joinOrganisation(user, org);
+    }
+
+    @GetMapping("/users/workgroup")
+    public WorkGroup getWorkGroup(){
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal();
+        
+        User user = userService.getUserByUsername(userDetails.getUsername());
+        if(user == null) return null;
+
+        return user.getWorkGroup();
+    }
+
+    @PostMapping("/users/workgroup")
+    public User addUserWorkGroup(@RequestBody WorkGroup workGroup, @RequestBody User user){
+        user = userService.getUserByUsername(user.getUsername());
+        if(user == null) return null;
+
+        WorkGroup wg = workGroupService.getWorkGroup(workGroup.getId());
+        if(wg == null) return null;
+
+        return userService.joinWorkGroup(user, wg);
     }
 
     @PutMapping("/users/vaccine")

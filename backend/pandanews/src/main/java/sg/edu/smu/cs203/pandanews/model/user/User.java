@@ -77,7 +77,7 @@ public class User implements UserDetails {
     @Setter
     @ManyToOne
     @JoinColumn(name = "workgroup_id")
-    private WorkGroup workgroup;
+    private WorkGroup workGroup;
 
     @Column(name = "created_at", updatable = false)
     private Date createdAt;

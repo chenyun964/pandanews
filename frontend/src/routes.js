@@ -14,7 +14,6 @@ import NotFound from "./module/NotFound";
 import Employee from './module/Employee';
 import Invite from './module/Invite';
 import Measurement from "./module/Measurement";
-import MeaAdminTable from "./module/MeaAdminTable";
 import VacciSpotTabs from './module/VacciSpotTabs';
 import SearchNews from './module/SearchNews';
 import TestSpotTabs from './module/TestSpotTabs';
@@ -57,7 +56,6 @@ class AllRoutes extends Component {
           <Route exact path="/employee/invite" component={Invite} />
           <Route exact path="/map" component={Map} />
           <Route exact path="/measurements" component={Measurement} />
-          <Route exact path="/measurements/admin" component={MeaAdminTable} />
 
           {/* Add your routes above this */}
           {!LoginModel.retrieveToken() &&
