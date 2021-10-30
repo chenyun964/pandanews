@@ -250,6 +250,8 @@ class MeaAdminTable extends Component {
                 key: 'updatedAt',
                 width: '20%',
                 editable: true,
+                sorter: (a, b) => a.updatedAt.localeCompare(b.updatedAt),
+                sortDirections: ['ascend', 'descend'],
 
             },
             {
