@@ -84,10 +84,6 @@ public class UserServiceImpl implements UserService {
         return users.save(user);
     }
 
-    @Override
-    public User updateVaccine(User user) {
-        return null;
-    }
 
     public User joinWorkGroup(User user, WorkGroup workGroup){
         user.setWorkGroup(workGroup);

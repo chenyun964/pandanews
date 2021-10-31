@@ -43,7 +43,7 @@ public class WorkGroup {
     @ElementCollection
     private List<Date> datesInOffice;
 
-    @OneToMany(mappedBy = "workgroup", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "workGroup", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<User> users;
 
