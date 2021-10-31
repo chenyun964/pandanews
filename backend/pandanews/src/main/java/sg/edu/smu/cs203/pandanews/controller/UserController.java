@@ -24,11 +24,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserController {
     private UserService userService;
-    private WorkGroup workGroupService;
+    private WorkGroupService workGroupService;
     private OrganisationService orgService;
 
     @Autowired
-    public UserController(UserService us, OrganisationService orgs, WorkGroup workGroupService){
+    public UserController(UserService us, OrganisationService orgs, WorkGroupService workGroupService){
         this.userService = us;
         this.orgService = orgs;
         this.workGroupService = workGroupService;
@@ -46,7 +46,6 @@ public class UserController {
     /**
      * Search for book with the given id
      * If there is no book with the given "id", throw a BookNotFoundException
-     * @param id
      * @return book with the given id
      */
     @GetMapping("/users/profile")
@@ -71,7 +70,6 @@ public class UserController {
 
     /**
      * If there is no book with the given "id", throw a BookNotFoundException
-     * @param id
      * @param newUserInfo
      * @return the updated, or newly added book
      */

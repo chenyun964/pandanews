@@ -53,7 +53,7 @@ public class NewsIntegrationTests {
         // clear the database after each test
         newsRepository.deleteAll();
         categoryRepository.deleteAll();
-
+        //test12
     }
 
     //Test pass
@@ -71,6 +71,7 @@ public class NewsIntegrationTests {
         assertEquals(1, newsList.length);
     }
 
+    //
     @Test
     public void findNewsByCategory_Success() throws Exception {
         News n = NewsIntegrationTests.newsFormatter();
@@ -101,7 +102,7 @@ public class NewsIntegrationTests {
         // Need to use array with a ResponseEntity here
         URI uri = new URI(baseUrl + port + "/news/delete/" + id);
         restTemplate.delete(uri);
-        assertEquals(Optional.empty(),newsRepository.findById(id));
+        assertEquals(Optional.empty(), newsRepository.findById(id));
     }
 
     //Test pass

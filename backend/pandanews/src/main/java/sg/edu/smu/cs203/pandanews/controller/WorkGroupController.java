@@ -23,7 +23,6 @@ import sg.edu.smu.cs203.pandanews.repository.UserRepository;
 import sg.edu.smu.cs203.pandanews.model.user.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 public class WorkGroupController {
@@ -99,7 +98,7 @@ public class WorkGroupController {
     /**
      * If there is no book with the given "id", throw a BookNotFoundException
      * @param id
-     * @param newOrganisationInfo
+     * @param newWorkGroupInfo
      * @return the updated, or newly added book
      */
     @PutMapping("/organisation/{oid}/workgroup/{id}")
@@ -140,7 +139,7 @@ public class WorkGroupController {
 
     @DeleteMapping("/organisation/{oid}/workgroup/{wgid}/employee/{id}")
     public void removeWorkGroupEmployee(@PathVariable Long oid, @PathVariable Long wgid, @PathVariable Long id) {
-        User employee = users.getUser(id);
-        users.quitWorkGroup(employee);
+        User employee = userService.getUser(id);
+        userService.quitWorkGroup(employee);
     }
 }

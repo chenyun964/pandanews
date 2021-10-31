@@ -16,11 +16,12 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository users;
 
-    @Autowired
-	private PasswordEncoder bcryptEncoder;
+    private PasswordEncoder bcryptEncoder;
 
-    public UserServiceImpl (UserRepository users) {
+    @Autowired
+    public UserServiceImpl(UserRepository users, PasswordEncoder bcryptEncoder) {
         this.users = users;
+        this.bcryptEncoder = bcryptEncoder;
     }
 
     @Override
@@ -29,21 +30,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> listUsers(){
+    public List<User> listUsers() {
         return users.findAll();
     }
 
-    @Override
-    public User addUser(User user){
-        User newUser = new User();
-        newUser.setEmail(user.getEmail());
-		newUser.setUsername(user.getUsername());
-		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-        return users.save(newUser);
-    }
+
 
     @Override
-    public User updateUser(Long id, User newUser){
+    public User updateUser(Long id, User newUser) {
         return users.findById(id).map(user -> {
             user.setName(newUser.getName());
             user.setContact(newUser.getContact());
@@ -52,16 +46,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Long id){
+    public void deleteUser(Long id) {
         users.deleteById(id);
     }
 
     @Override
-    public User getUserByUsername(String username){
+    public User getUserByUsername(String username) {
         return users.findByUsername(username).orElse(null);
     }
 
-    public User updateUserCompany(Long id, Organisation organisation){
+    public User updateUserCompany(Long id, Organisation organisation) {
         return users.findById(id).map(user -> {
             user.setOrganisation(organisation);
             return users.save(user);
@@ -69,25 +63,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUserRole(User user, String role){
+    public User updateUserRole(User user, String role) {
         user.setAuthorities(role);
         return users.save(user);
     }
 
+
+    //repeated
     @Override
-    public User joinOrganisation(User user, Organisation organisation){
+    public User joinOrganisation(User user, Organisation organisation) {
         user.setOrganisation(organisation);
         users.save(user);
         return user;
     }
 
-    @Override
-    public void quitOrganisation(User user){
-        user.setOrganisation(null);
-        users.save(user);
-    }
 
     @Override
+    public User quitOrganisation(User user) {
+        user.setOrganisation(null);
+        return users.save(user);
+    }
+
+
     public User joinWorkGroup(User user, WorkGroup workGroup){
         user.setWorkGroup(workGroup);
         users.save(user);

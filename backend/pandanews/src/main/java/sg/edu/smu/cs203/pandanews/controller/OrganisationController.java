@@ -24,7 +24,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 @RestController
 @CrossOrigin
 public class OrganisationController {
@@ -163,11 +162,12 @@ public class OrganisationController {
     }
 
     @DeleteMapping("/organisation/employee/{id}")
-    public void removeOrganisationEmployee(@PathVariable Long id) {
+    public User removeOgranisationEmployee(@PathVariable Long id) {
+
         User employee = users.getUser(id);
         users.updateUserRole(employee, "ROLE_USER");
 
-        users.quitOrganisation(employee);
+        return users.quitOrganisation(employee);
     }
 
     @GetMapping("/organisation/{code}")
@@ -191,21 +191,21 @@ public class OrganisationController {
         return organisation.getPolicy();
     }
 
-    @GetMapping("/organisation/workgroup")
-    public List<WorkGroup> getOrganisationWorkGroups() {
-        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-                .getPrincipal();
-
-        User user = users.getUserByUsername(userDetails.getUsername());
-        if (user == null)
-            return null;
-
-        Organisation organisation = user.getOrganisation();
-        if (organisation == null)
-            return null;
-
-        return organisation.getWorkGroup();
-    }
+//    @GetMapping("/organisation/workgroup")
+//    public List<WorkGroup> getOrganisationWorkGroups() {
+//        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+//                .getPrincipal();
+//
+//        User user = users.getUserByUsername(userDetails.getUsername());
+//        if (user == null)
+//            return null;
+//
+//        Organisation organisation = user.getOrganisation();
+//        if (organisation == null)
+//            return null;
+//
+//        return organisation.getWorkGroup();
+//    }
 
     @PutMapping("/organisation/promote/{id}")
     public Organisation promoteEmployee(@PathVariable Long id) {
