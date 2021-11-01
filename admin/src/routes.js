@@ -9,13 +9,13 @@ import Dashboard from './module/Dashboard';
 import Organisation from "./module/Organisation";
 import VacciSpotTable from "./module/VacciSpotTable";
 import TestSpotTable from './module/TestSpotTable';
-import MeaAdminTable from "./module/MeaAdminTable";
+import Measurement from "./module/Measurement";
 
 
 class LoginRoutes extends Component {
     componentDidMount() {
         if (!LoginModel.retrieveToken()) {
-            window.location.replace("/login");
+            // window.location.replace("/login");
         }
     }
 
@@ -30,7 +30,7 @@ class LoginRoutes extends Component {
                     <Route exact path="/organisation" component={Organisation} />
                     <Route exact path="/vaccispot" component={VacciSpotTable} />
                     <Route exact path="/testspot" component={TestSpotTable} />
-                    <Route exact path="/measurement" component={MeaAdminTable} />
+                    <Route exact path="/measurement" component={Measurement} />
                 </Switch>
             </div>
         </Fragment>

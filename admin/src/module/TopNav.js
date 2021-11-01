@@ -4,7 +4,7 @@ import LoginModel from "../model/LoginModel";
 
 class TopNav extends Component {
 
-    logout(){
+    logout() {
         LoginModel.destoryAll();
         window.location.replace("/login");
     }
@@ -37,42 +37,9 @@ class TopNav extends Component {
                 </nav>
                 <nav class="top-toolbar navbar navbar-desktop flex-nowrap">
                     <ul class="navbar-nav nav-right">
-                        <li class="nav-item dropdown dropdown-notifications dropdown-menu-lg">
-                            <a href="javascript:void(0)" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                <i class="icon dripicons-bell"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <div class="card card-notification">
-                                    <div class="card-header">
-                                        <h5 class="card-title">Notifications</h5>
-                                        <ul class="actions top-right">
-                                            <li>
-                                                <a href="javascript:void(0);" data-q-action="open-notifi-config">
-                                                    <i class="icon dripicons-gear"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="card-container-wrapper">
-                                            <div class="card-container">
-                                                <div class="timeline timeline-border">
-                                                    <div class="timeline-list">
-                                                        <div class="timeline-info">
-                                                            <div>Prep for bi-weekly meeting with <a href="javascript:void(0)"><strong>Steven Weinberg</strong></a> </div>
-                                                            <small class="text-muted">07/05/18, 2:00 PM</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link nav-pill user-avatar" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                <img src="../assets/img/avatars/1.jpg" class="w-35 rounded-circle" alt="Profile" />
+                            <a class="nav-link nav-pill user-avatar" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="la la-user"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-accout">
                                 <div class="dropdown-header pb-3">
@@ -84,7 +51,6 @@ class TopNav extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="icon dripicons-lock"></i> Lock Account</a>
                                 <a class="dropdown-item" href="javascript:void(0)" onClick={() => this.logout()}><i class="icon dripicons-lock-open"></i> Sign Out</a>
                             </div>
                         </li>

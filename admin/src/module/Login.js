@@ -58,6 +58,7 @@ class Login extends Component {
 
     login() {
         this.setState({
+            expired: false,
             loading: true
         })
         if (this.handleValidation()) {
@@ -110,12 +111,6 @@ class Login extends Component {
                                 <input type="password" class="form-control" placeholder="password" ref="username" onChange={this.handleChange.bind(this, "password")}
                                     value={this.state.fields["password"]} />
                                 <span className="input-error-msg">{this.state.errors["password"]}</span>
-                            </div>
-                            <div class="checkbox m-b-10 m-t-20">
-                                <div class="custom-control custom-checkbox checkbox-primary form-check">
-                                    <input type="checkbox" class="custom-control-input" id="stateCheck1" checked="" />
-                                    <label class="custom-control-label" for="stateCheck1">Remember me</label>
-                                </div>
                             </div>
                             <button class="btn btn-primary btn-rounded btn-floating btn-lg btn-block" onClick={() => this.login()}>Sign In</button>
                         </div>
