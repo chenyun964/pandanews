@@ -4,7 +4,6 @@ package sg.edu.smu.cs203.pandanews.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sg.edu.smu.cs203.pandanews.model.attendance.AttendanceUpdateDTO;
 import sg.edu.smu.cs203.pandanews.service.attendance.AttendanceServiceImpl;
 
 import java.time.LocalDate;
