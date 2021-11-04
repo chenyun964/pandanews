@@ -4,9 +4,6 @@ import React from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography, Space, Button, Modal, Select } from 'antd';
 import '../App.css';
 
-
-const { Option } = Select;
-
 const EditableCell = ({
     editing,
     dataIndex,
@@ -36,8 +33,8 @@ const EditableCell = ({
                     {inputNode}
                 </Form.Item>
             ) : (
-                    children
-                )}
+                children
+            )}
         </td>
     );
 };
@@ -106,7 +103,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
     );
 };
 
-class MeaAdminTable extends Component {
+class Measurement extends Component {
 
     formRef = React.createRef();
 
@@ -159,41 +156,17 @@ class MeaAdminTable extends Component {
         }
     }
 
-    // onChangeIcon(e) {
-    //     this.setState({ imageUrl: e.target.value })
-    // }
-
-    // onChangeIndustry(e) {
-    //     this.setState({ title: e.target.value })
-    // }
-
-    // onChangeContent(e) {
-    //     this.setState({ content: e.target.value })
-    // }
-
-    // onSubmit(e) {
-    //     const newData = [{
-    //             id:0,
-    //             imageUrl: '',
-    //             title: '',
-    //             content: ''
-    //     }, ...this.state.data];
-    //         this.setState({
-    //             data: newData,
-    //         });
-    // }
-
     onAdd() {
         const newData = [{
-                id:0,
-                imageUrl: '',
-                title: '',
-                content: ''
+            id: 0,
+            imageUrl: '',
+            title: '',
+            content: ''
         }, ...this.state.data];
-            this.setState({
-                data: newData,
-                visible: false,
-            });
+        this.setState({
+            data: newData,
+            visible: false,
+        });
     }
 
     async save(id) {
@@ -221,17 +194,18 @@ class MeaAdminTable extends Component {
     renderColumns() {
         return [
             {
-                title: 'Icon Link',
+                title: 'Icon',
                 dataIndex: 'imageUrl',
                 key: 'imageUrl',
-                width: '18%',
                 editable: true,
+                render: (record) => {
+                    return <img src={record} />
+                }
             },
             {
                 title: 'Industry',
                 dataIndex: 'title',
                 key: 'title',
-                width: '18%',
                 editable: true,
                 sorter: (a, b) => a.title.localeCompare(b.title),
                 sortDirections: ['ascend', 'descend'],
@@ -240,15 +214,12 @@ class MeaAdminTable extends Component {
                 title: 'Measurement Details',
                 dataIndex: 'content',
                 key: 'content',
-                width: '45%',
                 editable: true,
-
             },
             {
                 title: 'Last Updated By',
                 dataIndex: 'updatedAt',
                 key: 'updatedAt',
-                width: '20%',
                 editable: true,
                 sorter: (a, b) => a.updatedAt.localeCompare(b.updatedAt),
                 sortDirections: ['ascend', 'descend'],
@@ -261,15 +232,15 @@ class MeaAdminTable extends Component {
                     if (this.isEditing(record)) {
                         return (
                             <span>
-                                <a
-                                    href='javascript:;'
+                                <button
+                                    className="btn"
                                     onClick={() => this.save(record.id)}
                                     style={{
                                         marginRight: 8,
                                     }}
                                 >
                                     Save
-                                </a>
+                                </button>
                                 <Popconfirm title="Sure to cancel?" onConfirm={() => this.cancel()}>
                                     <a>Cancel</a>
                                 </Popconfirm>
@@ -278,12 +249,10 @@ class MeaAdminTable extends Component {
                     }
                     return (
                         <Space size='large'>
-                            <Typography.Link disabled={this.state.editingId != -1} onClick={() => this.edit(record)}>
-                                Edit
-                            </Typography.Link>
+                            <button className="btn btn-warning" onClick={() => this.edit(record)}> Edit </button>
                             {this.state.data.length >= 1 &&
-                                <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.id)}>
-                                    <a>Delete</a>
+                                <Popconfirm className="btn btn-danger"  title="Sure to delete?" onConfirm={() => this.handleDelete(record.id)}>
+                                    Delete
                                 </Popconfirm>
                             }
                         </Space>
@@ -309,36 +278,55 @@ class MeaAdminTable extends Component {
 
     render() {
         return (
-            <div>
-                <Button
-                    onClick={() => {this.onAdd(); this.edit(this.state.data[0])}}
-                    type="primary"
-                    style={{
-                        marginBottom: 16,
-                    }}
-                >Add Measurement </Button>
-                
-                <Form ref={this.formRef} name="control-ref">
-                    <Table
-                        components={{
-                            body: {
-                                cell: EditableCell,
-                            },
+            <div className="content">
+                <header className="page-header">
+                    <div className="d-flex align-items-center">
+                        <div className="mr-auto">
+                            <h1>Swab Test Spots</h1>
+                        </div>
+                        <ul class="actions top-right">
+                            <Button
+                                type="primary"
+                                size="large"
+                                onClick={() => {
+                                    this.setState({ visible: true });
+                                }}
+                            >
+                                New Test Spot
+                            </Button>
+                        </ul>
+                    </div>
+                </header>
+                <div class="card" style={{ margin: 28 }}>
+                    <Button
+                        onClick={() => { this.onAdd(); this.edit(this.state.data[0]) }}
+                        type="primary"
+                        style={{
+                            marginBottom: 16,
                         }}
-                        bordered
-                        dataSource={this.state.data}
-                        columns={this.renderColumns()}
-                        rowClassName="editable-row"
-                        pagination={{
-                            onChange: () => this.cancel(),
-                        }}
-                    />
-                </Form>
+                    >Add Measurement </Button>
+
+                    <Form ref={this.formRef} name="control-ref">
+                        <Table
+                            components={{
+                                body: {
+                                    cell: EditableCell,
+                                },
+                            }}
+                            bordered
+                            dataSource={this.state.data}
+                            columns={this.renderColumns()}
+                            rowClassName="editable-row"
+                            pagination={{
+                                onChange: () => this.cancel(),
+                            }}
+                        />
+                    </Form>
+                </div>
             </div>
-            
         );
     }
 
 }
 
-export default MeaAdminTable;
+export default Measurement;
