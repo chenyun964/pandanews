@@ -8,27 +8,45 @@ import sg.edu.smu.cs203.pandanews.service.category.CategoryServiceImpl;
 
 @RestController
 public class CategoryController {
-
     @Autowired
     private CategoryServiceImpl categoryService;
 
+    /**
+     * Create new category
+     * @param category
+     * @return The created category
+     */
     @PostMapping(path = "/category/create")
     public ResponseEntity<?> createCategory(@RequestBody Category category) {
         return ResponseEntity.ok(categoryService.createCategory(category));
     }
 
 
+    /**
+     * Update existing category
+     * @param id
+     * @param newCategory
+     * @return Updated category
+     */
     @PostMapping(path = "/category/update/{id}")
     public ResponseEntity<?> updateCategory(@PathVariable long id, @RequestBody Category newCategory) {
         Category c = categoryService.updateCategory(id, newCategory);
         return ResponseEntity.ok(c);
     }
 
+    /**
+     * List all category
+     * @return list of category
+     */
     @GetMapping(path = "/category/list")
     public ResponseEntity<?> listCategory() {
         return ResponseEntity.ok(categoryService.listAllCategory());
     }
 
+    /**
+     * Delete existing category
+     * @param id
+     */
     @DeleteMapping(path = "/category/delete")
     public ResponseEntity<?> deleteCategory(@PathVariable long id) {
         categoryService.deleteCategory(id);

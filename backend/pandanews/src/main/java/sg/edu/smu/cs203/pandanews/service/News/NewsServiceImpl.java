@@ -23,17 +23,18 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public News createNewsByManual(News news) {
-        List<News> newsList = newsRepository.findByTitle(news.getTitle());
-        if (newsList.size() == 0) {
-            return newsRepository.save(news);
-        }
-        return null;
+//        List<News> newsList = newsRepository.findByTitle(news.getTitle());
+//        if (newsList.size() == 0) {
+//            return newsRepository.save(news);
+//        }
+//        return null;
+        return newsRepository.findByTitle(news.getTitle()).size() == 0 ? newsRepository.save(news) : null;
     }
 
     @Override
     public List<News> createNewsByAPI() {
         List<News> result = newsAPIServiceImpl.apiCall();
-        return result.size() == 0 ? null : result;
+        return newsAPIServiceImpl.apiCall().size() == 0 ? null : result;
     }
 
     @Override
@@ -67,10 +68,11 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public List<News> findNewsByCategory(String s) {
         List<Category> c = categoryRepository.findByTitle(s);
-        if(c.size() != 1){
-            return null;
-        }
-        return newsRepository.findByCategory(c.get(0));
+//        if (c.size() != 1) {
+//            return null;
+//        }
+//        return newsRepository.findByCategory(c.get(0));
+        return c.size() != 1 ? null : newsRepository.findByCategory(c.get(0));
     }
 
     @Override
@@ -91,11 +93,5 @@ public class NewsServiceImpl implements NewsService {
         return newsRepository.findByViewCountAndCreatedAtBetween();
     }
 
-    @Override
-    public int testNews(int a) {
-        if (a == 1)
-            return 1;
-        return 123;
-    }
 
 }
