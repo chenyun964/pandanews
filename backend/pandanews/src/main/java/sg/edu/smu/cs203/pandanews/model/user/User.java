@@ -26,6 +26,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import lombok.*;
 import sg.edu.smu.cs203.pandanews.model.attendance.Attendance;
 import sg.edu.smu.cs203.pandanews.model.Organisation;
+import sg.edu.smu.cs203.pandanews.model.VacciSpot;
 import sg.edu.smu.cs203.pandanews.model.WorkGroup;
 
 @Entity
@@ -67,6 +68,16 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Organisation> organisations;
+
+    @Setter
+    @OneToMany(mappedBy = "admin")
+    @JsonIgnore
+    private List<VacciSpot> vacciSpots;
+
+    @Setter
+    @OneToMany(mappedBy = "admin")
+    @JsonIgnore
+    private List<VacciSpot> testSpots;
 
     @Setter
     @ManyToOne
