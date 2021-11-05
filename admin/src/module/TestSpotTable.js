@@ -201,15 +201,12 @@ class TestSpotTable extends Component {
             if (index > -1) {
                 const item = { ...newData[index], ...row, latitude: 0.0, longitude: 0.0 };
                 if (id > 0) {
-                    newData.splice(index, 1, item);
-                    TestSpotModel.update(id, item);
-                } else {
-                    TestSpotModel.add(item).then(res => {
+                    TestSpotModel.update(id, item).then((res) => {
                         newData.splice(index, 1, res.data);
+                        this.setState({ data: newData, editingId: -1 });
                     });
                 }
             }
-            this.setState({ data: newData, editingId: -1 });
         } catch (error) {
             console.log(error);
         }
@@ -298,7 +295,7 @@ class TestSpotTable extends Component {
                 title: 'Type',
                 dataIndex: 'type',
                 key: 'type',
-                width: '5%',
+                width: '3%',
                 editable: true,
                 filters: [
                     {
@@ -333,6 +330,15 @@ class TestSpotTable extends Component {
                 key: 'contact',
                 width: '8%',
                 editable: true,
+            },
+            {
+                title: 'Last Updated By',
+                dataIndex: ["admin", "username"],
+                key: ["admin", "username"],
+                width: '8%',
+                editable: false,
+                render: (username) => username,
+                ...this.getColumnSearchProps('username'),
             },
             {
                 title: 'operation',

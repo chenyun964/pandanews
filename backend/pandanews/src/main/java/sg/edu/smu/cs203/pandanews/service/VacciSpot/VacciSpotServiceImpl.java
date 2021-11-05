@@ -62,6 +62,7 @@ public class VacciSpotServiceImpl implements VacciSpotService {
             spot.setRegion(newSpot.getRegion());
             spot.setType(newSpot.getType());
             spot.setVacciType(newSpot.getVacciType());
+            spot.setAdmin(newSpot.getAdmin());
             return vacciSpots.save(spot);
         }).orElse(null);
     }
