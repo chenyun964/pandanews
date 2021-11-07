@@ -1,6 +1,4 @@
 import { Component, Fragment } from 'react';
-import { Link } from "react-router-dom";
-import OrganisationModel from "../model/OrganisationModel";
 
 class SideNav extends Component {
 
@@ -26,6 +24,8 @@ class SideNav extends Component {
                                 <li><a href="/vaccispot"><i class="fas fa-syringe"></i><span>Vaccination Spots</span></a></li>
                                 <li><a href="/testspot"><i class="fas fa-swatchbook"></i><span>Swab Test Spots</span></a></li>
                                 <li><a href="/measurement"><i class="fas fa-chart-bar"></i><span>Measurements</span></a></li>
+                                <li><a href="/news"><i class="fas fa-chart-bar"></i><span>News</span></a></li>
+                                <li><a href="/covid-state"><i class="fas fa-chart-bar"></i><span>Covid Statistics</span></a></li>
                             </ul>
                         </nav>
                     </div>
