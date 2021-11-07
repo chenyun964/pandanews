@@ -24,3 +24,4 @@ build/
 ### Resource files ###
 /backend/pandanews/src/main/resources/application.properties
 admin/package-lock.json
+backend/pandanews/Dockerfile
