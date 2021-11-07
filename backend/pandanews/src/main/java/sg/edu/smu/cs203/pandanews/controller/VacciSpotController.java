@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,12 +44,24 @@ public class VacciSpotController {
         this.users = us;
     }
 
+    /**
+     * List all vaccination spots.
+     * 
+     * @return list of all vaccination spots
+     */
     @GetMapping
     @ResponseBody
     public Iterable<VacciSpot> getVacciSpots() {
         return vacciSpotService.listAll();
     }
 
+    /**
+     * Search for vaccination spot with the given id. If there is no vaccination spot
+     * with the given id, throw a SpotNotFoundException.
+     * 
+     * @param id
+     * @return vaccination spot with the given id
+     */
     @GetMapping(path = "/{id}")
     @ResponseBody
     public VacciSpot getById(@PathVariable Long id) {
@@ -57,6 +72,13 @@ public class VacciSpotController {
         return spot;
     }
 
+    /**
+     * Search for vaccination spot with the given name. If there is no vaccination spot
+     * with the given name, throw a SpotNotFoundException.
+     * 
+     * @param name
+     * @return vaccination spot with the given name
+     */
     @GetMapping(path = "/name/{name}")
     @ResponseBody
     public VacciSpot getByName(@PathVariable String name) {
@@ -67,27 +89,51 @@ public class VacciSpotController {
         return spot;
     }
 
+    /**
+     * List all vaccination spots in the given region.
+     * 
+     * @param region
+     * @return list of vaccination spots in the given region
+     */
     @GetMapping(path = "/region/{region}")
     @ResponseBody
     public Iterable<VacciSpot> getAllByRegion(@PathVariable String region) {
         return vacciSpotService.listByRegion(region);
     }
 
+    /**
+     * List all vaccination spots with the given type of building.
+     * 
+     * @param type
+     * @return list of vaccination spots with the given type of building
+     */
     @GetMapping(path = "/type/{type}")
     @ResponseBody
     public Iterable<VacciSpot> getAllByType(@PathVariable String type) {
         return vacciSpotService.listByType(type);
     }
 
+    /**
+     * List all vaccination spots with the given vaccine type.
+     * 
+     * @param vacciType
+     * @return list of vaccination spots with the given vaccine type
+     */
     @GetMapping(path = "vaccitype/{vacciType}")
     @ResponseBody
     public Iterable<VacciSpot> getAllByVacciType(@PathVariable String vacciType) {
         return vacciSpotService.listByVacciType(vacciType);
     }
 
+    /**
+     * Add a new vaccination spot with POST request to "/vaccispots".
+     * 
+     * @param newSpotDTO
+     * @return saved vaccination spot
+     */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public VacciSpot addVacciSpot(@RequestBody VacciSpotDTO newSpotDTO) {
+    public VacciSpot addVacciSpot(@RequestBody @Valid VacciSpotDTO newSpotDTO) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
@@ -108,9 +154,17 @@ public class VacciSpotController {
         return vacciSpotService.add(newSpot);
     }
 
+    /**
+     * Update a vaccination spot with the given id with PUT request to "/vaccispots".
+     * If there is no vaccination spot with the given id, throw a SpotNotFoundException.
+     * 
+     * @param id
+     * @param newSpotDTO
+     * @return updated vaccination spot
+     */
     @PutMapping(path = "/{id}")
     @ResponseBody
-    public VacciSpot updateVacciSpot(@PathVariable Long id, @RequestBody VacciSpotDTO newSpotDTO) {
+    public VacciSpot updateVacciSpot(@PathVariable Long id, @RequestBody @Valid VacciSpotDTO newSpotDTO) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
@@ -135,6 +189,13 @@ public class VacciSpotController {
         return newSpot;
     }
 
+    /**
+     * Delete the vaccination spot with the given id with DELETE request to "/vaccispots".
+     * If there is no vaccination spot with the given id, throw a SpotNotFoundException.
+     * 
+     * @param id
+     * @return deleted vaccination spot
+     */
     @DeleteMapping(path = "/{id}")
     @ResponseBody
     public VacciSpot deleteVacciSpot(@PathVariable Long id) {

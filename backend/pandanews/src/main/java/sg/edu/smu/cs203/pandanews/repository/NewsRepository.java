@@ -5,10 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 import sg.edu.smu.cs203.pandanews.model.news.News;
-import sg.edu.smu.cs203.pandanews.model.news.NewsListDAO;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 

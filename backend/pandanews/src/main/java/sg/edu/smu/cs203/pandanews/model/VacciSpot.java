@@ -14,7 +14,6 @@ import javax.persistence.PreUpdate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Column;
-//import javax.validation.constraints.Size;
 
 import lombok.*;
 import sg.edu.smu.cs203.pandanews.model.user.User;
