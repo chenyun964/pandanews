@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Type;
 import sg.edu.smu.cs203.pandanews.model.user.User;
 
@@ -39,6 +40,7 @@ public class Attendance {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean isInOffice;
 
+    @Setter
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean isPunchedIn;
 
