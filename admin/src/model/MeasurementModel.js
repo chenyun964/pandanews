@@ -4,19 +4,19 @@ import config from '../config/Config';
 
 class MeasurementModel{
     async add(data) {
-        return axiosJwt.post(config['mea_create_api'], data);
+        return axiosJwt.post(config['measurement_api'], data);
     }
 
     async update(id, data) {
-        return axiosJwt.put(config['mea_create_api'] + '/' + id, data);
+        return axiosJwt.put(config['measurement_api'] + '/' + id, data);
     }
       
-    async mList() {
+    async list() {
         return axios.get(config['measurement_api']);
     }
 
     async delete(id) {
-        return axiosJwt.delete(config['mea_create_api'] + '/' + id);
+        return axiosJwt.delete(config['measurement_api'] + '/' + id);
     }
 }
 

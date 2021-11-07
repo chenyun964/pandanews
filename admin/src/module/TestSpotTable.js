@@ -65,7 +65,7 @@ const SpotCreateForm = ({ visible, onCreate, onCancel }) => {
             <Form
                 form={form}
                 labelCol={{ span: 7 }}
-                wrapperCol={{ span: 18}}
+                wrapperCol={{ span: 18 }}
                 layout="horizontal"
                 name="form_in_modal"
                 requiredMark={false}
@@ -182,7 +182,7 @@ class TestSpotTable extends Component {
         }
     }
 
-    async onCreate(values) {
+    onCreate(values) {
         const newData = [...this.state.data];
         TestSpotModel.add(values).then(res => {
             newData.push(res.data);
@@ -359,11 +359,11 @@ class TestSpotTable extends Component {
                     return (
                         <Space size='large'>
                             <Typography.Link disabled={this.state.editingId != -1} onClick={() => this.edit(record)}>
-                                Edit
+                                <i class="zmdi zmdi-edit zmdi-hc-fw"></i>
                             </Typography.Link>
                             {this.state.data.length >= 1 &&
                                 <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.id)}>
-                                    <a>Delete</a>
+                                    <i class="la la-trash"></i>
                                 </Popconfirm>
                             }
                         </Space>
