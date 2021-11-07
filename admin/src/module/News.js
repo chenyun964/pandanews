@@ -43,6 +43,7 @@ class News extends Component {
                         </div>
                         <div class="actions top-right">
                             <button className="btn btn-primary" onClick={() => this.addNewsByAPI()}> Add via API</button>
+                            <button className="btn btn-primary" onClick={() => this.addNews()}> Add</button>
                         </div>
                     </div>
                 </header>
@@ -52,15 +53,14 @@ class News extends Component {
                         <div class="col-lg-12">
                             <div class="card">
                                 <Table dataSource={this.state.news}>
-                                <Column
+                                    <Column
                                         title="Pinned"
                                         key="pinned"
-                                        render={(id, record) => (
-                                            <Space size="middle">
-                                                <button className="btn btn-primary" onClick={() => this.demoteEmployee(id)}> Edit </button>
-                                                <button className="btn btn-danger" onClick={() => this.removeAlert(id)}>Delete</button>
-                                            </Space>
-                                        )}
+                                        render={pinned => {
+                                            if (pinned) {
+                                                <span class="badge badge-pill badge-warning">Pedning</span>
+                                            }
+                                        }}
                                     />
                                     <Column
                                         title="Image"
@@ -80,8 +80,8 @@ class News extends Component {
                                         key="id"
                                         render={(id, record) => (
                                             <Space size="middle">
-                                                <button className="btn btn-primary" onClick={() => this.demoteEmployee(id)}> Edit </button>
-                                                <button className="btn btn-danger" onClick={() => this.removeAlert(id)}>Delete</button>
+                                                <button className="btn btn-warning" onClick={() => this.demoteEmployee(id)}><i class="zmdi zmdi-edit zmdi-hc-fw"></i></button>
+                                                <button className="btn btn-danger" onClick={() => this.removeAlert(id)}><i class="la la-trash"></i></button>
                                             </Space>
                                         )}
                                     />

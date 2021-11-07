@@ -46,7 +46,7 @@ const SpotCreateForm = ({ visible, onCreate, onCancel }) => {
     return (
         <Modal
             visible={visible}
-            title="Create a new vaccination spot"
+            title="Create New Vaccination Spot"
             okText="Create"
             cancelText="Cancel"
             onCancel={onCancel}
@@ -64,7 +64,7 @@ const SpotCreateForm = ({ visible, onCreate, onCancel }) => {
         >
             <Form
                 form={form}
-                labelCol={{ span: 6}}
+                labelCol={{ span: 6 }}
                 wrapperCol={{ span: 16 }}
                 layout="horizontal"
                 name="form_in_modal"
@@ -389,30 +389,24 @@ class VacciSpotTable extends Component {
                 render: (_, record) => {
                     if (this.isEditing(record)) {
                         return (
-                            <span>
-                                <a
-                                    href='javascript:;'
-                                    onClick={() => this.save(record.id)}
-                                    style={{
-                                        marginRight: 8,
-                                    }}
-                                >
-                                    Save
-                                </a>
+                            <Space size='large'>
+                                <button className="btn btn-success" onClick={() => this.save(record.id)}>Save</button>
                                 <Popconfirm title="Sure to cancel?" onConfirm={() => this.cancel()}>
-                                    <a>Cancel</a>
+                                    <button className="btn btn-default" >Cancel</button>
                                 </Popconfirm>
-                            </span>
+                            </Space>
                         );
                     }
                     return (
                         <Space size='large'>
-                            <Typography.Link disabled={this.state.editingId != -1} onClick={() => this.edit(record)}>
-                                Edit
-                            </Typography.Link>
+                            <button className="btn btn-warning" disabled={this.state.editingId != -1} onClick={() => this.edit(record)}>
+                                <i class="zmdi zmdi-edit zmdi-hc-fw"></i>
+                            </button>
                             {this.state.data.length >= 1 &&
                                 <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.id)}>
-                                    <a>Delete</a>
+                                    <button className="btn btn-danger">
+                                        <i class="la la-trash"></i>
+                                    </button>
                                 </Popconfirm>
                             }
                         </Space>
@@ -445,13 +439,7 @@ class VacciSpotTable extends Component {
                             <h1>Vaccination Spots</h1>
                         </div>
                         <ul class="actions top-right">
-                            <Button
-                                type="primary"
-                                size="large"
-                                onClick={() => {
-                                    this.setState({ visible: true });
-                                }}
-                            >
+                            <Button type="primary" size="large" onClick={() => { this.setState({ visible: true }); }}>
                                 New Vaccination Spot
                             </Button>
                         </ul>

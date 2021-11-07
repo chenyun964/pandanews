@@ -11,6 +11,7 @@ import VacciSpotTable from "./module/VacciSpotTable";
 import TestSpotTable from './module/TestSpotTable';
 import Measurement from "./module/Measurement";
 import News from "./module/News";
+import Statistics from "./module/Statistics";
 
 
 class LoginRoutes extends Component {
@@ -33,6 +34,7 @@ class LoginRoutes extends Component {
                     <Route exact path="/testspot" component={TestSpotTable} />
                     <Route exact path="/measurement" component={Measurement} />
                     <Route exact path="/news" component={News} />
+                    <Route exact path="/statistics" component={Statistics} />
                 </Switch>
             </div>
         </Fragment>
