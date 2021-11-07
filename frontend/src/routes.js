@@ -17,6 +17,7 @@ import Measurement from "./module/Measurement";
 import VacciSpotTabs from './module/VacciSpotTabs';
 import SearchNews from './module/SearchNews';
 import TestSpotTabs from './module/TestSpotTabs';
+import Covid19 from './module/Covid19';
 
 class LoginRoutes extends Component {
   componentDidMount() {
@@ -56,17 +57,14 @@ class AllRoutes extends Component {
           <Route exact path="/employee/invite" component={Invite} />
           <Route exact path="/map" component={Map} />
           <Route exact path="/measurements" component={Measurement} />
-
-          {/* Add your routes above this */}
-          {!LoginModel.retrieveToken() &&
-            <Route path="*" component={NotFound} />
-          }
-
           <Route exact path="/vaccispots" component={VacciSpotTabs} />
           <Route exact path="/testspots" component={TestSpotTabs} />
+          <Route exact path="/covid19" component={Covid19} />
+
           {LoginModel.retrieveToken() &&
             <LoginRoutes />
           }
+
           {/* Add your routes above this */}
           <Route path="*" component={NotFound} />
         </Switch>
