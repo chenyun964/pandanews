@@ -187,7 +187,7 @@ class Measurement extends Component {
             const newData = [...this.state.data];
             const index = newData.findIndex((item) => id === item.id);
             if (index > -1) {
-                const item = { ...newData[index], ...row, latitude: 0.0, longitude: 0.0 };
+                const item = { ...newData[index], ...row};
                 if (id > 0) {
                     newData.splice(index, 1, item);
                     MeasurementModel.update(id, item);

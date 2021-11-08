@@ -6,7 +6,7 @@ class NewsModel {
     return axios.get(config['news_list_api']);
   }
 
-  async list_top_4() {
+  async listTop4() {
     return axios.get(config['news_get_top_4_api']);
   }
 
