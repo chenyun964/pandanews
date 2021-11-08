@@ -66,7 +66,7 @@ public class News {
     private Date updatedAt;
 
 
-    @PrePersist
+    @PostPersist
     public void logTime() {
         Date temp = new Date();
         Object param = new java.sql.Timestamp(temp.getTime());
