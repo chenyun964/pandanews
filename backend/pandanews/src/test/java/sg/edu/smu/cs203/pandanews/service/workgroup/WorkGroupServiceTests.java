@@ -53,19 +53,19 @@ public class WorkGroupServiceTests {
         WorkGroup n = generateTestWorkGroup("Test", o);
         when(workGroupRepository.findById(any(Long.class))).thenReturn(Optional.of(n));
 
-        WorkGroup workGroup = workGroupService.getWorkGroup(10L);
+        WorkGroup wg = workGroupService.getWorkGroup(10L);
 
-        assertNotNull(workGroup);
+        assertNotNull(wg);
         verify(workGroupRepository).findById(10L);
     }
 
     @Test
-    void getUser_Failure() {
-        when(userRepository.findById(any(Long.class))).thenReturn(Optional.empty());
-        User u = userService.getUser(10L);
+    void getWorkGroup_Failure() {
+        when(workGroupRepository.findById(any(Long.class))).thenReturn(Optional.empty());
+        WorkGroup wg = workGroupService.getWorkGroup(10L);
 
-        assertNull(u);
-        verify(userRepository).findById(10L);
+        assertNull(wg);
+        verify(workGroupRepository).findById(10L);
     }
 
     @Test
