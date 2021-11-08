@@ -188,6 +188,7 @@ public class NewsIntegrationTests {
         assertEquals(404, result.getStatusCode().value());
     }
 
+
     @Test
     public void findNewsByKeyword_Success() throws Exception {
         News n = NewsIntegrationTests.newsFormatter();

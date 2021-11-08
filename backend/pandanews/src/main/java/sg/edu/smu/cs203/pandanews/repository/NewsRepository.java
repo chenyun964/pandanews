@@ -26,5 +26,7 @@ public interface NewsRepository extends JpaRepository<News, Long> {
 
     List<News> findByCategory(Category c);
 
+    News findBySlug(String slug);
+
     List<News> findByTitle(String s);
 }
