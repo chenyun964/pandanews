@@ -22,6 +22,7 @@ import sg.edu.smu.cs203.pandanews.model.Organisation;
 import sg.edu.smu.cs203.pandanews.model.WorkGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 
+@RestController
 public class UserController {
     private UserService userService;
     private WorkGroupService workGroupService;

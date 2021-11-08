@@ -6,22 +6,16 @@ import { Carousel, Input } from 'antd';
 import Measurement from './Measurement';
 import moment from 'moment';
 import StatisticsModel from '../model/StatisticsModel';
-
-
+import { Pagination } from 'antd';
 
 const { Search } = Input;
-const contentStyle = {
-    height: '500px',
-    color: '#fff',
-    textAlign: 'center',
-};
-
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
             news: [],
             category: [],
+            pageNumber: 1,
             top4News: [],
             covidSummary: {}
         }
@@ -80,17 +74,23 @@ class Home extends Component {
         window.location.replace("/search" + "/" + value);
     }
 
+    newsPageOnchange(e){
+        this.setState({
+            pageNumber: e
+        })
+    }
+
     render() {
         return (
             <div>
-                <Carousel autoplay>
+                <Carousel>
                     {this.state.top4News.map((news, i) => {
                         return (
-                            <div key={i} className="carousel-item" style={contentStyle}>
-                                <div style={contentStyle}>
-                                    <img className=" w-100" src={news.coverImage} alt=""></img>
+                            <div key={i} className="carousel-item news-image">
+                                <div class="img-overlay"></div>
+                                <div className="carousel-item-image" style={{ "backgroundImage": "url(" + news.coverImage + ")" }}>
                                     <a href={news.content} target="_blank">
-                                        <div className="carousel-caption d-none d-md-block">
+                                        <div className="carousel-caption">
                                             <h5>{news.title}</h5>
                                             <p>{news.description}</p>
                                         </div>
@@ -107,21 +107,24 @@ class Home extends Component {
                         <div className="row">
                             <div className="col-lg-8 col-12 order-lg-first order-last">
                                 {this.state.news.map((news, i) => {
-                                    return (
-                                        <a key={i} href={news.content} target="_blank">
-                                            <div className="row mb-3 news-item">
-                                                <div className="col-md-4 col-12 news-image" style={{ "backgroundImage": "url(" + news.coverImage + ")" }}></div>
-                                                <div className="col-md-8 col-12 p-4">
-                                                    <div className="news-cate">{news.category}</div>
-                                                    <h5 className="news-title">{news.title.length < 105 ? news.title : news.title.slice(0, 100) + "..."}</h5>
-                                                    <div className="news-info">{moment(news.date, "YYYY-MM-DD").format("MMM D, YY")} &#9679; {news.viewCount} Views</div>
-                                                    <div className="news-descr">{news.description.length < 265 ? news.description : news.description.slice(0, 250) + "..."}</div>
-                                                    <div className="news-read-btn" href={news.content} target="_blank">READ MORE <i className="fas fa-long-arrow-alt-right"></i></div>
+                                    if (i >= (this.state.pageNumber - 1) * 10 && i < this.state.pageNumber * 10) {
+                                        return (
+                                            <a key={i} href={news.content} target="_blank">
+                                                <div className="row mb-3 news-item">
+                                                    <div className="col-md-4 col-12 news-image" style={{ "backgroundImage": "url(" + news.coverImage + ")" }}></div>
+                                                    <div className="col-md-8 col-12 p-4">
+                                                        <div className="news-cate">{news.category}</div>
+                                                        <h5 className="news-title">{news.title.length < 105 ? news.title : news.title.slice(0, 100) + "..."}</h5>
+                                                        <div className="news-info">{moment(news.date, "YYYY-MM-DD").format("MMM D, YY")} &#9679; {news.viewCount} Views</div>
+                                                        <div className="news-descr">{news.description.length < 265 ? news.description : news.description.slice(0, 250) + "..."}</div>
+                                                        <div className="news-read-btn" href={news.content} target="_blank">READ MORE <i className="fas fa-long-arrow-alt-right"></i></div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </a>
-                                    )
+                                            </a>
+                                        )
+                                    }
                                 })}
+                                <Pagination defaultCurrent={this.state.pageNumber} onChange={(e) => this.newsPageOnchange(e)} total={this.state.news.length} />
                             </div>
 
                             <div className="col-lg-4 col-12 order-lg-last order-first">
@@ -131,7 +134,7 @@ class Home extends Component {
 
                                 <div className="section-container mb-4">
                                     <h4>Covid-19 Cases</h4>
-                                    <div className="covid-case-update">Updated at {moment(this.state.covidSummary.lastedRecord?.updatedAt, "YYYY-MM-DD hh:mm:ss").format("hhA, DD MMM YYYY")}</div>
+                                    <div className="covid-case-update">Updated at {moment(this.state.covidSummary.lastedRecord?.updatedAt, "YYYY-MM-DD hh:mm:ss").format("hA, DD MMM YYYY")}</div>
                                     <div className="d-flex flex-column text-center">
                                         <div className="d-flex flex-column covid-case covid-case-danger">
                                             <div className="label">Total Cases</div>
