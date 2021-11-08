@@ -39,6 +39,15 @@ public class NewsController {
         return ResponseEntity.ok(news);
     }
 
+    @PostMapping(path = "/news/view/{slug}")
+    public ResponseEntity<?> updateViewCount(@PathVariable String slug) {
+        News news = newsService.increaseViewCount(slug);
+        if (news == null) {
+            throw new NewsNotFoundException("News Not Found");
+        }
+        return ResponseEntity.ok(news);
+    }
+
     @GetMapping(path = "/news")
     public ResponseEntity<?> listNews() {
         return ResponseEntity.ok(newsService.findAllNews());

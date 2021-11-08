@@ -28,8 +28,7 @@ public interface NewsService {
 
     List<News> findTop4NewsPast7Days();
 
-    int testNews(int a);
-
+    News increaseViewCount(String slug);
 
 
 }

@@ -3,6 +3,7 @@ package sg.edu.smu.cs203.pandanews.model.news;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
 import org.apache.tomcat.jni.Local;
 import org.hibernate.annotations.Type;
@@ -74,8 +75,17 @@ public class News {
         updatedAt = createdAt;
     }
 
+    @Getter
     @Column(unique = true)
     private String slug;
+
+    public void generateSlug() {
+        slug = title.replaceAll(" ", "-").replaceAll("_", "-") + "-" + (this.id << LocalDateTime.now().getDayOfMonth());
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
 
     @PreUpdate
     public void logUpdate() {
