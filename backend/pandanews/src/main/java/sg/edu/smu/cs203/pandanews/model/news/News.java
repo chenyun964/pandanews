@@ -4,11 +4,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
+import org.apache.tomcat.jni.Local;
 import org.hibernate.annotations.Type;
+import org.hibernate.id.GUIDGenerator;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @AllArgsConstructor
@@ -40,6 +44,7 @@ public class News {
         this.coverImage = coverImage;
         this.date = date;
     }
+
     @Setter
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -64,9 +69,13 @@ public class News {
     public void logTime() {
         Date temp = new Date();
         Object param = new java.sql.Timestamp(temp.getTime());
+        slug = title.replaceAll(" ", "-").replaceAll("_", "-") + "-" + (this.id << LocalDateTime.now().getDayOfMonth());
         createdAt = (Date) param;
         updatedAt = createdAt;
     }
+
+    @Column(unique = true)
+    private String slug;
 
     @PreUpdate
     public void logUpdate() {
