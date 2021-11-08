@@ -28,7 +28,7 @@ const testspots_type_api = vaccispots_api + '/type';
 const measurement_api = API_HOSTS + '/measurements';
 
 // Statistics
-const statistics_api = API_HOSTS + '/statistics';
+const statistics_api = API_HOSTS + '/statistic';
 
 
 export default {

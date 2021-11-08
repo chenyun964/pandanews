@@ -56,17 +56,6 @@ public class UserController {
         if(user == null) return null;
         return user;
     }
-    /**
-     * Add a new book with POST request to "/books"
-     * Note the use of @RequestBody
-     * @param user
-     * @return list of all books
-     */
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @PostMapping("/users")
-//    public User addUser(@RequestBody User user){
-//        return userService.addUser(user);
-//    }
 
     /**
      * If there is no book with the given "id", throw a BookNotFoundException
