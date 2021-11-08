@@ -18,6 +18,7 @@ import VacciSpotTabs from './module/VacciSpotTabs';
 import SearchNews from './module/SearchNews';
 import TestSpotTabs from './module/TestSpotTabs';
 import Covid19 from './module/Covid19';
+import WorkGroup from './module/WorkGroup';
 
 class LoginRoutes extends Component {
   componentDidMount() {
@@ -35,6 +36,7 @@ class LoginRoutes extends Component {
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/employee" component={Employee} />
+            <Route exact path="/workgroup" component={WorkGroup} />
             <Route path="*" component={NotFound} />
           </Switch>
         </div>

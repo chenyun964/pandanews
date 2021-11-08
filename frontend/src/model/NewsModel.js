@@ -10,11 +10,11 @@ class NewsModel {
     return axios.get(config['news_get_top_4_api']);
   }
 
-  async list_category_news(title) {
+  async listCategory(title) {
     return axios.get(config['category_news_api'] + '/' + title);
   }
 
-  async search_news(keyword) {
+  async searchNews(keyword) {
     return axios.get(config['search_news_api'] + '/' + keyword);
   }
 }

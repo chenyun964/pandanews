@@ -5,12 +5,17 @@ class Covid19 extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            covidSummary: {}
         }
     }
 
     componentDidMount(){
         StatisticsModel.summary().then(res =>{
-            console.log(res.data);
+            this.setState({
+                covidSummary: res.data
+            })
+        }).catch(e => {
+            console.log(e);
         })
     }
 
