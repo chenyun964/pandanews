@@ -78,19 +78,20 @@ public class WorkGroupServiceTests {
     }
 
     @Test
-    void updateNews_ReturnUpdatedBook() {
-        User u = generateTestUser("test");
-        when(userRepository.findById(any(Long.class))).thenReturn(Optional.of(u));
-        User updated = generateTestUser("updated");
-        when(userRepository.save(any(User.class))).thenReturn(updated);
+    void updateWorkGroups_Success() {
+        Organisation o = new Organisation("org");
+        WorkGroup wg = generateTestWorkGroup("test", o);
+        when(workGroupRepository.findById(any(Long.class))).thenReturn(Optional.of(wg));
+        WorkGroup updated = generateTestWorkGroup("updated", o);
+        when(workGroupRepository.save(any(WorkGroup.class))).thenReturn(updated);
 
         long id = 10L;
-        User newUser = userService.updateUser(id, updated);
+        WorkGroup newWorkGroup = workGroupService.updateWorkGroup(id, updated);
 
-        assertNotNull(newUser);
-        assertEquals("updated", newUser.getUsername());
-        verify(userRepository).findById(id);
-        verify(userRepository).save(u);
+        assertNotNull(newWorkGroup);
+        assertEquals("updated", newWorkGroup.getWorkGroupName());
+        verify(workGroupRepository).findById(id);
+        verify(workGroupRepository).save(wg);
     }
 
     @Test
