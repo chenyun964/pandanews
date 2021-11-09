@@ -20,6 +20,12 @@ public class GeoCodeUtil {
     @Value("${positionstack.endpoint}")
     private String endpoint;
 
+    /**
+     * Get latitude and longitude of the given address on {@link positionstack.com}.
+     * 
+     * @param address
+     * @return latitude and longitude
+     */
     public Double[] getLatLng(String address) {
         RestTemplate restTemplate = new RestTemplate();
         GeoCodeListDAO geoCodeListDAO = new GeoCodeListDAO();
@@ -35,7 +41,6 @@ public class GeoCodeUtil {
                 GeoCodeListDAO.class
             );
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
 

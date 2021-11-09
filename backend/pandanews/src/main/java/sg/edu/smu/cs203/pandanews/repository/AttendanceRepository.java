@@ -9,13 +9,14 @@ import sg.edu.smu.cs203.pandanews.model.user.User;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
 public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
 
-    @Query("SELECT a FROM Attendance a WHERE a.aDate = :date AND a.user.id = :userId")
-    List<Attendance> findByADate(Long userId, LocalDate date);
+    @Query("SELECT a FROM Attendance a WHERE a.punchInDate = :date AND a.user.id = :userId")
+    Optional<Attendance> findByDate(Long userId, LocalDate date);
 
     List<Attendance> findByUser(User u);
 }

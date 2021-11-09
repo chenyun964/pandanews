@@ -212,15 +212,12 @@ class VacciSpotTable extends Component {
             if (index > -1) {
                 const item = { ...newData[index], ...row, latitude: 0.0, longitude: 0.0 };
                 if (id > 0) {
-                    newData.splice(index, 1, item);
-                    VacciSpotModel.update(id, item);
-                } else {
-                    VacciSpotModel.add(item).then(res => {
+                    VacciSpotModel.update(id, item).then( (res) => {
                         newData.splice(index, 1, res.data);
+                        this.setState({ data: newData, editingId: -1 });
                     });
                 }
             }
-            this.setState({ data: newData, editingId: -1 });
         } catch (error) {
             console.log(error);
         }
@@ -299,7 +296,7 @@ class VacciSpotTable extends Component {
                 title: 'Name',
                 dataIndex: 'name',
                 key: 'name',
-                width: '22%',
+                width: '20%',
                 editable: true,
                 sorter: (a, b) => a.name.localeCompare(b.name),
                 sortDirections: ['ascend', 'descend'],
@@ -309,7 +306,7 @@ class VacciSpotTable extends Component {
                 title: 'Type',
                 dataIndex: 'type',
                 key: 'type',
-                width: '12%',
+                width: '10%',
                 editable: true,
                 filters: [
                     {
@@ -361,7 +358,7 @@ class VacciSpotTable extends Component {
                 title: 'Address',
                 dataIndex: 'address',
                 key: 'address',
-                width: '35%',
+                width: '30%',
                 editable: true,
                 ...this.getColumnSearchProps('address'),
             },
@@ -382,6 +379,15 @@ class VacciSpotTable extends Component {
                     },
                 ],
                 onFilter: (value, record) => record.vacciType.indexOf(value) === 0,
+            },
+            {
+                title: 'Last Updated By',
+                dataIndex: ["admin", "username"],
+                key: ["admin", "username"],
+                width: '10%',
+                editable: false,
+                render: (username) => username,
+                ...this.getColumnSearchProps('username'),
             },
             {
                 title: 'operation',

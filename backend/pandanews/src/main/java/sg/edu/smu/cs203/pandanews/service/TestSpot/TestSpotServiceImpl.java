@@ -45,6 +45,7 @@ public class TestSpotServiceImpl implements TestSpotService {
     @Override
     public TestSpot update(Long id, TestSpot newSpot) {
         return testSpots.findById(id).map(spot -> {
+            spot.setAdmin(newSpot.getAdmin());
             spot.setName(newSpot.getName());
             spot.setAddress(newSpot.getAddress());
             spot.setLatitude(newSpot.getLatitude());

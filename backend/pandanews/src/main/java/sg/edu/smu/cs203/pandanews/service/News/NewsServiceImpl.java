@@ -23,17 +23,18 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public News createNewsByManual(News news) {
-        List<News> newsList = newsRepository.findByTitle(news.getTitle());
-        if (newsList.size() == 0) {
-            return newsRepository.save(news);
-        }
-        return null;
+//        List<News> newsList = newsRepository.findByTitle(news.getTitle());
+//        if (newsList.size() == 0) {
+//            return newsRepository.save(news);
+//        }
+//        return null;
+        return newsRepository.findByTitle(news.getTitle()).size() == 0 ? newsRepository.save(news) : null;
     }
 
     @Override
     public List<News> createNewsByAPI() {
         List<News> result = newsAPIServiceImpl.apiCall();
-        return result.size() == 0 ? null : result;
+        return newsAPIServiceImpl.apiCall().size() == 0 ? null : result;
     }
 
     @Override
@@ -91,7 +92,6 @@ public class NewsServiceImpl implements NewsService {
         return newsRepository.findByViewCountAndCreatedAtBetween();
     }
 
-
     @Override
     public News increaseViewCount(String slug) {
         News n = newsRepository.findBySlug(slug);
@@ -99,6 +99,5 @@ public class NewsServiceImpl implements NewsService {
         return newsRepository.save(n);
 
     }
-
 
 }
