@@ -27,6 +27,9 @@ class Sidebar extends Component {
             <li className="nav-item" >
               <NavLink to="/checkin" className="nav-link" ><i class="far fa-check-square"></i><span>Check-in</span></NavLink>
             </li>
+            <li className="nav-item" >
+              <NavLink to="/attendance" className="nav-link" ><i class="far fa-check-square"></i><span>Attendance</span></NavLink>
+            </li>
           </ul>
 
           <p className="section-title">Manager</p>

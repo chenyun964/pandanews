@@ -16,6 +16,7 @@ import sg.edu.smu.cs203.pandanews.model.StatSummary;
 import sg.edu.smu.cs203.pandanews.model.Statistic;
 import sg.edu.smu.cs203.pandanews.service.statistic.StatisticService;
 
+
 @RestController
 public class StatisticController {
 

@@ -21,6 +21,7 @@ import sg.edu.smu.cs203.pandanews.service.workgroup.WorkGroupService;
 import sg.edu.smu.cs203.pandanews.model.WorkGroup;
 import sg.edu.smu.cs203.pandanews.repository.UserRepository;
 import sg.edu.smu.cs203.pandanews.model.user.User;
+import sg.edu.smu.cs203.pandanews.exception.WorkGroupNotFoundException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -133,7 +134,7 @@ public class WorkGroupController {
         try {
             workGroupService.deleteWorkGroup(id);
         } catch(EmptyResultDataAccessException e) {
-            // throw new WorkGroupNotFoundException(id);
+            throw new WorkGroupNotFoundException();
         }
     }
 

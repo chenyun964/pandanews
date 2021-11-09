@@ -30,5 +30,4 @@ public interface NewsService {
 
     News increaseViewCount(String slug);
 
-
 }

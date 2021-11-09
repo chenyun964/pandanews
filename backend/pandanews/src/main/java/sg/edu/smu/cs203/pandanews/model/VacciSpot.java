@@ -6,15 +6,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Column;
-//import javax.validation.constraints.Size;
 
 import lombok.*;
+import sg.edu.smu.cs203.pandanews.model.user.User;
 
 
 @Entity
@@ -46,6 +48,11 @@ public class VacciSpot {
     @Setter
     @Column(name = "vaccination_type")
     private String vacciType;
+
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "last_updated_by")
+    private User admin;
 
     @Column(name = "created_at", updatable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:MM:ss", timezone = "GMT+8")

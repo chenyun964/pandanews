@@ -94,7 +94,6 @@ class WorkGroup extends Component {
                     </div>
                 </div>
             </Fragment>
-
         );
     }
 }
