@@ -19,5 +19,6 @@ positionstack.endpoint = http://api.positionstack.com/v1/forward
 pandanews.frontend.uri=http://localhost:3000
 pandanews.admin.uri=http://localhost:3001
 
-spring.servlet.multipart.max-file-size=1024KB
-spring.servlet.multipart.max-request-size=1024KB
+#spring.servlet.multipart.max-file-size=200MB
+#spring.servlet.multipart.max-request-size=215MB
+#file.upload-dir=upload-dir

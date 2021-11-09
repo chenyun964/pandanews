@@ -90,7 +90,7 @@ public class NewsServiceImpl implements NewsService {
     public List<News> findTop4NewsPast7Days() {
         return newsRepository.findByViewCountAndCreatedAtBetween();
     }
-    
+
 
     @Override
     public News increaseViewCount(String slug) {
