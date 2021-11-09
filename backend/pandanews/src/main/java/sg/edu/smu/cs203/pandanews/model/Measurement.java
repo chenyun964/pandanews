@@ -28,7 +28,6 @@ public class Measurement {
     private String imageUrl;
 
     @Setter
-    @Size(min = 5, max = 200, message = "Measurement's title should be at least 5 characters long")
     private String title;
 
     @Setter

@@ -21,7 +21,7 @@ public class FileUploadServiceImpl implements FileUploadService {
         String fileName = fileStorageService.storeFile(multipartFile);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/getimage/")
+                .path("/image/")
                 .path(fileName)
                 .toUriString();
         return new UploadFileResponse(fileName, fileDownloadUri, multipartFile.getContentType(),

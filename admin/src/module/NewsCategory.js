@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Table, Popconfirm, Form, Space, Button } from 'antd';
-import StatisticsModel from '../model/StatisticsModel';
-import { StatCreateForm } from '../forms/StatCreateForm';
+import { CategoryCreateForm } from '../forms/CategoryCreateForm';
 import { EditableCell } from '../lib/EditableCell';
-import moment from "moment";
+import CategoryModel from "../model/CategoryModel";
 
-class Statistics extends Component {
+class NewsCategory extends Component {
     formRef = React.createRef();
 
     constructor(props) {
@@ -18,12 +17,12 @@ class Statistics extends Component {
     }
 
     componentDidMount() {
-        StatisticsModel.list().then((res) => {
+        CategoryModel.list().then(res => {
             this.setState({
                 data: res.data
-            });
-        }).catch(error => {
-            console.log(error);
+            })
+        }).catch(e => {
+            console.log(e);
         })
     }
 
@@ -32,9 +31,8 @@ class Statistics extends Component {
     }
 
     edit(record) {
-        this.formRef.current.setFieldsValue({
-            ...record
-        });
+        console.log(record)
+        this.formRef.current.setFieldsValue({ ...record });
         this.setState({ editingId: record.id });
     }
 
@@ -43,7 +41,7 @@ class Statistics extends Component {
     }
 
     handleDelete(id) {
-        StatisticsModel.delete(id).then(res => {
+        CategoryModel.delete(id).then(res => {
             this.setState({
                 data: this.state.data.filter((item) => item.id !== id),
             });
@@ -54,9 +52,8 @@ class Statistics extends Component {
 
     onCreate(values) {
         let data = values;
-        data.date = values.date.toDate();
         const newData = [...this.state.data];
-        StatisticsModel.create(data).then(res => {
+        CategoryModel.create(data).then(res => {
             newData.push(res.data);
             this.setState({
                 data: newData,
@@ -73,7 +70,7 @@ class Statistics extends Component {
             if (index > -1) {
                 const item = { ...newData[index], ...row };
                 newData.splice(index, 1, item);
-                StatisticsModel.update(id, item);
+                CategoryModel.update(id, item);
             }
             this.setState({ data: newData, editingId: -1 });
         } catch (error) {
@@ -84,36 +81,11 @@ class Statistics extends Component {
     renderColumns() {
         return [
             {
-                title: 'Date',
-                dataIndex: 'createdAt',
-                key: 'createdAt',
-                editable: true,
-                sorter: (a, b) => a.createdAt.localeCompare(b.createdAt),
-                sortDirections: ['ascend', 'descend'],
-                render: (value => moment(value).format("YYYY-MM-DD"))
-            },
-            {
-                title: 'New Cases',
-                dataIndex: 'newCases',
-                key: 'newCases',
+                title: 'Title',
+                dataIndex: 'title',
+                key: 'title',
                 editable: true,
                 sorter: (a, b) => a.newCases - b.newCases,
-                sortDirections: ['ascend', 'descend'],
-            },
-            {
-                title: 'New Deaths',
-                dataIndex: 'newDeaths',
-                key: 'newDeaths',
-                editable: true,
-                sorter: (a, b) => a.newDeaths - b.newDeaths,
-                sortDirections: ['ascend', 'descend'],
-            },
-            {
-                title: 'New Recovery',
-                dataIndex: 'newRecovery',
-                key: 'newRecovery',
-                editable: true,
-                sorter: (a, b) => a.newRecovery - b.newRecovery,
                 sortDirections: ['ascend', 'descend'],
             },
             {
@@ -142,23 +114,13 @@ class Statistics extends Component {
             return !col.editable ? col :
                 {
                     ...col,
-                    onCell: (record) => {
-                        let type;
-                        switch(col.dataIndex){
-                            case "createdAt":
-                                type = "datepicker";
-                                break;
-                            default:
-                                type = "number";
-                        }
-                        return ({
-                            record,
-                            inputType: type,
-                            dataIndex: col.dataIndex,
-                            title: col.title,
-                            editing: this.isEditing(record),
-                        })
-                    }
+                    onCell: (record) => ({
+                        record,
+                        inputType: col.dataIndex,
+                        dataIndex: col.dataIndex,
+                        title: col.title,
+                        editing: this.isEditing(record)
+                    })
                 };
         });
     }
@@ -169,7 +131,7 @@ class Statistics extends Component {
                 <header className="page-header">
                     <div className="d-flex align-items-center">
                         <div className="mr-auto">
-                            <h1>Covid 19 Statistics</h1>
+                            <h1>News Category</h1>
                         </div>
                         <ul className="actions top-right">
                             <Button
@@ -179,12 +141,12 @@ class Statistics extends Component {
                                     this.setState({ visible: true });
                                 }}
                             >
-                                New Statistics
+                                New Category
                             </Button>
                         </ul>
                     </div>
                 </header>
-                <StatCreateForm
+                <CategoryCreateForm
                     visible={this.state.visible}
                     onCreate={(values) => this.onCreate(values)}
                     onCancel={() => {
@@ -210,8 +172,8 @@ class Statistics extends Component {
                     </Form>
                 </div>
             </div>
-        );
+        )
     }
 }
 
-export default Statistics;
+export default NewsCategory

@@ -1,14 +1,17 @@
 const API_HOSTS = process.env.REACT_APP_API_URL;
 
-//Authentication 
+// Authentication 
 const authenticate_api = API_HOSTS + '/admin/authenticate';
 const register_api = API_HOSTS + '/admin/register';
 
-//Ogranisation
+// User
+const user_profile_api = API_HOSTS + '/users/profile';
+
+// Ogranisation
 const org_api = API_HOSTS + '/organisation';
 const org_approve_api = API_HOSTS + '/organisation/approve';
 
-//News
+// News
 const news_api = API_HOSTS + '/news';
 const news_generate_bing_api = API_HOSTS + '/news/api';
 
@@ -30,6 +33,12 @@ const measurement_api = API_HOSTS + '/measurements';
 // Statistics
 const statistics_api = API_HOSTS + '/statistic';
 
+// Image upload
+const image_api = API_HOSTS + '/image';
+
+// Category
+const category_api = API_HOSTS + '/category';
+
 
 export default {
     news_api,
@@ -48,5 +57,8 @@ export default {
     testspots_name_api,
     testspots_type_api,
     measurement_api,
-    statistics_api
+    statistics_api,
+    user_profile_api,
+    image_api,
+    category_api
 }

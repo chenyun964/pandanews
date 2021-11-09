@@ -92,6 +92,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/covid/*").permitAll()
                 .antMatchers("/covid").permitAll()
                 .antMatchers("/image").permitAll()
+                .antMatchers("/image/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/organisations/*/workgroups").hasAnyRole("ADMIN", "MANAGER")
                 .antMatchers(HttpMethod.PUT, "/organisations/*/workgroups/*").hasAnyRole("ADMIN", "MANAGER")
                 .antMatchers(HttpMethod.DELETE, "/organisations/*/workgroups/*").hasAnyRole("ADMIN", "MANAGER")
@@ -100,6 +101,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/organisation/employee/*").hasAnyRole("OWNER", "MANAGER")
                 .antMatchers("/organisation/**").authenticated()
                 .antMatchers("/users/**").authenticated()
+
+                .antMatchers("/category/**").permitAll()
 
                 .antMatchers(HttpMethod.GET, "/vaccispots/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/vaccispots/**").permitAll()

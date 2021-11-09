@@ -5,6 +5,7 @@ package sg.edu.smu.cs203.pandanews.controller;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import sg.edu.smu.cs203.pandanews.model.Measurement;
 import sg.edu.smu.cs203.pandanews.service.measurement.MeasurementService;
 
 @RestController
+@CrossOrigin
 public class MeasurementController {
     private MeasurementService measurementService;
 
