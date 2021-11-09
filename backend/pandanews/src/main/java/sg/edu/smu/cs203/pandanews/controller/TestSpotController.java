@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,12 +45,24 @@ public class TestSpotController {
         this.users = us;
     }
 
+    /**
+     * List all swab test spots.
+     * 
+     * @return list of all swab test spots
+     */
     @GetMapping
     @ResponseBody
     public Iterable<TestSpot> getTestSpots() {
         return testSpotService.listAll();
     }
 
+    /**
+     * Search for swab test spot with the given id. If there is no swab test spot
+     * with the given id, throw a SpotNotFoundException.
+     * 
+     * @param id
+     * @return swab test spot with the given id
+     */
     @GetMapping(path = "/{id}")
     @ResponseBody
     public TestSpot getById(@PathVariable Long id) {
@@ -58,6 +73,13 @@ public class TestSpotController {
         return spot;
     }
 
+    /**
+     * Search for swab test spot with the given name. If there is no swab test spot
+     * with the given name, throw a SpotNotFoundException.
+     * 
+     * @param name
+     * @return swab test spot with the given name
+     */
     @GetMapping(path = "/name/{name}")
     @ResponseBody
     public TestSpot getByName(@PathVariable String name) {
@@ -68,15 +90,27 @@ public class TestSpotController {
         return spot;
     }
 
+    /**
+     * List all swab test spots with the given type of test.
+     * 
+     * @param type
+     * @return list of swab test spots with the given type of test
+     */
     @GetMapping(path = "/type/{type}")
     @ResponseBody
     public Iterable<TestSpot> getAllByType(@PathVariable String type) {
         return testSpotService.listByType(type);
     }
 
+    /**
+     * Add a new swab test spot with POST request to "/testspots".
+     * 
+     * @param newSpotDTO
+     * @return saved swab test spot
+     */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public TestSpot postMethodName(@RequestBody TestSpotDTO newSpotDTO) {
+    public TestSpot postMethodName(@RequestBody @Valid TestSpotDTO newSpotDTO) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
@@ -97,9 +131,17 @@ public class TestSpotController {
         return testSpotService.add(newSpot);
     }
 
+    /**
+     * Update a swab test spot with the given id with PUT request to "/testspots".
+     * If there is no swab test spot with the given id, throw a SpotNotFoundException.
+     * 
+     * @param id
+     * @param newSpotDTO
+     * @return updated swab test spot
+     */
     @PutMapping(path = "/{id}")
     @ResponseBody
-    public TestSpot updateTestSpot(@PathVariable Long id, @RequestBody TestSpotDTO newSpotDTO) {
+    public TestSpot updateTestSpot(@PathVariable Long id, @RequestBody @Valid TestSpotDTO newSpotDTO) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
@@ -124,6 +166,13 @@ public class TestSpotController {
         return newSpot;
     }
 
+    /**
+     * Delete the swab test spot with the given id with DELETE request to "/testspots".
+     * If there is no swab test spot with the given id, throw a SpotNotFoundException.
+     * 
+     * @param id
+     * @return deleted swab test spot
+     */
     @DeleteMapping(path = "/{id}")
     @ResponseBody
     public TestSpot deleteById(@PathVariable Long id) {

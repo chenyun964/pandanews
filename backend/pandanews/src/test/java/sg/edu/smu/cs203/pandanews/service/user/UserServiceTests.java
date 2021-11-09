@@ -77,7 +77,7 @@ public class UserServiceTests {
     }
 
     @Test
-    void updateNews_ReturnUpdatedBook() {
+    void updateUser_returnUpdatedUser() {
         User u = generateTestUser("test");
         when(userRepository.findById(any(Long.class))).thenReturn(Optional.of(u));
         User updated = generateTestUser("updated");
@@ -93,7 +93,7 @@ public class UserServiceTests {
     }
 
     @Test
-    void deleteNews_Success() {
+    void deleteUser_Success() {
         UserServiceImpl mock = mock(UserServiceImpl.class);
         doNothing().when(mock).deleteUser(isA(Long.class));
         mock.deleteUser(10L);

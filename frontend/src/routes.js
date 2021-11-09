@@ -56,18 +56,17 @@ class AllRoutes extends Component {
           <Route exact path="/employee/invite" component={Invite} />
           <Route exact path="/map" component={Map} />
           <Route exact path="/measurements" component={Measurement} />
+          <Route exact path="/vaccispots" component={VacciSpotTabs} />
+          <Route exact path="/testspots" component={TestSpotTabs} />
 
           {/* Add your routes above this */}
           {!LoginModel.retrieveToken() &&
             <Route path="*" component={NotFound} />
           }
 
-          <Route exact path="/vaccispots" component={VacciSpotTabs} />
-          <Route exact path="/testspots" component={TestSpotTabs} />
           {LoginModel.retrieveToken() &&
             <LoginRoutes />
           }
-          {/* Add your routes above this */}
           <Route path="*" component={NotFound} />
         </Switch>
       </Fragment>

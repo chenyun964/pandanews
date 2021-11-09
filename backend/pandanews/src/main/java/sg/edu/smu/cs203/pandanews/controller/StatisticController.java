@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import sg.edu.smu.cs203.pandanews.model.Statistic;
 import sg.edu.smu.cs203.pandanews.service.Statistic.StatisticService;
-import sg.edu.smu.cs203.pandanews.service.Statistic.StatisticServiceImpl;
 
 @RestController
 public class StatisticController {

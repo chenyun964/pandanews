@@ -1,6 +1,5 @@
 package sg.edu.smu.cs203.pandanews.controller;
 
-//import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.List;
 import javax.validation.Valid;

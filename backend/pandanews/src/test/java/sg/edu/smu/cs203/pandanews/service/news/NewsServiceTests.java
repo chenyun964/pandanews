@@ -218,7 +218,6 @@ public class NewsServiceTests {
 
     private static News newsFormatter(String title) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        // arrange *** String title, String description, String content, String coverImage, Date date
         News news = null;
         try {
             news = new News(title, "123456", "1", "1", formatter.parse("2020-01-01"));
