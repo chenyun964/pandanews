@@ -70,8 +70,9 @@ public class WorkGroupServiceTests {
 
     @Test
     void listWorkGroups_Success() {
+        Organisation o = new Organisation("org");
         when(workGroupRepository.findAll()).thenReturn(new ArrayList<WorkGroup>());
-        List<WorkGroup> list = workGroupService.listWorkGroups();
+        List<WorkGroup> list = workGroupService.listWorkGroups(o.getId());
 
         assertNotNull(list);
         verify(workGroupRepository).findAll();
