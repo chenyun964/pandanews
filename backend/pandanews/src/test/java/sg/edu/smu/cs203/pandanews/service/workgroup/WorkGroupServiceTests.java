@@ -88,6 +88,9 @@ public class WorkGroupServiceTests {
         List<WorkGroup> wgList = workGroupService.listWorkGroups(10L);
 
         assertNotNull(list);
+        assertEquals(1, wgList.size());
+        assertEquals("name", wgList.get(0).getWorkGroupName());
+        assertEquals("org", wgList.get(0).getOrganisation().getTitle());
         verify(workGroupRepository).findByOrganisationId(10L);
     }
 
