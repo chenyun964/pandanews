@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.RestController;
 
 import sg.edu.smu.cs203.pandanews.service.organisation.OrganisationService;
 import sg.edu.smu.cs203.pandanews.service.workgroup.WorkGroupService;

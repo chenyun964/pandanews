@@ -10,8 +10,10 @@ import Organisation from "./module/Organisation";
 import VacciSpotTable from "./module/VacciSpotTable";
 import TestSpotTable from './module/TestSpotTable';
 import Measurement from "./module/Measurement";
+import EditMeasurement from "./module/EditMeasurement";
 import News from "./module/News";
 import Statistics from "./module/Statistics";
+import NewsCategory from './module/NewsCategory';
 
 
 class LoginRoutes extends Component {
@@ -33,8 +35,11 @@ class LoginRoutes extends Component {
                     <Route exact path="/vaccispot" component={VacciSpotTable} />
                     <Route exact path="/testspot" component={TestSpotTable} />
                     <Route exact path="/measurement" component={Measurement} />
+                    <Route exact path="/measurement/new" component={EditMeasurement} />
+                    <Route exact path="/measurement/:id" component={EditMeasurement} />
                     <Route exact path="/news" component={News} />
                     <Route exact path="/statistics" component={Statistics} />
+                    <Route exact path="/category" component={NewsCategory} />
                 </Switch>
             </div>
         </Fragment>

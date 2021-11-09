@@ -6,6 +6,7 @@ import sg.edu.smu.cs203.pandanews.model.category.Category;
 import sg.edu.smu.cs203.pandanews.repository.CategoryRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -36,5 +37,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void deleteCategory(Long id) {
         categoryRepository.deleteById(id);
+    }
+
+    @Override
+    public Category getCategory(Long id){
+        return categoryRepository.findById(id).map(category -> category).orElse(null);
     }
 }

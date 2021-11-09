@@ -18,6 +18,10 @@ class MeasurementModel{
     async delete(id) {
         return axiosJwt.delete(config['measurement_api'] + '/' + id);
     }
+
+    async get(id){
+        return axios.get(config['measurement_api'] + "/" + id);
+    }
 }
 
 export default new MeasurementModel();

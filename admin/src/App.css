@@ -51,8 +51,8 @@
 }
 
 .image-thumnail-holder {
-  height: 64px;
-  width: 128px;
+  height: 96px;
+  width: 96px;
   background-size: cover;
   background-position: center;
 }
@@ -62,5 +62,39 @@
 }
 
 .ant-table .btn{
-  padding: 8px;
+  padding: 8px !important;
+}
+
+.top-toolbar .nav-item>a>i{
+  line-height: 2;
+}
+
+.ant-table-pagination.ant-pagination{
+  margin: 16px !important;
+}
+
+.ql-editor{
+  min-height: 35vh;
+}
+
+
+#overlay {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  height: calc(100vh - 65px);
+}
+
+.ant-spin-dot-item{
+  background-color: white !important;
+}
+
+.ant-spin-text{
+  color: white !important;
 }
