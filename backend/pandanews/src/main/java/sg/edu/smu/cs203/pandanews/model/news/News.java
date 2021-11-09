@@ -3,12 +3,17 @@ package sg.edu.smu.cs203.pandanews.model.news;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
+import org.apache.tomcat.jni.Local;
 import org.hibernate.annotations.Type;
+import org.hibernate.id.GUIDGenerator;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @AllArgsConstructor
@@ -40,6 +45,7 @@ public class News {
         this.coverImage = coverImage;
         this.date = date;
     }
+
     @Setter
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -60,12 +66,25 @@ public class News {
     private Date updatedAt;
 
 
-    @PrePersist
+    @PostPersist
     public void logTime() {
         Date temp = new Date();
         Object param = new java.sql.Timestamp(temp.getTime());
+        slug = title.replaceAll(" ", "-").replaceAll("_", "-") + "-" + (this.id << LocalDateTime.now().getDayOfMonth());
         createdAt = (Date) param;
         updatedAt = createdAt;
+    }
+
+    @Getter
+    @Column(unique = true)
+    private String slug;
+
+    public void generateSlug() {
+        slug = title.replaceAll(" ", "-").replaceAll("_", "-") + "-" + (this.id << LocalDateTime.now().getDayOfMonth());
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     @PreUpdate

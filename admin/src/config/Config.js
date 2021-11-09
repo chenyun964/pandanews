@@ -9,12 +9,8 @@ const org_api = API_HOSTS + '/organisation';
 const org_approve_api = API_HOSTS + '/organisation/approve';
 
 //News
-const news_list_api = '/news/list';
-const news_find_api = '/news/find/id';
-const news_update_api = '/news/update';
-const news_create_api = '/news/create';
-const news_delete_api = '/news/delete';
-const news_generate_bing_api = '/news/api';
+const news_api = API_HOSTS + '/news';
+const news_generate_bing_api = API_HOSTS + '/news/api';
 
 // Vaccination Spots
 const vaccispots_api = API_HOSTS + '/vaccispots';
@@ -28,18 +24,16 @@ const testspots_api = API_HOSTS + '/testspots';
 const testspots_name_api = vaccispots_api + '/name';
 const testspots_type_api = vaccispots_api + '/type';
 
-//Measurements
+// Measurements
 const measurement_api = API_HOSTS + '/measurements';
-const mea_create_api = API_HOSTS + '/measurements';
+
+// Statistics
+const statistics_api = API_HOSTS + '/statistic';
 
 
 export default {
-    news_find_api,
-    news_update_api,
-    news_create_api,
-    news_delete_api,
+    news_api,
     news_generate_bing_api,
-    news_list_api,
     API_HOSTS,
     authenticate_api,
     register_api,
@@ -54,5 +48,5 @@ export default {
     testspots_name_api,
     testspots_type_api,
     measurement_api,
-    mea_create_api
+    statistics_api
 }

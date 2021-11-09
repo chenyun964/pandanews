@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Table, Modal, Select, Input, InputNumber, Popconfirm, Form, Typography, Space, Button } from 'antd';
+import { Table, Modal, Select, Input, InputNumber, Popconfirm, Form, Typography, Space, Button, DatePicker } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
-import TestSpotModel from '../model/TestSpotModel';
+import StatisticsModel from '../model/StatisticsModel';
 
 const { Option } = Select;
 
@@ -41,12 +41,12 @@ const EditableCell = ({
     );
 };
 
-const SpotCreateForm = ({ visible, onCreate, onCancel }) => {
+const StatCreateForm = ({ visible, onCreate, onCancel }) => {
     const [form] = Form.useForm();
     return (
         <Modal
             visible={visible}
-            title="Create a new swab test spot"
+            title="New Covid Statistic"
             okText="Create"
             cancelText="Cancel"
             onCancel={onCancel}
@@ -71,65 +71,51 @@ const SpotCreateForm = ({ visible, onCreate, onCancel }) => {
                 requiredMark={false}
             >
                 <Form.Item
-                    name="name"
-                    label="Name"
+                    name="date"
+                    label="Date"
                     rules={[{
                         required: true,
-                        message: 'Please input name of the swab test spot!',
+                        message: 'Please select the date of statistics!',
                     }]}
                 >
-                    <Input placeholder="Please input name of the swab test spot" />
+                    <DatePicker style={{ width: '100%' }} />
                 </Form.Item>
                 <Form.Item
-                    name="address"
-                    label="Address"
+                    name="newCases"
+                    label="New Cases"
                     rules={[{
                         required: true,
-                        message: 'Please input address!',
+                        message: 'Please input news covid cases!',
                     }]}
                 >
-                    <Input.TextArea placeholder="Please input address" />
+                    <InputNumber min={0} defaultValue={0} style={{ width: '100%' }} />
                 </Form.Item>
                 <Form.Item
-                    name="type"
-                    label="Type"
-                    hasFeedback
+                    name="newDeaths"
+                    label="New Deaths"
                     rules={[{
                         required: true,
-                        message: 'Please select type of test!'
+                        message: 'Please input news covid cases!',
                     }]}
                 >
-                    <Select placeholder="Please select type of test">
-                        <Option value="PCR">PCR</Option>
-                        <Option value="ART">ART</Option>
-                    </Select>
+                    <InputNumber min={0} defaultValue={0} style={{ width: '100%' }} />
                 </Form.Item>
                 <Form.Item
-                    name="opHours"
-                    label="Operating Hours"
+                    name="newRecovery"
+                    label="New Recovery"
                     rules={[{
                         required: true,
-                        message: 'Please input operating hours!',
+                        message: 'Please input news covid cases!',
                     }]}
                 >
-                    <Input.TextArea placeholder="Please input operating hours" />
-                </Form.Item>
-                <Form.Item
-                    name="contact"
-                    label="Contact"
-                    rules={[{
-                        required: true,
-                        message: 'Please input contact!',
-                    }]}
-                >
-                    <Input placeholder="Please input contact" />
+                    <InputNumber min={0} defaultValue={0} style={{ width: '100%' }} />
                 </Form.Item>
             </Form>
         </Modal>
     );
 };
 
-class TestSpotTable extends Component {
+class Statistics extends Component {
     formRef = React.createRef();
 
     constructor(props) {
@@ -144,8 +130,11 @@ class TestSpotTable extends Component {
     }
 
     componentDidMount() {
-        TestSpotModel.getAll().then((res) => {
-            this.setState({ data: res.data });
+        StatisticsModel.list().then((res) => {
+            console.log(res.data);
+            this.setState({
+                data: res.data
+            });
         }).catch(error => {
             console.log(error);
         })
@@ -173,7 +162,7 @@ class TestSpotTable extends Component {
 
     handleDelete(id) {
         try {
-            TestSpotModel.delete(id);
+            StatisticsModel.delete(id);
             this.setState({
                 data: this.state.data.filter((item) => item.id !== id),
             });
@@ -183,8 +172,10 @@ class TestSpotTable extends Component {
     }
 
     onCreate(values) {
+        let data = values;
+        data.date = values.date.toDate();
         const newData = [...this.state.data];
-        TestSpotModel.add(values).then(res => {
+        StatisticsModel.create(data).then(res => {
             newData.push(res.data);
             this.setState({
                 data: newData,
@@ -199,14 +190,11 @@ class TestSpotTable extends Component {
             const newData = [...this.state.data];
             const index = newData.findIndex((item) => id === item.id);
             if (index > -1) {
-                const item = { ...newData[index], ...row, latitude: 0.0, longitude: 0.0 };
-                if (id > 0) {
-                    TestSpotModel.update(id, item).then((res) => {
-                        newData.splice(index, 1, res.data);
-                        this.setState({ data: newData, editingId: -1 });
-                    });
-                }
+                const item = { ...newData[index], ...row };
+                newData.splice(index, 1, item);
+                StatisticsModel.update(id, item);
             }
+            this.setState({ data: newData, editingId: -1 });
         } catch (error) {
             console.log(error);
         }
@@ -282,96 +270,54 @@ class TestSpotTable extends Component {
     renderColumns() {
         return [
             {
-                title: 'Name',
-                dataIndex: 'name',
-                key: 'name',
-                width: '20%',
+                title: 'Date',
+                dataIndex: 'createdAt',
+                key: 'createdAt',
                 editable: true,
                 sorter: (a, b) => a.name.localeCompare(b.name),
                 sortDirections: ['ascend', 'descend'],
-                ...this.getColumnSearchProps('name'),
+                ...this.getColumnSearchProps('createdAt'),
             },
             {
-                title: 'Type',
-                dataIndex: 'type',
-                key: 'type',
-                width: '3%',
-                editable: true,
-                filters: [
-                    {
-                        text: 'PCR',
-                        value: 'PCR',
-                    },
-                    {
-                        text: 'ART',
-                        value: 'ART',
-                    }
-                ],
-                onFilter: (value, record) => record.region.indexOf(value) === 0,
-            },
-            {
-                title: 'Address',
-                dataIndex: 'address',
-                key: 'address',
-                width: '35%',
-                editable: true,
-                ...this.getColumnSearchProps('address'),
-            },
-            {
-                title: 'Operating Hours',
-                dataIndex: 'opHours',
-                key: 'opHours',
-                width: '35%',
+                title: 'newCases',
+                dataIndex: 'newCases',
+                key: 'newCases',
                 editable: true,
             },
             {
-                title: 'Contact',
-                dataIndex: 'contact',
-                key: 'contact',
-                width: '8%',
+                title: 'newDeaths',
+                dataIndex: 'newDeaths',
+                key: 'newDeaths',
                 editable: true,
             },
             {
-                title: 'Last Updated By',
-                dataIndex: ["admin", "username"],
-                key: ["admin", "username"],
-                width: '8%',
-                editable: false,
-                render: (username) => username,
-                ...this.getColumnSearchProps('username'),
+                title: 'newRecovery',
+                dataIndex: 'newRecovery',
+                key: 'newRecovery',
+                editable: true,
             },
             {
-                title: 'operation',
+                title: 'Operation',
                 dataIndex: 'operation',
                 render: (_, record) => {
                     if (this.isEditing(record)) {
                         return (
-                            <span>
-                                <a
-                                    href='javascript:;'
-                                    onClick={() => this.save(record.id)}
-                                    style={{
-                                        marginRight: 8,
-                                    }}
-                                >
-                                    Save
-                                </a>
+                            <Space size='large'>
+                                <button className="btn btn-success" onClick={() => this.save(record.id)}>Save</button>
                                 <Popconfirm title="Sure to cancel?" onConfirm={() => this.cancel()}>
-                                    <a>Cancel</a>
+                                    <button className="btn btn-default">Cancel</button>
                                 </Popconfirm>
-                            </span>
+                            </Space>
                         );
                     }
                     return (
                         <Space size='large'>
-                            <Typography.Link disabled={this.state.editingId != -1} onClick={() => this.edit(record)}>
+                            <button className="btn btn-warning" disabled={this.state.editingId != -1} onClick={() => this.edit(record)}>
                                 <i class="zmdi zmdi-edit zmdi-hc-fw"></i>
-                            </Typography.Link>
-                            {this.state.data.length >= 1 &&
-                                <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.id)}>
-                                    <i class="la la-trash"></i>
-                                </Popconfirm>
-                            }
+                            </button>
+                            <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.id)}>
+                                <button className="btn btn-danger"><i class="la la-trash"></i></button>
+                            </Popconfirm>
                         </Space>
                     );
                 }
@@ -399,7 +345,7 @@ class TestSpotTable extends Component {
                 <header className="page-header">
                     <div className="d-flex align-items-center">
                         <div className="mr-auto">
-                            <h1>Swab Test Spots</h1>
+                            <h1>Covid 19 Statistics</h1>
                         </div>
                         <ul class="actions top-right">
                             <Button
@@ -409,12 +355,12 @@ class TestSpotTable extends Component {
                                     this.setState({ visible: true });
                                 }}
                             >
-                                New Test Spot
+                                New Statistics
                             </Button>
                         </ul>
                     </div>
                 </header>
-                <SpotCreateForm
+                <StatCreateForm
                     visible={this.state.visible}
                     onCreate={(values) => this.onCreate(values)}
                     onCancel={() => {
@@ -444,4 +390,4 @@ class TestSpotTable extends Component {
     }
 }
 
-export default TestSpotTable;
+export default Statistics;

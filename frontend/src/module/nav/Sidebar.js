@@ -47,9 +47,6 @@ class Sidebar extends Component {
             <li className="nav-item" >
               <NavLink to="/profile" className="nav-link"><i class="fas fa-user-alt"></i><span>Profile</span></NavLink>
             </li>
-            <li className="nav-item" >
-              <NavLink to="/preference" className="nav-link"><i class="fas fa-cog"></i><span>Preference</span></NavLink>
-            </li>
           </ul>
         </div>
         <button className="btn btn-danger mb-2" onClick={() => this.logout()}> Sign out </button>

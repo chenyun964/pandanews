@@ -25,8 +25,7 @@ class Category extends Component {
             console.log(e);
         })
 
-        //NewsModel.list().then(res => {
-        NewsModel.list_category_news(this.state.slug).then(res => {
+        NewsModel.listCategory(this.state.slug).then(res => {
             console.log(this.state.slug);
             this.setState({
                 news: res.data

@@ -28,11 +28,11 @@
   }
 }
 
-.login-section{
+.login-section {
   height: 100vh;
 }
 
-.login-card{
+.login-card {
   box-shadow: 0 10px 40px 0 rgb(18 106 211 / 7%), 0 2px 9px 0 rgb(18 106 211 / 6%);
   border: none;
   margin-bottom: 1.875rem;
@@ -48,4 +48,19 @@
   max-width: 450px;
   margin: 15% auto;
   padding: 30px;
+}
+
+.image-thumnail-holder {
+  height: 64px;
+  width: 128px;
+  background-size: cover;
+  background-position: center;
+}
+
+.ant-table i{
+  color: white !important;
+}
+
+.ant-table .btn{
+  padding: 8px;
 }

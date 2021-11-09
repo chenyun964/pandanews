@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.service.Statistic;
+package sg.edu.smu.cs203.pandanews.service.statistic;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,45 +6,53 @@ import java.util.List;
 import sg.edu.smu.cs203.pandanews.model.Statistic;
 import sg.edu.smu.cs203.pandanews.repository.StatisticRepository;
 
+import sg.edu.smu.cs203.pandanews.model.StatSummary;
+
 @Service
 public class StatisticServiceImpl implements StatisticService {
 @Autowired
 
-    private StatisticRepository StatisticRepo;
+    private StatisticRepository statisticRepo;
 
     @Override
     public Statistic addStatistic(Statistic Statistic) {
         
-            return StatisticRepo.save(Statistic);
+            return statisticRepo.save(Statistic);
 
     }
 
     @Override
     public Statistic getStatistic(Long id){
-        return StatisticRepo.findById(id).orElse(null);
+        return statisticRepo.findById(id).orElse(null);
     }
 
     @Override
     public void deleteStatistic(Long id) {
-        StatisticRepo.deleteById(id);
+        statisticRepo.deleteById(id);
     }
 
     @Override
     public Statistic updateStatistic(Long id, Statistic newStatistic){
-        return StatisticRepo.findById(id).map
+        return statisticRepo.findById(id).map
         (Statistic -> {
             Statistic.setNewCases(newStatistic.getNewCases());
             Statistic.setNewDeaths(newStatistic.getNewDeaths());
             Statistic.setNewRecovery(newStatistic.getNewRecovery());
-            Statistic.setTotalCases(newStatistic.getTotalCases());
-            Statistic.setTotalDeaths(newStatistic.getTotalDeaths());
-            Statistic.setTotalRecovery(newStatistic.getTotalRecovery());
-            return StatisticRepo.save(Statistic);
+            return statisticRepo.save(Statistic);
         }).orElse(null);
     }
 
     @Override
     public List<Statistic> displayStatistics(){
-        return StatisticRepo.findAll();
+        return statisticRepo.findAll();
+    }
+
+    public StatSummary getSummary(){
+        StatSummary summary = new StatSummary();
+        summary.setTotalCases(statisticRepo.getTotalCases());
+        summary.setTotalDeath(statisticRepo.getTotalDeath());
+        summary.setTotalRecovery(statisticRepo.getTotalRecovery());
+        summary.setLastedRecord(statisticRepo.getUpdatedAt());
+        return summary;
     }
 }

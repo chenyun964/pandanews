@@ -5,12 +5,9 @@ import { Carousel, Input } from 'antd';
 import { Link } from "react-router-dom";
 import moment from 'moment';
 
-
-
 const { Search } = Input;
 class SearchNews extends Component {
     
-
     constructor(props) {
         super(props);
         this.state = {
@@ -29,9 +26,7 @@ class SearchNews extends Component {
             console.log(e);
         })
 
-       //NewsModel.list().then(res => {
-        NewsModel.search_news(this.state.slug).then(res => {
-            console.log("abc" + this.state.slug);
+        NewsModel.searchNews(this.state.slug).then(res => {
             this.setState({
                 news: res.data
             })

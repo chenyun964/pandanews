@@ -39,7 +39,7 @@ const EditableCell = ({
     );
 };
 
-const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
+const MeasurementCreateForm = ({ visible, onCreate, onCancel }) => {
     const [form] = Form.useForm();
     return (
         <Modal
@@ -120,7 +120,7 @@ class Measurement extends Component {
     }
 
     componentDidMount() {
-        MeasurementModel.mList().then((res) => {
+        MeasurementModel.list().then((res) => {
             this.setState({ data: res.data });
         }).catch(error => {
             console.log(error);
@@ -169,13 +169,25 @@ class Measurement extends Component {
         });
     }
 
+    onCreate(values) {
+        console.log(values);
+        const newData = [...this.state.data];
+        MeasurementModel.add(values).then(res => {
+            newData.push(res.data);
+            this.setState({
+                data: newData,
+                visible: false,
+            });
+        });
+    }
+
     async save(id) {
         try {
             const row = await this.formRef.current.validateFields();
             const newData = [...this.state.data];
             const index = newData.findIndex((item) => id === item.id);
             if (index > -1) {
-                const item = { ...newData[index], ...row, latitude: 0.0, longitude: 0.0 };
+                const item = { ...newData[index], ...row};
                 if (id > 0) {
                     newData.splice(index, 1, item);
                     MeasurementModel.update(id, item);
@@ -232,27 +244,23 @@ class Measurement extends Component {
                     if (this.isEditing(record)) {
                         return (
                             <span>
-                                <button
-                                    className="btn"
-                                    onClick={() => this.save(record.id)}
-                                    style={{
-                                        marginRight: 8,
-                                    }}
-                                >
+                                <button className="btn btn-success" onClick={() => this.save(record.id)}>
                                     Save
                                 </button>
                                 <Popconfirm title="Sure to cancel?" onConfirm={() => this.cancel()}>
-                                    <a>Cancel</a>
+                                    <button className="btn btn-default">Cancel</button>
                                 </Popconfirm>
                             </span>
                         );
                     }
                     return (
                         <Space size='large'>
-                            <button className="btn btn-warning" onClick={() => this.edit(record)}> Edit </button>
+                            <button className="btn btn-warning" onClick={() => this.edit(record)}> <i class="zmdi zmdi-edit zmdi-hc-fw"></i> </button>
                             {this.state.data.length >= 1 &&
-                                <Popconfirm className="btn btn-danger"  title="Sure to delete?" onConfirm={() => this.handleDelete(record.id)}>
-                                    Delete
+                                <Popconfirm className="btn btn-danger" title="Sure to delete?" onConfirm={() => this.handleDelete(record.id)}>
+                                    <button className="btn btn-danger">
+                                        <i class="la la-trash"></i>
+                                    </button>
                                 </Popconfirm>
                             }
                         </Space>
@@ -282,7 +290,7 @@ class Measurement extends Component {
                 <header className="page-header">
                     <div className="d-flex align-items-center">
                         <div className="mr-auto">
-                            <h1>Swab Test Spots</h1>
+                            <h1>Covid Measurements</h1>
                         </div>
                         <ul class="actions top-right">
                             <Button
@@ -291,21 +299,20 @@ class Measurement extends Component {
                                 onClick={() => {
                                     this.setState({ visible: true });
                                 }}
-                            >
-                                New Test Spot
+                            >New Measurements
                             </Button>
                         </ul>
                     </div>
                 </header>
+                <MeasurementCreateForm
+                    visible={this.state.visible}
+                    onCreate={(values) => this.onCreate(values)}
+                    onCancel={() => {
+                        this.setState({ visible: false });
+                    }}
+                    size="large"
+                />
                 <div class="card" style={{ margin: 28 }}>
-                    <Button
-                        onClick={() => { this.onAdd(); this.edit(this.state.data[0]) }}
-                        type="primary"
-                        style={{
-                            marginBottom: 16,
-                        }}
-                    >Add Measurement </Button>
-
                     <Form ref={this.formRef} name="control-ref">
                         <Table
                             components={{
