@@ -187,7 +187,7 @@ public class UserServiceTests {
         User user = userService.joinWorkGroup(u, w);
 
         assertNotNull(user);
-        assertEquals("wg", user.getWorkGroup().getTitle());
+        assertEquals("wg", user.getWorkGroup().getWorkGroupName());
         verify(userRepository).save(u);
     }
 
