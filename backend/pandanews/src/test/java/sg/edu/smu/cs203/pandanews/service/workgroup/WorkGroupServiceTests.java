@@ -69,9 +69,9 @@ public class WorkGroupServiceTests {
     }
 
     @Test
-    void listWorkGroups_Success() {
+    void listWorkGroupsByOrganisation_Success() {
         Organisation o = new Organisation("org");
-        when(workGroupRepository.findAll()).thenReturn(new ArrayList<WorkGroup>());
+        when(workGroupRepository.findByOrganisationId(any(Long.class))).thenReturn(new ArrayList<WorkGroup>());
         List<WorkGroup> list = workGroupService.listWorkGroups(o.getId());
 
         assertNotNull(list);
