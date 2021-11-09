@@ -95,11 +95,11 @@ public class WorkGroupServiceTests {
     }
 
     @Test
-    void deleteNews_Success() {
-        UserServiceImpl mock = mock(UserServiceImpl.class);
-        doNothing().when(mock).deleteUser(isA(Long.class));
-        mock.deleteUser(10L);
-        verify(mock, times(1)).deleteUser(10L);
+    void deleteWorkGroup_Success() {
+        WorkGroupServiceImpl mock = mock(WorkGroupServiceImpl.class);
+        doNothing().when(mock).deleteWorkGroup(isA(Long.class));
+        mock.deleteWorkGroup(10L);
+        verify(mock, times(1)).deleteWorkGroup(10L);
     }
 
     @Test
