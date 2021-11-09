@@ -11,6 +11,7 @@ import sg.edu.smu.cs203.pandanews.service.user.UserServiceImpl;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AttendanceServiceImpl implements AttendanceService {
@@ -18,50 +19,51 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Autowired
     AttendanceRepository attendanceRepository;
     @Autowired
-    UserServiceImpl userServiceImpl;
+    UserServiceImpl userService;
 
 
     @Override
     public Attendance punchInOrOut(Long userId) {
-        User u = userServiceImpl.getUser(userId);
-        if (u == null) {
+        Optional<Attendance> temp = attendanceRepository.findByDate(userId, LocalDate.now());
+        if (temp.isPresent() && temp.get().isPunchedOut()) {
             return null;
         }
-        List<Attendance> temp = attendanceRepository.findByADate(u.getId(), LocalDate.now());
-        Attendance a = generateAttendance(u);
 
-        if ((temp != null && temp.size() == 1) && temp.get(0).isPunchedIn()) {
-            a.setPunchedIn(false);
-        } else if (temp != null && temp.size() != 0) return null;
-        return attendanceRepository.save(a);
+        Attendance attendance = temp.orElse(new Attendance());
+        if (temp.isPresent()) {
+            attendance.setPunchedOut(true);
+            attendance.setPunchOutDate(LocalDate.now());
+            attendance.setPunchOutTime(LocalTime.now());
+        } else {
+            attendance.setPunchInDate(LocalDate.now());
+            attendance.setPunchInTime(LocalTime.now());
+        }
+        attendance.setUser(userService.getUser(userId));
+
+        return attendanceRepository.save(attendance);
     }
 
-    @Override
-    public Attendance updateAttendance(Long id, LocalTime time) {
-        Attendance a = attendanceRepository.findById(id).orElse(null);
-        if (a == null) return null;
-        a.setATime(time);
-        return attendanceRepository.save(a);
+    // @Override
+    // public Attendance updateAttendance(Long id, LocalTime time) {
+    //     Attendance a = attendanceRepository.findById(id).orElse(null);
+    //     if (a == null) return null;
+    //     a.setATime(time);
+    //     return attendanceRepository.save(a);
 
-    }
+    // }
 
     @Override
     public List<Attendance> findAttendancesByUserid(Long userId) {
-        return attendanceRepository.findByUser(userServiceImpl.getUser(userId));
+        return attendanceRepository.findByUser(userService.getUser(userId));
     }
 
     @Override
-    public List<Attendance> findAttendanceByDate(Long userId, LocalDate date) {
-        return attendanceRepository.findByADate(userId, date);
+    public Attendance findAttendanceByDate(Long userId, LocalDate date) {
+        return attendanceRepository.findByDate(userId, date).map(attendance -> attendance).orElse(null);
     }
 
     @Override
     public Attendance findAttendanceById(Long id) {
         return attendanceRepository.findById(id).orElse(null);
     }
-
-    private static Attendance generateAttendance(User u) {
-        return new Attendance(LocalDate.now(), LocalTime.now(), false, true, u);
-    }
-
 }

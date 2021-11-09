@@ -53,12 +53,16 @@ const testspots_name_api = testspots_api + '/name';
 const testspots_type_api = testspots_api + '/type';
 
 //Attendance
-const mark_attendance_api = API_HOSTS + '/attendance/mark';
+const attendance_api = API_HOSTS + '/attendance';
+const attendance_date_api = attendance_api + '/date'
+const attendance_user_api = attendance_api + '/user'
 
 export default{
     API_HOSTS,
     search_news_api,
-    mark_attendance_api,
+    attendance_api,
+    attendance_date_api,
+    attendance_user_api,
     category_news_api,
     news_get_top_4_api,
     authenticate_api,

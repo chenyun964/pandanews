@@ -17,6 +17,7 @@ import Measurement from "./module/Measurement";
 import VacciSpotTabs from './module/VacciSpotTabs';
 import SearchNews from './module/SearchNews';
 import TestSpotTabs from './module/TestSpotTabs';
+import Attendance from './module/Attendance';
 
 class LoginRoutes extends Component {
   componentDidMount() {
@@ -34,6 +35,7 @@ class LoginRoutes extends Component {
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/employee" component={Employee} />
+            <Route exact path="/attendance" component={Attendance} />
             <Route path="*" component={NotFound} />
           </Switch>
         </div>
