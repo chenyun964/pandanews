@@ -69,12 +69,12 @@ public class WorkGroupServiceTests {
     }
 
     @Test
-    void listUsers_Success() {
-        when(userRepository.findAll()).thenReturn(new ArrayList<User>());
-        List<User> list = userService.listUsers();
+    void listWorkGroups_Success() {
+        when(workGroupRepository.findAll()).thenReturn(new ArrayList<WorkGroup>());
+        List<WorkGroup> list = workGroupService.listWorkGroups();
 
         assertNotNull(list);
-        verify(userRepository).findAll();
+        verify(workGroupRepository).findAll();
     }
 
     @Test
