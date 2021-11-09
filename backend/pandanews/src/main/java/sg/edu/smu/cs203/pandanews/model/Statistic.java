@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Column;
-import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.*;
@@ -27,19 +26,10 @@ public class Statistic {
     private int newCases;
 
     @Setter
-    private int totalCases;
-
-    @Setter
     private int newDeaths;
 
     @Setter
-    private int totalDeaths;
-
-    @Setter
     private int newRecovery;
-
-    @Setter
-    private int totalRecovery;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:MM:ss", timezone = "GMT+8")
     @Column(name = "created_at", updatable = false)

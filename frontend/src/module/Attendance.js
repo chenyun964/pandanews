@@ -1,10 +1,12 @@
-import { Component } from 'react';
+import { Component, Fragment } from 'react';
 import { Table, Input, Space, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
-import VacciSpotModel from '../model/TestSpotModel';
+import VacciSpotModel from '../model/VacciSpotModel';
+import OrganisationModel from '../model/OrganisationModel';
+import AttendanceModel from '../model/AttendanceModel';
 
-class TestSpotList extends Component {
+class Attendance extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,11 +19,15 @@ class TestSpotList extends Component {
     }
 
     componentDidMount() {
-        VacciSpotModel.getByType(this.state.type).then(res => {
-            this.setState({ data: res.data });
-        }).catch(error => {
-            console.log(error);
-        })
+        OrganisationModel.employee().then(res =>
+            res.data.forEach(employee => {
+                AttendanceModel.getAttendanceByUser(employee.id).then(r => {
+                    let newData = this.state.data;
+                    newData.push(r.data);
+                    this.setState({ data: newData });
+                })
+            })
+        );
     }
 
     getColumnSearchProps(dataIndex) {
@@ -95,7 +101,7 @@ class TestSpotList extends Component {
         const columns = [
             {
                 title: 'Name',
-                dataIndex: 'name',
+                dataIndex: ['user', 'name'],
                 ...this.getColumnSearchProps('name'),
                 sorter: (a, b) => a.name.localeCompare(b.name),
                 sortDirections: ['ascend', 'descend'],
@@ -103,46 +109,52 @@ class TestSpotList extends Component {
                 render: text => <a>{text}</a>,
             },
             {
-                title: 'Type',
-                dataIndex: 'type',
-                filters: [
-                    {
-                        text: 'PCR',
-                        value: 'PCR',
-                    },
-                    {
-                        text: 'ART',
-                        value: 'ART',
-                    },
-                ],
-                onFilter: (value, record) => record.vacciType.indexOf(value) === 0,
-                key: 'type',
+                title: 'Username',
+                dataIndex: ['user', 'username'],
+                ...this.getColumnSearchProps('username'),
+                sorter: (a, b) => a.username.localeCompare(b.username),
+                sortDirections: ['ascend', 'descend'],
+                key: 'username',
+                render: text => <a>{text}</a>,
+            },
+            {
+                title: 'Punch In Date',
+                dataIndex: 'punchInDate',
+                key: 'punchInDate',
+                responsive: ['lg'],
+                ...this.getColumnSearchProps('punchInDate'),
+            },
+            {
+                title: 'Punch In Time',
+                dataIndex: 'punchInTime',
+                key: 'punchInTime',
                 responsive: ['lg'],
             },
             {
-                title: 'Address',
-                dataIndex: 'address',
-                key: 'address',
+                title: 'Punch Out Date',
+                dataIndex: 'punchOutDate',
+                key: 'punchOutDate',
                 responsive: ['lg'],
-                ...this.getColumnSearchProps('address'),
+                ...this.getColumnSearchProps('punchOutDate'),
             },
             {
-                title: 'Operation Hours',
-                dataIndex: 'opHours',
-                key: 'upHours',
-                responsive: ['lg'],
-            },
-            {
-                title: 'Contact',
-                dataIndex: 'contact',
-                key: 'contact',
+                title: 'Punch Out Time',
+                dataIndex: 'punchOutTime',
+                key: 'punchOutTime',
                 responsive: ['lg'],
             },
         ];
         return (
-            <Table columns={columns} dataSource={this.state.data} />
+            <Fragment>
+                <div className="p-5 flex-fill">
+                    <div className="flex-fill">
+                        <h1>Attendance</h1>
+                    </div>
+                    <Table columns={columns} dataSource={this.state.data} />
+                </div>
+            </Fragment>
         );
     }
 }
 
-export default TestSpotList;
+export default Attendance;

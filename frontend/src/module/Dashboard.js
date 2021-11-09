@@ -1,7 +1,8 @@
 import { Component, Fragment } from 'react';
 import OrganisationModel from '../model/OrganisationModel';
 import UserModel from '../model/UserModel';
-import { Modal, Button, Typography, Result } from 'antd';
+import { Modal, Button, Typography, Result, Popconfirm } from 'antd';
+import AttendanceModel from '../model/AttendanceModel';
 
 const { Text } = Typography;
 
@@ -13,6 +14,7 @@ class Dashboard extends Component {
             fields: {},
             errors: {},
             company: {},
+            attendance: {},
             loading: false,
             loginFailed: false
         }
@@ -31,6 +33,32 @@ class Dashboard extends Component {
             this.setState({
                 profile: res.data
             })
+        }).catch(e => {
+            console.log(e)
+        })
+
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        AttendanceModel.getAttendanceByDate(today).then(res => {
+            console.log(res.data);
+            this.setState({
+                attendance: res.data
+            });
+        }).catch(e => {
+            console.log(e)
+        })
+    }
+
+    punchInOrOut() {
+        AttendanceModel.markAttendance().then(res => {
+            console.log(res.data);
+            this.setState({
+                attendance: res.data
+            });
         }).catch(e => {
             console.log(e)
         })
@@ -235,7 +263,7 @@ class Dashboard extends Component {
         })
     }
 
-    updateVaccinated(){
+    updateVaccinated() {
         UserModel.vaccinated().then(res => {
             this.setState({
                 profile: res.data
@@ -299,7 +327,16 @@ class Dashboard extends Component {
                             </div>
                         </div>
 
-                        <button className="btn btn-primary mt-3">Punch Out</button>
+                        {(!this.state.attendance) ?
+                            <button className="btn btn-primary mt-3" onClick={() => this.punchInOrOut()}>Punch In</button> :
+                            <button
+                                disabled={this.state.attendance.punchedOut}
+                                className="btn btn-primary mt-3"
+                            >
+                                <Popconfirm title="Sure to punch out?" onConfirm={() => this.punchInOrOut()}>
+                                    Punch Out
+                                </Popconfirm>
+                            </button>}
                         <hr />
                         <div className="d-flex">
                             <div className="flex-fill text-center">

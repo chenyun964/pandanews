@@ -68,11 +68,10 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public List<News> findNewsByCategory(String s) {
         List<Category> c = categoryRepository.findByTitle(s);
-//        if (c.size() != 1) {
-//            return null;
-//        }
-//        return newsRepository.findByCategory(c.get(0));
-        return c.size() != 1 ? null : newsRepository.findByCategory(c.get(0));
+        if (c.size() != 1) {
+            return null;
+        }
+        return newsRepository.findByCategory(c.get(0));
     }
 
     @Override
@@ -93,5 +92,12 @@ public class NewsServiceImpl implements NewsService {
         return newsRepository.findByViewCountAndCreatedAtBetween();
     }
 
+    @Override
+    public News increaseViewCount(String slug) {
+        News n = newsRepository.findBySlug(slug);
+        n.incrementViewCount();
+        return newsRepository.save(n);
+
+    }
 
 }

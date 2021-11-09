@@ -65,7 +65,7 @@ const SpotCreateForm = ({ visible, onCreate, onCancel }) => {
             <Form
                 form={form}
                 labelCol={{ span: 7 }}
-                wrapperCol={{ span: 18}}
+                wrapperCol={{ span: 18 }}
                 layout="horizontal"
                 name="form_in_modal"
                 requiredMark={false}
@@ -182,7 +182,7 @@ class TestSpotTable extends Component {
         }
     }
 
-    async onCreate(values) {
+    onCreate(values) {
         const newData = [...this.state.data];
         TestSpotModel.add(values).then(res => {
             newData.push(res.data);
@@ -201,15 +201,12 @@ class TestSpotTable extends Component {
             if (index > -1) {
                 const item = { ...newData[index], ...row, latitude: 0.0, longitude: 0.0 };
                 if (id > 0) {
-                    newData.splice(index, 1, item);
-                    TestSpotModel.update(id, item);
-                } else {
-                    TestSpotModel.add(item).then(res => {
+                    TestSpotModel.update(id, item).then((res) => {
                         newData.splice(index, 1, res.data);
+                        this.setState({ data: newData, editingId: -1 });
                     });
                 }
             }
-            this.setState({ data: newData, editingId: -1 });
         } catch (error) {
             console.log(error);
         }
@@ -298,7 +295,7 @@ class TestSpotTable extends Component {
                 title: 'Type',
                 dataIndex: 'type',
                 key: 'type',
-                width: '5%',
+                width: '3%',
                 editable: true,
                 filters: [
                     {
@@ -335,6 +332,15 @@ class TestSpotTable extends Component {
                 editable: true,
             },
             {
+                title: 'Last Updated By',
+                dataIndex: ["admin", "username"],
+                key: ["admin", "username"],
+                width: '8%',
+                editable: false,
+                render: (username) => username,
+                ...this.getColumnSearchProps('username'),
+            },
+            {
                 title: 'operation',
                 dataIndex: 'operation',
                 render: (_, record) => {
@@ -359,11 +365,11 @@ class TestSpotTable extends Component {
                     return (
                         <Space size='large'>
                             <Typography.Link disabled={this.state.editingId != -1} onClick={() => this.edit(record)}>
-                                Edit
+                                <i class="zmdi zmdi-edit zmdi-hc-fw"></i>
                             </Typography.Link>
                             {this.state.data.length >= 1 &&
                                 <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.id)}>
-                                    <a>Delete</a>
+                                    <i class="la la-trash"></i>
                                 </Popconfirm>
                             }
                         </Space>

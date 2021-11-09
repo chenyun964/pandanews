@@ -207,7 +207,7 @@ public class NewsServiceTests {
     void updateNewsCategory_ReturnNull() {
         News news = newsFormatter("test");
         Long newsId = 10L;
-        when(newsRepository.findById(newsId)).thenReturn(Optional.empty());
+        when(newsRepository.findById(any(Long.class))).thenReturn(Optional.empty());
 
         News newNews = newsService.updateNewsCategory(newsId, null);
 
@@ -215,6 +215,28 @@ public class NewsServiceTests {
         verify(newsRepository).findById(newsId);
     }
 
+    @Test
+    void increaseViewCount_Success() {
+        News news = newsFormatter("test");
+        if (news != null) {
+            news.setSlug("slug");
+        }
+        News updateNews = newsFormatter("test");
+        if (updateNews != null) {
+            updateNews.setSlug("slug");
+            updateNews.incrementViewCount();
+        }
+
+        when(newsRepository.findBySlug(any(String.class))).thenReturn(news);
+        when(newsRepository.save(any(News.class))).thenReturn(updateNews);
+
+        News newNews = newsService.increaseViewCount(news.getSlug());
+
+        assertNotNull(newNews);
+        verify(newsRepository).findBySlug(news.getSlug());
+        verify(newsRepository).save(news);
+
+    }
 
     private static News newsFormatter(String title) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");

@@ -18,7 +18,7 @@ class Organisation extends Component {
         this.listOrg();
     }
 
-    listOrg(){
+    listOrg() {
         OrganisationModel.list().then(res => {
             this.setState({
                 organisations: res.data
@@ -77,7 +77,7 @@ class Organisation extends Component {
                     {org.status == 0 &&
                         <button className="btn btn-primary" onClick={() => this.approveOrg(org.id, i)}>Approve</button>
                     }
-                    {org.status ? 
+                    {org.status ?
                         <Fragment>
                             <Button danger onClick={() => this.info(org.id, i)}>Delete</Button>
                         </Fragment>
@@ -107,7 +107,7 @@ class Organisation extends Component {
                 <header className="page-header">
                     <div className="d-flex align-items-center">
                         <div className="mr-auto">
-                            <h1>Organisation</h1>
+                            <h1>Organisations</h1>
                         </div>
                     </div>
                 </header>
@@ -116,9 +116,6 @@ class Organisation extends Component {
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
-                                <div class="card-header">
-                                    <span class="d-inline-block">Ogranisation Report</span>
-                                </div>
                                 <div class="card-body p-0">
                                     <table class="table v-align-middle">
                                         <thead class="bg-light">
@@ -133,6 +130,11 @@ class Organisation extends Component {
                                             {this.renderOrg()}
                                         </tbody>
                                     </table>
+                                    {(this.organisations == null || this.organisations.length == 0) &&
+                                        <h2 className="text-center p-40">
+                                            No Organisation Created
+                                        </h2>
+                                    }
                                 </div>
                             </div>
                         </div>

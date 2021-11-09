@@ -1,70 +1,107 @@
 package sg.edu.smu.cs203.pandanews.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import sg.edu.smu.cs203.pandanews.model.attendance.Attendance;
+import sg.edu.smu.cs203.pandanews.model.user.User;
+import sg.edu.smu.cs203.pandanews.service.attendance.AttendanceService;
 import sg.edu.smu.cs203.pandanews.service.attendance.AttendanceServiceImpl;
+import sg.edu.smu.cs203.pandanews.service.user.UserService;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @RestController
+@CrossOrigin
+@RequestMapping(path = "/attendance")
 public class AttendanceController {
 
+    private AttendanceService attendanceService;
+
+    private UserService userService;
+
     @Autowired
-    private AttendanceServiceImpl attendanceService;
+    public AttendanceController(AttendanceService attendanceService, UserService userService) {
+        this.attendanceService = attendanceService;
+        this.userService = userService;
+    }
 
     /**
      * mark attendance
-     * @param id
+     * 
      * @return Marked Attendance
      */
-    @PostMapping(path = "attendance/mark/{id}")
-    public ResponseEntity<?> markAttendance(@PathVariable Long id) {
-        return ResponseEntity.ok(attendanceService.punchInOrOut(id));
+    @PostMapping
+    public Attendance markAttendance() {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+
+        User user = userService.getUserByUsername(userDetails.getUsername());
+        if (user == null)
+            return null;
+
+        return attendanceService.punchInOrOut(user.getId());
     }
 
     /**
      * Update existing Attendance with a specific date
+     * 
      * @param id
      * @param time
      * @return updated attendance
      */
-    @PostMapping(path = "attendance/update/{id}")
-    public ResponseEntity<?> updateAttendance(@PathVariable Long id, @RequestBody LocalTime time) {
-        return ResponseEntity.ok(attendanceService.updateAttendance(id, time));
-    }
+    // @PutMapping(path = "/{id}")
+    // public Attendance updateAttendance(@PathVariable Long id, @RequestBody LocalTime time) {
+    //     return attendanceService.updateAttendance(id, time);
+    // }
 
     /**
      * get a list of attendance from a user
+     * 
      * @param userId
      * @return a list of attendance
      */
-    @GetMapping(path = "attendance/get/user/{userId}")
-    public ResponseEntity<?> getUserAttendances(@PathVariable Long userId) {
-        return ResponseEntity.ok(attendanceService.findAttendancesByUserid(userId));
+    @GetMapping(path = "/user/{userId}")
+    public List<Attendance> getAttendanceByUser(@PathVariable Long userId) {
+        return attendanceService.findAttendancesByUserid(userId);
     }
 
     /**
      * get a particular attendance. Deprecated method
+     * 
      * @param id
      * @return get a particular attendance
      */
-    @GetMapping(path = "attendance/get/{id}")
-    public ResponseEntity<?> getAttendance(@PathVariable Long id) {
-        return ResponseEntity.ok(attendanceService.findAttendanceById(id));
+    @GetMapping(path = "/{id}")
+    public Attendance getAttendance(@PathVariable Long id) {
+        return attendanceService.findAttendanceById(id);
     }
 
     /**
      * Get existing Attendance with a specific date
-     * @param userId
+     * 
      * @param date
      * @return an attendance
      */
-    @GetMapping(path = "attendance/get/date/{id}")
-    public ResponseEntity<?> getUserAttendancesByDate(@PathVariable Long userId, @RequestParam LocalDate date) {
-        return ResponseEntity.ok(attendanceService.findAttendanceByDate(userId, date));
+    @GetMapping(path = "/date")
+    public Attendance getUserAttendancesByDate(@RequestParam("date") 
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+
+        User user = userService.getUserByUsername(userDetails.getUsername());
+        if (user == null)
+            return null;
+
+        return attendanceService.findAttendanceByDate(user.getId(), date);
     }
 
 }

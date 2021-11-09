@@ -1,11 +1,5 @@
 import { Component } from 'react';
 import MeasurementModel from "../model/MeasurementModel";
-import React from 'react';
-import "../App.css";
-import"../index.js";
-
-// import ReactDOM from "react-dom";
-// import { Col, Row, Container } from "@kunukn/react-bootstrap-grid";
 
 class Measurement extends Component {
     constructor(props) {
@@ -16,7 +10,7 @@ class Measurement extends Component {
     }
 
     componentDidMount() {
-        MeasurementModel.mList().then(res => {
+        MeasurementModel.list().then(res => {
             this.setState({
                 measurements: res.data
             })
@@ -32,16 +26,16 @@ class Measurement extends Component {
                     <div className="row">
                         <div className="col-12">
                             <h3 className="text-center title"> Latest Measurements </h3>
-                            <p className="subtitle mb-4">
+                            <div className="subtitle mb-4">
                                 <div className="mea-subtitle">
                                     <strong >Here's what you can or cannot do from 19 August (updates 8 September):</strong>
                                 </div>
-                            </p>
+                            </div>
 
                             <div className="row">
                                 {this.state.measurements.map((m, i) => {
                                     return (
-                                        <div className="col-lg-4 col-md-6 mea-item mb-3">
+                                        <div key={i} className="col-lg-4 col-md-6 mea-item mb-3">
                                             <div className="d-flex">
                                                 <img src={m.imageUrl} height="50" />
                                                 <div className="d-flex flex-column">
@@ -57,7 +51,6 @@ class Measurement extends Component {
                         </div>
                     </div>
                 </div>
-
             </div>
         );
     }

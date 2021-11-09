@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.RestController;
 
 import sg.edu.smu.cs203.pandanews.service.organisation.OrganisationService;
 import sg.edu.smu.cs203.pandanews.service.workgroup.WorkGroupService;
@@ -19,6 +20,7 @@ import sg.edu.smu.cs203.pandanews.model.Organisation;
 import sg.edu.smu.cs203.pandanews.model.WorkGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 
+@RestController
 public class UserController {
     private UserService userService;
     private WorkGroupService workGroupService;
@@ -53,17 +55,6 @@ public class UserController {
         if(user == null) return null;
         return user;
     }
-    /**
-     * Add a new book with POST request to "/books"
-     * Note the use of @RequestBody
-     * @param user
-     * @return list of all books
-     */
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @PostMapping("/users")
-//    public User addUser(@RequestBody User user){
-//        return userService.addUser(user);
-//    }
 
     /**
      * If there is no book with the given "id", throw a BookNotFoundException
