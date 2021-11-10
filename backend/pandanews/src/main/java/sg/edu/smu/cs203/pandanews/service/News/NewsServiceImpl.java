@@ -2,6 +2,7 @@ package sg.edu.smu.cs203.pandanews.service.news;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sg.edu.smu.cs203.pandanews.exception.news.NewsDuplicationException;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.repository.CategoryRepository;
@@ -47,6 +48,9 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public List<News> createNewsByAPI() {
         List<News> result = newsAPIService.apiCall();
+        if (result == null){
+            throw new NewsDuplicationException("News Duplicated");
+        }
         return newsAPIService.apiCall().size() == 0 ? null : result;
     }
 
