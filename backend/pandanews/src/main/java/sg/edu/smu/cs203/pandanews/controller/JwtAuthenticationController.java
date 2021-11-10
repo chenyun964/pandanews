@@ -56,7 +56,13 @@ public class JwtAuthenticationController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     "Password and confirmPassword provided do not match!");
         }
-        return ResponseEntity.ok(userDetailsService.save(userDTO));
+
+        try {
+            return ResponseEntity.ok(userDetailsService.save(userDTO));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Duplicated Username!");
+        }
+
     }
 
     private void authenticate(String username, String password) throws Exception {
@@ -83,12 +89,17 @@ public class JwtAuthenticationController {
     @PostMapping("/admin/register")
     public ResponseEntity<?> addAdmin(@Valid @RequestBody AdminDTO adminDTO) throws Exception {
         if (!adminDTO.getAdminCode().equals(adminCode)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Admin Code");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Admin Code!");
         }
+
+        if (!adminDTO.getPassword().equals(adminDTO.getConfirmPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password and confirmPassword do not match!");
+        }
+
         try {
             return ResponseEntity.ok(userDetailsService.save(adminDTO));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Duplicated Username");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Duplicated Username!");
         }
     }
 }

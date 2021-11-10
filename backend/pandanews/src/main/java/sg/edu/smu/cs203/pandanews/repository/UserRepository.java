@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository <User, Long>{
+    @Query("SELECT u FROM User u WHERE u.username = :username AND u.authorities != 'ROLE_ADMIN'")
     Optional<User> findByUsername(String username);
 
     List<User> findByOrganisationId(Long organisationId);

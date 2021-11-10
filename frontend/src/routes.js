@@ -20,6 +20,7 @@ import TestSpotTabs from './module/TestSpotTabs';
 import Covid19 from './module/Covid19';
 import WorkGroup from './module/WorkGroup';
 import Attendance from './module/Attendance';
+import UserModel from './model/UserModel';
 
 class LoginRoutes extends Component {
   componentDidMount() {
@@ -27,7 +28,7 @@ class LoginRoutes extends Component {
       window.location.replace("/login");
     }
   }
-
+  
   render() {
     return (
       <Fragment>
