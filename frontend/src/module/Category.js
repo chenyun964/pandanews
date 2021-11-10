@@ -3,7 +3,7 @@ import NewsModel from '../model/NewsModel';
 import CategoryModel from '../model/CategoryModel';
 import { Link } from "react-router-dom";
 import moment from 'moment';
-import { Input } from 'antd';
+import { Carousel, Input } from 'antd';
 const { Search } = Input;
 
 class Category extends Component {
@@ -18,7 +18,6 @@ class Category extends Component {
 
     componentDidMount() {
         CategoryModel.list().then(res => {
-            console.log(res.data);
             this.setState({
                 category: res.data
             })
@@ -26,11 +25,8 @@ class Category extends Component {
             console.log(e);
         })
 
-        this.getCategory();
-    }
-
-    getCategory(){
         NewsModel.listCategory(this.state.slug).then(res => {
+            console.log(this.state.slug);
             this.setState({
                 news: res.data
             })
@@ -63,7 +59,7 @@ class Category extends Component {
                             <div className="col-lg-8 col-12">
                                 {this.state.news.map((news, i) => {
                                     return (
-                                        <a key={i} href={news.content} target="_blank">
+                                        <a href={news.content} target="_blank">
                                             <div class="row mb-3 news-item">
                                                 <div className="col-md-4 col-12 news-image" style={{ "backgroundImage": "url(" + news.coverImage + ")" }}></div>
                                                 <div className="col-md-8 col-12 p-4">

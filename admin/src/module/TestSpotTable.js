@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Table, Input, InputNumber, Popconfirm, Form, Typography, Space, Button } from 'antd';
+import { Table, Modal, Select, Input, InputNumber, Popconfirm, Form, Typography, Space, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import TestSpotModel from '../model/TestSpotModel';
-import { TestSpotCreateForm } from '../forms/TestSpotCreateForm';
+import { SpotCreateForm } from '../forms/SportCreateForm';
 
 
 
@@ -41,6 +41,8 @@ const EditableCell = ({
         </td>
     );
 };
+
+
 
 class TestSpotTable extends Component {
     formRef = React.createRef();
@@ -327,7 +329,7 @@ class TestSpotTable extends Component {
                         </ul>
                     </div>
                 </header>
-                <TestSpotCreateForm
+                <SpotCreateForm
                     visible={this.state.visible}
                     onCreate={(values) => this.onCreate(values)}
                     onCancel={() => {
