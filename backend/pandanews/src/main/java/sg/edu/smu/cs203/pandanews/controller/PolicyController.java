@@ -26,7 +26,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class PolicyController {
     private PolicyService policyService;
     private UserService userService;
-    private UserRepository users;
+    private UserRepository userRepo;
 
     public PolicyController(PolicyService policyService){
         this.policyService = policyService;
@@ -39,7 +39,7 @@ public class PolicyController {
         User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) throw new UnauthenticatedException();
 
-        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
 
         return policyService.listPolicies(oid);
     }
@@ -51,7 +51,7 @@ public class PolicyController {
         User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) throw new UnauthenticatedException();
 
-        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
 
         Policy policy = policyService.getPolicy(id);
 
@@ -68,7 +68,7 @@ public class PolicyController {
         User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) throw new UnauthenticatedException();
 
-        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
 
         return policyService.addPolicy(policy);
     }
@@ -80,7 +80,7 @@ public class PolicyController {
         User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) throw new UnauthenticatedException();
 
-        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
 
         Policy policy = policyService.updatePolicy(id, newPolicyInfo);
         if(policy == null) return null;
@@ -95,7 +95,7 @@ public class PolicyController {
         User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) throw new UnauthenticatedException();
 
-        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
 
         try {
             policyService.deletePolicy(id);

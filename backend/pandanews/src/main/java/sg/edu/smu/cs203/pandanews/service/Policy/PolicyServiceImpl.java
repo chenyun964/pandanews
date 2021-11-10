@@ -10,39 +10,39 @@ import sg.edu.smu.cs203.pandanews.repository.PolicyRepository;
 @Service
 public class PolicyServiceImpl implements PolicyService {
 
-    private PolicyRepository policies;
+    private PolicyRepository policyRepo;
 
     public PolicyServiceImpl(PolicyRepository policies) {
-        this.policies = policies;
+        this.policyRepo = policies;
     }
 
     @Override
     public Policy getPolicy(Long id) {
-        return policies.findById(id).orElse(null);
+        return policyRepo.findById(id).orElse(null);
     }
 
     @Override
     public List<Policy> listPolicies(Long organisationId) {
-        return policies.findByOrganisationId(organisationId);
+        return policyRepo.findByOrganisationId(organisationId);
     }
 
     @Override
     public Policy addPolicy(Policy policy) {
-        return policies.save(policy);
+        return policyRepo.save(policy);
     }
 
     @Override
     public Policy updatePolicy(Long id, Policy newPolicy) {
-        return policies.findById(id).map(policy -> {
+        return policyRepo.findById(id).map(policy -> {
             policy.setMessage(newPolicy.getMessage());
             policy.setValidity(newPolicy.getValidity());
-            return policies.save(policy);
+            return policyRepo.save(policy);
         }).orElse(null);
     }
 
     @Override
     public void deletePolicy(Long id) {
-        policies.deleteById(id);
+        policyRepo.deleteById(id);
     }
 
 }

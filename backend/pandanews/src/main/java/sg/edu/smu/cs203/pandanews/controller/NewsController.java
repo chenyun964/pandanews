@@ -19,10 +19,10 @@ public class NewsController {
     @Autowired
     private NewsServiceImpl newsService;
 
-
     /**
      * Create news by manual input
-     * @param  newsDTO with news and category id
+     *
+     * @param newsDTO with news and category id
      * @return
      */
     @PostMapping(path = "/news")
@@ -53,7 +53,7 @@ public class NewsController {
      * @return update news
      */
     @PutMapping(path = "/news/{id}")
-    public ResponseEntity<?> updateNews(@PathVariable int id, @RequestBody News newNews) {
+    public ResponseEntity<?> updateNews(@PathVariable int id, @RequestBody NewsDTO newNews) {
         News news = newsService.updateNews(id, newNews);
         if (news == null) {
             throw new NewsNotFoundException("News Not Found");
@@ -128,14 +128,18 @@ public class NewsController {
      */
     @GetMapping(path = "/news/category/{category}")
     public ResponseEntity<?> findNewsByCategory(@PathVariable String category) {
-        return ResponseEntity.ok(newsService.findNewsByCategory(category));
+        List<News> newsList = newsService.findNewsByCategory(category);
+        if (newsList == null) {
+            throw new NewsNotFoundException("News not found");
+        }
+        return ResponseEntity.ok(newsList);
     }
 
     /**
      * delete particular news
      *
      * @param id
-     * @return null
+     * @return null　
      */
     @DeleteMapping(path = "/news/{id}")
     public ResponseEntity<?> deleteNews(@PathVariable long id) {

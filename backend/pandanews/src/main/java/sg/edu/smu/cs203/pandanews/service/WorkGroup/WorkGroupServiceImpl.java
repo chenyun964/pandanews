@@ -10,39 +10,39 @@ import sg.edu.smu.cs203.pandanews.repository.WorkGroupRepository;
 @Service
 public class WorkGroupServiceImpl implements WorkGroupService {
 
-    private WorkGroupRepository workgroups;
+    private WorkGroupRepository workGroupRepo;
 
-    public WorkGroupServiceImpl(WorkGroupRepository workgroups) {
-        this.workgroups = workgroups;
+    public WorkGroupServiceImpl(WorkGroupRepository workGroupRepo) {
+        this.workGroupRepo = workGroupRepo;
     }
 
     @Override
     public WorkGroup getWorkGroup(Long id) {
-        return workgroups.findById(id).orElse(null);
+        return workGroupRepo.findById(id).orElse(null);
     }
 
     @Override
     public List<WorkGroup> listWorkGroups(Long organisationId) {
-        return workgroups.findByOrganisationId(organisationId);
+        return workGroupRepo.findByOrganisationId(organisationId);
     }
 
     @Override
     public WorkGroup addWorkGroup(WorkGroup workgroup) {
-        return workgroups.save(workgroup);
+        return workGroupRepo.save(workgroup);
     }
 
     @Override
     public WorkGroup updateWorkGroup(Long id, WorkGroup newWorkGroup) {
-        return workgroups.findById(id).map(workgroup -> {
+        return workGroupRepo.findById(id).map(workgroup -> {
             workgroup.setWorkGroupName(newWorkGroup.getWorkGroupName());
             workgroup.setDatesInOffice(newWorkGroup.getDatesInOffice());
-            return workgroups.save(workgroup);
+            return workGroupRepo.save(workgroup);
         }).orElse(null);
     }
 
     @Override
     public void deleteWorkGroup(Long id) {
-        workgroups.deleteById(id);
+        workGroupRepo.deleteById(id);
     }
 
 }

@@ -16,14 +16,14 @@ import java.util.Optional;
 public class AttendanceServiceImpl implements AttendanceService {
 
     @Autowired
-    AttendanceRepository attendanceRepository;
+    AttendanceRepository attendanceRepo;
     @Autowired
-    UserRepository userRepository;
+    UserRepository userRepo;
 
 
     @Override
     public Attendance punchInOrOut(Long userId) {
-        Optional<Attendance> temp = attendanceRepository.findByDate(userId, LocalDate.now());
+        Optional<Attendance> temp = attendanceRepo.findByDate(userId, LocalDate.now());
         if (temp.isPresent() && temp.get().isPunchedOut()) {
             return null;
         }
@@ -37,8 +37,8 @@ public class AttendanceServiceImpl implements AttendanceService {
             attendance.setPunchInDate(LocalDate.now());
             attendance.setPunchInTime(LocalTime.now());
         }
-        attendance.setUser(userRepository.findById(userId).orElse(null));
-        return attendanceRepository.save(attendance);
+        attendance.setUser(userRepo.findById(userId).orElse(null));
+        return attendanceRepo.save(attendance);
     }
 
     // @Override
@@ -52,16 +52,16 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public List<Attendance> findAttendancesByUserid(Long userId) {
-        return attendanceRepository.findByUser(userRepository.findById(userId).orElse(null));
+        return attendanceRepo.findByUser(userRepo.findById(userId).orElse(null));
     }
 
     @Override
     public Attendance findAttendanceByDate(Long userId, LocalDate date) {
-        return attendanceRepository.findByDate(userId, date).orElse(null);
+        return attendanceRepo.findByDate(userId, date).orElse(null);
     }
 
     @Override
     public Attendance findAttendanceById(Long id) {
-        return attendanceRepository.findById(id).orElse(null);
+        return attendanceRepo.findById(id).orElse(null);
     }
 }

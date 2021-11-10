@@ -27,14 +27,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 @CrossOrigin
 public class OrganisationController {
 
-    private OrganisationService orgService;
+    private OrganisationService organisationService;
 
-    private UserService users;
+    private UserService userService;
 
     @Autowired
-    public OrganisationController(OrganisationService os, UserService users) {
-        this.orgService = os;
-        this.users = users;
+    public OrganisationController(OrganisationService os, UserService userService) {
+        this.organisationService = os;
+        this.userService = userService;
     }
 
     /**
@@ -44,7 +44,7 @@ public class OrganisationController {
      */
     @GetMapping("/organisation")
     public List<Organisation> getOrganisations() {
-        return orgService.listOrganisations();
+        return organisationService.listOrganisations();
     }
 
     /**
@@ -76,15 +76,15 @@ public class OrganisationController {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
-        User user = users.getUserByUsername(userDetails.getUsername());
+        User user = userService.getUserByUsername(userDetails.getUsername());
         if (user == null)
             return null;
 
-        Organisation newOrg = orgService.addOrganisation(organisation, user);
+        Organisation newOrg = organisationService.addOrganisation(organisation, user);
         if (newOrg == null)
             return null;
 
-        users.updateUserCompany(user.getId(), newOrg);
+        userService.updateUserCompany(user.getId(), newOrg);
         return newOrg;
     }
 
@@ -97,7 +97,7 @@ public class OrganisationController {
      */
     @PutMapping("/organisation/{id}")
     public Organisation updateOrganisation(@PathVariable Long id, @RequestBody Organisation newOrganisationInfo) {
-        Organisation organisation = orgService.updateOrganisation(id, newOrganisationInfo);
+        Organisation organisation = organisationService.updateOrganisation(id, newOrganisationInfo);
         if (organisation == null)
             return null;
 
@@ -106,7 +106,7 @@ public class OrganisationController {
 
     @PutMapping("/organisation/approve/{id}")
     public Organisation approveOrganisation(@PathVariable Long id) {
-        Organisation organisation = orgService.approveOrganisation(id);
+        Organisation organisation = organisationService.approveOrganisation(id);
         if (organisation == null)
             return null;
 
@@ -114,7 +114,7 @@ public class OrganisationController {
         if (user == null)
             return null;
 
-        users.updateUserRole(user, "ROLE_OWNER");
+        userService.updateUserRole(user, "ROLE_OWNER");
         return organisation;
     }
 
@@ -127,7 +127,7 @@ public class OrganisationController {
     @DeleteMapping("/organisation/{id}")
     public void deleteOrganisation(@PathVariable Long id) {
         try {
-            orgService.deleteOrganisation(id);
+            organisationService.deleteOrganisation(id);
         } catch (EmptyResultDataAccessException e) {
             // throw new BookNotFoundException(id);
         }
@@ -138,7 +138,7 @@ public class OrganisationController {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
-        User user = users.getUserByUsername(userDetails.getUsername());
+        User user = userService.getUserByUsername(userDetails.getUsername());
         if (user == null)
             return null;
 
@@ -154,24 +154,24 @@ public class OrganisationController {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
-        User employee = users.getUserByUsername(userDetails.getUsername());
+        User employee = userService.getUserByUsername(userDetails.getUsername());
         if (org.getCode() == null)
             return null;
-        return orgService.addEmployee(org.getCode(), employee);
+        return organisationService.addEmployee(org.getCode(), employee);
     }
 
     @DeleteMapping("/organisation/employee/{id}")
     public User removeOgranisationEmployee(@PathVariable Long id) {
 
-        User employee = users.getUser(id);
-        users.updateUserRole(employee, "ROLE_USER");
+        User employee = userService.getUser(id);
+        userService.updateUserRole(employee, "ROLE_USER");
 
-        return users.quitOrganisation(employee);
+        return userService.quitOrganisation(employee);
     }
 
     @GetMapping("/organisation/{code}")
     public Organisation addOrganisationEmployee(@PathVariable String code) {
-        return orgService.getOrganisationByCode(code);
+        return organisationService.getOrganisationByCode(code);
     }
 
     @GetMapping("/organisation/policy")
@@ -179,7 +179,7 @@ public class OrganisationController {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
-        User user = users.getUserByUsername(userDetails.getUsername());
+        User user = userService.getUserByUsername(userDetails.getUsername());
         if (user == null)
             return null;
 
@@ -211,18 +211,18 @@ public class OrganisationController {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
-        User manager = users.getUserByUsername(userDetails.getUsername());
+        User manager = userService.getUserByUsername(userDetails.getUsername());
         if (manager == null)
             return null;
 
-        User employee = users.getUser(id);
+        User employee = userService.getUser(id);
         if (employee == null)
             return null;
 
         if (manager.getOrganisation() != employee.getOrganisation())
             return null;
 
-        users.updateUserRole(employee, "ROLE_MANAGER");
+        userService.updateUserRole(employee, "ROLE_MANAGER");
         return null;
     }
 
@@ -231,18 +231,18 @@ public class OrganisationController {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
-        User manager = users.getUserByUsername(userDetails.getUsername());
+        User manager = userService.getUserByUsername(userDetails.getUsername());
         if (manager == null)
             return null;
 
-        User employee = users.getUser(id);
+        User employee = userService.getUser(id);
         if (employee == null)
             return null;
 
         if (manager.getOrganisation() != employee.getOrganisation())
             return null;
 
-        users.updateUserRole(employee, "ROLE_USER");
+        userService.updateUserRole(employee, "ROLE_USER");
         return null;
     }
 }

@@ -1,26 +1,15 @@
 package sg.edu.smu.cs203.pandanews.service.user;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import sg.edu.smu.cs203.pandanews.model.Organisation;
-import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.model.user.User;
-import sg.edu.smu.cs203.pandanews.repository.CategoryRepository;
-import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
-import sg.edu.smu.cs203.pandanews.repository.OrganisationRepository;
 import sg.edu.smu.cs203.pandanews.repository.UserRepository;
-import sg.edu.smu.cs203.pandanews.service.news.NewsServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
