@@ -51,14 +51,13 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public News updateNews(long id, News news) {
+    public News updateNews(long id, NewsDTO news) {
         return newsRepo.findById(id).map(newNews -> {
             newNews.setTitle(news.getTitle());
             newNews.setContent(news.getContent());
             newNews.setCoverImage(news.getCoverImage());
             newNews.setDate(news.getDate());
             newNews.setDescription(news.getDescription());
-            newNews.setPinned(news.isPinned());
             return newsRepo.save(newNews);
         }).orElse(null);
     }

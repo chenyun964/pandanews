@@ -1,10 +1,5 @@
 package sg.edu.smu.cs203.pandanews.service.news;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,6 +15,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class NewsServiceTests {
@@ -110,10 +109,12 @@ public class NewsServiceTests {
         final News news = newsFormatter("test");
         when(newsRepo.findById(any(Long.class))).thenReturn(Optional.of(news));
         News updateNews = newsFormatter("Updated");
+        NewsDTO dto = new NewsDTO();
+        updateNews.setTitle("Updated");
         when(newsRepo.save(any(News.class))).thenReturn(updateNews);
 
         long id = 10L;
-        News newNews = newsService.updateNews(id, updateNews);
+        News newNews = newsService.updateNews(id, dto);
 
         assertNotNull(newNews);
         assertEquals("Updated", newNews.getTitle());
@@ -128,7 +129,7 @@ public class NewsServiceTests {
         Long newsId = 10L;
         when(newsRepo.findById(newsId)).thenReturn(Optional.empty());
 
-        News newNews = newsService.updateNews(newsId, news);
+        News newNews = newsService.updateNews(newsId, new NewsDTO());
 
         assertNull(newNews);
         verify(newsRepo).findById(newsId);

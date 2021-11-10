@@ -7,10 +7,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import sg.edu.smu.cs203.pandanews.model.StatSummary;
 import sg.edu.smu.cs203.pandanews.model.Statistic;
-import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.repository.StatisticRepository;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

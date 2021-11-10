@@ -1,8 +1,9 @@
 package sg.edu.smu.cs203.pandanews.dto;
 
-import java.io.Serializable;
-
 import lombok.*;
+
+import java.io.Serializable;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -10,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class NewsDTO implements Serializable{
+public class NewsDTO implements Serializable {
     private static final long serialVersionUID = 6039321808442141068L;
 
     private String title;
@@ -27,7 +28,9 @@ public class NewsDTO implements Serializable{
 
     private boolean pinned;
 
-    public Boolean getPinned(){
+    public Date date;
+
+    public Boolean getPinned() {
         return pinned;
     }
 
