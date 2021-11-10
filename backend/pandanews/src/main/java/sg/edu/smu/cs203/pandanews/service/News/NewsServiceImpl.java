@@ -23,12 +23,14 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public News createNewsByManual(News news) {
-//        List<News> newsList = newsRepository.findByTitle(news.getTitle());
-//        if (newsList.size() == 0) {
-//            return newsRepository.save(news);
-//        }
-//        return null;
         news.setSource("Manual");
+        return newsRepository.findByTitle(news.getTitle()).size() == 0 ? newsRepository.save(news) : null;
+    }
+
+    @Override
+    public News createNewsByManualWithCategory(News news, Long categoryId) {
+        news.setSource("Manual");
+        news.setCategory(categoryRepository.findById(categoryId).orElse(null));
         return newsRepository.findByTitle(news.getTitle()).size() == 0 ? newsRepository.save(news) : null;
     }
 

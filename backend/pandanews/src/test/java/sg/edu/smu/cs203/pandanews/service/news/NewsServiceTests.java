@@ -46,10 +46,10 @@ public class NewsServiceTests {
         // mock the "save" operation
         when(newsRepository.save(any(News.class))).thenReturn(news);
         // act ***
-        News savedBook = newsService.createNewsByManual(news);
+        News savedNews = newsService.createNewsByManual(news);
         // assert ***
-        assertNotNull(savedBook);
-        verify(newsRepository).findByTitle(savedBook.getTitle());
+        assertNotNull(savedNews);
+        verify(newsRepository).findByTitle(savedNews.getTitle());
         verify(newsRepository).save(news);
     }
 
@@ -64,14 +64,50 @@ public class NewsServiceTests {
         // mock the "findByTitle" operation
         when(newsRepository.findByTitle(news.getTitle())).thenReturn(someNews);
         // act ***
-        News savedBook = newsService.createNewsByManual(news);
+        News savedNews = newsService.createNewsByManual(news);
         // assert ***
-        assertNull(savedBook);
+        assertNull(savedNews);
         verify(newsRepository).findByTitle(news.getTitle());
     }
 
     @Test
-    void updateNews_ReturnUpdatedBook() {
+    void createNewsByManualWithCategory_ReturnSavedNews() {
+        // arrange ** String title, String description, String content, String coverImage, Date date
+        News news = newsFormatter("test");
+        // mock the "findById" operation
+        when(categoryRepository.findById(any(Long.class))).thenReturn(Optional.of(new Category("category")));
+        when(newsRepository.findByTitle(any(String.class))).thenReturn(new ArrayList<News>());
+        // mock the "save" operation
+        when(newsRepository.save(any(News.class))).thenReturn(news);
+        // act ***
+        News savedNews = newsService.createNewsByManualWithCategory(news, 10L);
+        // assert ***
+        assertNotNull(savedNews);
+        verify(newsRepository).findByTitle(savedNews.getTitle());
+        verify(newsRepository).save(news);
+        verify(categoryRepository).findById(10L);
+        assertEquals("category", savedNews.getCategory().getTitle());
+    }
+
+
+    @Test
+    void createNewsByManualWithCategory_ReturnNull() {
+        // arrange *** String title, String description, String content, String coverImage, Date date
+        News news = newsFormatter("test");
+        List<News> someNews = new ArrayList<>();
+        someNews.add(news);
+
+        // mock the "findByTitle" operation
+        when(newsRepository.findByTitle(news.getTitle())).thenReturn(someNews);
+        // act ***
+        News savedNews = newsService.createNewsByManualWithCategory(news, 10L);
+        // assert ***
+        assertNull(savedNews);
+        verify(newsRepository).findByTitle(news.getTitle());
+    }
+
+    @Test
+    void updateNews_ReturnUpdatedNews() {
         final News news = newsFormatter("test");
         when(newsRepository.findById(any(Long.class))).thenReturn(Optional.of(news));
         News updateNews = newsFormatter("Updated");
@@ -184,7 +220,7 @@ public class NewsServiceTests {
     }
 
     @Test
-    void updateNewsCategory_ReturnUpdatedBook() {
+    void updateNewsCategory_ReturnUpdatedNews() {
         News news = newsFormatter("test");
         News updateNews = newsFormatter("test");
         Category c = new Category();

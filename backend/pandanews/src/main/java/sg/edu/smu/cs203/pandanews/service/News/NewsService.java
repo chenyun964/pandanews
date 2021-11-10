@@ -30,4 +30,5 @@ public interface NewsService {
 
     News increaseViewCount(String slug);
 
+    News createNewsByManualWithCategory(News news, Long categoryId);
 }
