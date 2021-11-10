@@ -91,4 +91,14 @@ public class StatisticServiceTests {
         verify(statisticRepo).findById(10L);
         verify(statisticRepo).save(stats);
     }
+
+    @Test
+    void updateStatistics_ReturnNull() {
+
+        when(statisticRepo.findById(any(Long.class))).thenReturn(Optional.empty());
+        Statistic result = statisticService.updateStatistic(10L, new Statistic());
+
+        assertNull(result);
+        verify(statisticRepo).findById(10L);
+    }
 }
