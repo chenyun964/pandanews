@@ -1,4 +1,5 @@
 import { Component, Fragment } from 'react';
+import { Link } from "react-router-dom";
 import OrganisationModel from "../model/OrganisationModel";
 import { Modal, Button, Typography } from 'antd';
 
@@ -129,7 +130,7 @@ class Organisation extends Component {
                                             {this.renderOrg()}
                                         </tbody>
                                     </table>
-                                    {(this.state.organisations == null || this.state.organisations.length == 0) &&
+                                    {(this.organisations == null || this.organisations.length == 0) &&
                                         <h2 className="text-center p-40">
                                             No Organisation Created
                                         </h2>

@@ -36,7 +36,7 @@ class EditNews extends Component {
                     data.category = res.data.category.id
                 }
                 this.setState({
-                    data: data,
+                    data: res.data,
                     imageUrl: res.data.imageUrl
                 })
             }).catch(e => {
@@ -173,9 +173,9 @@ class EditNews extends Component {
                             <TextArea value={this.state.data.description} onChange={(e) => this.handleChange(e.target.value, "description")} />
                         </Form.Item>
                         <Form.Item label="Category">
-                            <Select placeholder="Please select category" value={this.state.data.category} onChange={(e) => this.handleChange(e, "category")}>
-                                {this.state.category.map(cate => {
-                                    return <Option key={cate.id} value={cate.id} >{cate.title}</Option>
+                            <Select placeholder="Please select category" initialValues={this.state.data.category} onChange={(e) => this.handleChange(e, "category")}>
+                                {this.state.category.map((cate, k) => {
+                                    return <Option key={k} value={cate.id} >{cate.title}</Option>
                                 })}
                             </Select>
                         </Form.Item>

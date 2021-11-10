@@ -1,13 +1,12 @@
 import { Modal, Select, Input, Form } from 'antd';
 
 const { Option } = Select;
-
-export const VacciSpotCreateForm = ({ visible, onCreate, onCancel }) => {
+export const SpotCreateForm = ({ visible, onCreate, onCancel }) => {
     const [form] = Form.useForm();
     return (
         <Modal
             visible={visible}
-            title="Create New Vaccination Spot"
+            title="Create a new swab test spot"
             okText="Create"
             cancelText="Cancel"
             onCancel={onCancel}
@@ -25,8 +24,8 @@ export const VacciSpotCreateForm = ({ visible, onCreate, onCancel }) => {
         >
             <Form
                 form={form}
-                labelCol={{ span: 6 }}
-                wrapperCol={{ span: 16 }}
+                labelCol={{ span: 7 }}
+                wrapperCol={{ span: 18 }}
                 layout="horizontal"
                 name="form_in_modal"
                 requiredMark={false}
@@ -36,10 +35,10 @@ export const VacciSpotCreateForm = ({ visible, onCreate, onCancel }) => {
                     label="Name"
                     rules={[{
                         required: true,
-                        message: 'Please input name of the vaccination spot!',
+                        message: 'Please input name of the swab test spot!',
                     }]}
                 >
-                    <Input placeholder="Please input name of the vaccination spot" />
+                    <Input placeholder="Please input name of the swab test spot" />
                 </Form.Item>
                 <Form.Item
                     name="address"
@@ -57,45 +56,33 @@ export const VacciSpotCreateForm = ({ visible, onCreate, onCancel }) => {
                     hasFeedback
                     rules={[{
                         required: true,
-                        message: 'Please select type of building!'
+                        message: 'Please select type of test!'
                     }]}
                 >
-                    <Select placeholder="Please select type of building">
-                        <Option value="Vaccination Centre">Vaccination Centre</Option>
-                        <Option value="Polyclinic">Polyclinic</Option>
-                        <Option value="Clinic">Clinic</Option>
+                    <Select placeholder="Please select type of test">
+                        <Option value="PCR">PCR</Option>
+                        <Option value="ART">ART</Option>
                     </Select>
                 </Form.Item>
                 <Form.Item
-                    name="region"
-                    label="Region"
-                    hasFeedback
+                    name="opHours"
+                    label="Operating Hours"
                     rules={[{
                         required: true,
-                        message: 'Please select region!'
+                        message: 'Please input operating hours!',
                     }]}
                 >
-                    <Select placeholder="Please select region">
-                        <Option value="Central">Central</Option>
-                        <Option value="North">North</Option>
-                        <Option value="West">West</Option>
-                        <Option value="East">East</Option>
-                        <Option value="North East">North East</Option>
-                    </Select>
+                    <Input.TextArea placeholder="Please input operating hours" />
                 </Form.Item>
                 <Form.Item
-                    name="vacciType"
-                    label="Vaccine Type"
-                    hasFeedback
+                    name="contact"
+                    label="Contact"
                     rules={[{
                         required: true,
-                        message: 'Please select vaccine type!'
+                        message: 'Please input contact!',
                     }]}
                 >
-                    <Select placeholder="Please select vaccine type">
-                        <Option value="Moderna">Moderna</Option>
-                        <Option value="Pfizer/Comirnaty">Pfizer/Comirnaty</Option>
-                    </Select>
+                    <Input placeholder="Please input contact" />
                 </Form.Item>
             </Form>
         </Modal>

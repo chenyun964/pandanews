@@ -52,7 +52,7 @@ public class NewsController {
      * @param newNews
      * @return update news
      */
-    @PutMapping(path = "/news/{id}")
+    @PostMapping(path = "/news/{id}")
     public ResponseEntity<?> updateNews(@PathVariable int id, @RequestBody NewsDTO newNews) {
         News news = newsService.updateNews(id, newNews);
         if (news == null) {
