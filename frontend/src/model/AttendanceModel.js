@@ -12,7 +12,7 @@ class AttendanceModel {
     }
 
     async getAttendanceByUser(id) {
-        return AxiosJwt.post(config['attendance_user_api'] + '/' + id);
+        return AxiosJwt.get(config['attendance_user_api'] + '/' + id);
     }
 }
 
