@@ -1,12 +1,12 @@
 package sg.edu.smu.cs203.pandanews.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.Query;
-import java.util.Optional;
-import java.util.List;
-
+import org.springframework.stereotype.Repository;
 import sg.edu.smu.cs203.pandanews.model.user.User;
+
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository <User, Long>{
@@ -17,4 +17,6 @@ public interface UserRepository extends JpaRepository <User, Long>{
     // SELECT * FROM pandanews.user where username = "test" AND authorities="ROLE_ADMIN";
     @Query("SELECT u FROM User u WHERE u.username = :username AND u.authorities = :role")
     Optional<User> findAdminByUsername(String username, String role);
+
+
 }
