@@ -6,41 +6,89 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import sg.edu.smu.cs203.pandanews.model.Statistic;
-import sg.edu.smu.cs203.pandanews.repository.AttendanceRepository;
+import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.repository.StatisticRepository;
-import sg.edu.smu.cs203.pandanews.repository.UserRepository;
-import sg.edu.smu.cs203.pandanews.service.attendance.AttendanceServiceImpl;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class StatisticServiceTests {
     @InjectMocks
     private StatisticServiceImpl statisticService;
     @Mock
-    private StatisticRepository statisticRepository;
+    private StatisticRepository statisticRepo;
 
     @Test
     void addStatistic_Success() {
         Statistic s = new Statistic();
-        when(statisticRepository.save(any(Statistic.class))).thenReturn(s);
+        when(statisticRepo.save(any(Statistic.class))).thenReturn(s);
         Statistic result = statisticService.addStatistic(s);
 
         assertNotNull(result);
-        verify(statisticRepository).save(s);
+        verify(statisticRepo).save(s);
     }
 
     @Test
     void addStatistic_Failure() {
         Statistic s = new Statistic();
-        when(statisticRepository.save(any(Statistic.class))).thenReturn(null);
+        when(statisticRepo.save(any(Statistic.class))).thenReturn(null);
         Statistic result = statisticService.addStatistic(s);
 
         assertNull(result);
-        verify(statisticRepository).save(s);
+        verify(statisticRepo).save(s);
+    }
+
+    @Test
+    void getStatistic_Success() {
+        Statistic s = new Statistic();
+        when(statisticRepo.findById(any(Long.class))).thenReturn(Optional.of(s));
+
+        Statistic result = statisticService.getStatistic(10L);
+        assertNotNull(result);
+        verify(statisticRepo).findById(10L);
+    }
+
+    @Test
+    void getStatistic_Failure() {
+        when(statisticRepo.findById(any(Long.class))).thenReturn(Optional.empty());
+
+        Statistic result = statisticService.getStatistic(10L);
+        assertNull(result);
+        verify(statisticRepo).findById(10L);
+    }
+
+    @Test
+    void deleteStatistic_Success() {
+        StatisticServiceImpl mock = mock(StatisticServiceImpl.class);
+        doNothing().when(mock).deleteStatistic(isA(Long.class));
+        mock.deleteStatistic(10L);
+        verify(mock, times(1)).deleteStatistic(10L);
+    }
+
+    @Test
+    void updateStatistics_ReturnUpdatedResult() {
+        Statistic stats = new Statistic();
+        Statistic updateStats = new Statistic();
+
+        updateStats.setNewCases(1);
+        updateStats.setNewDeaths(1);
+        updateStats.setNewRecovery(1);
+
+        when(statisticRepo.findById(any(Long.class))).thenReturn(Optional.of(stats));
+        when(statisticRepo.save(any(Statistic.class))).thenReturn(updateStats);
+
+        Statistic result = statisticService.updateStatistic(10L, updateStats);
+
+        assertNotNull(result);
+        assertEquals(1, result.getNewCases());
+        assertEquals(1, result.getNewDeaths());
+        assertEquals(1, result.getNewRecovery());
+        verify(statisticRepo).findById(10L);
+        verify(statisticRepo).save(stats);
     }
 }
