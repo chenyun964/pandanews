@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Form, Input, Alert, Spin, Select } from 'antd';
+import { Form, Input, Alert, Spin, Select, Switch } from 'antd';
 import { Link } from "react-router-dom";
 import NewsModel from "../model/NewsModel";
 import ReactQuill from 'react-quill';
@@ -18,7 +18,8 @@ class EditNews extends Component {
                 coverImage: null,
                 title: null,
                 content: null,
-                category: null
+                category: null,
+                pinned: false
             },
             loading: false,
             success: false,
@@ -30,7 +31,10 @@ class EditNews extends Component {
     componentDidMount() {
         if (this.props.match.params.id) {
             NewsModel.find(this.props.match.params.id).then(res => {
-                console.log(res.data);
+                let data = res.data;
+                if (data.category) {
+                    data.category = res.data.category.id
+                }
                 this.setState({
                     data: res.data,
                     imageUrl: res.data.imageUrl
@@ -58,7 +62,7 @@ class EditNews extends Component {
             success: false,
             failed: false
         })
-        
+
         if (this.state.data.id) {
             NewsModel.update(this.state.data.id, this.state.data).then(res => {
                 this.setState({
@@ -159,11 +163,14 @@ class EditNews extends Component {
                                 onUpload={(d) => this.handleChange(d, "coverImage")}
                             />
                         </Form.Item>
+                        <Form.Item label="Pin">
+                            <Switch checked={this.state.data.pinned} onChange={(e) => this.handleChange(e, "pinned")} />
+                        </Form.Item>
                         <Form.Item label="Title">
                             <Input rows={5} value={this.state.data.title} onChange={(e) => this.handleChange(e.target.value, "title")} />
                         </Form.Item>
                         <Form.Item label="Description">
-                            <TextArea  value={this.state.data.description} onChange={(e) => this.handleChange(e.target.value, "description")} />
+                            <TextArea value={this.state.data.description} onChange={(e) => this.handleChange(e.target.value, "description")} />
                         </Form.Item>
                         <Form.Item label="Category">
                             <Select placeholder="Please select category" initialValues={this.state.data.category} onChange={(e) => this.handleChange(e, "category")}>
