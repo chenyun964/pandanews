@@ -24,12 +24,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UserController {
     private UserService userService;
     private WorkGroupService workGroupService;
-    private OrganisationService orgService;
+    private OrganisationService organisationService;
 
     @Autowired
     public UserController(UserService us, OrganisationService orgs, WorkGroupService workGroupService){
         this.userService = us;
-        this.orgService = orgs;
+        this.organisationService = orgs;
         this.workGroupService = workGroupService;
     }
 
@@ -108,7 +108,7 @@ public class UserController {
         User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) return null;
 
-        Organisation org = orgService.getOrganisationByCode(organisation.getCode());
+        Organisation org = organisationService.getOrganisationByCode(organisation.getCode());
         if(org == null) return null;
 
         return userService.joinOrganisation(user, org);

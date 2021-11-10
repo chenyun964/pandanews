@@ -12,9 +12,12 @@ import java.util.List;
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
 
+    List<News> findAllByOrderByUpdatedAtDesc();
+
     //SELECT * FROM employee WHERE name="employee name" OR location="location name";
 
-    @Query("SELECT n FROM News n WHERE n.description LIKE %:keyword% OR n.title LIKE %:keyword%")
+    @Query("SELECT n FROM News n WHERE n.description LIKE %:keyword% OR n.title LIKE %:keyword% ORDER BY n.updatedAt " +
+            "DESC")
     List<News> findAllByKeyword(String keyword);
 
     @Query(value = "SELECT * FROM news n WHERE date <= DATE(NOW()) - INTERVAL 7 DAY AND cover_image IS NOT null ORDER BY n.view_Count DESC LIMIT 4",

@@ -5,10 +5,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import sg.edu.smu.cs203.pandanews.model.StatSummary;
 import sg.edu.smu.cs203.pandanews.model.Statistic;
-import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.repository.StatisticRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -94,11 +96,41 @@ public class StatisticServiceTests {
 
     @Test
     void updateStatistics_ReturnNull() {
-
         when(statisticRepo.findById(any(Long.class))).thenReturn(Optional.empty());
         Statistic result = statisticService.updateStatistic(10L, new Statistic());
 
         assertNull(result);
         verify(statisticRepo).findById(10L);
     }
+
+    @Test
+    void displayStatistics_Success() {
+        List<Statistic> statisticList = new ArrayList<>();
+        Statistic s = new Statistic();
+        statisticList.add(s);
+        when(statisticRepo.findAll()).thenReturn(statisticList);
+
+        List<Statistic> result = statisticService.displayStatistics();
+
+        assertNotNull(result);
+        verify(statisticRepo).findAll();
+    }
+
+    @Test
+    void getSummary_Success() {
+        when(statisticRepo.getTotalDeath()).thenReturn(1L);
+        when(statisticRepo.getTotalCases()).thenReturn(2L);
+        when(statisticRepo.getTotalRecovery()).thenReturn(3L);
+        when(statisticRepo.getUpdatedAt()).thenReturn(new Statistic());
+        StatSummary result = statisticService.getSummary();
+        assertNotNull(result);
+        assertEquals(1L, result.getTotalDeath());
+        assertEquals(2L, result.getTotalCases());
+        assertEquals(3L, result.getTotalRecovery());
+        verify(statisticRepo).getUpdatedAt();
+        verify(statisticRepo).getTotalRecovery();
+        verify(statisticRepo).getTotalCases();
+        verify(statisticRepo).getTotalDeath();
+    }
+
 }

@@ -71,4 +71,13 @@ public class WorkGroup {
         Object param = new java.sql.Timestamp(temp.getTime());
         updatedAt = (Date) param;
     }
+
+    public WorkGroup(String name) {
+        this.workGroupName = name;
+    }
+
+    public WorkGroup(String name, Organisation organisation) {
+        this.workGroupName = name;
+        this.organisation = organisation;
+    }
 }

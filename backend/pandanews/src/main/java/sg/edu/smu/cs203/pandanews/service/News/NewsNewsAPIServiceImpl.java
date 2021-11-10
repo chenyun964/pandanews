@@ -34,7 +34,7 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
     private String freshness;
 
     @Autowired
-    private NewsRepository newsRepository;
+    private NewsRepository newsRepo;
 
 
     @Override
@@ -55,7 +55,7 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
         }
         List<News> newsList = extractNewsListFromDAO(newsListDAO);
-        newsRepository.saveAll(newsList);
+        newsRepo.saveAll(newsList);
         return newsList;
     }
 
@@ -85,11 +85,12 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
         } else {
             n = new News(news.getName(), news.getDescription(), news.getUrl(), null, formatter(news.getDatePublished()));
         }
+        n.setSource("Bing");
         return n;
     }
 
     private boolean checkIfExist(String title) {
-        return newsRepository.findByTitle(title).size() == 0;
+        return newsRepo.findByTitle(title).size() == 0;
     }
 
     private String formatImage(String url) {

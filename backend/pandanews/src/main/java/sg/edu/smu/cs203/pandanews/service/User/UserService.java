@@ -31,5 +31,5 @@ public interface UserService {
 
     User quitOrganisation(User user);
 
-    void quitWorkGroup(User user);
+    User quitWorkGroup(User user);
 }

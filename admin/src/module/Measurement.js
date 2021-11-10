@@ -96,7 +96,7 @@ class Measurement extends Component {
                             <h1>Covid Measurements</h1>
                         </div>
                         <ul className="actions top-right">
-                            <Link to="/measurement/new" className="btn btn-primary">New Measurements</Link>
+                            <Link to="/measurement/create" className="ant-btn ant-btn-primary ant-btn-lg color-white">New Measurements</Link>
                         </ul>
                     </div>
                 </header>

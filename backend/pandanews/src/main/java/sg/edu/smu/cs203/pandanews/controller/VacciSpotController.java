@@ -36,12 +36,12 @@ public class VacciSpotController {
 
     private GeoCodeUtil geoCodeUtil;
 
-    private UserService users;
+    private UserService userService;
     @Autowired
     public VacciSpotController(VacciSpotService vss, GeoCodeUtil gcu, UserService us) {
         this.vacciSpotService = vss;
         this.geoCodeUtil = gcu;
-        this.users = us;
+        this.userService = us;
     }
 
     /**
@@ -137,7 +137,7 @@ public class VacciSpotController {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
-        User user = users.getUserByUsername(userDetails.getUsername());
+        User user = userService.getUserByUsername(userDetails.getUsername());
         if (user == null)
             return null;
 
@@ -168,7 +168,7 @@ public class VacciSpotController {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
-        User user = users.getUserByUsername(userDetails.getUsername());
+        User user = userService.getUserByUsername(userDetails.getUsername());
         if (user == null)
             return null;
 

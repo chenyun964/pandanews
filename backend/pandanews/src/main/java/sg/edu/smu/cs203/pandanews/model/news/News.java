@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.apache.tomcat.jni.Local;
 import org.hibernate.annotations.Type;
 import org.hibernate.id.GUIDGenerator;
@@ -17,6 +18,7 @@ import java.util.UUID;
 
 @Entity
 @AllArgsConstructor
+@ToString
 public class News {
 
     @Id
@@ -30,6 +32,10 @@ public class News {
     private String description;
 
     private String content;
+
+    @Getter
+    @Setter
+    private String source;
 
     private String coverImage;
 
@@ -49,7 +55,6 @@ public class News {
     @Setter
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @JsonIgnore
     private Category category;
 
 

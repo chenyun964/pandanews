@@ -1,21 +1,13 @@
 package sg.edu.smu.cs203.pandanews.controller;
 
-import java.util.List;
-import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
+import org.springframework.web.bind.annotation.*;
 import sg.edu.smu.cs203.pandanews.model.StatSummary;
 import sg.edu.smu.cs203.pandanews.model.Statistic;
 import sg.edu.smu.cs203.pandanews.service.statistic.StatisticService;
+
+import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -28,7 +20,11 @@ public class StatisticController {
         this.statsService = ss;
     }
 
-    // create
+    /**
+     * create new statistic of today
+     * @param stats stats
+     * @return saved statistics
+     */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/statistic")
     public Statistic addStatistic(@Valid @RequestBody Statistic stats) {
@@ -37,19 +33,30 @@ public class StatisticController {
         return savedStatistic;
     }
 
-    // read all
+
+    /**
+     * select all statistics
+     * @return all statistics
+     */
     @GetMapping("/statistic")
     public List<Statistic> getStatistics() {
         return statsService.displayStatistics();
     }
 
-    // get summary
+    /**
+     * Get the summary of all stats
+     * @return summarised stats
+     */
     @GetMapping("/statistic/summary")
     public StatSummary getStatisticSummary() {
         return statsService.getSummary();
     }
 
-    // read one
+    /**
+     * select one particular stats
+     * @param id
+     * @return the stats with id
+     */
     @GetMapping("/statistic/{id}")
     public Statistic getStatisticById(@PathVariable Long id) {
         Statistic stats = statsService.getStatistic(id);
@@ -58,7 +65,12 @@ public class StatisticController {
         return statsService.getStatistic(id);
     }
 
-    // update
+    /**
+     * update stats
+     * @param id
+     * @param newStatistic stats contains updated value
+     * @return updated stats
+     */
     @PutMapping("/statistic/{id}")
     public Statistic updateStatistic(@PathVariable Long id, @RequestBody Statistic newStatistic) {
         Statistic statistic = statsService.updateStatistic(id, newStatistic);
@@ -67,7 +79,10 @@ public class StatisticController {
         return statistic;
     }
 
-    // delete
+    /**
+     * delete stats
+     * @param id
+     */
     @DeleteMapping("/statistic/{id}")
     public void deleteStatistic(@PathVariable Long id) {
         statsService.deleteStatistic(id);
