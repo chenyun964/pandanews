@@ -173,7 +173,7 @@ class EditNews extends Component {
                             <TextArea value={this.state.data.description} onChange={(e) => this.handleChange(e.target.value, "description")} />
                         </Form.Item>
                         <Form.Item label="Category">
-                            <Select placeholder="Please select category" initialValues={this.state.data.category} onChange={(e) => this.handleChange(e, "category")}>
+                            <Select placeholder="Please select category" value={this.state.data.category} onChange={(e) => this.handleChange(e, "category")}>
                                 {this.state.category.map((cate, k) => {
                                     return <Option key={k} value={cate.id} >{cate.title}</Option>
                                 })}

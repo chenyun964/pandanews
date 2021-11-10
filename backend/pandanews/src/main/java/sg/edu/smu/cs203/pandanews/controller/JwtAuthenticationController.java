@@ -22,6 +22,7 @@ import sg.edu.smu.cs203.pandanews.model.user.JwtResponse;
 import sg.edu.smu.cs203.pandanews.service.user.JwtUserDetailsService;
 import sg.edu.smu.cs203.pandanews.dto.AdminDTO;
 import sg.edu.smu.cs203.pandanews.dto.UserDTO;
+import org.springframework.beans.factory.annotation.Value;
 
 @RestController
 @CrossOrigin
@@ -35,6 +36,9 @@ public class JwtAuthenticationController {
 
     @Autowired
     private JwtUserDetailsService userDetailsService;
+
+    @Value("${admin.code}")
+    private String adminCode;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/authenticate")
@@ -67,7 +71,8 @@ public class JwtAuthenticationController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/admin/authenticate")
-    public ResponseEntity<?> createAuthenticationTokenAdmin(@RequestBody JwtRequest authenticationRequest) throws Exception {
+    public ResponseEntity<?> createAuthenticationTokenAdmin(@RequestBody JwtRequest authenticationRequest)
+            throws Exception {
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
         final UserDetails userDetails = userDetailsService.loadAdminByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
@@ -77,6 +82,13 @@ public class JwtAuthenticationController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/admin/register")
     public ResponseEntity<?> addAdmin(@Valid @RequestBody AdminDTO adminDTO) throws Exception {
-        return ResponseEntity.ok(userDetailsService.save(adminDTO));
+        if (!adminDTO.getAdminCode().equals(adminCode)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Admin Code");
+        }
+        try {
+            return ResponseEntity.ok(userDetailsService.save(adminDTO));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Duplicated Username");
+        }
     }
 }

@@ -19,4 +19,10 @@ public class AdminDTO implements Serializable{
 
     @NotNull
     private String password;
+
+    @NotNull
+    private String confirmPassword;
+
+    @NotNull
+    private String adminCode;
 }
