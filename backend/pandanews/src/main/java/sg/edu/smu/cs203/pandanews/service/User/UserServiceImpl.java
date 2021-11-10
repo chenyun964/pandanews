@@ -35,7 +35,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     @Override
     public User updateUser(Long id, User newUser) {
         return userRepo.findById(id).map(user -> {
@@ -85,25 +84,21 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public User joinWorkGroup(User user, WorkGroup workGroup){
+    public User joinWorkGroup(User user, WorkGroup workGroup) {
         user.setWorkGroup(workGroup);
         userRepo.save(user);
         return user;
     }
 
     @Override
-    public User quitWorkGroup(User user){
+    public User quitWorkGroup(User user) {
         //return the user who get quited the workgroup
         user.setWorkGroup(null);
-<<<<<<< Updated upstream
-        return users.save(user);
-=======
-        userRepo.save(user);
->>>>>>> Stashed changes
+        return userRepo.save(user);
     }
 
     @Override
-    public User updateVaccine(User user){
+    public User updateVaccine(User user) {
         user.setVaccinated(true);
         userRepo.save(user);
         return user;
