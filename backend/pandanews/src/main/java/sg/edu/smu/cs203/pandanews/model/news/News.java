@@ -1,24 +1,18 @@
 package sg.edu.smu.cs203.pandanews.model.news;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.apache.tomcat.jni.Local;
+import lombok.*;
 import org.hibernate.annotations.Type;
-import org.hibernate.id.GUIDGenerator;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.UUID;
 
 @Entity
 @AllArgsConstructor
 @ToString
+@NoArgsConstructor
 public class News {
 
     @Id
@@ -57,9 +51,6 @@ public class News {
     @JoinColumn(name = "category_id")
     private Category category;
 
-
-    public News() {
-    }
 
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean pinned;

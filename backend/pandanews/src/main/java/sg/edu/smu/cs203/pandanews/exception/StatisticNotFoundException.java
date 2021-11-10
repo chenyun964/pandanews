@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.exception.statistics;
+package sg.edu.smu.cs203.pandanews.exception;
 
 
 import org.springframework.http.HttpStatus;

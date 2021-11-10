@@ -25,7 +25,6 @@ public class MeasurementController {
      * @param measurement
      * @return created meansurement
      */
-
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/measurements")
     public Measurement addMeasurement(@Valid @RequestBody Measurement measurement) {
