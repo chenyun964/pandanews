@@ -1,7 +1,6 @@
 package sg.edu.smu.cs203.pandanews.service.category;
 
 import sg.edu.smu.cs203.pandanews.model.category.Category;
-import java.util.Optional;
 
 import java.util.List;
 

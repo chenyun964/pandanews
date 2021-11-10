@@ -4,16 +4,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 import sg.edu.smu.cs203.pandanews.dto.OrganisationDTO;
-import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.model.Organisation;
 import sg.edu.smu.cs203.pandanews.model.user.User;
-import sg.edu.smu.cs203.pandanews.repository.CategoryRepository;
-import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
 import sg.edu.smu.cs203.pandanews.repository.OrganisationRepository;
-import sg.edu.smu.cs203.pandanews.service.news.NewsServiceImpl;
 
 import java.util.*;
 
@@ -25,7 +20,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class OrganisationServiceTests {
     @Mock
-    private OrganisationRepository organisationRepository;
+    private OrganisationRepository organisationRepo;
 
     @InjectMocks
     private OrganisationServiceImpl organisationService;
@@ -35,7 +30,7 @@ public class OrganisationServiceTests {
         Organisation o = generateTestOrganisation("title");
         o.setAddress("address");
         o.setContact("contact");
-        when(organisationRepository.save(any(Organisation.class))).thenReturn(o);
+        when(organisationRepo.save(any(Organisation.class))).thenReturn(o);
 
         OrganisationDTO organisationDTO = new OrganisationDTO("title", "address", "contact");
         Organisation org = organisationService.addOrganisation(organisationDTO, null);
@@ -50,46 +45,46 @@ public class OrganisationServiceTests {
     @Test
     void getOrganisation_Success() {
         Organisation o = generateTestOrganisation("title");
-        when(organisationRepository.findById(any(Long.class))).thenReturn(Optional.of(o));
+        when(organisationRepo.findById(any(Long.class))).thenReturn(Optional.of(o));
 
         Organisation org = organisationService.getOrganisation(10L);
 
         assertNotNull(org);
         assertEquals("title", org.getTitle());
-        verify(organisationRepository).findById(10L);
+        verify(organisationRepo).findById(10L);
     }
 
     @Test
     void getOrganisation_Failure() {
-        when(organisationRepository.findById(any(Long.class))).thenReturn(Optional.empty());
+        when(organisationRepo.findById(any(Long.class))).thenReturn(Optional.empty());
 
         Organisation org = organisationService.getOrganisation(10L);
 
         assertNull(org);
-        verify(organisationRepository).findById(10L);
+        verify(organisationRepo).findById(10L);
     }
 
     @Test
     void getOrganisationByCode_Success() {
         Organisation o = generateTestOrganisation("title");
         o.setCode("TEST");
-        when(organisationRepository.findByCode(any(String.class))).thenReturn(Optional.of(o));
+        when(organisationRepo.findByCode(any(String.class))).thenReturn(Optional.of(o));
 
         Organisation org = organisationService.getOrganisationByCode("TEST");
 
         assertNotNull(org);
         assertEquals("TEST", org.getCode());
-        verify(organisationRepository).findByCode("TEST");
+        verify(organisationRepo).findByCode("TEST");
     }
 
     @Test
     void getOrganisationByCode_Failure() {
-        when(organisationRepository.findByCode(any(String.class))).thenReturn(Optional.empty());
+        when(organisationRepo.findByCode(any(String.class))).thenReturn(Optional.empty());
 
         Organisation org = organisationService.getOrganisationByCode("TEST");
 
         assertNull(org);
-        verify(organisationRepository).findByCode("TEST");
+        verify(organisationRepo).findByCode("TEST");
     }
 
     @Test
@@ -97,7 +92,7 @@ public class OrganisationServiceTests {
         Organisation o = generateTestOrganisation("title");
         List<Organisation> oList = new ArrayList<>();
         oList.add(o);
-        when(organisationRepository.findAll()).thenReturn(oList);
+        when(organisationRepo.findAll()).thenReturn(oList);
 
         List<Organisation> result = organisationService.listOrganisations();
 
@@ -108,28 +103,28 @@ public class OrganisationServiceTests {
     @Test
     void updateOrg_ReturnUpdatedOrg() {
         Organisation o = generateTestOrganisation("title");
-        when(organisationRepository.findById(any(Long.class))).thenReturn(Optional.of(o));
+        when(organisationRepo.findById(any(Long.class))).thenReturn(Optional.of(o));
         Organisation o2 = generateTestOrganisation("title2");
-        when(organisationRepository.save(any(Organisation.class))).thenReturn(o2);
+        when(organisationRepo.save(any(Organisation.class))).thenReturn(o2);
 
         long id = 10L;
         Organisation newUser = organisationService.updateOrganisation(id, o);
 
         assertNotNull(newUser);
         assertEquals("title2", newUser.getTitle());
-        verify(organisationRepository).findById(id);
-        verify(organisationRepository).save(o);
+        verify(organisationRepo).findById(id);
+        verify(organisationRepo).save(o);
     }
 
     @Test
     void updateOrg_ReturnNull() {
         Organisation o = generateTestOrganisation("title");
         Long id = 10L;
-        when(organisationRepository.findById(id)).thenReturn(Optional.empty());
+        when(organisationRepo.findById(id)).thenReturn(Optional.empty());
         Organisation newUser = organisationService.updateOrganisation(id, o);
 
         assertNull(newUser);
-        verify(organisationRepository).findById(id);
+        verify(organisationRepo).findById(id);
     }
 
 
@@ -140,20 +135,20 @@ public class OrganisationServiceTests {
         uList.add(u1);
 
         Organisation o = generateTestOrganisation("title");
-        when(organisationRepository.findByCode(any(String.class))).thenReturn(Optional.of(o));
+        when(organisationRepo.findByCode(any(String.class))).thenReturn(Optional.of(o));
         o.setEmployee(new ArrayList<>());
         Organisation o2 = generateTestOrganisation("title");
         o2.setEmployee(uList);
 
-        when(organisationRepository.save(any(Organisation.class))).thenReturn(o2);
+        when(organisationRepo.save(any(Organisation.class))).thenReturn(o2);
 
         String id = "TEST";
         Organisation newOrg = organisationService.addEmployee(id, u1);
 
         assertNotNull(newOrg);
         assertEquals(1, newOrg.getEmployee().size());
-        verify(organisationRepository).findByCode(id);
-        verify(organisationRepository).save(o);
+        verify(organisationRepo).findByCode(id);
+        verify(organisationRepo).save(o);
     }
 
     @Test
@@ -163,11 +158,11 @@ public class OrganisationServiceTests {
         User u1 = generateTestUser("u1");
 
         String id = "TEST";
-        when(organisationRepository.findByCode(any(String.class))).thenReturn(Optional.empty());
+        when(organisationRepo.findByCode(any(String.class))).thenReturn(Optional.empty());
         Organisation newOrg = organisationService.addEmployee(id, u1);
 
         assertNull(newOrg);
-        verify(organisationRepository).findByCode(id);
+        verify(organisationRepo).findByCode(id);
     }
 
     @Test
@@ -183,52 +178,52 @@ public class OrganisationServiceTests {
         Organisation o = generateTestOrganisation("title");
         User u = generateTestUser("name");
         o.setOwner(u);
-        when(organisationRepository.findByOwnerId(any(Long.class))).thenReturn(Optional.of(o));
+        when(organisationRepo.findByOwnerId(any(Long.class))).thenReturn(Optional.of(o));
 
         Organisation org = organisationService.getOrganisationByOwner(10L);
 
         assertNotNull(org);
         assertEquals("name", org.getOwner().getUsername());
-        verify(organisationRepository).findByOwnerId(10L);
+        verify(organisationRepo).findByOwnerId(10L);
     }
 
     @Test
     void getOrganisationByOwner_Failure() {
-        when(organisationRepository.findByOwnerId(any(Long.class))).thenReturn(Optional.empty());
+        when(organisationRepo.findByOwnerId(any(Long.class))).thenReturn(Optional.empty());
 
         Organisation org = organisationService.getOrganisationByOwner(10L);
 
         assertNull(org);
-        verify(organisationRepository).findByOwnerId(10L);
+        verify(organisationRepo).findByOwnerId(10L);
     }
 
 
     @Test
     void approveOrganisation_ReturnUpdatedOrg() {
         Organisation o = generateTestOrganisation("title");
-        when(organisationRepository.findById(any(Long.class))).thenReturn(Optional.of(o));
+        when(organisationRepo.findById(any(Long.class))).thenReturn(Optional.of(o));
         Organisation o2 = generateTestOrganisation("title");
         o2.setStatus((byte) 1);
-        when(organisationRepository.save(any(Organisation.class))).thenReturn(o2);
+        when(organisationRepo.save(any(Organisation.class))).thenReturn(o2);
 
         long id = 10L;
         Organisation newOrg = organisationService.approveOrganisation(id);
 
         assertNotNull(newOrg);
         assertEquals((byte) 1, newOrg.getStatus());
-        verify(organisationRepository).findById(id);
-        verify(organisationRepository).save(o);
+        verify(organisationRepo).findById(id);
+        verify(organisationRepo).save(o);
     }
 
     @Test
     void approveOrganisation_ReturnNull() {
         Organisation o = generateTestOrganisation("title");
         Long id = 10L;
-        when(organisationRepository.findById(id)).thenReturn(Optional.empty());
+        when(organisationRepo.findById(id)).thenReturn(Optional.empty());
         Organisation newOrg = organisationService.approveOrganisation(id);
 
         assertNull(newOrg);
-        verify(organisationRepository).findById(id);
+        verify(organisationRepo).findById(id);
     }
 
 

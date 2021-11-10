@@ -16,20 +16,20 @@ import sg.edu.smu.cs203.pandanews.dto.AdminDTO;
 public class JwtUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	private UserRepository users;
+	private UserRepository userRepo;
 
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return users.findByUsername(username)
+		return userRepo.findByUsername(username)
 			.orElseThrow(() -> new UsernameNotFoundException("User '" + username + "' not found"));
 	
 	}
 
 	public UserDetails loadAdminByUsername(String username) throws UsernameNotFoundException {
-		return users.findAdminByUsername(username, "ROLE_ADMIN")
+		return userRepo.findAdminByUsername(username, "ROLE_ADMIN")
 			.orElseThrow(() -> new UsernameNotFoundException("User '" + username + "' not found"));
 	}
 	
@@ -38,13 +38,13 @@ public class JwtUserDetailsService implements UserDetailsService {
         newUser.setUsername(user.getUsername());
         newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
         newUser.setEmail(user.getEmail());
-		return users.save(newUser);
+		return userRepo.save(newUser);
 	}
 
 	public User save(AdminDTO admin) {
 		User newAdmin = new User("ROLE_ADMIN");
         newAdmin.setUsername(admin.getUsername());
         newAdmin.setPassword(bcryptEncoder.encode(admin.getPassword()));
-		return users.save(newAdmin);
+		return userRepo.save(newAdmin);
 	}
 }

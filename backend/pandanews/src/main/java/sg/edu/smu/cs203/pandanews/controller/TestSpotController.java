@@ -36,13 +36,13 @@ public class TestSpotController {
 
     private GeoCodeUtil geoCodeUtil;
 
-    private UserService users;
+    private UserService userService;
 
     @Autowired
     public TestSpotController(TestSpotService tss, GeoCodeUtil gcu, UserService us) {
         this.testSpotService = tss;
         this.geoCodeUtil = gcu;
-        this.users = us;
+        this.userService = us;
     }
 
     /**
@@ -114,7 +114,7 @@ public class TestSpotController {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
-        User user = users.getUserByUsername(userDetails.getUsername());
+        User user = userService.getUserByUsername(userDetails.getUsername());
         if (user == null)
             return null;
 
@@ -145,7 +145,7 @@ public class TestSpotController {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
-        User user = users.getUserByUsername(userDetails.getUsername());
+        User user = userService.getUserByUsername(userDetails.getUsername());
         if (user == null)
             return null;
 

@@ -13,7 +13,7 @@ public interface NewsService {
 
     List<News> createNewsByAPI();
 
-    News updateNews(long id, News news);
+    News updateNews(long id, NewsDTO news);
 
     void deleteNews(long id);
 
