@@ -1,5 +1,4 @@
 import axios from 'axios';
-import axiosJwt from '../lib/AxiosJwt';
 import config from '../config/Config';
 
 class MeasurementModel {
