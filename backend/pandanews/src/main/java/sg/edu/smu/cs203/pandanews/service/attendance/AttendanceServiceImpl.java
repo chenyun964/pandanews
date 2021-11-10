@@ -4,9 +4,8 @@ package sg.edu.smu.cs203.pandanews.service.attendance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sg.edu.smu.cs203.pandanews.model.attendance.Attendance;
-import sg.edu.smu.cs203.pandanews.model.user.User;
 import sg.edu.smu.cs203.pandanews.repository.AttendanceRepository;
-import sg.edu.smu.cs203.pandanews.service.user.UserServiceImpl;
+import sg.edu.smu.cs203.pandanews.repository.UserRepository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -19,7 +18,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Autowired
     AttendanceRepository attendanceRepository;
     @Autowired
-    UserServiceImpl userService;
+    UserRepository userRepository;
 
 
     @Override
@@ -38,8 +37,7 @@ public class AttendanceServiceImpl implements AttendanceService {
             attendance.setPunchInDate(LocalDate.now());
             attendance.setPunchInTime(LocalTime.now());
         }
-        attendance.setUser(userService.getUser(userId));
-
+        attendance.setUser(userRepository.findById(userId).orElse(null));
         return attendanceRepository.save(attendance);
     }
 
@@ -54,12 +52,12 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public List<Attendance> findAttendancesByUserid(Long userId) {
-        return attendanceRepository.findByUser(userService.getUser(userId));
+        return attendanceRepository.findByUser(userRepository.findById(userId).orElse(null));
     }
 
     @Override
     public Attendance findAttendanceByDate(Long userId, LocalDate date) {
-        return attendanceRepository.findByDate(userId, date).map(attendance -> attendance).orElse(null);
+        return attendanceRepository.findByDate(userId, date).orElse(null);
     }
 
     @Override

@@ -2,6 +2,7 @@ package sg.edu.smu.cs203.pandanews.service.statistic;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 import sg.edu.smu.cs203.pandanews.model.Statistic;
 import sg.edu.smu.cs203.pandanews.repository.StatisticRepository;
@@ -10,19 +11,16 @@ import sg.edu.smu.cs203.pandanews.model.StatSummary;
 
 @Service
 public class StatisticServiceImpl implements StatisticService {
-@Autowired
-
+    @Autowired
     private StatisticRepository statisticRepo;
 
     @Override
-    public Statistic addStatistic(Statistic Statistic) {
-        
-            return statisticRepo.save(Statistic);
-
+    public Statistic addStatistic(Statistic statistic) {
+        return statisticRepo.save(statistic);
     }
 
     @Override
-    public Statistic getStatistic(Long id){
+    public Statistic getStatistic(Long id) {
         return statisticRepo.findById(id).orElse(null);
     }
 

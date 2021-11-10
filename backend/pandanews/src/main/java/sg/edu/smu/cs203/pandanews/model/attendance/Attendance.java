@@ -3,11 +3,7 @@ package sg.edu.smu.cs203.pandanews.model.attendance;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Type;
 import sg.edu.smu.cs203.pandanews.model.user.User;
 
@@ -20,6 +16,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@ToString
 @Entity
 public class Attendance {
     @Id
