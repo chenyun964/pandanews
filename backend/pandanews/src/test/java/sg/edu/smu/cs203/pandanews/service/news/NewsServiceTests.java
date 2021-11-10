@@ -5,27 +5,19 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import io.swagger.models.auth.In;
-import org.hibernate.mapping.Any;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import sg.edu.smu.cs203.pandanews.dto.NewsDTO;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.repository.CategoryRepository;
 import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
-import sg.edu.smu.cs203.pandanews.service.news.NewsServiceImpl;
 
-import javax.swing.text.html.Option;
 
 @ExtendWith(MockitoExtension.class)
 public class NewsServiceTests {

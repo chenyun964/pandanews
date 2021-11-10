@@ -92,9 +92,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void quitWorkGroup(User user){
+    public User quitWorkGroup(User user){
+        //return the user who get quited the workgroup
         user.setWorkGroup(null);
-        users.save(user);
+        return users.save(user);
     }
 
     @Override

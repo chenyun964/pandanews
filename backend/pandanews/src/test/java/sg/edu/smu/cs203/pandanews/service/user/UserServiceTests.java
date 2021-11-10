@@ -1,5 +1,6 @@
 package sg.edu.smu.cs203.pandanews.service.user;
 
+import org.hibernate.boot.registry.classloading.spi.ClassLoaderService.Work;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,11 +15,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import sg.edu.smu.cs203.pandanews.model.Organisation;
+import sg.edu.smu.cs203.pandanews.model.WorkGroup;
 import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.model.user.User;
 import sg.edu.smu.cs203.pandanews.repository.CategoryRepository;
 import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
 import sg.edu.smu.cs203.pandanews.repository.OrganisationRepository;
+import sg.edu.smu.cs203.pandanews.repository.WorkGroupRepository;
 import sg.edu.smu.cs203.pandanews.repository.UserRepository;
 import sg.edu.smu.cs203.pandanews.service.news.NewsServiceImpl;
 
@@ -158,20 +161,6 @@ public class UserServiceTests {
     }
 
     @Test
-    void updateVaccine_Success() {
-        User u = generateTestUser("test");
-        User u2 = u;
-        u2.setVaccinated(true);
-
-        when(userRepository.save(any(User.class))).thenReturn(u2);
-        User user = userService.updateVaccine(u);
-
-        assertNotNull(user);
-        assertEquals(true, user.getVaccinated());
-        verify(userRepository).save(u);
-    }
-
-    @Test
     void quitOrganisation_Success() {
         User u = generateTestUser("test");
         Organisation o = new Organisation("org");
@@ -184,6 +173,51 @@ public class UserServiceTests {
 
         assertNotNull(user);
         assertEquals(null, user.getOrganisation());
+        verify(userRepository).save(u);
+    }
+
+    @Test
+    void joinWorkGroup_Success() {
+        User u = generateTestUser("test");
+        User u2 = u;
+        WorkGroup w = new WorkGroup("wg");
+        u2.setWorkGroup(w);
+
+        when(userRepository.save(any(User.class))).thenReturn(u2);
+        User user = userService.joinWorkGroup(u, w);
+
+        assertNotNull(user);
+        assertEquals("wg", user.getWorkGroup().getWorkGroupName());
+        verify(userRepository).save(u);
+    }
+
+    @Test
+    void quitWorkGroup_Success() {
+        User u = generateTestUser("test");
+        WorkGroup w = new WorkGroup("wg");
+        u.setWorkGroup(w);
+        User u2 = u;
+        u2.setWorkGroup(w);
+
+        when(userRepository.save(any(User.class))).thenReturn(u2);
+        User user = userService.quitWorkGroup(u);
+
+        assertNotNull(user);
+        assertEquals(null, user.getWorkGroup());
+        verify(userRepository).save(u);
+    }
+
+    @Test
+    void updateVaccine_Success() {
+        User u = generateTestUser("test");
+        User u2 = u;
+        u2.setVaccinated(true);
+
+        when(userRepository.save(any(User.class))).thenReturn(u2);
+        User user = userService.updateVaccine(u);
+
+        assertNotNull(user);
+        assertEquals(true, user.getVaccinated());
         verify(userRepository).save(u);
     }
 
