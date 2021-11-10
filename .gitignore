@@ -27,3 +27,5 @@ admin/package-lock.json
 backend/pandanews/Dockerfile
 backend/pandanews/docker-compose.yml
 backend/pandanews/.env
+*.yml
+*.png
