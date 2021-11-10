@@ -31,6 +31,10 @@ public class News {
 
     private String content;
 
+    @Getter
+    @Setter
+    private String source;
+
     private String coverImage;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")

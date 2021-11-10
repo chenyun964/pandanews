@@ -85,6 +85,7 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
         } else {
             n = new News(news.getName(), news.getDescription(), news.getUrl(), null, formatter(news.getDatePublished()));
         }
+        n.setSource("Bing");
         return n;
     }
 

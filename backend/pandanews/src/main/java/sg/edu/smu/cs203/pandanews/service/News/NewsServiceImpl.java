@@ -28,6 +28,7 @@ public class NewsServiceImpl implements NewsService {
 //            return newsRepository.save(news);
 //        }
 //        return null;
+        news.setSource("Manual");
         return newsRepository.findByTitle(news.getTitle()).size() == 0 ? newsRepository.save(news) : null;
     }
 
