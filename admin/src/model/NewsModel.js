@@ -10,8 +10,8 @@ class NewsModel {
     return axios.get(config['news_api'] + "/" + id);
   } 
 
-  async update(id) {
-    return axios.put(config['news_api'] + "/" + id);
+  async update(id, data) {
+    return axios.put(config['news_api'] + "/" + id, data);
   } 
 
   async create(data) {

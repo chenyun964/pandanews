@@ -23,7 +23,6 @@ class LoginModel {
   }
 
   retrieveToken() {
-    console.log(cookies.get("_pandanewsot"))
     return cookies.get("_pandanewsot");
   }
 }

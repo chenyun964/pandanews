@@ -1,7 +1,7 @@
 import { Component, Fragment } from 'react';
 import NewsModel from '../model/NewsModel';
 import { Link } from 'react-router-dom';
-import { message, Modal, Table, Tag, Space, Button, Popconfirm } from 'antd';
+import { Table, Space, Popconfirm } from 'antd';
 
 const { Column } = Table;
 
