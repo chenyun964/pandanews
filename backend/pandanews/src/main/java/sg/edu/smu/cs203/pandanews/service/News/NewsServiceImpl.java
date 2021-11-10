@@ -58,6 +58,8 @@ public class NewsServiceImpl implements NewsService {
             newNews.setCoverImage(news.getCoverImage());
             newNews.setDate(news.getDate());
             newNews.setDescription(news.getDescription());
+            newNews.setCategory(categoryRepo.findById(news.getCategory()).orElse(null));
+            newNews.setPinned(news.getPinned());
             return newsRepo.save(newNews);
         }).orElse(null);
     }
