@@ -44,7 +44,6 @@ class EditNews extends Component {
 
     getCategory() {
         CategoryModel.list().then(res => {
-            console.log(res.data);
             this.setState({
                 category: res.data
             })
@@ -141,7 +140,7 @@ class EditNews extends Component {
                 <div className="card p-30" style={{ margin: 28 }}>
                     <div>
                         {this.state.success &&
-                            <Alert className="m-b-20" message="Measurement saved." type="success" closable afterClose={() => this.handleClose()} />
+                            <Alert className="m-b-20" message="News saved." type="success" closable afterClose={() => this.handleClose()} />
                         }
                         {this.state.failed &&
                             <Alert className="m-b-20" message="Failed to save, try again later." type="error" closable afterClose={() => this.handleClose()} />
@@ -167,7 +166,7 @@ class EditNews extends Component {
                             <TextArea  value={this.state.data.description} onChange={(e) => this.handleChange(e.target.value, "description")} />
                         </Form.Item>
                         <Form.Item label="Category">
-                            <Select placeholder="Please select category" onChange={(e) => this.handleChange(e, "category")}>
+                            <Select placeholder="Please select category" initialValues={this.state.data.category} onChange={(e) => this.handleChange(e, "category")}>
                                 {this.state.category.map((cate, k) => {
                                     return <Option key={k} value={cate.id} >{cate.title}</Option>
                                 })}
@@ -177,7 +176,7 @@ class EditNews extends Component {
                             <ReactQuill theme="snow" modules={this.modules} value={this.state.data.content} onChange={(e) => this.handleChange(e, "content")} />
                         </Form.Item>
                         <div className="d-flex justify-content-between">
-                            <Link to="/measurement" class="btn btn-secondary" >Cancel</Link>
+                            <Link to="/news" class="btn btn-secondary">Cancel</Link>
                             <button type="button" class="btn btn-success" onClick={() => this.save()}>Save</button>
                         </div>
                     </Form>

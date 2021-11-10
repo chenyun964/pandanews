@@ -8,10 +8,12 @@ import sg.edu.smu.cs203.pandanews.exception.news.NewsDuplicationException;
 import sg.edu.smu.cs203.pandanews.exception.news.NewsNotFoundException;
 import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.service.news.NewsServiceImpl;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class NewsController {
 
     @Autowired
