@@ -18,6 +18,7 @@ class EditNews extends Component {
                 coverImage: null,
                 title: null,
                 content: null,
+                category: null
             },
             loading: false,
             success: false,
@@ -58,6 +59,7 @@ class EditNews extends Component {
             success: false,
             failed: false
         })
+        
         if (this.state.data.id) {
             NewsModel.update(this.state.data.id, this.state.data).then(res => {
                 this.setState({
@@ -164,8 +166,8 @@ class EditNews extends Component {
                         <Form.Item label="Description">
                             <TextArea  value={this.state.data.description} onChange={(e) => this.handleChange(e.target.value, "description")} />
                         </Form.Item>
-                        <Form.Item label="Category" onChange={(e) => this.handleChange(e.target.value, "category")}>
-                            <Select placeholder="Please select category">
+                        <Form.Item label="Category">
+                            <Select placeholder="Please select category" onChange={(e) => this.handleChange(e, "category")}>
                                 {this.state.category.map((cate, k) => {
                                     return <Option key={k} value={cate.id} >{cate.title}</Option>
                                 })}

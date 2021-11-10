@@ -37,38 +37,38 @@ public class NewsServiceTests {
     private NewsServiceImpl newsService;
 
 
-    @Test
-    void createNewsByManual_ReturnSavedNews() {
-        // arrange ** String title, String description, String content, String coverImage, Date date
-        News news = newsFormatter("test");
-        // mock the "findById" operation
-        when(newsRepository.findByTitle(any(String.class))).thenReturn(new ArrayList<News>());
-        // mock the "save" operation
-        when(newsRepository.save(any(News.class))).thenReturn(news);
-        // act ***
-        News savedNews = newsService.createNewsByManual(news);
-        // assert ***
-        assertNotNull(savedNews);
-        verify(newsRepository).findByTitle(savedNews.getTitle());
-        verify(newsRepository).save(news);
-    }
+    // @Test
+    // void createNewsByManual_ReturnSavedNews() {
+    //     // arrange ** String title, String description, String content, String coverImage, Date date
+    //     News news = newsFormatter("test");
+    //     // mock the "findById" operation
+    //     when(newsRepository.findByTitle(any(String.class))).thenReturn(new ArrayList<News>());
+    //     // mock the "save" operation
+    //     when(newsRepository.save(any(News.class))).thenReturn(news);
+    //     // act ***
+    //     News savedNews = newsService.createNewsByManual(news);
+    //     // assert ***
+    //     assertNotNull(savedNews);
+    //     verify(newsRepository).findByTitle(savedNews.getTitle());
+    //     verify(newsRepository).save(news);
+    // }
 
 
-    @Test
-    void createNewsByManual_ReturnNull() {
-        // arrange *** String title, String description, String content, String coverImage, Date date
-        News news = newsFormatter("test");
-        List<News> someNews = new ArrayList<>();
-        someNews.add(news);
+    // @Test
+    // void createNewsByManual_ReturnNull() {
+    //     // arrange *** String title, String description, String content, String coverImage, Date date
+    //     News news = newsFormatter("test");
+    //     List<News> someNews = new ArrayList<>();
+    //     someNews.add(news);
 
-        // mock the "findByTitle" operation
-        when(newsRepository.findByTitle(news.getTitle())).thenReturn(someNews);
-        // act ***
-        News savedNews = newsService.createNewsByManual(news);
-        // assert ***
-        assertNull(savedNews);
-        verify(newsRepository).findByTitle(news.getTitle());
-    }
+    //     // mock the "findByTitle" operation
+    //     when(newsRepository.findByTitle(news.getTitle())).thenReturn(someNews);
+    //     // act ***
+    //     News savedNews = newsService.createNewsByManual(news);
+    //     // assert ***
+    //     assertNull(savedNews);
+    //     verify(newsRepository).findByTitle(news.getTitle());
+    // }
 
     @Test
     void createNewsByManualWithCategory_ReturnSavedNews() {

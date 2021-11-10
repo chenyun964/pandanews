@@ -1,6 +1,7 @@
 package sg.edu.smu.cs203.pandanews.service.news;
 
 
+import sg.edu.smu.cs203.pandanews.dto.NewsDTO;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 import sg.edu.smu.cs203.pandanews.model.news.News;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 public interface NewsService {
 
-    News createNewsByManual(News news);
+    News createNewsByManual(NewsDTO newsDTO);
 
     List<News> createNewsByAPI();
 
