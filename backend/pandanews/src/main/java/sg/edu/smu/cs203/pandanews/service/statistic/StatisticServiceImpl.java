@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-
 import sg.edu.smu.cs203.pandanews.model.Statistic;
 import sg.edu.smu.cs203.pandanews.repository.StatisticRepository;
 
@@ -31,22 +30,22 @@ public class StatisticServiceImpl implements StatisticService {
     }
 
     @Override
-    public Statistic updateStatistic(Long id, Statistic newStatistic) {
+    public Statistic updateStatistic(Long id, Statistic newStatistic){
         return statisticRepo.findById(id).map
-                (Statistic -> {
-                    Statistic.setNewCases(newStatistic.getNewCases());
-                    Statistic.setNewDeaths(newStatistic.getNewDeaths());
-                    Statistic.setNewRecovery(newStatistic.getNewRecovery());
-                    return statisticRepo.save(Statistic);
-                }).orElse(null);
+        (Statistic -> {
+            Statistic.setNewCases(newStatistic.getNewCases());
+            Statistic.setNewDeaths(newStatistic.getNewDeaths());
+            Statistic.setNewRecovery(newStatistic.getNewRecovery());
+            return statisticRepo.save(Statistic);
+        }).orElse(null);
     }
 
     @Override
-    public List<Statistic> displayStatistics() {
+    public List<Statistic> displayStatistics(){
         return statisticRepo.findAll();
     }
 
-    public StatSummary getSummary() {
+    public StatSummary getSummary(){
         StatSummary summary = new StatSummary();
         summary.setTotalCases(statisticRepo.getTotalCases());
         summary.setTotalDeath(statisticRepo.getTotalDeath());
