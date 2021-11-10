@@ -1,29 +1,35 @@
 import { Component } from "react";
-import { Form, Input, Alert, Spin } from 'antd';
+import { Form, Input, Alert, Spin, Select } from 'antd';
 import { Link } from "react-router-dom";
-import MeasurementModel from "../model/MeasurementModel";
+import NewsModel from "../model/NewsModel";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import FileUpload from "../lib/FileUpload";
+import CategoryModel from "../model/CategoryModel";
 
-class EditMeasurement extends Component {
+const { TextArea } = Input;
+const { Option } = Select;
+
+class EditNews extends Component {
     constructor(props) {
         super(props);
         this.state = {
             data: {
+                coverImage: null,
                 title: null,
                 content: null,
-                imageUrl: null
             },
             loading: false,
             success: false,
-            failed: false
+            failed: false,
+            category: []
         }
     }
 
     componentDidMount() {
         if (this.props.match.params.id) {
-            MeasurementModel.get(this.props.match.params.id).then(res => {
+            NewsModel.find(this.props.match.params.id).then(res => {
+                console.log(res.data);
                 this.setState({
                     data: res.data,
                     imageUrl: res.data.imageUrl
@@ -32,11 +38,17 @@ class EditMeasurement extends Component {
                 console.log(e);
             })
         }
+        this.getCategory();
     }
 
-    handleFile(e) {
-        this.setState({
-            file: e.target.files
+    getCategory() {
+        CategoryModel.list().then(res => {
+            console.log(res.data);
+            this.setState({
+                category: res.data
+            })
+        }).catch(e => {
+            console.log(e);
         })
     }
 
@@ -47,7 +59,7 @@ class EditMeasurement extends Component {
             failed: false
         })
         if (this.state.data.id) {
-            MeasurementModel.update(this.state.data.id, this.state.data).then(res => {
+            NewsModel.update(this.state.data.id, this.state.data).then(res => {
                 this.setState({
                     success: true,
                     loading: false
@@ -60,7 +72,7 @@ class EditMeasurement extends Component {
                 })
             })
         } else {
-            MeasurementModel.add(this.state.data).then(res => {
+            NewsModel.create(this.state.data).then(res => {
                 this.setState({
                     success: true,
                     loading: false
@@ -117,9 +129,9 @@ class EditMeasurement extends Component {
                     <div className="d-flex align-items-center">
                         <div className="mr-auto">
                             {this.props.match.params.id ?
-                                <h1>Edit Measurements</h1>
+                                <h1>Edit News</h1>
                                 :
-                                <h1>Add Measurements</h1>
+                                <h1>Add News</h1>
                             }
                         </div>
                     </div>
@@ -138,18 +150,28 @@ class EditMeasurement extends Component {
                         wrapperCol={{ span: 18 }}
                         layout="horizontal"
                     >
-                        <Form.Item label="Icon">
+                        <Form.Item label="Cover Image">
                             <FileUpload className="image-preview product-image-preview"
                                 type="image"
-                                src={this.state.data.imageUrl}
+                                src={this.state.data.coverImage}
                                 fileOnly
-                                onUpload={(d) => this.handleChange(d, "imageUrl")}
+                                onUpload={(d) => this.handleChange(d, "coverImage")}
                             />
                         </Form.Item>
-                        <Form.Item label="Industory">
-                            <Input value={this.state.data.title} onChange={(e) => this.handleChange(e.target.value, "title")} />
+                        <Form.Item label="Title">
+                            <Input rows={5} value={this.state.data.title} onChange={(e) => this.handleChange(e.target.value, "title")} />
                         </Form.Item>
                         <Form.Item label="Description">
+                            <TextArea  value={this.state.data.description} onChange={(e) => this.handleChange(e.target.value, "description")} />
+                        </Form.Item>
+                        <Form.Item label="Category" onChange={(e) => this.handleChange(e.target.value, "category")}>
+                            <Select placeholder="Please select category">
+                                {this.state.category.map((cate, k) => {
+                                    return <Option key={k} value={cate.id} >{cate.title}</Option>
+                                })}
+                            </Select>
+                        </Form.Item>
+                        <Form.Item label="Content">
                             <ReactQuill theme="snow" modules={this.modules} value={this.state.data.content} onChange={(e) => this.handleChange(e, "content")} />
                         </Form.Item>
                         <div className="d-flex justify-content-between">
@@ -163,4 +185,4 @@ class EditMeasurement extends Component {
     }
 }
 
-export default EditMeasurement;
+export default EditNews;

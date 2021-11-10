@@ -98,7 +98,7 @@ public class NewsController {
      * @param id
      * @return news with particular id
      */
-    @GetMapping(path = "/news/id/{id}")
+    @GetMapping(path = "/news/{id}")
     public ResponseEntity<?> findNewsById(@PathVariable int id) {
         News n = newsService.findNewsById(id);
         if (n == null) {

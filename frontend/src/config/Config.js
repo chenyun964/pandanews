@@ -5,14 +5,14 @@ const authenticate_api = API_HOSTS + '/authenticate';
 const register_api = API_HOSTS + '/register';
 
 //News
-const news_list_api = API_HOSTS + '/news'
-const news_get_top_4_api = API_HOSTS + '/news/top4news'
-const category_news_api = API_HOSTS + '/news/category'
-const search_news_api = API_HOSTS + '/news/keyword'
+const news_list_api = API_HOSTS + '/news';
+const news_get_top_4_api = API_HOSTS + '/news/top4news';
+const category_news_api = API_HOSTS + '/news/category';
+const search_news_api = API_HOSTS + '/news/keyword';
 
 
 //Category
-const category_list_api = API_HOSTS + '/category/list'
+const category_api = API_HOSTS + '/category';
 
 //User
 const user_api = API_HOSTS + '/users';
@@ -72,7 +72,7 @@ export default{
     org_api,
     org_join_api,
     org_my_org_api,
-    category_list_api,
+    category_api,
     news_list_api,
     user_org_api,
     user_api,

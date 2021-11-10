@@ -14,6 +14,7 @@ import EditMeasurement from "./module/EditMeasurement";
 import News from "./module/News";
 import Statistics from "./module/Statistics";
 import NewsCategory from './module/NewsCategory';
+import EditNews from './module/EditNews';
 
 
 class LoginRoutes extends Component {
@@ -35,9 +36,11 @@ class LoginRoutes extends Component {
                     <Route exact path="/vaccispot" component={VacciSpotTable} />
                     <Route exact path="/testspot" component={TestSpotTable} />
                     <Route exact path="/measurement" component={Measurement} />
-                    <Route exact path="/measurement/new" component={EditMeasurement} />
+                    <Route exact path="/measurement/create" component={EditMeasurement} />
                     <Route exact path="/measurement/:id" component={EditMeasurement} />
                     <Route exact path="/news" component={News} />
+                    <Route exact path="/news/create" component={EditNews} />
+                    <Route exact path="/news/:id" component={EditNews} />
                     <Route exact path="/statistics" component={Statistics} />
                     <Route exact path="/category" component={NewsCategory} />
                 </Switch>

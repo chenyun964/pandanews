@@ -57,26 +57,25 @@
   background-position: center;
 }
 
-.ant-table i{
+.ant-table i {
   color: white !important;
 }
 
-.ant-table .btn{
+.ant-table .btn {
   padding: 8px !important;
 }
 
-.top-toolbar .nav-item>a>i{
+.top-toolbar .nav-item>a>i {
   line-height: 2;
 }
 
-.ant-table-pagination.ant-pagination{
+.ant-table-pagination.ant-pagination {
   margin: 16px !important;
 }
 
-.ql-editor{
+.ql-editor {
   min-height: 35vh;
 }
-
 
 #overlay {
   position: absolute;
@@ -91,10 +90,14 @@
   height: calc(100vh - 65px);
 }
 
-.ant-spin-dot-item{
+.ant-spin-dot-item {
   background-color: white !important;
 }
 
-.ant-spin-text{
+.ant-spin-text {
+  color: white !important;
+}
+
+.color-white {
   color: white !important;
 }
