@@ -68,19 +68,8 @@ public class WorkGroupServiceTests {
         verify(workGroupRepository).findById(10L);
     }
 
-//    @Test
-//    void listWorkGroupsByOrganisation_Success() {
-//        Organisation o = new Organisation("org");
-//        when(workGroupRepository.findByOrganisationId(any(Long.class))).thenReturn(new ArrayList<WorkGroup>());
-//        List<WorkGroup> list = workGroupService.listWorkGroups(o.getId());
-//
-//        assertNotNull(list);
-//        verify(workGroupRepository).findAll();
-//    }
-
     @Test
     void listWorkGroupsByOrganisation_Success() {
-        //Organisation o = new Organisation("org");
         List<WorkGroup> list = new ArrayList<>();
         WorkGroup wg = new WorkGroup("name", new Organisation("org"));
         list.add(wg);
