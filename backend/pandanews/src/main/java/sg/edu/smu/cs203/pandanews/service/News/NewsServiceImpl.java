@@ -60,7 +60,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public List<News> findAllNews() {
-        return newsRepository.findAll();
+        return newsRepository.findAllByOrderByUpdatedAtDesc();
     }
 
     @Override
