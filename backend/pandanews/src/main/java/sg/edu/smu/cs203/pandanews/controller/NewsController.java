@@ -3,6 +3,7 @@ package sg.edu.smu.cs203.pandanews.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sg.edu.smu.cs203.pandanews.dto.NewsDTO;
 import sg.edu.smu.cs203.pandanews.exception.news.NewsDuplicationException;
 import sg.edu.smu.cs203.pandanews.exception.news.NewsNotFoundException;
 import sg.edu.smu.cs203.pandanews.model.news.News;
@@ -19,13 +20,13 @@ public class NewsController {
 
     /**
      * Create news by manual input
-     *
-     * @param news
-     * @return created news
+     * @param news newsDTO with news and category id
+     * @return
      */
     @PostMapping(path = "/news")
-    public ResponseEntity<?> createNewsByManual(@RequestBody News news) {
-        News n = newsService.createNewsByManual(news);
+    public ResponseEntity<?> createNewsByManual(@RequestBody NewsDTO news) {
+        //News n = newsService.createNewsByManual(news.getNews());
+        News n = newsService.createNewsByManualWithCategory(news.getNews(), news.getId());
         if (n == null) {
             throw new NewsDuplicationException("News Duplicated");
         }

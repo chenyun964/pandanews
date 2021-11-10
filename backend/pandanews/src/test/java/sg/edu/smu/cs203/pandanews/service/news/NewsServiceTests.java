@@ -145,10 +145,10 @@ public class NewsServiceTests {
 
     @Test
     void findAllNews_Success() {
-        when(newsRepository.findAll()).thenReturn(new ArrayList<News>());
+        when(newsRepository.findAllByOrderByUpdatedAtDesc()).thenReturn(new ArrayList<News>());
         List<News> list = newsService.findAllNews();
         assertNotNull(list);
-        verify(newsRepository).findAll();
+        verify(newsRepository).findAllByOrderByUpdatedAtDesc();
     }
 
     @Test
