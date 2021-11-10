@@ -20,7 +20,8 @@ import TestSpotTabs from './module/TestSpotTabs';
 import Covid19 from './module/Covid19';
 import WorkGroup from './module/WorkGroup';
 import Attendance from './module/Attendance';
-import UserModel from './model/UserModel';
+import Policy from './module/Policy';
+import Organisation from './module/Organisation';
 
 class LoginRoutes extends Component {
   componentDidMount() {
@@ -40,6 +41,8 @@ class LoginRoutes extends Component {
             <Route exact path="/employee" component={Employee} />
             <Route exact path="/workgroup" component={WorkGroup} />
             <Route exact path="/attendance" component={Attendance} />
+            <Route exact path="/policy" component={Policy} />
+            <Route exact path="/organisation" component={Organisation} />
             <Route path="*" component={NotFound} />
           </Switch>
         </div>

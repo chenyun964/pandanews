@@ -56,12 +56,6 @@ class Sidebar extends Component {
               <p className="section-title">Employee</p>
               <ul className="nav nav-pills flex-column mb-auto section-nav">
                 <li className="nav-item" >
-                  <NavLink to="/schedule" className="nav-link" ><i class="fas fa-users"></i><span>Schedule</span></NavLink>
-                </li>
-                <li className="nav-item" >
-                  <NavLink to="/checkin" className="nav-link" ><i class="far fa-check-square"></i><span>Check-in</span></NavLink>
-                </li>
-                <li className="nav-item" >
                   <NavLink to="/attendance" className="nav-link" ><i class="far fa-check-square"></i><span>Attendance</span></NavLink>
                 </li>
               </ul>
@@ -73,10 +67,16 @@ class Sidebar extends Component {
               <p className="section-title">Manager</p>
               <ul className="nav nav-pills flex-column mb-auto section-nav">
                 <li className="nav-item" >
-                  <NavLink to="/employee" className="nav-link" ><i class="fas fa-users"></i><span>Employee</span></NavLink>
+                  <NavLink to="/employee" className="nav-link" ><i class="fas fa-user-friends"></i><span>Employee</span></NavLink>
+                </li>
+                <li className="nav-item" >
+                  <NavLink to="/policy" className="nav-link" ><i class="fas fa-scroll"></i><span>Policy</span></NavLink>
                 </li>
                 <li className="nav-item" >
                   <NavLink to="/workgroup" className="nav-link" ><i class="fas fa-users"></i><span>Workgroup</span></NavLink>
+                </li>
+                <li className="nav-item" >
+                  <NavLink to="/organisation" className="nav-link" ><i class="fas fa-building"></i><span>Organisation</span></NavLink>
                 </li>
               </ul>
             </Fragment>

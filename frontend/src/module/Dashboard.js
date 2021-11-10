@@ -3,6 +3,7 @@ import OrganisationModel from '../model/OrganisationModel';
 import UserModel from '../model/UserModel';
 import { Modal, Button, Typography, Result, Popconfirm } from 'antd';
 import AttendanceModel from '../model/AttendanceModel';
+import moment from "moment";
 
 const { Text } = Typography;
 
@@ -275,13 +276,6 @@ class Dashboard extends Component {
 
     renderDashboard() {
         return <Fragment>
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Ogranisation Name: {this.state.company.title}</h5>
-                    <p class="card-text">Contact Number: {this.state.company.contact}</p>
-                    <Button danger onClick={() => this.info()}>Delete</Button>
-                </div>
-            </div>
             <div className="d-flex card-container">
                 <div class="card mb-3 flex-fill">
                     <div class="card-body d-flex flex-column">
@@ -310,7 +304,7 @@ class Dashboard extends Component {
                 </div>
                 <div class="card mb-3 flex-fill">
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Timesheet <span>11 Oct 2021</span></h5>
+                        <h5 class="card-title">Timesheet <span>{moment().format("DD MMM YYYY")}</span></h5>
                         <div>
                             <p>Punch in at</p>
                             <p>Wed, 11th Oct 2021 10.00 AM</p>
@@ -337,17 +331,6 @@ class Dashboard extends Component {
                                     Punch Out
                                 </Popconfirm>
                             </button>}
-                        <hr />
-                        <div className="d-flex">
-                            <div className="flex-fill text-center">
-                                <p>BREAK</p>
-                                <p>1.21 hrs</p>
-                            </div>
-                            <div className="flex-fill text-center">
-                                <p>Overtime</p>
-                                <p>3 hrs</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
