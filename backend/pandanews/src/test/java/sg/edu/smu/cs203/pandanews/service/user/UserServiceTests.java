@@ -1,20 +1,19 @@
 package sg.edu.smu.cs203.pandanews.service.user;
 
+<<<<<<< Updated upstream
 import org.hibernate.boot.registry.classloading.spi.ClassLoaderService.Work;
 import org.junit.jupiter.api.BeforeEach;
+=======
+>>>>>>> Stashed changes
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import sg.edu.smu.cs203.pandanews.model.Organisation;
+<<<<<<< Updated upstream
 import sg.edu.smu.cs203.pandanews.model.WorkGroup;
 import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.model.user.User;
@@ -22,8 +21,10 @@ import sg.edu.smu.cs203.pandanews.repository.CategoryRepository;
 import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
 import sg.edu.smu.cs203.pandanews.repository.OrganisationRepository;
 import sg.edu.smu.cs203.pandanews.repository.WorkGroupRepository;
+=======
+import sg.edu.smu.cs203.pandanews.model.user.User;
+>>>>>>> Stashed changes
 import sg.edu.smu.cs203.pandanews.repository.UserRepository;
-import sg.edu.smu.cs203.pandanews.service.news.NewsServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class UserServiceTests {
     private UserServiceImpl userService;
 
     @Mock
-    private UserRepository userRepository;
+    private UserRepository userRepo;
 
     @Mock
     private PasswordEncoder bcryptEncoder = new BCryptPasswordEncoder();
@@ -50,46 +51,46 @@ public class UserServiceTests {
     @Test
     void getUser_Success() {
         User n = generateTestUser("Test");
-        when(userRepository.findById(any(Long.class))).thenReturn(Optional.of(n));
+        when(userRepo.findById(any(Long.class))).thenReturn(Optional.of(n));
 
         User user = userService.getUser(10L);
 
         assertNotNull(user);
-        verify(userRepository).findById(10L);
+        verify(userRepo).findById(10L);
     }
 
     @Test
     void getUser_Failure() {
-        when(userRepository.findById(any(Long.class))).thenReturn(Optional.empty());
+        when(userRepo.findById(any(Long.class))).thenReturn(Optional.empty());
         User u = userService.getUser(10L);
 
         assertNull(u);
-        verify(userRepository).findById(10L);
+        verify(userRepo).findById(10L);
     }
 
     @Test
     void listUsers_Success() {
-        when(userRepository.findAll()).thenReturn(new ArrayList<User>());
+        when(userRepo.findAll()).thenReturn(new ArrayList<User>());
         List<User> list = userService.listUsers();
 
         assertNotNull(list);
-        verify(userRepository).findAll();
+        verify(userRepo).findAll();
     }
 
     @Test
     void updateUser_returnUpdatedUser() {
         User u = generateTestUser("test");
-        when(userRepository.findById(any(Long.class))).thenReturn(Optional.of(u));
+        when(userRepo.findById(any(Long.class))).thenReturn(Optional.of(u));
         User updated = generateTestUser("updated");
-        when(userRepository.save(any(User.class))).thenReturn(updated);
+        when(userRepo.save(any(User.class))).thenReturn(updated);
 
         long id = 10L;
         User newUser = userService.updateUser(id, updated);
 
         assertNotNull(newUser);
         assertEquals("updated", newUser.getUsername());
-        verify(userRepository).findById(id);
-        verify(userRepository).save(u);
+        verify(userRepo).findById(id);
+        verify(userRepo).save(u);
     }
 
     @Test
@@ -103,13 +104,13 @@ public class UserServiceTests {
     @Test
     void getUserByUsername_Success() {
         User u = generateTestUser("test");
-        when(userRepository.findByUsername(any(String.class))).thenReturn(Optional.of(u));
+        when(userRepo.findByUsername(any(String.class))).thenReturn(Optional.of(u));
 
         User user = userService.getUserByUsername("test");
 
         assertNotNull(user);
         assertEquals("test", user.getUsername());
-        verify(userRepository).findByUsername(u.getUsername());
+        verify(userRepo).findByUsername(u.getUsername());
     }
 
     @Test
@@ -119,15 +120,15 @@ public class UserServiceTests {
         Organisation o = new Organisation("org");
         u2.setOrganisation(o);
 
-        when(userRepository.findById(any(Long.class))).thenReturn(Optional.of(u));
-        when(userRepository.save(any(User.class))).thenReturn(u2);
+        when(userRepo.findById(any(Long.class))).thenReturn(Optional.of(u));
+        when(userRepo.save(any(User.class))).thenReturn(u2);
 
         User user = userService.updateUserCompany(10L, o);
 
         assertNotNull(user);
         assertEquals("org", user.getOrganisation().getTitle());
-        verify(userRepository).findById(10L);
-        verify(userRepository).save(u);
+        verify(userRepo).findById(10L);
+        verify(userRepo).save(u);
     }
 
     @Test
@@ -137,12 +138,12 @@ public class UserServiceTests {
 
         u2.setAuthorities("ROLE");
 
-        when(userRepository.save(any(User.class))).thenReturn(u2);
+        when(userRepo.save(any(User.class))).thenReturn(u2);
         User user = userService.updateUserRole(u, "ROLE");
 
         assertNotNull(user);
         assertEquals(1, user.getAuthorities().size());
-        verify(userRepository).save(u);
+        verify(userRepo).save(u);
     }
 
     @Test
@@ -152,12 +153,12 @@ public class UserServiceTests {
         Organisation o = new Organisation("org");
         u2.setOrganisation(o);
 
-        when(userRepository.save(any(User.class))).thenReturn(u2);
+        when(userRepo.save(any(User.class))).thenReturn(u2);
         User user = userService.joinOrganisation(u, o);
 
         assertNotNull(user);
         assertEquals("org", user.getOrganisation().getTitle());
-        verify(userRepository).save(u);
+        verify(userRepo).save(u);
     }
 
     @Test
@@ -168,12 +169,21 @@ public class UserServiceTests {
         User u2 = u;
         u2.setOrganisation(null);
 
+<<<<<<< Updated upstream
         when(userRepository.save(any(User.class))).thenReturn(u2);
         User user = userService.quitOrganisation(u);
 
         assertNotNull(user);
         assertEquals(null, user.getOrganisation());
         verify(userRepository).save(u);
+=======
+        when(userRepo.save(any(User.class))).thenReturn(u2);
+        User user = userService.updateVaccine(u);
+
+        assertNotNull(user);
+        assertEquals(true, user.getVaccinated());
+        verify(userRepo).save(u);
+>>>>>>> Stashed changes
     }
 
     @Test
@@ -183,6 +193,7 @@ public class UserServiceTests {
         WorkGroup w = new WorkGroup("wg");
         u2.setWorkGroup(w);
 
+<<<<<<< Updated upstream
         when(userRepository.save(any(User.class))).thenReturn(u2);
         User user = userService.joinWorkGroup(u, w);
 
@@ -219,6 +230,14 @@ public class UserServiceTests {
         assertNotNull(user);
         assertEquals(true, user.getVaccinated());
         verify(userRepository).save(u);
+=======
+        when(userRepo.save(any(User.class))).thenReturn(u2);
+        User user = userService.quitOrganisation(u);
+
+        assertNotNull(user);
+        assertEquals(null, user.getOrganisation());
+        verify(userRepo).save(u);
+>>>>>>> Stashed changes
     }
 
     private User generateTestUser(String name) {

@@ -25,71 +25,71 @@ public class VacciSpotServiceTests {
     @InjectMocks
     private VacciSpotServiceImpl vacciSpotService;
     @Mock
-    private VacciSpotRepository vacciSpotRepository;
+    private VacciSpotRepository vacciSpotRepo;
 
     @Test
     void addvacciSpot_Success() {
         VacciSpot t = new VacciSpot();
-        when(vacciSpotRepository.save(any(VacciSpot.class))).thenReturn(t);
+        when(vacciSpotRepo.save(any(VacciSpot.class))).thenReturn(t);
         VacciSpot result = vacciSpotService.add(t);
 
         assertNotNull(result);
-        verify(vacciSpotRepository).save(t);
+        verify(vacciSpotRepo).save(t);
     }
 
     @Test
     void addvacciSpot_Failure() {
         VacciSpot t = new VacciSpot();
-        when(vacciSpotRepository.save(any(VacciSpot.class))).thenReturn(null);
+        when(vacciSpotRepo.save(any(VacciSpot.class))).thenReturn(null);
         VacciSpot result = vacciSpotService.add(t);
 
         assertNull(result);
-        verify(vacciSpotRepository).save(t);
+        verify(vacciSpotRepo).save(t);
     }
 
     @Test
     void getById_Success() {
         VacciSpot vacciSpot = new VacciSpot();
-        when(vacciSpotRepository.findById(any(Long.class))).thenReturn(Optional.of(vacciSpot));
+        when(vacciSpotRepo.findById(any(Long.class))).thenReturn(Optional.of(vacciSpot));
 
         VacciSpot result = vacciSpotService.getById(10L);
         assertNotNull(result);
-        verify(vacciSpotRepository).findById(10L);
+        verify(vacciSpotRepo).findById(10L);
     }
 
     @Test
     void getById_Failure() {
-        when(vacciSpotRepository.findById(any(Long.class))).thenReturn(Optional.empty());
+        when(vacciSpotRepo.findById(any(Long.class))).thenReturn(Optional.empty());
         VacciSpot result = vacciSpotService.getById(10L);
         assertNull(result);
-        verify(vacciSpotRepository).findById(10L);
+        verify(vacciSpotRepo).findById(10L);
     }
 
     @Test
     void getByName_Success() {
         VacciSpot vacciSpot = new VacciSpot();
-        when(vacciSpotRepository.findByName(any(String.class))).thenReturn(Optional.of(vacciSpot));
+        when(vacciSpotRepo.findByName(any(String.class))).thenReturn(Optional.of(vacciSpot));
         VacciSpot result = vacciSpotService.getByName("Test");
         assertNotNull(result);
-        verify(vacciSpotRepository).findByName("Test");
+        verify(vacciSpotRepo).findByName("Test");
     }
 
     @Test
     void getByName_Failure() {
-        when(vacciSpotRepository.findByName(any(String.class))).thenReturn(Optional.empty());
+        when(vacciSpotRepo.findByName(any(String.class))).thenReturn(Optional.empty());
         VacciSpot result = vacciSpotService.getByName("Test");
         assertNull(result);
-        verify(vacciSpotRepository).findByName("Test");
+        verify(vacciSpotRepo).findByName("Test");
     }
 
     @Test
     void deletevacciSpot_Success() {
         VacciSpot vacciSpot = new VacciSpot();
-        when(vacciSpotRepository.findById(any(Long.class))).thenReturn(Optional.of(vacciSpot));
-        doNothing().when(vacciSpotRepository).delete(any(VacciSpot.class));
+        when(vacciSpotRepo.findById(any(Long.class))).thenReturn(Optional.of(vacciSpot));
+        doNothing().when(vacciSpotRepo).delete(any(VacciSpot.class));
         VacciSpot result = vacciSpotService.deleteById(10L);
         assertNotNull(result);
-        verify(vacciSpotRepository, times(1)).delete(vacciSpot);
+        verify(vacciSpotRepo, times(1)).delete(vacciSpot);
 
     }
 
@@ -101,25 +101,25 @@ public class VacciSpotServiceTests {
         updatedvacciSpot.setType("updated");
         updatedvacciSpot.setRegion("region");
 
-        when(vacciSpotRepository.findById(any(Long.class))).thenReturn(Optional.of(vacciSpot));
-        when(vacciSpotRepository.save(any(VacciSpot.class))).thenReturn(updatedvacciSpot);
+        when(vacciSpotRepo.findById(any(Long.class))).thenReturn(Optional.of(vacciSpot));
+        when(vacciSpotRepo.save(any(VacciSpot.class))).thenReturn(updatedvacciSpot);
 
         VacciSpot result = vacciSpotService.update(10L, updatedvacciSpot);
 
         assertNotNull(result);
         assertEquals("updated", result.getType());
         assertEquals("region", result.getRegion());
-        verify(vacciSpotRepository).findById(10L);
-        verify(vacciSpotRepository).save(vacciSpot);
+        verify(vacciSpotRepo).findById(10L);
+        verify(vacciSpotRepo).save(vacciSpot);
     }
 
     @Test
     void updatevacciSpot_ReturnNull() {
-        when(vacciSpotRepository.findById(any(Long.class))).thenReturn(Optional.empty());
+        when(vacciSpotRepo.findById(any(Long.class))).thenReturn(Optional.empty());
         VacciSpot result = vacciSpotService.update(10L, new VacciSpot());
 
         assertNull(result);
-        verify(vacciSpotRepository).findById(10L);
+        verify(vacciSpotRepo).findById(10L);
     }
 
     @Test
@@ -128,12 +128,12 @@ public class VacciSpotServiceTests {
         VacciSpot t = new VacciSpot();
         vacciSpotArrayList.add(t);
 
-        when(vacciSpotRepository.findAll()).thenReturn(vacciSpotArrayList);
+        when(vacciSpotRepo.findAll()).thenReturn(vacciSpotArrayList);
 
         List<VacciSpot> result = vacciSpotService.listAll();
 
         assertNotNull(result);
-        verify(vacciSpotRepository).findAll();
+        verify(vacciSpotRepo).findAll();
     }
 
     @Test
@@ -143,10 +143,10 @@ public class VacciSpotServiceTests {
         t.setType("Test");
         vacciSpotArrayList.add(t);
 
-        when(vacciSpotRepository.findByType(any(String.class))).thenReturn(vacciSpotArrayList);
+        when(vacciSpotRepo.findByType(any(String.class))).thenReturn(vacciSpotArrayList);
 
         List<VacciSpot> result = vacciSpotService.listByType(t.getType());
         assertNotNull(result);
-        verify(vacciSpotRepository).findByType("Test");
+        verify(vacciSpotRepo).findByType("Test");
     }
 }

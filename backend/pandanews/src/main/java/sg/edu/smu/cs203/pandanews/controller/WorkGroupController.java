@@ -29,13 +29,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class WorkGroupController {
     private WorkGroupService workGroupService;
     private UserService userService;
-    private UserRepository users;
+    private UserRepository userRepo;
 
     @Autowired
-    public WorkGroupController(WorkGroupService workGroupService, UserService userService, UserRepository users){
+    public WorkGroupController(WorkGroupService workGroupService, UserService userService, UserRepository userRepo){
         this.workGroupService = workGroupService;
         this.userService = userService;
-        this.users = users;
+        this.userRepo = userRepo;
     }
 
     /**
@@ -49,7 +49,7 @@ public class WorkGroupController {
         User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) throw new UnauthenticatedException();
 
-        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
 
         return workGroupService.listWorkGroups(oid);
     }
@@ -67,7 +67,7 @@ public class WorkGroupController {
         User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) throw new UnauthenticatedException();
 
-        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
 
         WorkGroup workGroup = workGroupService.getWorkGroup(id);
 
@@ -91,7 +91,7 @@ public class WorkGroupController {
         User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) throw new UnauthenticatedException();
 
-        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
 
         return workGroupService.addWorkGroup(workGroup);
     }
@@ -109,7 +109,7 @@ public class WorkGroupController {
         User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) throw new UnauthenticatedException();
 
-        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
 
         WorkGroup workGroup = workGroupService.updateWorkGroup(id, newWorkGroupInfo);
         if(workGroup == null) return null;
@@ -129,7 +129,7 @@ public class WorkGroupController {
         User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) throw new UnauthenticatedException();
 
-        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
 
         try {
             workGroupService.deleteWorkGroup(id);

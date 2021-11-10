@@ -17,7 +17,6 @@ public class NewsController {
     @Autowired
     private NewsServiceImpl newsService;
 
-
     /**
      * Create news by manual input
      * @param  newsDTO with news and category id

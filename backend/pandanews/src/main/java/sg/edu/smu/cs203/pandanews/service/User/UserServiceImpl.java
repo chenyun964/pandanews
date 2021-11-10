@@ -14,58 +14,58 @@ import sg.edu.smu.cs203.pandanews.repository.UserRepository;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository users;
+    private UserRepository userRepo;
 
     private PasswordEncoder bcryptEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository users, PasswordEncoder bcryptEncoder) {
-        this.users = users;
+    public UserServiceImpl(UserRepository userRepo, PasswordEncoder bcryptEncoder) {
+        this.userRepo = userRepo;
         this.bcryptEncoder = bcryptEncoder;
     }
 
     @Override
     public User getUser(Long id) {
-        return users.findById(id).orElse(null);
+        return userRepo.findById(id).orElse(null);
     }
 
     @Override
     public List<User> listUsers() {
-        return users.findAll();
+        return userRepo.findAll();
     }
 
 
 
     @Override
     public User updateUser(Long id, User newUser) {
-        return users.findById(id).map(user -> {
+        return userRepo.findById(id).map(user -> {
             user.setName(newUser.getName());
             user.setContact(newUser.getContact());
-            return users.save(user);
+            return userRepo.save(user);
         }).orElse(null);
     }
 
     @Override
     public void deleteUser(Long id) {
-        users.deleteById(id);
+        userRepo.deleteById(id);
     }
 
     @Override
     public User getUserByUsername(String username) {
-        return users.findByUsername(username).orElse(null);
+        return userRepo.findByUsername(username).orElse(null);
     }
 
     public User updateUserCompany(Long id, Organisation organisation) {
-        return users.findById(id).map(user -> {
+        return userRepo.findById(id).map(user -> {
             user.setOrganisation(organisation);
-            return users.save(user);
+            return userRepo.save(user);
         }).orElse(null);
     }
 
     @Override
     public User updateUserRole(User user, String role) {
         user.setAuthorities(role);
-        return users.save(user);
+        return userRepo.save(user);
     }
 
 
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User joinOrganisation(User user, Organisation organisation) {
         user.setOrganisation(organisation);
-        users.save(user);
+        userRepo.save(user);
         return user;
     }
 
@@ -81,13 +81,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User quitOrganisation(User user) {
         user.setOrganisation(null);
-        return users.save(user);
+        return userRepo.save(user);
     }
 
 
     public User joinWorkGroup(User user, WorkGroup workGroup){
         user.setWorkGroup(workGroup);
-        users.save(user);
+        userRepo.save(user);
         return user;
     }
 
@@ -95,13 +95,17 @@ public class UserServiceImpl implements UserService {
     public User quitWorkGroup(User user){
         //return the user who get quited the workgroup
         user.setWorkGroup(null);
+<<<<<<< Updated upstream
         return users.save(user);
+=======
+        userRepo.save(user);
+>>>>>>> Stashed changes
     }
 
     @Override
     public User updateVaccine(User user){
         user.setVaccinated(true);
-        users.save(user);
+        userRepo.save(user);
         return user;
     }
 }
