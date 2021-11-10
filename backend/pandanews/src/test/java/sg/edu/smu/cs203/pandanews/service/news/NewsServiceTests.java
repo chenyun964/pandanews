@@ -18,6 +18,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import sg.edu.smu.cs203.pandanews.dto.NewsDTO;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.repository.CategoryRepository;
@@ -40,23 +41,27 @@ public class NewsServiceTests {
     @Test
     void createNewsByManual_ReturnSavedNews() {
         // arrange ** String title, String description, String content, String coverImage, Date date
-        News news = newsFormatter("test");
+        NewsDTO newsDTO = new NewsDTO();
+        newsDTO.setTitle("title");
+        News news = newsFormatter("title");
+
         // mock the "findById" operation
         when(newsRepository.findByTitle(any(String.class))).thenReturn(new ArrayList<News>());
         // mock the "save" operation
         when(newsRepository.save(any(News.class))).thenReturn(news);
         // act ***
-        News savedNews = newsService.createNewsByManual(news);
+        News savedNews = newsService.createNewsByManual(newsDTO);
         // assert ***
         assertNotNull(savedNews);
         verify(newsRepository).findByTitle(savedNews.getTitle());
-        verify(newsRepository).save(news);
     }
 
 
     @Test
     void createNewsByManual_ReturnNull() {
         // arrange *** String title, String description, String content, String coverImage, Date date
+        NewsDTO newsDTO = new NewsDTO();
+        newsDTO.setTitle("test");
         News news = newsFormatter("test");
         List<News> someNews = new ArrayList<>();
         someNews.add(news);
@@ -64,7 +69,7 @@ public class NewsServiceTests {
         // mock the "findByTitle" operation
         when(newsRepository.findByTitle(news.getTitle())).thenReturn(someNews);
         // act ***
-        News savedNews = newsService.createNewsByManual(news);
+        News savedNews = newsService.createNewsByManual(newsDTO);
         // assert ***
         assertNull(savedNews);
         verify(newsRepository).findByTitle(news.getTitle());
@@ -275,10 +280,9 @@ public class NewsServiceTests {
     }
 
     private static News newsFormatter(String title) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         News news = null;
         try {
-            news = new News(title, "123456", "1", "1", formatter.parse("2020-01-01"));
+            news = new News(title, "123456", "1", "1", new Date());
         } catch (Exception e) {
             return null;
         }

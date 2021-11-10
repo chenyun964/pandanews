@@ -1,6 +1,7 @@
 import { Component, Fragment } from 'react';
 import NewsModel from '../model/NewsModel';
-import { message, Modal, Table, Tag, Space, Button } from 'antd';
+import { Link } from 'react-router-dom';
+import { message, Modal, Table, Tag, Space, Button, Popconfirm } from 'antd';
 
 const { Column } = Table;
 
@@ -33,6 +34,16 @@ class News extends Component {
         })
     }
 
+    handleDelete(id) {
+        NewsModel.delete(id).then(res => {
+            this.setState({
+                data: this.state.data.filter((item) => item.id !== id),
+            });
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
     render() {
         return (
             <div class="content">
@@ -42,8 +53,10 @@ class News extends Component {
                             <h1>News</h1>
                         </div>
                         <div class="actions top-right">
-                            <button className="btn btn-primary" onClick={() => this.addNewsByAPI()}> Add via API</button>
-                            <button className="btn btn-primary" onClick={() => this.addNews()}> Add</button>
+                            <Space size="large">
+                                <button className="ant-btn ant-btn-primary ant-btn-lg color-white" onClick={() => this.addNewsByAPI()}> Add via API</button>
+                                <Link to="/news/create" className="ant-btn ant-btn-primary ant-btn-lg color-white"> Add</Link>
+                            </Space>
                         </div>
                     </div>
                 </header>
@@ -80,8 +93,12 @@ class News extends Component {
                                         key="id"
                                         render={(id, record) => (
                                             <Space size="middle">
-                                                <button className="btn btn-warning" onClick={() => this.demoteEmployee(id)}><i class="zmdi zmdi-edit zmdi-hc-fw"></i></button>
-                                                <button className="btn btn-danger" onClick={() => this.removeAlert(id)}><i class="la la-trash"></i></button>
+                                                <Link to={"/news/" + record.id} className="btn btn-warning"><i class="zmdi zmdi-edit zmdi-hc-fw"></i></Link>
+                                                <Popconfirm className="btn btn-danger" title="Sure to delete?" onConfirm={() => this.handleDelete(record.id)}>
+                                                    <button className="btn btn-danger">
+                                                        <i className="la la-trash"></i>
+                                                    </button>
+                                                </Popconfirm>
                                             </Space>
                                         )}
                                     />

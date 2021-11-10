@@ -1,15 +1,34 @@
 package sg.edu.smu.cs203.pandanews.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import sg.edu.smu.cs203.pandanews.model.news.News;
+import java.io.Serializable;
 
+import lombok.*;
 
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
-public class NewsDTO {
-    private News news;
-    private Long id;
+@NoArgsConstructor
+@EqualsAndHashCode
+public class NewsDTO implements Serializable{
+    private static final long serialVersionUID = 6039321808442141068L;
+
+    private String title;
+
+    private String description;
+
+    private String content;
+
+    private String source;
+
+    private String coverImage;
+
+    private long category;
+
+    private boolean pinned;
+
+    public Boolean getPinned(){
+        return pinned;
+    }
+
 }

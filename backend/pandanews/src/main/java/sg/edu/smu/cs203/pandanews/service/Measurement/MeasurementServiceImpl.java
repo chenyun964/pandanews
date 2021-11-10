@@ -42,6 +42,5 @@ public class MeasurementServiceImpl implements MeasurementService {
     @Override
     public List<Measurement> displayMeasurements(){
         return measurementRepo.findAll();
-
     }
 }

@@ -6,8 +6,10 @@ import sg.edu.smu.cs203.pandanews.model.category.Category;
 import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.repository.CategoryRepository;
 import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
+import sg.edu.smu.cs203.pandanews.dto.NewsDTO;
 
 import java.util.List;
+import java.util.Date;
 
 @Service
 public class NewsServiceImpl implements NewsService {
@@ -22,8 +24,16 @@ public class NewsServiceImpl implements NewsService {
     private CategoryRepository categoryRepository;
 
     @Override
-    public News createNewsByManual(News news) {
+    public News createNewsByManual(NewsDTO newsDTO) {
+        News news = new News();
+        news.setTitle(newsDTO.getTitle());
+        news.setDescription(newsDTO.getDescription());
+        news.setContent(newsDTO.getContent());
         news.setSource("Manual");
+        news.setCoverImage(newsDTO.getCoverImage());
+        news.setCategory(categoryRepository.findById(newsDTO.getCategory()).orElse(null));
+        news.setPinned(newsDTO.getPinned());
+        news.setDate(new Date());
         return newsRepository.findByTitle(news.getTitle()).size() == 0 ? newsRepository.save(news) : null;
     }
 

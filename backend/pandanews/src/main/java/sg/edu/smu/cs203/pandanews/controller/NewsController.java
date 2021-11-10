@@ -20,13 +20,12 @@ public class NewsController {
 
     /**
      * Create news by manual input
-     * @param news newsDTO with news and category id
+     * @param  newsDTO with news and category id
      * @return
      */
     @PostMapping(path = "/news")
-    public ResponseEntity<?> createNewsByManual(@RequestBody NewsDTO news) {
-        //News n = newsService.createNewsByManual(news.getNews());
-        News n = newsService.createNewsByManualWithCategory(news.getNews(), news.getId());
+    public ResponseEntity<?> createNewsByManual(@RequestBody NewsDTO newsDTO) {
+        News n = newsService.createNewsByManual(newsDTO);
         if (n == null) {
             throw new NewsDuplicationException("News Duplicated");
         }
@@ -99,7 +98,7 @@ public class NewsController {
      * @param id
      * @return news with particular id
      */
-    @GetMapping(path = "/news/id/{id}")
+    @GetMapping(path = "/news/{id}")
     public ResponseEntity<?> findNewsById(@PathVariable int id) {
         News n = newsService.findNewsById(id);
         if (n == null) {
