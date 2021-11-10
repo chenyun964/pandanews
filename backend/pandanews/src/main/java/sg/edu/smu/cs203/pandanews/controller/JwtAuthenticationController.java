@@ -1,28 +1,24 @@
 package sg.edu.smu.cs203.pandanews.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.http.HttpStatus;
-import javax.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
-import sg.edu.smu.cs203.pandanews.util.JwtTokenUtil;
+import sg.edu.smu.cs203.pandanews.dto.AdminDTO;
+import sg.edu.smu.cs203.pandanews.dto.UserDTO;
 import sg.edu.smu.cs203.pandanews.model.user.JwtRequest;
 import sg.edu.smu.cs203.pandanews.model.user.JwtResponse;
 import sg.edu.smu.cs203.pandanews.service.user.JwtUserDetailsService;
-import sg.edu.smu.cs203.pandanews.dto.AdminDTO;
-import sg.edu.smu.cs203.pandanews.dto.UserDTO;
-import org.springframework.beans.factory.annotation.Value;
+import sg.edu.smu.cs203.pandanews.util.JwtTokenUtil;
+
+import javax.validation.Valid;
 
 @RestController
 @CrossOrigin
@@ -71,6 +67,7 @@ public class JwtAuthenticationController {
         } catch (DisabledException e) {
             throw new Exception("USER_DISABLED", e);
         } catch (BadCredentialsException e) {
+            System.out.println(e.fillInStackTrace());
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }

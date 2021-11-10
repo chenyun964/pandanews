@@ -2,7 +2,7 @@ package sg.edu.smu.cs203.pandanews.service.news;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sg.edu.smu.cs203.pandanews.exception.news.NewsDuplicationException;
+import sg.edu.smu.cs203.pandanews.exception.NewsDuplicationException;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.repository.CategoryRepository;

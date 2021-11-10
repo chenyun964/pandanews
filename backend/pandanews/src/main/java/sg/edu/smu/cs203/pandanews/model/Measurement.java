@@ -33,10 +33,6 @@ public class Measurement {
     @Setter
     private String content;
 
-    // did not manage to find the admin table
-    // @OneToMany(mappedBy = "xxx", cascade = CascadeType.All, orphanRemoval = true)
-    // private List<Admin> xxx ;
-
     @JsonFormat(pattern = "yyyy-MM-dd HH:MM:ss", timezone = "GMT+8")
     @Column(name = "created_at", updatable = false)
     private Date createdAt;

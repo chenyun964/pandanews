@@ -1,21 +1,20 @@
 package sg.edu.smu.cs203.pandanews.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import sg.edu.smu.cs203.pandanews.dto.UserDTO;
 import sg.edu.smu.cs203.pandanews.model.user.JwtRequest;
 import sg.edu.smu.cs203.pandanews.model.user.User;
 import sg.edu.smu.cs203.pandanews.service.user.JwtUserDetailsService;
 import sg.edu.smu.cs203.pandanews.util.JwtTokenUtil;
-
-import java.net.URI;
 
 @Component
 public class TestUtils {
@@ -53,6 +52,13 @@ public class TestUtils {
                 userDetailsService.loadUserByUsername(new JwtRequest(input.getUsername(), input.getPassword()).getUsername());
         return jwtTokenUtil.generateToken(userDetails);
 
+    }
+
+    public HttpHeaders exchangeHeader() throws Exception {
+        String jwt = exchangeJWT();
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("Authorization", "Bearer " + jwt);
+        return new HttpHeaders(map);
     }
 
     private User generateTestUser() {
