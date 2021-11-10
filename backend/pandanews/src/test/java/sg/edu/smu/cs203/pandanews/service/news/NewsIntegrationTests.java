@@ -7,20 +7,27 @@ import java.text.SimpleDateFormat;
 import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.repository.CategoryRepository;
 import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
+import sg.edu.smu.cs203.pandanews.repository.UserRepository;
+import sg.edu.smu.cs203.pandanews.service.TestUtils;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -46,16 +53,34 @@ public class NewsIntegrationTests {
     private CategoryRepository categoryRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     BCryptPasswordEncoder encoder;
 
     @Autowired
     NewsServiceImpl newsService;
+
+    @Autowired
+    TestUtils testUtils;
+
+    public HttpEntity<Object> header = null;
+
+    @BeforeEach
+    void exchange() throws Exception {
+        String jwt = testUtils.exchangeJWT();
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("Authorization", "Bearer " + jwt);
+        HttpEntity<Object> header = new HttpEntity<Object>(map);
+
+    }
 
     @AfterEach
     void tearDown() {
         // clear the database after each test
         newsRepository.deleteAll();
         categoryRepository.deleteAll();
+        userRepository.deleteAll();
         //test12
     }
 
@@ -152,12 +177,12 @@ public class NewsIntegrationTests {
     //Test pass
     @Test
     public void addNewsByManual_Failure_DuplicationOfTitle() throws Exception {
-
         News n = NewsIntegrationTests.newsFormatter();
         URI uri = new URI(baseUrl + port + "/news");
         // Need to use array with a ResponseEntity here
-        restTemplate.postForEntity(uri, n, News.class);
-        ResponseEntity<News> result = restTemplate.postForEntity(uri, n, News.class);
+        restTemplate.exchange(uri, HttpMethod.POST, header, News.class);
+        ResponseEntity<News> result = restTemplate.exchange(uri, HttpMethod.POST, header, News.class);
+        //ResponseEntity<News> result = restTemplate.postForEntity(uri, n, News.class);
         assertEquals(400, result.getStatusCode().value());
     }
 

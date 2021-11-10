@@ -23,7 +23,7 @@ public class NewsController {
      * @param news
      * @return created news
      */
-    @PostMapping(path = "/news/")
+    @PostMapping(path = "/news")
     public ResponseEntity<?> createNewsByManual(@RequestBody News news) {
         News n = newsService.createNewsByManual(news);
         if (n == null) {
