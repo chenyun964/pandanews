@@ -1,5 +1,6 @@
 package sg.edu.smu.cs203.pandanews.controller;
 
+import javassist.bytecode.StackMapTable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sg.edu.smu.cs203.pandanews.model.StatSummary;
@@ -28,9 +29,8 @@ public class StatisticController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/statistic")
     public Statistic addStatistic(@Valid @RequestBody Statistic stats) {
-        Statistic savedStatistic = statsService.addStatistic(stats);
 
-        return savedStatistic;
+        return statsService.addStatistic(stats);
     }
 
 
@@ -61,7 +61,7 @@ public class StatisticController {
     public Statistic getStatisticById(@PathVariable Long id) {
         Statistic stats = statsService.getStatistic(id);
         if (stats == null)
-            return null;
+            throw new StackMapTable.RuntimeCopyException("statistic not found");
         return statsService.getStatistic(id);
     }
 
@@ -75,7 +75,7 @@ public class StatisticController {
     public Statistic updateStatistic(@PathVariable Long id, @RequestBody Statistic newStatistic) {
         Statistic statistic = statsService.updateStatistic(id, newStatistic);
         if (statistic == null)
-            return null;
+            throw new StackMapTable.RuntimeCopyException("statistic not found");
         return statistic;
     }
 
