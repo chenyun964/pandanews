@@ -23,4 +23,4 @@ jobs:
         cache: maven
 
     - name: Unit Test
-      run: mvn clean -Dtest="sg/edu/smu/cs203/pandanews/service/news/*ServiceTests" test test -f "./backend/pandanews/pom.xml"
+      run: mvn clean -Dtest="sg/edu/smu/cs203/pandanews/service/**/*ServiceTests" test test -f "./backend/pandanews/pom.xml"
