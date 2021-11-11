@@ -119,7 +119,7 @@ public class OrganisationController {
         try {
             organisationService.deleteOrganisation(id);
         } catch (EmptyResultDataAccessException e) {
-            // throw new BookNotFoundException(id);
+            throw new OrganisationNotFoundException();
         }
     }
 
