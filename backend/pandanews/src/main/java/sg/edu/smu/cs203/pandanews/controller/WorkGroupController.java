@@ -92,6 +92,7 @@ public class WorkGroupController {
      * Adds a work group under the given organisation
      * Throws UnauthenticatedException, UnauthorizedUserException
      * 
+     * @param oid, @param workGroup
      * @return WorkGroup
      */
     @ResponseStatus(HttpStatus.CREATED)
