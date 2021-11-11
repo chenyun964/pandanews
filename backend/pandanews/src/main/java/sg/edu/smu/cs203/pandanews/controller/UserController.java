@@ -42,10 +42,9 @@ public class UserController {
         return userService.listUsers();
     }
 
-    /**
-     * Search for book with the given id
-     * If there is no book with the given "id", throw a BookNotFoundException
-     * @return book with the given id
+    /*
+     * Gets the current logged in user's profile
+     * @return User
      */
     @GetMapping("/users/profile")
     public User getUserProfile(){
@@ -57,9 +56,9 @@ public class UserController {
     }
 
     /**
-     * If there is no book with the given "id", throw a BookNotFoundException
+     * Updates current user profile with new user info
      * @param newUserInfo
-     * @return the updated, or newly added book
+     * @return User
      */
     @PutMapping("/users/profile")
     public User updateUser(@RequestBody User newUserInfo){
