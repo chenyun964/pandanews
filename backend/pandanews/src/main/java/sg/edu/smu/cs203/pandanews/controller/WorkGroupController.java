@@ -61,11 +61,10 @@ public class WorkGroupController {
     }
 
     /**
-     * Search for book with the given id If there is no book with the given "id",
-     * throw a BookNotFoundException
+     * Gets the work group with the specified id under the given organisation
+     * Throws UnauthenticatedException, UnauthorizedUserException
      * 
-     * @param id
-     * @return book with the given id
+     * @return WorkGroup
      */
     @GetMapping("/organisation/{oid}/workgroup/{id}")
     public WorkGroup getWorkGroup(@PathVariable Long oid, @PathVariable Long id)
