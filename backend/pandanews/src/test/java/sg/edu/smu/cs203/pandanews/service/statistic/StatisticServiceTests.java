@@ -113,7 +113,7 @@ public class StatisticServiceTests {
         List<Statistic> result = statisticService.displayStatistics();
 
         assertNotNull(result);
-        verify(statisticRepo).findAll();
+        verify(statisticRepo).findAllByOrderByDateDesc();
     }
 
     @Test
