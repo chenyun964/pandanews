@@ -27,7 +27,8 @@ public class UserController {
     private OrganisationService organisationService;
 
     @Autowired
-    public UserController(UserService userService, OrganisationService organisationService, WorkGroupService workGroupService){
+    public UserController(UserService userService, OrganisationService organisationService,
+            WorkGroupService workGroupService) {
         this.userService = userService;
         this.organisationService = organisationService;
         this.workGroupService = workGroupService;
@@ -35,6 +36,7 @@ public class UserController {
 
     /**
      * List all users in the system
+     * 
      * @return List<User>
      */
     @GetMapping("/users")
@@ -44,127 +46,144 @@ public class UserController {
 
     /**
      * Gets the current logged in user's profile
+     * 
      * @return User
      */
     @GetMapping("/users/profile")
     public User getUserProfile() {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-        .getPrincipal();
+                .getPrincipal();
         User user = userService.getUserByUsername(userDetails.getUsername());
-        if(user == null) return null;
+        if (user == null)
+            return null;
         return user;
     }
 
     /**
      * Updates current user profile with new user info
+     * 
      * @param newUserInfo
      * @return User
      */
     @PutMapping("/users/profile")
     public User updateUser(@RequestBody User newUserInfo) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-        .getPrincipal();
-        
+                .getPrincipal();
+
         User user = userService.getUserByUsername(userDetails.getUsername());
-        if(user == null) return null;
+        if (user == null)
+            return null;
         System.out.println(user.getId());
         user = userService.updateUser(user.getId(), newUserInfo);
-        if(user == null) return null;
-        
+        if (user == null)
+            return null;
+
         return user;
     }
 
     /**
-     * Removes a user with the id specified
-     * If there is no user with the given id, throw a BookNotFoundException
+     * Removes a user with the id specified If there is no user with the given id,
+     * throw a BookNotFoundException
+     * 
      * @param id
      */
     @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable Long id) {
         try {
             userService.deleteUser(id);
-        } catch(EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             // throw new BookNotFoundException(id);
         }
     }
-    
+
     /**
      * Retrieves the organisation of the current user
+     * 
      * @return Organisation
      */
     @GetMapping("/users/organisation")
     public Organisation getUserOrganisation() {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-        .getPrincipal();
-        
+                .getPrincipal();
+
         User user = userService.getUserByUsername(userDetails.getUsername());
-        if(user == null) return null;
+        if (user == null)
+            return null;
 
         return user.getOrganisation();
     }
 
     /**
      * Adds the current logged in user to the organisation specified
+     * 
      * @param organisation
      * @return User
      */
     @PostMapping("/users/organisation")
     public User addUserOrganisation(@RequestBody Organisation organisation) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-        .getPrincipal();
-        
+                .getPrincipal();
+
         User user = userService.getUserByUsername(userDetails.getUsername());
-        if(user == null) return null;
+        if (user == null)
+            return null;
 
         Organisation org = organisationService.getOrganisationByCode(organisation.getCode());
-        if(org == null) return null;
+        if (org == null)
+            return null;
 
         return userService.joinOrganisation(user, org);
     }
 
     /**
      * Retrieves the work group of the current user
+     * 
      * @return WorkGroup
      */
     @GetMapping("/users/workgroup")
     public WorkGroup getWorkGroup() {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-        .getPrincipal();
-        
+                .getPrincipal();
+
         User user = userService.getUserByUsername(userDetails.getUsername());
-        if(user == null) return null;
+        if (user == null)
+            return null;
 
         return user.getWorkGroup();
     }
 
     /**
      * Adds a user to the work group specified
+     * 
      * @param workGroup, @param user
      * @return User
      */
     @PostMapping("/users/workgroup")
     public User addUserWorkGroup(@RequestBody WorkGroup workGroup, @RequestBody User user) {
         user = userService.getUserByUsername(user.getUsername());
-        if(user == null) return null;
+        if (user == null)
+            return null;
 
         WorkGroup wg = workGroupService.getWorkGroup(workGroup.getId());
-        if(wg == null) return null;
+        if (wg == null)
+            return null;
 
         return userService.joinWorkGroup(user, wg);
     }
 
     /**
      * Updates the current logged in user's vaccine status
-     * @param organisation
+     * 
      * @return User
      */
     @PutMapping("/users/vaccine")
-    public User updateUserVaacine() {
+    public User updateUserVaccine() {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-        .getPrincipal();
-        
+                .getPrincipal();
+
         User user = userService.getUserByUsername(userDetails.getUsername());
-        if(user == null) return null;
+        if (user == null)
+            return null;
 
         return userService.updateVaccine(user);
     }
