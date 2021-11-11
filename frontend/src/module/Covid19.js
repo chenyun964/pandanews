@@ -154,8 +154,8 @@ class Covid19 extends Component {
         return [
             {
                 title: 'Date',
-                dataIndex: 'createdAt',
-                key: 'createdAt',
+                dataIndex: 'date',
+                key: 'date',
                 editable: true,
                 sorter: (a, b) => a.createdAt.localeCompare(b.createdAt),
                 sortDirections: ['ascend', 'descend'],

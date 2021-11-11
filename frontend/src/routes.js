@@ -22,6 +22,8 @@ import WorkGroup from './module/WorkGroup';
 import Attendance from './module/Attendance';
 import Policy from './module/Policy';
 import Organisation from './module/Organisation';
+import EditPolicy from './module/EditPolicy';
+import News from './module/News';
 
 class LoginRoutes extends Component {
   componentDidMount() {
@@ -42,6 +44,8 @@ class LoginRoutes extends Component {
             <Route exact path="/workgroup" component={WorkGroup} />
             <Route exact path="/attendance" component={Attendance} />
             <Route exact path="/policy" component={Policy} />
+            <Route exact path="/policy/create" component={EditPolicy} />
+            <Route exact path="/policy/:id" component={EditPolicy} />
             <Route exact path="/organisation" component={Organisation} />
             <Route path="*" component={NotFound} />
           </Switch>
@@ -61,9 +65,9 @@ class AllRoutes extends Component {
           <Route exact path="/category/:category" component={Category} />
           <Route exact path="/search/:keyword" component={SearchNews} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/news/:slug" component={News} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/employee/invite" component={Invite} />
-          <Route exact path="/map" component={Map} />
           <Route exact path="/measurements" component={Measurement} />
           <Route exact path="/vaccispots" component={VacciSpotTabs} />
           <Route exact path="/testspots" component={TestSpotTabs} />

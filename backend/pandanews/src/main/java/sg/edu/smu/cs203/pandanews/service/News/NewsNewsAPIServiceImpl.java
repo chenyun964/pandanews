@@ -104,9 +104,10 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
     private String formatImage(String url) {
         return url.contains("&pid=News") ? url.substring(0, url.length() - 9) : url;
     }
-
+  
     private LocalDate formatter(String date) {
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+
         Date d = null;
         try {
             d = dt.parse(date);

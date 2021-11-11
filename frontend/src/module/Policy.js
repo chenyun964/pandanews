@@ -1,6 +1,7 @@
 import { Component, Fragment } from 'react';
-import { Table, Tag, Space, Button } from 'antd';
+import { Table, Tag, Space } from 'antd';
 import OrganisationModel from '../model/OrganisationModel';
+import { Link } from 'react-router-dom';
 import UserModel from '../model/UserModel';
 
 const { Column } = Table;
@@ -10,7 +11,7 @@ class Policy extends Component {
         super(props);
         this.state = {
             policy: [],
-            code: "",
+            org: {},
             visible: false
         }
     }
@@ -20,7 +21,7 @@ class Policy extends Component {
 
         UserModel.userOrg().then(res => {
             this.setState({
-                code: res.data.code
+                org: res.data
             })
         }).catch(e => {
             console.log(e);
@@ -30,7 +31,7 @@ class Policy extends Component {
     listPolicy() {
         OrganisationModel.policy().then(res => {
             this.setState({
-                employee: res.data
+                policy: res.data
             })
         }).catch(e => {
             console.log(e)
@@ -68,7 +69,7 @@ class Policy extends Component {
                     <div className="flex-fill">
                         <div className="d-flex justify-content-between">
                             <h1>Policy</h1>
-                            <Button type="primary" onClick={this.showModel}>Add</Button>
+                            <Link to="/policy/create" className="ant-btn ant-btn-primary ant-btn-lg color-white">Add Policy</Link>
                         </div>
                         <Table dataSource={this.state.policy}>
                             <Column title="Policy ID" dataIndex="id" key="id" />
@@ -103,7 +104,6 @@ class Policy extends Component {
                     </div>
                 </div>
             </Fragment>
-
         );
     }
 }
