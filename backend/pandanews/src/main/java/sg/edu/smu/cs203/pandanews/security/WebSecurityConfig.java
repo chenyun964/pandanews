@@ -80,6 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // role-specific requests
                 .antMatchers(HttpMethod.GET, "/organisations/*/workgroups", "/organisations/*/workgroups/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/news/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/news/view/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/category/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/category/*").permitAll()
                 .antMatchers(HttpMethod.PUT, "/category/*").permitAll()

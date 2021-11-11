@@ -4,7 +4,7 @@ import CategoryModel from '../model/CategoryModel';
 import { Link } from "react-router-dom";
 import StatisticsModel from '../model/StatisticsModel';
 import moment from "moment";
-import { Input } from 'antd';
+import { Input, Result } from 'antd';
 
 const { Search } = Input;
 
@@ -12,7 +12,7 @@ class News extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            news: [],
+            news: null,
             category: [],
             top4News: [],
             covidSummary: {}
@@ -20,29 +20,18 @@ class News extends Component {
     }
 
     componentDidMount() {
+        if (this.props.match.params.slug) {
+            NewsModel.slug(this.props.match.params.slug).then(res => {
+                this.setState({
+                    news: res.data,
+                })
+            }).catch(e => {
+                console.log(e);
+            })
+        }
         this.listTop4();
-        this.listNews();
         this.listCategory();
         this.listSummary();
-    }
-
-    listNews() {
-        NewsModel.list().then(res => {
-            console.log(res.data);
-            this.setState({
-                news: res.data
-            })
-        }).catch(e => {
-            console.log(e);
-        })
-    }
-
-    getNews(){
-        NewsModel.getNews().then(res => {
-            console.log(res.data)
-        }).catch(e => {
-            console.log(e);
-        })
     }
 
     listCategory() {
@@ -85,27 +74,28 @@ class News extends Component {
             <div className="element-container">
                 <div className="container">
                     <div className="row">
-                        <div className="col-lg-8 col-12 order-lg-first order-last">
-                            {this.state.news.map((news, i) => {
-                                return (
-                                    <a key={i} href={news.source === "Manual" ? "/news/" + news.slug : news.content} target="_blank">
-                                        <div className="row mb-3 news-item">
-                                            <div className="col-md-4 col-12 news-image" style={{ "backgroundImage": "url(" + news.coverImage + ")" }}></div>
-                                            <div className="col-md-8 col-12 p-4">
-                                                <div className="news-cate">{news.category ? news.category.title : ""}</div>
-                                                <h5 className="news-title">{news.title.length < 105 ? news.title : news.title.slice(0, 100) + "..."}</h5>
-                                                <div className="news-info">{moment(news.date, "YYYY-MM-DD").format("MMM D, YY")} &#9679; {news.viewCount} Views</div>
-                                                <div className="news-descr">{news.description.length < 265 ? news.description : news.description.slice(0, 250) + "..."}</div>
-                                                <div className="news-read-btn" href={news.content} target="_blank">READ MORE <i className="fas fa-long-arrow-alt-right"></i></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                )
-
-                            })}
+                        <div className="col-lg-8 col-12 order-lg-first">
+                            {this.state.news ?
+                                <div className="row mb-3 news-item">
+                                    <div className="col-12 news-image" style={{ "backgroundImage": "url(" + this.state.news.coverImage + ")" }}></div>
+                                    <div className="col-md-8 col-12 p-4">
+                                        <div className="news-cate"><Link to={"/category/" + this.state.news.category.title} className="badge rounded-pill cate-badge">{this.state.news.category?.title}</Link></div>
+                                        <h1 className="news-title">{this.state.news.title}</h1>
+                                        <div className="news-info">{moment(this.state.news.date, "YYYY-MM-DD").format("MMM D, YY")} &#9679; {this.state.news.viewCount} Views</div>
+                                        <div className="news-descr">{this.state.news.description}</div>
+                                        <div className="news-content"><div dangerouslySetInnerHTML={{ __html: this.state.news.content }}></div></div>
+                                    </div>
+                                </div>
+                                :
+                                <Result
+                                    status="404"
+                                    title="404"
+                                    subTitle="News is not here :("
+                                />
+                            }
                         </div>
 
-                        <div className="col-lg-4 col-12 order-lg-last order-first">
+                        <div className="col-lg-4 col-12 order-lg-last">
                             <div className="section-container mb-4">
                                 <Search placeholder="Search for news..." onSearch={(value) => this.onSearch(value)} enterButton />
                             </div>
@@ -139,7 +129,30 @@ class News extends Component {
                                             )
                                         })
                                         :
-                                        <div> No Categories </div>
+                                        <div className="text-center"> No Categories </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div className="section-container mb-4">
+                                <h4>What's How</h4>
+                                <div className="d-flex flex-wrap">
+                                    {this.state.top4News.length > 0 ?
+                                        this.state.top4News.map((news, i) => {
+                                            return (
+                                                <a key={i} href={news.source === "Manual" ? "/news/" + news.slug : news.content} target="_blank">
+                                                    <div className="row mb-3 side-news-item">
+                                                        <div className="col-md-4 col-12 news-image" style={{ "backgroundImage": "url(" + news.coverImage + ")" }}></div>
+                                                        <div className="col-md-8 col-12 p-4">
+                                                            <h5 className="news-title">{news.title.length < 40 ? news.title : news.title.slice(0, 40) + "..."}</h5>
+                                                            <div className="news-info">{moment(news.date, "YYYY-MM-DD").format("MMM D, YY")} &#9679; {news.viewCount} Views</div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            )
+                                        })
+                                        :
+                                        <div className="text-center"> No News Now </div>
                                     }
                                 </div>
                             </div>
