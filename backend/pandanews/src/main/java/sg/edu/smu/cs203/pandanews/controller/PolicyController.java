@@ -80,6 +80,12 @@ public class PolicyController {
 
     }
 
+    /**
+     * Adds a new policy to the given organisation
+     * 
+     * @param oid, @param policy
+     * @return Policy
+     */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/organisation/{oid}/policies")
     public Policy addPolicy(@PathVariable Long oid, @RequestBody Policy policy) {
