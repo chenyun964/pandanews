@@ -38,7 +38,7 @@ public class UserController {
      * @return List<User>
      */
     @GetMapping("/users")
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         return userService.listUsers();
     }
 
@@ -47,7 +47,7 @@ public class UserController {
      * @return User
      */
     @GetMapping("/users/profile")
-    public User getUserProfile(){
+    public User getUserProfile() {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
         .getPrincipal();
         User user = userService.getUserByUsername(userDetails.getUsername());
@@ -61,7 +61,7 @@ public class UserController {
      * @return User
      */
     @PutMapping("/users/profile")
-    public User updateUser(@RequestBody User newUserInfo){
+    public User updateUser(@RequestBody User newUserInfo) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
         .getPrincipal();
         
@@ -80,7 +80,7 @@ public class UserController {
      * @param id
      */
     @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable Long id){
+    public void deleteUser(@PathVariable Long id) {
         try {
             userService.deleteUser(id);
         } catch(EmptyResultDataAccessException e) {
@@ -93,7 +93,7 @@ public class UserController {
      * @return Organisation
      */
     @GetMapping("/users/organisation")
-    public Organisation getUserOrganisation(){
+    public Organisation getUserOrganisation() {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
         .getPrincipal();
         
@@ -103,8 +103,13 @@ public class UserController {
         return user.getOrganisation();
     }
 
+    /**
+     * Adds a user to the organisation specified
+     * @param organisation
+     * @return User
+     */
     @PostMapping("/users/organisation")
-    public User addUserOrganisation(@RequestBody Organisation organisation){
+    public User addUserOrganisation(@RequestBody Organisation organisation) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
         .getPrincipal();
         
@@ -117,8 +122,13 @@ public class UserController {
         return userService.joinOrganisation(user, org);
     }
 
+    /**
+     * Remove a user with the id specified
+     * If there is no user with the given id, throw a BookNotFoundException
+     * @param id
+     */
     @GetMapping("/users/workgroup")
-    public WorkGroup getWorkGroup(){
+    public WorkGroup getWorkGroup() {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
         .getPrincipal();
         
