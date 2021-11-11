@@ -101,7 +101,7 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
     }
 
     private Date formatter(String date) {
-        SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
         Date d = null;
         try {
             d = dt.parse(date);
