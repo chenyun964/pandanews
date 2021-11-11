@@ -65,6 +65,7 @@ public class WorkGroupController {
      * Gets the work group with the specified id under the given organisation
      * Throws UnauthenticatedException, UnauthorizedUserException
      * 
+     * @param oid, @param id
      * @return WorkGroup
      */
     @GetMapping("/organisation/{oid}/workgroup/{id}")
