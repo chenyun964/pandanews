@@ -43,7 +43,6 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
 
 
     @Override
-//    public ResponseEntity<?> apiCall() {
     public List<News> apiCall() {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity entity = setHeader();
@@ -59,8 +58,7 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
         } catch (Exception exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
         }
-        List<News> newsList = extractNewsListFromDAO(newsListDAO);
-        newsRepo.saveAll(newsList);
+        ArrayList<News> newsList = extractNewsListFromDAO(newsListDAO);
         return newsList;
     }
 
@@ -71,11 +69,17 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
         return new HttpEntity(headers);
     }
 
-    private List<News> extractNewsListFromDAO(NewsListDAO newsListDAO) {
-        List<News> newsList = new ArrayList<>();
+    private ArrayList<News> extractNewsListFromDAO(NewsListDAO newsListDAO) {
+        ArrayList<News> newsList = new ArrayList<>();
+
         for (NewsDAO news : newsListDAO.getValue()) {
-            newsList.add(extractNewsFromDAO(news));
+            News n = extractNewsFromDAO(news);
+            if (n == null){
+                return null;
+            }
+            newsList.add(n);
         }
+        newsRepo.saveAll(newsList);
         return newsList;
     }
 

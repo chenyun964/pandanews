@@ -44,7 +44,6 @@ public class NewsController {
         return newsService.createNewsByAPI();
     }
 
-
     /**
      * update news information
      *
@@ -108,7 +107,6 @@ public class NewsController {
         }
         return n;
     }
-
 
     /**
      * find news with top viewing count within past 7 days

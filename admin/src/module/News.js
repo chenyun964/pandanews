@@ -67,11 +67,12 @@ class News extends Component {
                             <div class="card">
                                 <Table dataSource={this.state.news}>
                                     <Column
-                                        title="Pinned"
+                                        title="Pin"
+                                        dataIndex="pinned"
                                         key="pinned"
                                         render={pinned => {
                                             if (pinned) {
-                                                <span class="badge badge-pill badge-warning">Pedning</span>
+                                                return <span class="badge badge-pill badge-success">&#10003;</span>
                                             }
                                         }}
                                     />
@@ -84,6 +85,18 @@ class News extends Component {
                                                 backgroundImage: `url("${image}")`
                                             }}></div>
                                         )}
+                                    />
+                                    <Column
+                                        title="Category"
+                                        dataIndex="category"
+                                        key="category"
+                                        render={category => {
+                                            if (category) {
+                                                return <span class="badge badge-pill badge-primary">{category.title}</span>
+                                            }
+                                        }
+
+                                        }
                                     />
                                     <Column title="Title" dataIndex="title" key="title" />
                                     <Column title="Creation Date" dataIndex="createdAt" key="createdAt" />

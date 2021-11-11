@@ -130,7 +130,7 @@ class Organisation extends Component {
                                             {this.renderOrg()}
                                         </tbody>
                                     </table>
-                                    {(this.organisations == null || this.organisations.length == 0) &&
+                                    {(this.state.organisations == null || this.state.organisations.length == 0) &&
                                         <h2 className="text-center p-40">
                                             No Organisation Created
                                         </h2>
