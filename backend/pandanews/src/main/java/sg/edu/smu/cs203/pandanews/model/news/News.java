@@ -6,6 +6,7 @@ import org.hibernate.annotations.Type;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -34,11 +35,11 @@ public class News {
     private String coverImage;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date date;
+    private LocalDate date;
 
     private long viewCount = 0;
 
-    public News(String title, String description, String content, String coverImage, Date date) {
+    public News(String title, String description, String content, String coverImage, LocalDate date) {
         this.title = title;
         this.description = description;
         this.content = content;
@@ -126,11 +127,11 @@ public class News {
         this.coverImage = coverImage;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -154,7 +155,7 @@ public class News {
         this.pinned = pinned;
     }
 
-    public News(Long id, String title, String description, String content, String coverImage, Date date) {
+    public News(Long id, String title, String description, String content, String coverImage, LocalDate date) {
         this.id = id;
         this.title = title;
         this.description = description;

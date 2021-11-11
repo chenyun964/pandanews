@@ -2,15 +2,15 @@ package sg.edu.smu.cs203.pandanews.service.news;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sg.edu.smu.cs203.pandanews.dto.NewsDTO;
 import sg.edu.smu.cs203.pandanews.exception.NewsDuplicationException;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.repository.CategoryRepository;
 import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
-import sg.edu.smu.cs203.pandanews.dto.NewsDTO;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Date;
 
 @Service
 public class NewsServiceImpl implements NewsService {
@@ -34,7 +34,7 @@ public class NewsServiceImpl implements NewsService {
         news.setCoverImage(newsDTO.getCoverImage());
         news.setCategory(categoryRepo.findById(newsDTO.getCategory()).orElse(null));
         news.setPinned(newsDTO.getPinned());
-        news.setDate(new Date());
+        news.setDate(LocalDate.now());
         return newsRepo.findByTitle(news.getTitle()).size() == 0 ? newsRepo.save(news) : null;
     }
 

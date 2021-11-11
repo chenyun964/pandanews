@@ -11,8 +11,8 @@ import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.repository.CategoryRepository;
 import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -297,7 +297,7 @@ public class NewsServiceTests {
     private static News newsFormatter(String title) {
         News news = null;
         try {
-            news = new News(title, "123456", "1", "1", new Date());
+            news = new News(title, "123456", "1", "1", LocalDate.now());
         } catch (Exception e) {
             return null;
         }
