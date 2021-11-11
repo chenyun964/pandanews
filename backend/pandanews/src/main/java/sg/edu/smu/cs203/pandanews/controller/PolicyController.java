@@ -10,6 +10,7 @@ import sg.edu.smu.cs203.pandanews.service.policy.PolicyService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class PolicyController {
     @Autowired
     private PolicyService policyService;
