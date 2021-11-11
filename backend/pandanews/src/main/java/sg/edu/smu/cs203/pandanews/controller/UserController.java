@@ -84,7 +84,7 @@ public class UserController {
 
     /**
      * Removes a user with the id specified If there is no user with the given id,
-     * throw a BookNotFoundException
+     * throw a UserNotFoundException
      * 
      * @param id
      */
