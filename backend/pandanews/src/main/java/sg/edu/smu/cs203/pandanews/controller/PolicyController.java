@@ -28,78 +28,95 @@ public class PolicyController {
     private UserService userService;
     private UserRepository userRepo;
 
-    public PolicyController(PolicyService policyService){
+    public PolicyController(PolicyService policyService) {
         this.policyService = policyService;
     }
 
     @GetMapping("/organisation/{oid}/policies")
     public List<Policy> getPolicies(@PathVariable Long oid) throws UnauthenticatedException, UnauthorizedUserException {
-        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
 
         User user = userService.getUserByUsername(userDetails.getUsername());
-        if(user == null) throw new UnauthenticatedException();
+        if (user == null)
+            throw new UnauthenticatedException();
 
-        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if (!userRepo.findByOrganisationId(oid).contains(user))
+            throw new UnauthorizedUserException();
 
         return policyService.listPolicies(oid);
     }
 
     @GetMapping("/organisation/{oid}/policies/{id}")
-    public Policy getPolicy(@PathVariable Long oid, @PathVariable Long id){
-        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public Policy getPolicy(@PathVariable Long oid, @PathVariable Long id) {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
 
         User user = userService.getUserByUsername(userDetails.getUsername());
-        if(user == null) throw new UnauthenticatedException();
+        if (user == null)
+            throw new UnauthenticatedException();
 
-        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if (!userRepo.findByOrganisationId(oid).contains(user))
+            throw new UnauthorizedUserException();
 
         Policy policy = policyService.getPolicy(id);
 
-        if(policy == null) return null;
+        if (policy == null)
+            return null;
         return policyService.getPolicy(id);
 
     }
-    
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/organisation/{oid}/policies")
-    public Policy addPolicy(@PathVariable Long oid, @RequestBody Policy policy){
-        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public Policy addPolicy(@PathVariable Long oid, @RequestBody Policy policy) {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
 
         User user = userService.getUserByUsername(userDetails.getUsername());
-        if(user == null) throw new UnauthenticatedException();
+        if (user == null)
+            throw new UnauthenticatedException();
 
-        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if (!userRepo.findByOrganisationId(oid).contains(user))
+            throw new UnauthorizedUserException();
 
         return policyService.addPolicy(policy);
     }
 
     @PutMapping("/organisation/{oid}/policies/{id}")
-    public Policy updatePolicy(@PathVariable Long oid, @PathVariable Long id, @RequestBody Policy newPolicyInfo){
-        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public Policy updatePolicy(@PathVariable Long oid, @PathVariable Long id, @RequestBody Policy newPolicyInfo) {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
 
         User user = userService.getUserByUsername(userDetails.getUsername());
-        if(user == null) throw new UnauthenticatedException();
+        if (user == null)
+            throw new UnauthenticatedException();
 
-        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if (!userRepo.findByOrganisationId(oid).contains(user))
+            throw new UnauthorizedUserException();
 
         Policy policy = policyService.updatePolicy(id, newPolicyInfo);
-        if(policy == null) return null;
-        
+        if (policy == null)
+            return null;
+
         return policy;
     }
 
     @DeleteMapping("/organisation/{oid}/policies/{id}")
-    public void deletePolicy(@PathVariable Long oid, @PathVariable Long id){
-        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public void deletePolicy(@PathVariable Long oid, @PathVariable Long id) {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
 
         User user = userService.getUserByUsername(userDetails.getUsername());
-        if(user == null) throw new UnauthenticatedException();
+        if (user == null)
+            throw new UnauthenticatedException();
 
-        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if (!userRepo.findByOrganisationId(oid).contains(user))
+            throw new UnauthorizedUserException();
 
         try {
             policyService.deletePolicy(id);
-        } catch(EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             // throw new PolicyNotFoundException(id);
         }
     }
