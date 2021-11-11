@@ -27,15 +27,15 @@ public class UserController {
     private OrganisationService organisationService;
 
     @Autowired
-    public UserController(UserService us, OrganisationService orgs, WorkGroupService workGroupService){
-        this.userService = us;
-        this.organisationService = orgs;
+    public UserController(UserService userService, OrganisationService organisationService, WorkGroupService workGroupService){
+        this.userService = userService;
+        this.organisationService = organisationService;
         this.workGroupService = workGroupService;
     }
 
-    /**
-     * List all books in the system
-     * @return list of all books
+    /*
+     * List all users in the system
+     * @return List<User>
      */
     @GetMapping("/users")
     public List<User> getUsers(){
