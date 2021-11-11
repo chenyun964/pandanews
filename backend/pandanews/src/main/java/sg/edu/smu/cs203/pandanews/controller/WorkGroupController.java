@@ -42,6 +42,7 @@ public class WorkGroupController {
      * Lists all work groups under the given organisation
      * Throws UnauthenticatedException, UnauthorizedUserException
      * 
+     * @param oid
      * @return List<WorkGroup>
      */
     @GetMapping("/organisation/{oid}/workgroup")
@@ -110,11 +111,10 @@ public class WorkGroupController {
     }
 
     /**
-     * If there is no book with the given "id", throw a BookNotFoundException
+     * Updates a work group under the given organisation
+     * Throws UnauthenticatedException, UnauthorizedUserException
      * 
-     * @param id
-     * @param newWorkGroupInfo
-     * @return the updated, or newly added book
+     * @return WorkGroup
      */
     @PutMapping("/organisation/{oid}/workgroup/{id}")
     public WorkGroup updateWorkGroup(@PathVariable Long oid, @PathVariable Long id,
