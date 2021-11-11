@@ -16,7 +16,12 @@ import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 
 @Service
@@ -99,15 +104,17 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
     private String formatImage(String url) {
         return url.contains("&pid=News") ? url.substring(0, url.length() - 9) : url;
     }
-
-    private Date formatter(String date) {
+  
+    private LocalDate formatter(String date) {
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println(date);
         Date d = null;
         try {
             d = dt.parse(date);
         } catch (ParseException e) {
             return null;
         }
-        return d;
+        System.out.println(d);
+        return d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 }

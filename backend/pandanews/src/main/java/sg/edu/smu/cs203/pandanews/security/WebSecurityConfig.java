@@ -80,6 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // role-specific requests
                 .antMatchers(HttpMethod.GET, "/organisations/*/workgroups", "/organisations/*/workgroups/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/news/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/news/view/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/category/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/category/*").permitAll()
                 .antMatchers(HttpMethod.PUT, "/category/*").permitAll()
@@ -100,6 +101,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/**").authenticated()
 
                 .antMatchers("/category/**").permitAll()
+
+                .antMatchers(HttpMethod.GET, "/organisation/*/policy/*").hasAnyRole("USER","OWNER", "MANAGER")
+                .antMatchers(HttpMethod.POST, "/organisation/*/policy").hasAnyRole("OWNER", "MANAGER")
+                .antMatchers(HttpMethod.PUT, "/organisation/*/policy/*").hasAnyRole("OWNER", "MANAGER")
+                .antMatchers(HttpMethod.DELETE, "/organisation/*/policy/*").hasAnyRole("OWNER", "MANAGER")
 
                 .antMatchers(HttpMethod.GET, "/vaccispots/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/vaccispots/**").permitAll()

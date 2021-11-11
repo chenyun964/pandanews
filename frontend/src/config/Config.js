@@ -9,7 +9,8 @@ const news_list_api = API_HOSTS + '/news';
 const news_get_top_4_api = API_HOSTS + '/news/top4news';
 const category_news_api = API_HOSTS + '/news/category';
 const search_news_api = API_HOSTS + '/news/keyword';
-
+const news_slug_api = API_HOSTS + '/news/slug';
+const news_count_api = API_HOSTS + '/news/view';
 
 //Category
 const category_api = API_HOSTS + '/category';
@@ -96,5 +97,7 @@ export default{
     workgroup_api,
     workgroup_join_api,
     measurement_api,
-    statistics_api
+    statistics_api,
+    news_slug_api,
+    news_count_api
 }

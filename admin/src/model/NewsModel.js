@@ -1,5 +1,6 @@
 import config from '../config/Config';
 import axios from 'axios';
+import axiosJwt from '../lib/AxiosJwt';
 
 class NewsModel {
   async list() {
@@ -23,7 +24,7 @@ class NewsModel {
   } 
 
   async createByAPI() {
-    return axios.post(config['news_generate_bing_api']);
+    return axiosJwt.post(config['news_generate_bing_api']);
   }
 }
 
