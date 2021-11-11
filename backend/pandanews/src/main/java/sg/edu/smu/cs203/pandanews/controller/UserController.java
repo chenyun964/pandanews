@@ -33,7 +33,7 @@ public class UserController {
         this.workGroupService = workGroupService;
     }
 
-    /*
+    /**
      * List all users in the system
      * @return List<User>
      */
@@ -42,7 +42,7 @@ public class UserController {
         return userService.listUsers();
     }
 
-    /*
+    /**
      * Gets the current logged in user's profile
      * @return User
      */
@@ -75,17 +75,17 @@ public class UserController {
     }
 
     /**
-     * Remove a book with the DELETE request to "/books/{id}"
-     * If there is no book with the given "id", throw a BookNotFoundException
+     * Remove a user with the id specified
+     * If there is no user with the given id, throw a BookNotFoundException
      * @param id
      */
     @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable Long id){
-        try{
+        try {
             userService.deleteUser(id);
-         }catch(EmptyResultDataAccessException e) {
+        }catch(EmptyResultDataAccessException e) {
             // throw new BookNotFoundException(id);
-         }
+        }
     }
     
     @GetMapping("/users/organisation")
