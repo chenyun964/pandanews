@@ -72,11 +72,10 @@ public class OrganisationController {
     }
 
     /**
-     * If there is no book with the given "id", throw a BookNotFoundException
+     * Updates a specified organisation with new organisation details
      * 
-     * @param id
-     * @param newOrganisationInfo
-     * @return the updated, or newly added book
+     * @param id, @param newOrganisationInfo
+     * @return Organisation
      */
     @PutMapping("/organisation/{id}")
     public Organisation updateOrganisation(@PathVariable Long id, @RequestBody Organisation newOrganisationInfo) {
@@ -173,21 +172,22 @@ public class OrganisationController {
         return organisation.getPolicy();
     }
 
-//    @GetMapping("/organisation/workgroup")
-//    public List<WorkGroup> getOrganisationWorkGroups() {
-//        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-//                .getPrincipal();
-//
-//        User user = users.getUserByUsername(userDetails.getUsername());
-//        if (user == null)
-//            return null;
-//
-//        Organisation organisation = user.getOrganisation();
-//        if (organisation == null)
-//            return null;
-//
-//        return organisation.getWorkGroup();
-//    }
+    // @GetMapping("/organisation/workgroup")
+    // public List<WorkGroup> getOrganisationWorkGroups() {
+    // final UserDetails userDetails = (UserDetails)
+    // SecurityContextHolder.getContext().getAuthentication()
+    // .getPrincipal();
+    //
+    // User user = users.getUserByUsername(userDetails.getUsername());
+    // if (user == null)
+    // return null;
+    //
+    // Organisation organisation = user.getOrganisation();
+    // if (organisation == null)
+    // return null;
+    //
+    // return organisation.getWorkGroup();
+    // }
 
     @PutMapping("/organisation/promote/{id}")
     public Organisation promoteEmployee(@PathVariable Long id) {
