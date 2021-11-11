@@ -116,6 +116,7 @@ public class WorkGroupController {
      * Updates a work group under the given organisation
      * Throws UnauthenticatedException, UnauthorizedUserException
      * 
+     * @param oid, @param id, @param newWorkGroupInfo
      * @return WorkGroup
      */
     @PutMapping("/organisation/{oid}/workgroup/{id}")
