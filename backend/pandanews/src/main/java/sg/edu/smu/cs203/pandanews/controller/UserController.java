@@ -75,7 +75,7 @@ public class UserController {
     }
 
     /**
-     * Remove a user with the id specified
+     * Removes a user with the id specified
      * If there is no user with the given id, throw a BookNotFoundException
      * @param id
      */
@@ -83,11 +83,15 @@ public class UserController {
     public void deleteUser(@PathVariable Long id){
         try {
             userService.deleteUser(id);
-        }catch(EmptyResultDataAccessException e) {
+        } catch(EmptyResultDataAccessException e) {
             // throw new BookNotFoundException(id);
         }
     }
     
+    /**
+     * Retrieves the organisation of the current user
+     * @return Organisation
+     */
     @GetMapping("/users/organisation")
     public Organisation getUserOrganisation(){
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
