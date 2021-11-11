@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import sg.edu.smu.cs203.pandanews.exception.OrganisationNotFoundException;
 import sg.edu.smu.cs203.pandanews.service.organisation.OrganisationService;
 import sg.edu.smu.cs203.pandanews.service.user.UserService;
 import sg.edu.smu.cs203.pandanews.dto.OrganisationDTO;
@@ -114,7 +115,7 @@ public class OrganisationController {
      * @return void
      */
     @DeleteMapping("/organisation/{id}")
-    public void deleteOrganisation(@PathVariable Long id) {
+    public void deleteOrganisation(@PathVariable Long id) throws OrganisationNotFoundException {
         try {
             organisationService.deleteOrganisation(id);
         } catch (EmptyResultDataAccessException e) {
