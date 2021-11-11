@@ -161,6 +161,12 @@ public class OrganisationController {
         return organisationService.addEmployee(org.getCode(), employee);
     }
 
+    /**
+     * Removes the employee with the given id from the organisation
+     * 
+     * @param id
+     * @return User
+     */
     @DeleteMapping("/organisation/employee/{id}")
     public User removeOgranisationEmployee(@PathVariable Long id) {
 
@@ -170,11 +176,22 @@ public class OrganisationController {
         return userService.quitOrganisation(employee);
     }
 
+    /**
+     * Gets the organisation with the specified code
+     * 
+     * @param code
+     * @return Organisation
+     */
     @GetMapping("/organisation/{code}")
     public Organisation addOrganisationEmployee(@PathVariable String code) {
         return organisationService.getOrganisationByCode(code);
     }
 
+    /**
+     * Lists all the policies of the current logged in user's organisation
+     * 
+     * @return List<Policy>
+     */
     @GetMapping("/organisation/policy")
     public List<Policy> getOrganisationPolicies() {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
@@ -191,23 +208,12 @@ public class OrganisationController {
         return organisation.getPolicy();
     }
 
-    // @GetMapping("/organisation/workgroup")
-    // public List<WorkGroup> getOrganisationWorkGroups() {
-    // final UserDetails userDetails = (UserDetails)
-    // SecurityContextHolder.getContext().getAuthentication()
-    // .getPrincipal();
-    //
-    // User user = users.getUserByUsername(userDetails.getUsername());
-    // if (user == null)
-    // return null;
-    //
-    // Organisation organisation = user.getOrganisation();
-    // if (organisation == null)
-    // return null;
-    //
-    // return organisation.getWorkGroup();
-    // }
-
+    /**
+     * Promotes an employee with the given id
+     * 
+     * @param id
+     * @return Organisation
+     */
     @PutMapping("/organisation/promote/{id}")
     public Organisation promoteEmployee(@PathVariable Long id) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
