@@ -80,9 +80,6 @@ public class WorkGroupController {
             throw new UnauthorizedUserException();
 
         WorkGroup workGroup = workGroupService.getWorkGroup(id);
-
-        // Need to handle "book not found" error using proper HTTP status code
-        // In this case it should be HTTP 404
         if (workGroup == null)
             return null;
         return workGroupService.getWorkGroup(id);
