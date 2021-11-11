@@ -21,6 +21,7 @@ import sg.edu.smu.cs203.pandanews.service.TestUtils;
 
 import java.net.URI;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -274,7 +275,7 @@ public class NewsIntegrationTests {
         // arrange *** String title, String description, String content, String coverImage, Date date
         News news = null;
         try {
-            news = new News("updated", "123456", "1", "1", formatter.parse("2020-01-01"));
+            news = new News("updated", "123456", "1", "1", LocalDate.now());
         } catch (Exception e) {
             return null;
         }

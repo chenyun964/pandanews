@@ -16,7 +16,12 @@ import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 
 @Service
@@ -68,7 +73,6 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
 
     private List<News> extractNewsListFromDAO(NewsListDAO newsListDAO) {
         List<News> newsList = new ArrayList<>();
-
         for (NewsDAO news : newsListDAO.getValue()) {
             newsList.add(extractNewsFromDAO(news));
         }
@@ -97,7 +101,7 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
         return url.contains("&pid=News") ? url.substring(0, url.length() - 9) : url;
     }
 
-    private Date formatter(String date) {
+    private LocalDate formatter(String date) {
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd");
         Date d = null;
         try {
@@ -105,6 +109,6 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
         } catch (ParseException e) {
             return null;
         }
-        return d;
+        return d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 }
