@@ -104,7 +104,7 @@ public class UserController {
     }
 
     /**
-     * Adds a user to the organisation specified
+     * Adds the current logged in user to the organisation specified
      * @param organisation
      * @return User
      */
@@ -137,6 +137,11 @@ public class UserController {
         return user.getWorkGroup();
     }
 
+    /**
+     * Adds a user to the work group specified
+     * @param workGroup, @param user
+     * @return User
+     */
     @PostMapping("/users/workgroup")
     public User addUserWorkGroup(@RequestBody WorkGroup workGroup, @RequestBody User user){
         user = userService.getUserByUsername(user.getUsername());
