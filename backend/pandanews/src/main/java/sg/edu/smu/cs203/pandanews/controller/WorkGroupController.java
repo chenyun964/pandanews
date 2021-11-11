@@ -32,7 +32,7 @@ public class WorkGroupController {
     private UserRepository userRepo;
 
     @Autowired
-    public WorkGroupController(WorkGroupService workGroupService, UserService userService, UserRepository userRepo){
+    public WorkGroupController(WorkGroupService workGroupService, UserService userService, UserRepository userRepo) {
         this.workGroupService = workGroupService;
         this.userService = userService;
         this.userRepo = userRepo;
@@ -40,100 +40,127 @@ public class WorkGroupController {
 
     /**
      * List all books in the system
+     * 
      * @return list of all books
      */
     @GetMapping("/organisation/{oid}/workgroup")
-    public List<WorkGroup> getWorkGroups(@PathVariable Long oid) throws UnauthenticatedException, UnauthorizedUserException {
-        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public List<WorkGroup> getWorkGroups(@PathVariable Long oid)
+            throws UnauthenticatedException, UnauthorizedUserException {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
 
         User user = userService.getUserByUsername(userDetails.getUsername());
-        if(user == null) throw new UnauthenticatedException();
+        if (user == null)
+            throw new UnauthenticatedException();
 
-        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if (!userRepo.findByOrganisationId(oid).contains(user))
+            throw new UnauthorizedUserException();
 
         return workGroupService.listWorkGroups(oid);
     }
 
     /**
-     * Search for book with the given id
-     * If there is no book with the given "id", throw a BookNotFoundException
+     * Search for book with the given id If there is no book with the given "id",
+     * throw a BookNotFoundException
+     * 
      * @param id
      * @return book with the given id
      */
     @GetMapping("/organisation/{oid}/workgroup/{id}")
-    public WorkGroup getWorkGroup(@PathVariable Long oid, @PathVariable Long id) throws UnauthenticatedException, UnauthorizedUserException {
-        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public WorkGroup getWorkGroup(@PathVariable Long oid, @PathVariable Long id)
+            throws UnauthenticatedException, UnauthorizedUserException {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
 
         User user = userService.getUserByUsername(userDetails.getUsername());
-        if(user == null) throw new UnauthenticatedException();
+        if (user == null)
+            throw new UnauthenticatedException();
 
-        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if (!userRepo.findByOrganisationId(oid).contains(user))
+            throw new UnauthorizedUserException();
 
         WorkGroup workGroup = workGroupService.getWorkGroup(id);
 
         // Need to handle "book not found" error using proper HTTP status code
         // In this case it should be HTTP 404
-        if(workGroup == null) return null;
+        if (workGroup == null)
+            return null;
         return workGroupService.getWorkGroup(id);
 
     }
+
     /**
-     * Add a new book with POST request to "/books"
-     * Note the use of @RequestBody
+     * Add a new book with POST request to "/books" Note the use of @RequestBody
+     * 
      * @param workGroup
      * @return list of all books
      */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/organisation/{oid}/workgroup")
-    public WorkGroup addWorkGroup(@PathVariable Long oid, @RequestBody WorkGroup workGroup) throws UnauthenticatedException, UnauthorizedUserException {
-        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public WorkGroup addWorkGroup(@PathVariable Long oid, @RequestBody WorkGroup workGroup)
+            throws UnauthenticatedException, UnauthorizedUserException {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
 
         User user = userService.getUserByUsername(userDetails.getUsername());
-        if(user == null) throw new UnauthenticatedException();
+        if (user == null)
+            throw new UnauthenticatedException();
 
-        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if (!userRepo.findByOrganisationId(oid).contains(user))
+            throw new UnauthorizedUserException();
 
         return workGroupService.addWorkGroup(workGroup);
     }
 
     /**
      * If there is no book with the given "id", throw a BookNotFoundException
+     * 
      * @param id
      * @param newWorkGroupInfo
      * @return the updated, or newly added book
      */
     @PutMapping("/organisation/{oid}/workgroup/{id}")
-    public WorkGroup updateWorkGroup(@PathVariable Long oid, @PathVariable Long id, @RequestBody WorkGroup newWorkGroupInfo) throws UnauthenticatedException, UnauthorizedUserException {
-        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public WorkGroup updateWorkGroup(@PathVariable Long oid, @PathVariable Long id,
+            @RequestBody WorkGroup newWorkGroupInfo) throws UnauthenticatedException, UnauthorizedUserException {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
 
         User user = userService.getUserByUsername(userDetails.getUsername());
-        if(user == null) throw new UnauthenticatedException();
+        if (user == null)
+            throw new UnauthenticatedException();
 
-        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if (!userRepo.findByOrganisationId(oid).contains(user))
+            throw new UnauthorizedUserException();
 
         WorkGroup workGroup = workGroupService.updateWorkGroup(id, newWorkGroupInfo);
-        if(workGroup == null) return null;
-        
+        if (workGroup == null)
+            return null;
+
         return workGroup;
     }
 
     /**
-     * Remove a book with the DELETE request to "/books/{id}"
-     * If there is no book with the given "id", throw a BookNotFoundException
+     * Remove a book with the DELETE request to "/books/{id}" If there is no book
+     * with the given "id", throw a BookNotFoundException
+     * 
      * @param id
      */
     @DeleteMapping("/organisation/{oid}/workgroup/{id}")
-    public void deleteWorkGroup(@PathVariable Long oid, @PathVariable Long id) throws UnauthenticatedException, UnauthorizedUserException {
-        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public void deleteWorkGroup(@PathVariable Long oid, @PathVariable Long id)
+            throws UnauthenticatedException, UnauthorizedUserException {
+        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
 
         User user = userService.getUserByUsername(userDetails.getUsername());
-        if(user == null) throw new UnauthenticatedException();
+        if (user == null)
+            throw new UnauthenticatedException();
 
-        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if (!userRepo.findByOrganisationId(oid).contains(user))
+            throw new UnauthorizedUserException();
 
         try {
             workGroupService.deleteWorkGroup(id);
-        } catch(EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             throw new WorkGroupNotFoundException();
         }
     }
