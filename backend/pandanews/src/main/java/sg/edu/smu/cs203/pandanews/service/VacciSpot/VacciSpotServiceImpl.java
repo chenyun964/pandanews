@@ -11,50 +11,50 @@ import sg.edu.smu.cs203.pandanews.repository.VacciSpotRepository;
 @Service
 public class VacciSpotServiceImpl implements VacciSpotService {
 
-    private VacciSpotRepository vacciSpots;
+    private VacciSpotRepository vacciSpotRepo;
 
-    public VacciSpotServiceImpl (VacciSpotRepository vacciSpots) {
-        this.vacciSpots = vacciSpots;
+    public VacciSpotServiceImpl (VacciSpotRepository vacciSpotRepo) {
+        this.vacciSpotRepo = vacciSpotRepo;
     }
 
     @Override
     public VacciSpot getById(Long id) {
-        return vacciSpots.findById(id).map(spot -> spot).orElse(null);
+        return vacciSpotRepo.findById(id).map(spot -> spot).orElse(null);
     }
 
     @Override
     public VacciSpot getByName(String name) {
-        return vacciSpots.findByName(name).map(spot -> spot).orElse(null);
+        return vacciSpotRepo.findByName(name).map(spot -> spot).orElse(null);
     }
 
     @Override
     public List<VacciSpot> listAll() {
-        return vacciSpots.findAll();
+        return vacciSpotRepo.findAll();
     }
 
     @Override
     public List<VacciSpot> listByRegion(String region) {
-        return vacciSpots.findByRegion(region);
+        return vacciSpotRepo.findByRegion(region);
     }
 
     @Override
     public List<VacciSpot> listByType(String type) {
-        return vacciSpots.findByType(type);
+        return vacciSpotRepo.findByType(type);
     }
 
     @Override
     public List<VacciSpot> listByVacciType(String vacciType) {
-        return vacciSpots.findByVacciType(vacciType);
+        return vacciSpotRepo.findByVacciType(vacciType);
     }
 
     @Override
     public VacciSpot add(VacciSpot newSpot) {
-        return vacciSpots.save(newSpot);
+        return vacciSpotRepo.save(newSpot);
     }
 
     @Override
     public VacciSpot update(Long id, VacciSpot newSpot) {
-        return vacciSpots.findById(id).map(spot -> {
+        return vacciSpotRepo.findById(id).map(spot -> {
             spot.setName(newSpot.getName());
             spot.setAddress(newSpot.getAddress());
             spot.setLatitude(newSpot.getLatitude());
@@ -62,14 +62,15 @@ public class VacciSpotServiceImpl implements VacciSpotService {
             spot.setRegion(newSpot.getRegion());
             spot.setType(newSpot.getType());
             spot.setVacciType(newSpot.getVacciType());
-            return vacciSpots.save(spot);
+            spot.setAdmin(newSpot.getAdmin());
+            return vacciSpotRepo.save(spot);
         }).orElse(null);
     }
 
     @Override
     public VacciSpot deleteById(Long id) {
-        return vacciSpots.findById(id).map(spot -> {
-            vacciSpots.delete(spot);
+        return vacciSpotRepo.findById(id).map(spot -> {
+            vacciSpotRepo.delete(spot);
             return spot;
         }).orElse(null);
     }

@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
@@ -14,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.Column;
 
 import lombok.*;
+import sg.edu.smu.cs203.pandanews.model.user.User;
 
 @Entity
 @Getter
@@ -44,6 +47,11 @@ public class TestSpot {
 
     @Setter
     private String contact;
+
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "last_updated_by")
+    private User admin;
 
     @Column(name = "created_at", updatable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:MM:ss", timezone = "GMT+8")

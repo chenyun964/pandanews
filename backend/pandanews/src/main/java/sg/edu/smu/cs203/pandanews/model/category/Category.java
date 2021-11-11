@@ -2,12 +2,10 @@ package sg.edu.smu.cs203.pandanews.model.category;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import sg.edu.smu.cs203.pandanews.model.news.News;
-import sg.edu.smu.cs203.pandanews.model.news.NewsListDAO;
 
 import javax.persistence.*;
 import java.util.Date;

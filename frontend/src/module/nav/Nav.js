@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { NavLink } from "react-router-dom";
 import CategoryModel from '../../model/CategoryModel';
 
 class Nav extends Component {
@@ -12,7 +11,6 @@ class Nav extends Component {
 
   componentDidMount() {
     CategoryModel.list().then(res => {
-      console.log(res.data);
       this.setState({
         category: res.data
       })
@@ -42,10 +40,10 @@ class Nav extends Component {
                 <a className="nav-link" href="/covid19">COVID-19</a>
               </li>
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Categories
-                </a>
-                <ul className="dropdown-menu cate-dropdown" aria-labelledby="navbarDropdown">
+                </button>
+                <ul className="dropdown-menu dropdown-menu-right cate-dropdown" aria-labelledby="navbarDropdown">
                   {this.state.category.map((category, i) => {
                     return (
                       <li><a className="dropdown-item" href={"/category/" + category.title}>{category.title}</a></li>
@@ -55,22 +53,13 @@ class Nav extends Component {
                 </ul>
               </li>
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Map
-                </a>
-                <ul className="dropdown-menu cate-dropdown" aria-labelledby="navbarDropdown">
+                </button>
+                <ul className="dropdown-menu cate-dropdown dropdown-menu-right" aria-labelledby="navbarDropdown">
                   <li><a className="dropdown-item" href={"/vaccispots"}>Vaccination Spots</a></li>
                   <li><a className="dropdown-item" href={"/testspots"}>Swab Test Spots</a></li>
                 </ul>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/support">Support</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/search"><i className="fas fa-search"></i></a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/notficiation"><i className="far fa-bell"></i></a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/login"><i className="far fa-user"></i></a>

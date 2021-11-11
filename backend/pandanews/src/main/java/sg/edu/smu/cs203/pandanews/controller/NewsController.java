@@ -1,80 +1,146 @@
 package sg.edu.smu.cs203.pandanews.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sg.edu.smu.cs203.pandanews.exception.news.NewsDuplicationException;
-import sg.edu.smu.cs203.pandanews.exception.news.NewsNotFoundException;
+import sg.edu.smu.cs203.pandanews.dto.NewsDTO;
+import sg.edu.smu.cs203.pandanews.exception.NewsDuplicationException;
+import sg.edu.smu.cs203.pandanews.exception.NewsNotFoundException;
 import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.service.news.NewsServiceImpl;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class NewsController {
 
     @Autowired
     private NewsServiceImpl newsService;
 
-    @PostMapping(path = "/news/create")
-    public ResponseEntity<?> createNewsByManual(@RequestBody News news) {
-        News n = newsService.createNewsByManual(news);
+    /**
+     * Create news by manual input
+     *
+     * @param newsDTO with news and category id
+     * @return
+     */
+    @PostMapping(path = "/news")
+    public News createNewsByManual(@RequestBody NewsDTO newsDTO) {
+        News n = newsService.createNewsByManual(newsDTO);
         if (n == null) {
             throw new NewsDuplicationException("News Duplicated");
         }
-        return ResponseEntity.ok(n);
+        return n;
     }
 
+    /**
+     * Create news by external api
+     *
+     * @return all news created by api
+     */
     @PostMapping(path = "/news/api")
-    public ResponseEntity<?> createNewsByAPI() {
-        return ResponseEntity.ok(newsService.createNewsByAPI());
+    public List<News> createNewsByAPI() {
+        return newsService.createNewsByAPI();
     }
 
-    @PostMapping(path = "/news/update/{id}")
-    public ResponseEntity<?> updateNews(@PathVariable int id, @RequestBody News newNews) {
+    /**
+     * update news information
+     *
+     * @param id
+     * @param newNews
+     * @return update news
+     */
+    @PostMapping(path = "/news/{id}")
+    public News updateNews(@PathVariable int id, @RequestBody NewsDTO newNews) {
         News news = newsService.updateNews(id, newNews);
         if (news == null) {
             throw new NewsNotFoundException("News Not Found");
         }
-        return ResponseEntity.ok(news);
+        return news;
     }
 
-    @GetMapping(path = "/news/list")
-    public ResponseEntity<?> listNews() {
-        return ResponseEntity.ok(newsService.findAllNews());
+    @PostMapping(path = "/news/view/{slug}")
+    public News updateViewCount(@PathVariable String slug) {
+        News news = newsService.increaseViewCount(slug);
+        if (news == null) {
+            throw new NewsNotFoundException("News Not Found");
+        }
+        return news;
     }
 
-    @GetMapping(path = "/news/find/keyword/{keyword}")
-    public ResponseEntity<?> findNewsByKeyword(@PathVariable String keyword) {
+    /**
+     * list all news
+     *
+     * @return news list
+     */
+    @GetMapping(path = "/news")
+    public List<News> listNews() {
+        return newsService.findAllNews();
+    }
+
+    /**
+     * find all news by given keywords
+     *
+     * @param keyword
+     * @return news with current keyword included
+     */
+    @GetMapping(path = "/news/keyword/{keyword}")
+    public List<News> findNewsByKeyword(@PathVariable String keyword) {
         List<News> list = newsService.findNewsByKeywords(keyword);
-        if (list.size() == 0) throw new NewsNotFoundException("News Not Found");
-        return ResponseEntity.ok(list);
+        if (list.size() == 0)
+            throw new NewsNotFoundException("News Not Found");
+        return list;
     }
 
-    @GetMapping(path = "/news/find/id/{id}")
-    public ResponseEntity<?> findNewsById(@PathVariable int id) {
+    /**
+     * find news by a id
+     *
+     * @param id
+     * @return news with particular id
+     */
+    @GetMapping(path = "/news/{id}")
+    public News findNewsById(@PathVariable int id) {
         News n = newsService.findNewsById(id);
         if (n == null) {
             throw new NewsNotFoundException("News Not Found");
         }
-        return ResponseEntity.ok(n);
+        return n;
     }
 
-
-    @GetMapping(path = "/news/find/top4news")
+    /**
+     * find news with top viewing count within past 7 days
+     *
+     * @return list of news with top viewing count within past 7 days
+     */
+    @GetMapping(path = "/news/top4news")
     public ResponseEntity<?> findTop4NewsPast7Days() {
         return ResponseEntity.ok(newsService.findTop4NewsPast7Days());
     }
 
-    @GetMapping(path = "/news/find/category/{category}")
-    public ResponseEntity<?> findNewsByCategory(@PathVariable String category) {
-        return ResponseEntity.ok(newsService.findNewsByCategory(category));
+    /**
+     * find all news by given category
+     *
+     * @param category
+     * @return news under particular category
+     */
+    @GetMapping(path = "/news/category/{category}")
+    public List<News> findNewsByCategory(@PathVariable String category) {
+        List<News> newsList = newsService.findNewsByCategory(category);
+        if (newsList == null) {
+            throw new NewsNotFoundException("News not found");
+        }
+        return newsList;
     }
 
-    @DeleteMapping(path = "/news/delete/{id}")
-    public ResponseEntity<?> deleteNews(@PathVariable long id) {
+    /**
+     * delete particular news
+     *
+     * @param id
+     * @return null
+     */
+    @DeleteMapping(path = "/news/{id}")
+    public void deleteNews(@PathVariable long id) {
         newsService.deleteNews(id);
-        return ResponseEntity.ok(null);
     }
 }

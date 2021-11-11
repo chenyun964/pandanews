@@ -2,9 +2,8 @@ package sg.edu.smu.cs203.pandanews.model.attendance;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import org.hibernate.annotations.Type;
 import sg.edu.smu.cs203.pandanews.model.user.User;
 
@@ -14,37 +13,38 @@ import java.time.LocalTime;
 import java.util.Date;
 
 @EqualsAndHashCode
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@ToString
 @Entity
 public class Attendance {
-    public Attendance(LocalDate aDate, LocalTime time, boolean isInOffice,boolean isPunchedIn, User user) {
-        this.aDate = aDate;
-        this.aTime = time;
-        this.isInOffice = isInOffice;
-        this.user = user;
-        this.isPunchedIn = isPunchedIn;
-    }
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    private LocalDate aDate;
+    @Setter
+    private LocalDate punchInDate;
 
-    private LocalTime aTime;
+    @Setter
+    private LocalTime punchInTime;
+
+    @Setter
+    private LocalDate punchOutDate;
+
+    @Setter
+    private LocalTime punchOutTime;
 
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean isInOffice;
 
+    @Setter
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private boolean isPunchedIn;
+    private boolean isPunchedOut;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnore
+    @Setter
     private User user;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:MM:ss", timezone = "GMT+8")
@@ -68,14 +68,6 @@ public class Attendance {
         Date temp = new Date();
         Object param = new java.sql.Timestamp(temp.getTime());
         updatedAt = (Date) param;
-    }
-
-    public void setADate(LocalDate aDate) {
-        this.aDate = aDate;
-    }
-
-    public void setATime(LocalTime aTime) {
-        this.aTime = aTime;
     }
 
     public void setOnline(boolean online) {

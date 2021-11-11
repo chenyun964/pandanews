@@ -7,89 +7,100 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import sg.edu.smu.cs203.pandanews.model.Organisation;
+import sg.edu.smu.cs203.pandanews.model.WorkGroup;
 import sg.edu.smu.cs203.pandanews.model.user.User;
 import sg.edu.smu.cs203.pandanews.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository users;
+    private UserRepository userRepo;
+
+    private PasswordEncoder bcryptEncoder;
 
     @Autowired
-	private PasswordEncoder bcryptEncoder;
-
-    public UserServiceImpl (UserRepository users) {
-        this.users = users;
+    public UserServiceImpl(UserRepository userRepo, PasswordEncoder bcryptEncoder) {
+        this.userRepo = userRepo;
+        this.bcryptEncoder = bcryptEncoder;
     }
 
     @Override
     public User getUser(Long id) {
-        return users.findById(id).orElse(null);
+        return userRepo.findById(id).orElse(null);
     }
 
     @Override
-    public List<User> listUsers(){
-        return users.findAll();
+    public List<User> listUsers() {
+        return userRepo.findAll();
     }
 
-    @Override
-    public User addUser(User user){
-        User newUser = new User();
-        newUser.setEmail(user.getEmail());
-		newUser.setUsername(user.getUsername());
-		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-        return users.save(newUser);
-    }
 
     @Override
-    public User updateUser(Long id, User newUser){
-        return users.findById(id).map(user -> {
+    public User updateUser(Long id, User newUser) {
+        return userRepo.findById(id).map(user -> {
             user.setName(newUser.getName());
             user.setContact(newUser.getContact());
-            return users.save(user);
+            return userRepo.save(user);
         }).orElse(null);
     }
 
     @Override
-    public void deleteUser(Long id){
-        users.deleteById(id);
+    public void deleteUser(Long id) {
+        userRepo.deleteById(id);
     }
 
     @Override
-    public User getUserByUsername(String username){
-        return users.findByUsername(username).orElse(null);
+    public User getUserByUsername(String username) {
+        return userRepo.findByUsername(username).orElse(null);
     }
 
-    public User updateUserCompany(Long id, Organisation organisation){
-        return users.findById(id).map(user -> {
+    public User updateUserCompany(Long id, Organisation organisation) {
+        return userRepo.findById(id).map(user -> {
             user.setOrganisation(organisation);
-            return users.save(user);
+            return userRepo.save(user);
         }).orElse(null);
     }
 
     @Override
-    public User updateUserRole(User user, String role){
+    public User updateUserRole(User user, String role) {
         user.setAuthorities(role);
-        return users.save(user);
+        return userRepo.save(user);
     }
 
+
+    //repeated
     @Override
-    public User joinOrganisation(User user, Organisation organisation){
+    public User joinOrganisation(User user, Organisation organisation) {
         user.setOrganisation(organisation);
-        users.save(user);
+        userRepo.save(user);
+        return user;
+    }
+
+
+    @Override
+    public User quitOrganisation(User user) {
+        user.setOrganisation(null);
+        return userRepo.save(user);
+    }
+
+
+    public User joinWorkGroup(User user, WorkGroup workGroup) {
+        user.setWorkGroup(workGroup);
+        userRepo.save(user);
         return user;
     }
 
     @Override
-    public void quitOrganisation(User user){
-        user.setOrganisation(null);
-        users.save(user);
+    public User quitWorkGroup(User user) {
+        //return the user who get quited the workgroup
+        user.setWorkGroup(null);
+        return userRepo.save(user);
     }
 
     @Override
-    public User updateVaccine(User user){
+    public User updateVaccine(User user) {
         user.setVaccinated(true);
-        users.save(user);
+        userRepo.save(user);
         return user;
     }
 }

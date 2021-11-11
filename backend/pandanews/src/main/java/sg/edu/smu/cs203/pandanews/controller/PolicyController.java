@@ -26,32 +26,32 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class PolicyController {
     private PolicyService policyService;
     private UserService userService;
-    private UserRepository users;
+    private UserRepository userRepo;
 
     public PolicyController(PolicyService policyService){
         this.policyService = policyService;
     }
 
-    @GetMapping("/organisations/{oid}/policies")
+    @GetMapping("/organisation/{oid}/policies")
     public List<Policy> getPolicies(@PathVariable Long oid) throws UnauthenticatedException, UnauthorizedUserException {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) throw new UnauthenticatedException();
 
-        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
 
         return policyService.listPolicies(oid);
     }
 
-    @GetMapping("/organisations/{oid}/policies/{id}")
+    @GetMapping("/organisation/{oid}/policies/{id}")
     public Policy getPolicy(@PathVariable Long oid, @PathVariable Long id){
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) throw new UnauthenticatedException();
 
-        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
 
         Policy policy = policyService.getPolicy(id);
 
@@ -61,26 +61,26 @@ public class PolicyController {
     }
     
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/organisations/{oid}/policies")
+    @PostMapping("/organisation/{oid}/policies")
     public Policy addPolicy(@PathVariable Long oid, @RequestBody Policy policy){
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) throw new UnauthenticatedException();
 
-        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
 
         return policyService.addPolicy(policy);
     }
 
-    @PutMapping("/organisations/{oid}/policies/{id}")
+    @PutMapping("/organisation/{oid}/policies/{id}")
     public Policy updatePolicy(@PathVariable Long oid, @PathVariable Long id, @RequestBody Policy newPolicyInfo){
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) throw new UnauthenticatedException();
 
-        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
 
         Policy policy = policyService.updatePolicy(id, newPolicyInfo);
         if(policy == null) return null;
@@ -88,14 +88,14 @@ public class PolicyController {
         return policy;
     }
 
-    @DeleteMapping("/organisations/{oid}/policies/{id}")
+    @DeleteMapping("/organisation/{oid}/policies/{id}")
     public void deletePolicy(@PathVariable Long oid, @PathVariable Long id){
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) throw new UnauthenticatedException();
 
-        if(!users.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
+        if(!userRepo.findByOrganisationId(oid).contains(user)) throw new UnauthorizedUserException();
 
         try {
             policyService.deletePolicy(id);

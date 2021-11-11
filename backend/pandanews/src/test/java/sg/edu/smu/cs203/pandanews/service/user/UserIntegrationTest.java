@@ -11,6 +11,8 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import sg.edu.smu.cs203.pandanews.controller.JwtAuthenticationController;
 import sg.edu.smu.cs203.pandanews.dto.UserDTO;
 import sg.edu.smu.cs203.pandanews.model.user.JwtRequest;
@@ -24,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 public class UserIntegrationTest {
 
     @LocalServerPort
@@ -109,7 +112,8 @@ public class UserIntegrationTest {
 //    }
 
 
+
     private User generateTestUser() {
-        return new User("name", "abc@gmail.com", "abc", "name", "12345678", false);
+        return new User("name", "abc@gmail.com", "abc");
     }
 }

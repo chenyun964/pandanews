@@ -5,12 +5,9 @@ import { Carousel, Input } from 'antd';
 import { Link } from "react-router-dom";
 import moment from 'moment';
 
-
-
 const { Search } = Input;
 class SearchNews extends Component {
     
-
     constructor(props) {
         super(props);
         this.state = {
@@ -29,9 +26,7 @@ class SearchNews extends Component {
             console.log(e);
         })
 
-       //NewsModel.list().then(res => {
-        NewsModel.search_news(this.state.slug).then(res => {
-            console.log("abc" + this.state.slug);
+        NewsModel.searchNews(this.state.slug).then(res => {
             this.setState({
                 news: res.data
             })
@@ -67,7 +62,7 @@ class SearchNews extends Component {
                                             <div class="row mb-3 news-item">
                                                 <div className="col-md-4 col-12 news-image" style={{ "backgroundImage": "url(" + news.coverImage + ")" }}></div>
                                                 <div className="col-md-8 col-12 p-4">
-                                                    <div className="news-cate">{news.category}</div>
+                                                    <div className="news-cate">{news.category ? news.category.title : ""}</div>
                                                     <h5 className="news-title">{news.title.length < 105 ? news.title : news.title.slice(0, 100) + "..."}</h5>
                                                     <div className="news-info">{moment(news.date, "YYYY-MM-DD").format("MMM D, YY")} &#9679; {news.viewCount} Views</div>
                                                     <div className="news-descr">{news.description.length < 265 ? news.description : news.description.slice(0, 250) + "..."}</div>

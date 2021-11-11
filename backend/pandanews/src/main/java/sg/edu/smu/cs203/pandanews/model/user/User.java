@@ -1,32 +1,21 @@
 package sg.edu.smu.cs203.pandanews.model.user;
 
-import java.util.List;
-import java.util.Date;
-import java.util.Arrays;
-import java.util.Collection;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.validation.constraints.NotNull;
-import javax.persistence.Column;
-import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import lombok.*;
-import sg.edu.smu.cs203.pandanews.model.attendance.Attendance;
 import sg.edu.smu.cs203.pandanews.model.Organisation;
+import sg.edu.smu.cs203.pandanews.model.VacciSpot;
 import sg.edu.smu.cs203.pandanews.model.WorkGroup;
+import sg.edu.smu.cs203.pandanews.model.attendance.Attendance;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -40,6 +29,7 @@ public class User implements UserDetails {
     private Long id;
 
     @Setter
+    @Column(unique = true)
     private String username;
 
     @Setter
@@ -69,6 +59,16 @@ public class User implements UserDetails {
     private List<Organisation> organisations;
 
     @Setter
+    @OneToMany(mappedBy = "admin")
+    @JsonIgnore
+    private List<VacciSpot> vacciSpots;
+
+    @Setter
+    @OneToMany(mappedBy = "admin")
+    @JsonIgnore
+    private List<VacciSpot> testSpots;
+
+    @Setter
     @ManyToOne
     @JoinColumn(name = "organisation_id")
     @JsonIgnore
@@ -77,7 +77,7 @@ public class User implements UserDetails {
     @Setter
     @ManyToOne
     @JoinColumn(name = "workgroup_id")
-    private WorkGroup workgroup;
+    private WorkGroup workGroup;
 
     @Column(name = "created_at", updatable = false)
     private Date createdAt;
@@ -99,13 +99,10 @@ public class User implements UserDetails {
         this.authorities = role;
     }
 
-    public User(String username, String email, String password, String name, String contact, Boolean vaccinated) {
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.name = name;
-        this.contact = contact;
-        this.vaccinated = vaccinated;
     }
 
     @PrePersist

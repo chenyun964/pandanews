@@ -16,12 +16,24 @@ class TestSpotTabs extends Component {
                     <div className="flex-fill">
                         <Tabs defaultActiveKey="1" size="large">
                             <TabPane tab="PCR" key="1">
-                                <TestSpotList type="PCR" />
-                                <TestSpotMap type="PCR" />
+                                <div className="row">
+                                    <div className="col-12 col-lg-6">
+                                        <TestSpotList type="PCR" />
+                                    </div>
+                                    <div className="col-12 col-lg-6">
+                                        <TestSpotMap type="PCR" />
+                                    </div>
+                                </div>
                             </TabPane>
                             <TabPane tab="ART" key="2">
-                                <TestSpotList type="ART" />
-                                <TestSpotMap type="ART" />
+                                <div className="row">
+                                    <div className="col-12 col-lg-6">
+                                        <TestSpotList type="ART" />
+                                    </div>
+                                    <div className="col-12 col-lg-6">
+                                        <TestSpotMap type="ART" />
+                                    </div>
+                                </div>
                             </TabPane>
                         </Tabs>
                     </div>

@@ -3,14 +3,12 @@ package sg.edu.smu.cs203.pandanews.util;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
-
 import sg.edu.smu.cs203.pandanews.model.geoCode.GeoCodeListDAO;
 
 @Component
@@ -20,6 +18,12 @@ public class GeoCodeUtil {
     @Value("${positionstack.endpoint}")
     private String endpoint;
 
+    /**
+     * Get latitude and longitude of the given address on {@link positionstack.com}.
+     * 
+     * @param address
+     * @return latitude and longitude
+     */
     public Double[] getLatLng(String address) {
         RestTemplate restTemplate = new RestTemplate();
         GeoCodeListDAO geoCodeListDAO = new GeoCodeListDAO();
@@ -35,7 +39,6 @@ public class GeoCodeUtil {
                 GeoCodeListDAO.class
             );
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
 

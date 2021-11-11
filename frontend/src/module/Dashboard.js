@@ -1,7 +1,9 @@
 import { Component, Fragment } from 'react';
 import OrganisationModel from '../model/OrganisationModel';
 import UserModel from '../model/UserModel';
-import { Modal, Button, Typography, Result } from 'antd';
+import { Modal, Button, Typography, Result, Popconfirm } from 'antd';
+import AttendanceModel from '../model/AttendanceModel';
+import moment from "moment";
 
 const { Text } = Typography;
 
@@ -13,6 +15,7 @@ class Dashboard extends Component {
             fields: {},
             errors: {},
             company: {},
+            attendance: {},
             loading: false,
             loginFailed: false
         }
@@ -31,6 +34,32 @@ class Dashboard extends Component {
             this.setState({
                 profile: res.data
             })
+        }).catch(e => {
+            console.log(e)
+        })
+
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        AttendanceModel.getAttendanceByDate(today).then(res => {
+            console.log(res.data);
+            this.setState({
+                attendance: res.data
+            });
+        }).catch(e => {
+            console.log(e)
+        })
+    }
+
+    punchInOrOut() {
+        AttendanceModel.markAttendance().then(res => {
+            console.log(res.data);
+            this.setState({
+                attendance: res.data
+            });
         }).catch(e => {
             console.log(e)
         })
@@ -235,7 +264,7 @@ class Dashboard extends Component {
         })
     }
 
-    updateVaccinated(){
+    updateVaccinated() {
         UserModel.vaccinated().then(res => {
             this.setState({
                 profile: res.data
@@ -247,13 +276,6 @@ class Dashboard extends Component {
 
     renderDashboard() {
         return <Fragment>
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Ogranisation Name: {this.state.company.title}</h5>
-                    <p class="card-text">Contact Number: {this.state.company.contact}</p>
-                    <Button danger onClick={() => this.info()}>Delete</Button>
-                </div>
-            </div>
             <div className="d-flex card-container">
                 <div class="card mb-3 flex-fill">
                     <div class="card-body d-flex flex-column">
@@ -282,7 +304,7 @@ class Dashboard extends Component {
                 </div>
                 <div class="card mb-3 flex-fill">
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Timesheet <span>11 Oct 2021</span></h5>
+                        <h5 class="card-title">Timesheet <span>{moment().format("DD MMM YYYY")}</span></h5>
                         <div>
                             <p>Punch in at</p>
                             <p>Wed, 11th Oct 2021 10.00 AM</p>
@@ -299,18 +321,16 @@ class Dashboard extends Component {
                             </div>
                         </div>
 
-                        <button className="btn btn-primary mt-3">Punch Out</button>
-                        <hr />
-                        <div className="d-flex">
-                            <div className="flex-fill text-center">
-                                <p>BREAK</p>
-                                <p>1.21 hrs</p>
-                            </div>
-                            <div className="flex-fill text-center">
-                                <p>Overtime</p>
-                                <p>3 hrs</p>
-                            </div>
-                        </div>
+                        {(!this.state.attendance) ?
+                            <button className="btn btn-primary mt-3" onClick={() => this.punchInOrOut()}>Punch In</button> :
+                            <button
+                                disabled={this.state.attendance.punchedOut}
+                                className="btn btn-primary mt-3"
+                            >
+                                <Popconfirm title="Sure to punch out?" onConfirm={() => this.punchInOrOut()}>
+                                    Punch Out
+                                </Popconfirm>
+                            </button>}
                     </div>
                 </div>
             </div>

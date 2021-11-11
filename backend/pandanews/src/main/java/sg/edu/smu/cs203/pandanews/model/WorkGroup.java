@@ -43,7 +43,7 @@ public class WorkGroup {
     @ElementCollection
     private List<Date> datesInOffice;
 
-    @OneToMany(mappedBy = "workgroup", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "workGroup", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<User> users;
 
@@ -70,5 +70,14 @@ public class WorkGroup {
         Date temp = new Date();
         Object param = new java.sql.Timestamp(temp.getTime());
         updatedAt = (Date) param;
+    }
+
+    public WorkGroup(String name) {
+        this.workGroupName = name;
+    }
+
+    public WorkGroup(String name, Organisation organisation) {
+        this.workGroupName = name;
+        this.organisation = organisation;
     }
 }
