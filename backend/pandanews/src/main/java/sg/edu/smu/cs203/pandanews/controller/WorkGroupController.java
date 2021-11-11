@@ -87,10 +87,10 @@ public class WorkGroupController {
     }
 
     /**
-     * Add a new book with POST request to "/books" Note the use of @RequestBody
+     * Adds a work group under the given organisation
+     * Throws UnauthenticatedException, UnauthorizedUserException
      * 
-     * @param workGroup
-     * @return list of all books
+     * @return WorkGroup
      */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/organisation/{oid}/workgroup")
