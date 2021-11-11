@@ -16,6 +16,7 @@ import sg.edu.smu.cs203.pandanews.service.organisation.OrganisationService;
 import sg.edu.smu.cs203.pandanews.service.workgroup.WorkGroupService;
 import sg.edu.smu.cs203.pandanews.service.user.UserService;
 import sg.edu.smu.cs203.pandanews.model.user.User;
+import sg.edu.smu.cs203.pandanews.exception.UserNotFoundException;
 import sg.edu.smu.cs203.pandanews.model.Organisation;
 import sg.edu.smu.cs203.pandanews.model.WorkGroup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,11 +89,11 @@ public class UserController {
      * @param id
      */
     @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable Long id) {
+    public void deleteUser(@PathVariable Long id) throws UserNotFoundException {
         try {
             userService.deleteUser(id);
         } catch (EmptyResultDataAccessException e) {
-            // throw new BookNotFoundException(id);
+            throw new UserNotFoundException();
         }
     }
 
