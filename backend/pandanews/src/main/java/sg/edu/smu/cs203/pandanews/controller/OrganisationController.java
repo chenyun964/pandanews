@@ -86,6 +86,12 @@ public class OrganisationController {
         return organisation;
     }
 
+    /**
+     * Approves a new organisation
+     * 
+     * @param id
+     * @return Organisation
+     */
     @PutMapping("/organisation/approve/{id}")
     public Organisation approveOrganisation(@PathVariable Long id) {
         Organisation organisation = organisationService.approveOrganisation(id);
