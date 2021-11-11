@@ -97,7 +97,7 @@ class Home extends Component {
                             <div key={i} className="carousel-item news-image">
                                 <div class="img-overlay"></div>
                                 <div className="carousel-item-image" style={{ "backgroundImage": "url(" + news.coverImage + ")" }}>
-                                    <button onClick={() => this.increaseCount(news)}>
+                                    <button className="news-card-btn" onClick={() => this.increaseCount(news)}>
                                         <div className="carousel-caption">
                                             <h5>{news.title}</h5>
                                             <p>{news.description}</p>
