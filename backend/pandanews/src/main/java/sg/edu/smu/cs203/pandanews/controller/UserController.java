@@ -36,7 +36,7 @@ public class UserController {
     }
 
     /**
-     * List all users in the system
+     * Lists all users in the system
      * 
      * @return List<User>
      */
