@@ -493,6 +493,14 @@
   background: #378ef0;
 }
 
+.source-badge {
+  margin: 10px;
+  font-size: 1rem;
+  padding: .45em .65em;
+  font-weight: normal;
+  background: #ffb81f;
+}
+
 .cate-badge:hover {
   color: white;
   background: #3277af;
@@ -501,6 +509,10 @@
 .news-item {
   background: white;
   margin: 0px;
+}
+
+.news-cate{
+  color: #378ef0;
 }
 
 .news-title {
