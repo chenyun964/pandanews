@@ -1,22 +1,12 @@
 package sg.edu.smu.cs203.pandanews.model;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import sg.edu.smu.cs203.pandanews.model.user.User;
+
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,7 +14,8 @@ import sg.edu.smu.cs203.pandanews.model.user.User;
 @EqualsAndHashCode
 @NoArgsConstructor
 public class Organisation {
-    @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter
@@ -54,7 +45,7 @@ public class Organisation {
     private List<User> employee;
 
     @Setter
-    @OneToMany(mappedBy = "organisation")
+    @OneToMany(mappedBy = "organisation", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Policy> policy;
 

@@ -48,7 +48,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public List<News> createNewsByAPI() {
         List<News> result = newsAPIService.apiCall();
-        if (result == null){
+        if (result == null) {
             throw new NewsDuplicationException("News Duplicated");
         }
         return newsAPIService.apiCall().size() == 0 ? null : result;
@@ -95,6 +95,11 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public News findNewsById(long id) {
         return newsRepo.findById(id).orElse(null);
+    }
+
+    @Override
+    public News findBySlug(String slug) {
+        return newsRepo.findBySlug(slug);
     }
 
     @Override

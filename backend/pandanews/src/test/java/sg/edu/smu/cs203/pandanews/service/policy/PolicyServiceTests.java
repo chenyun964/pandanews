@@ -5,9 +5,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import sg.edu.smu.cs203.pandanews.model.Organisation;
 import sg.edu.smu.cs203.pandanews.model.Policy;
-import sg.edu.smu.cs203.pandanews.model.StatSummary;
-import sg.edu.smu.cs203.pandanews.model.Statistic;
+import sg.edu.smu.cs203.pandanews.repository.OrganisationRepository;
 import sg.edu.smu.cs203.pandanews.repository.PolicyRepository;
 
 import java.util.ArrayList;
@@ -25,44 +25,51 @@ public class PolicyServiceTests {
     private PolicyServiceImpl policyService;
     @Mock
     private PolicyRepository policyRepo;
+    @Mock
+    private OrganisationRepository organisationRepo;
 
     @Test
     void addPolicy_Success() {
         Policy p = new Policy();
+        when(organisationRepo.findById(any(Long.class))).thenReturn(Optional.of(new Organisation()));
         when(policyRepo.save(any(Policy.class))).thenReturn(p);
-        Policy result = policyService.addPolicy(p);
-
+        Policy result = policyService.addPolicy(p, 10L);
         assertNotNull(result);
         verify(policyRepo).save(p);
+        verify(organisationRepo).findById(10L);
     }
 
     @Test
     void addPolicy_Failure() {
         Policy p = new Policy();
-        when(policyRepo.save(any(Policy.class))).thenReturn(null);
-        Policy result = policyService.addPolicy(p);
+        when(organisationRepo.findById(any(Long.class))).thenReturn((Optional.empty()));
+        Policy result = policyService.addPolicy(p, 10L);
 
         assertNull(result);
-        verify(policyRepo).save(p);
+        verify(organisationRepo).findById(10L);
     }
 
     @Test
     void getPolicy_Success() {
-        Policy policy = new Policy();
-        when(policyRepo.findById(any(Long.class))).thenReturn(Optional.of(policy));
 
-        Policy result = policyService.getPolicy(10L);
+        Policy policy = new Policy();
+        when(policyRepo.findByIdAndOrganisationId(any(Long.class), any(Long.class))).thenReturn(Optional.of(policy));
+        when(organisationRepo.findById(any(Long.class))).thenReturn(Optional.of(new Organisation()));
+
+        Policy result = policyService.getPolicy(10L, 10L);
         assertNotNull(result);
-        verify(policyRepo).findById(10L);
+        verify(policyRepo).findByIdAndOrganisationId(10L, 10L);
+        verify(organisationRepo).findById(10L);
     }
 
     @Test
     void getPolicy_Failure() {
-        when(policyRepo.findById(any(Long.class))).thenReturn(Optional.empty());
 
-        Policy result = policyService.getPolicy(10L);
+        when(organisationRepo.findById(any(Long.class))).thenReturn(Optional.of(new Organisation()));
+        Policy result = policyService.getPolicy(10L, 10L);
         assertNull(result);
-        verify(policyRepo).findById(10L);
+        verify(organisationRepo).findById(10L);
+
     }
 
     @Test
@@ -107,13 +114,13 @@ public class PolicyServiceTests {
         List<Policy> policyList = new ArrayList<>();
         Policy s = new Policy();
         policyList.add(s);
-
+        when(organisationRepo.findById(any(Long.class))).thenReturn(Optional.of(new Organisation()));
         when(policyRepo.findByOrganisationId(any(Long.class))).thenReturn(policyList);
-
         List<Policy> result = policyService.listPolicies(10L);
-
         assertNotNull(result);
         verify(policyRepo).findByOrganisationId(10L);
+        verify(organisationRepo).findById(10L);
+
     }
 
 }
