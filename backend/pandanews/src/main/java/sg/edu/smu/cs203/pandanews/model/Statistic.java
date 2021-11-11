@@ -23,6 +23,9 @@ public class Statistic {
     private Long id;
 
     @Setter
+    private Date date;
+
+    @Setter
     private int newCases;
 
     @Setter
@@ -54,5 +57,4 @@ public class Statistic {
         Object param = new java.sql.Timestamp(temp.getTime());
         updatedAt = (Date) param;
     }
-
 }

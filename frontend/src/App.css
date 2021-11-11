@@ -628,7 +628,7 @@
 
 .covid-case {
   color: white;
-  padding: 15px;
+  padding: 15px 20px;
   margin: 10px 0px;
   border-radius: 10px;
 }
@@ -674,4 +674,13 @@
 
 .ant-carousel .slick-dots-bottom{
   bottom: 30px;
+}
+
+.covid-case .label{
+  color: white !important;
+}
+
+.covid-case .result{
+  color: white !important;
+  margin-bottom: 0px !important;
 }
