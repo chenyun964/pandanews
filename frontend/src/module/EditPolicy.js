@@ -1,9 +1,10 @@
-import { Component } from "react";
+import { Component, Fragment } from "react";
 import { Form, Input, Alert, Spin } from 'antd';
 import { Link } from "react-router-dom";
-import MeasurementModel from "../model/MeasurementModel";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import PolicyModel from "../model/PolicyModel";
+import UserModel from "../model/UserModel";
 
 class EditPolicy extends Component {
     constructor(props) {
@@ -11,18 +12,18 @@ class EditPolicy extends Component {
         this.state = {
             data: {
                 title: null,
-                content: null,
-                imageUrl: null
+                message: null,
             },
             loading: false,
             success: false,
-            failed: false
+            failed: false,
+            org: {}
         }
     }
 
     componentDidMount() {
         if (this.props.match.params.id) {
-            MeasurementModel.get(this.props.match.params.id).then(res => {
+            PolicyModel.get(this.props.match.params.id).then(res => {
                 this.setState({
                     data: res.data,
                     imageUrl: res.data.imageUrl
@@ -31,6 +32,17 @@ class EditPolicy extends Component {
                 console.log(e);
             })
         }
+        this.getOrg();
+    }
+
+    getOrg(){
+        UserModel.userOrg().then(res => {
+            this.setState({
+                org: res.data
+            })
+        }).catch(e => {
+            console.log(e)
+        })
     }
 
     save() {
@@ -40,7 +52,7 @@ class EditPolicy extends Component {
             failed: false
         })
         if (this.state.data.id) {
-            MeasurementModel.update(this.state.data.id, this.state.data).then(res => {
+            PolicyModel.update(this.state.data.id, this.state.data).then(res => {
                 this.setState({
                     success: true,
                     loading: false
@@ -53,7 +65,8 @@ class EditPolicy extends Component {
                 })
             })
         } else {
-            MeasurementModel.add(this.state.data).then(res => {
+            console.log(this.state.org);
+            PolicyModel.create(this.state.org.id, this.state.data).then(res => {
                 this.setState({
                     success: true,
                     loading: false
@@ -98,52 +111,57 @@ class EditPolicy extends Component {
 
     render() {
         return (
-            <div className="content">
-                {this.state.loading &&
-                    <div id="overlay">
-                        <div class="w-100 d-flex justify-content-center align-items-center">
-                            <Spin tip="Saving..."></Spin>
-                        </div>
-                    </div>
-                }
-                <header className="page-header">
-                    <div className="d-flex align-items-center">
-                        <div className="mr-auto">
-                            {this.props.match.params.id ?
-                                <h1>Edit Measurements</h1>
-                                :
-                                <h1>Add Measurements</h1>
-                            }
-                        </div>
-                    </div>
-                </header>
-                <div className="card p-30" style={{ margin: 28 }}>
-                    <div>
-                        {this.state.success &&
-                            <Alert className="m-b-20" message="Policy saved." type="success" closable afterClose={() => this.handleClose()} />
+            <Fragment>
+                <div className="p-5 flex-fill">
+                    <div className="flex-fill">
+                        {this.state.loading &&
+                            <div id="overlay">
+                                <div class="w-100 d-flex justify-content-center align-items-center">
+                                    <Spin tip="Saving..."></Spin>
+                                </div>
+                            </div>
                         }
-                        {this.state.failed &&
-                            <Alert className="m-b-20" message="Failed to save, try again later." type="error" closable afterClose={() => this.handleClose()} />
-                        }
-                    </div>
-                    <Form
-                        labelCol={{ span: 4 }}
-                        wrapperCol={{ span: 18 }}
-                        layout="horizontal"
-                    >
-                        <Form.Item label="Industory">
-                            <Input value={this.state.data.title} onChange={(e) => this.handleChange(e.target.value, "title")} />
-                        </Form.Item>
-                        <Form.Item label="Description">
-                            <ReactQuill theme="snow" modules={this.modules} value={this.state.data.content} onChange={(e) => this.handleChange(e, "content")} />
-                        </Form.Item>
-                        <div className="d-flex justify-content-between">
-                            <Link to="/measurement" class="btn btn-secondary" >Cancel</Link>
-                            <button type="button" class="btn btn-success" onClick={() => this.save()}>Save</button>
+                        <header className="page-header">
+                            <div className="d-flex align-items-center">
+                                <div className="mr-auto">
+                                    {this.props.match.params.id ?
+                                        <h1>Edit Policy</h1>
+                                        :
+                                        <h1>Add Policy</h1>
+                                    }
+                                </div>
+                            </div>
+                        </header>
+                        <div className="card" style={{ padding: 20 }}>
+                            <div>
+                                {this.state.success &&
+                                    <Alert className="m-b-20" message="Policy saved." type="success" closable afterClose={() => this.handleClose()} />
+                                }
+                                {this.state.failed &&
+                                    <Alert className="m-b-20" message="Failed to save, try again later." type="error" closable afterClose={() => this.handleClose()} />
+                                }
+                            </div>
+                            <Form
+                                labelCol={{ span: 4 }}
+                                wrapperCol={{ span: 18 }}
+                                layout="horizontal"
+                                style={{ paddingTop: 30 }}
+                            >
+                                <Form.Item label="Title">
+                                    <Input value={this.state.data.title} onChange={(e) => this.handleChange(e.target.value, "title")} />
+                                </Form.Item>
+                                <Form.Item label="Message">
+                                    <ReactQuill theme="snow" modules={this.modules} value={this.state.data.message} onChange={(e) => this.handleChange(e, "message")} />
+                                </Form.Item>
+                                <div className="d-flex justify-content-between">
+                                    <Link to="/measurement" class="btn btn-secondary" >Cancel</Link>
+                                    <button type="button" class="btn btn-success" onClick={() => this.save()}>Save</button>
+                                </div>
+                            </Form>
                         </div>
-                    </Form>
+                    </div>
                 </div>
-            </div>
+            </Fragment>
         );
     }
 }
