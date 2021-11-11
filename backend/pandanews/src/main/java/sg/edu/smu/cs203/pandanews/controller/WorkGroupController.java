@@ -39,9 +39,9 @@ public class WorkGroupController {
     }
 
     /**
-     * List all books in the system
+     * List all work groups under the given organisation
      * 
-     * @return list of all books
+     * @return List<WorkGroup>
      */
     @GetMapping("/organisation/{oid}/workgroup")
     public List<WorkGroup> getWorkGroups(@PathVariable Long oid)
