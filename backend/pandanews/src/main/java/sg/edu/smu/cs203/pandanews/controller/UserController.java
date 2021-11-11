@@ -143,7 +143,7 @@ public class UserController {
      * @return User
      */
     @PostMapping("/users/workgroup")
-    public User addUserWorkGroup(@RequestBody WorkGroup workGroup, @RequestBody User user){
+    public User addUserWorkGroup(@RequestBody WorkGroup workGroup, @RequestBody User user) {
         user = userService.getUserByUsername(user.getUsername());
         if(user == null) return null;
 
@@ -153,8 +153,13 @@ public class UserController {
         return userService.joinWorkGroup(user, wg);
     }
 
+    /**
+     * Updates the current logged in user's vaccine status
+     * @param organisation
+     * @return User
+     */
     @PutMapping("/users/vaccine")
-    public User updateUserVaacine(){
+    public User updateUserVaacine() {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
         .getPrincipal();
         
