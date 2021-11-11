@@ -64,7 +64,7 @@ public class NewsController {
         return news;
     }
 
-    @PostMapping(path = "/news/view/{slug}")
+    @PutMapping(path = "/news/view/{slug}")
     public News updateViewCount(@PathVariable String slug) {
         News news = newsService.increaseViewCount(slug);
         if (news == null) {

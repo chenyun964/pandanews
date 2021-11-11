@@ -17,6 +17,14 @@ class NewsModel {
   async searchNews(keyword) {
     return axios.get(config['search_news_api'] + '/' + keyword);
   }
+
+  async slug(slug) {
+    return axios.get(config['news_slug_api'] + "/" + slug);
+  } 
+
+  async updateCount(slug){
+    return axios.put(config['news_count_api'] + "/" + slug);
+  }
 }
 
 export default new NewsModel();
