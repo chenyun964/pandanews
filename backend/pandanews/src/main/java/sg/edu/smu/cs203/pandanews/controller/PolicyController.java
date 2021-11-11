@@ -3,6 +3,7 @@ package sg.edu.smu.cs203.pandanews.controller;
 import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 @RestController
+@CrossOrigin
 public class PolicyController {
     private PolicyService policyService;
     private UserService userService;
@@ -32,7 +34,7 @@ public class PolicyController {
         this.policyService = policyService;
     }
 
-    @GetMapping("/organisation/{oid}/policies")
+    @GetMapping("/organisation/{oid}/policy")
     public List<Policy> getPolicies(@PathVariable Long oid) throws UnauthenticatedException, UnauthorizedUserException {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -44,7 +46,7 @@ public class PolicyController {
         return policyService.listPolicies(oid);
     }
 
-    @GetMapping("/organisation/{oid}/policies/{id}")
+    @GetMapping("/organisation/{oid}/policy/{id}")
     public Policy getPolicy(@PathVariable Long oid, @PathVariable Long id){
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -61,10 +63,9 @@ public class PolicyController {
     }
     
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/organisation/{oid}/policies")
+    @PostMapping("/organisation/{oid}/policy")
     public Policy addPolicy(@PathVariable Long oid, @RequestBody Policy policy){
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         User user = userService.getUserByUsername(userDetails.getUsername());
         if(user == null) throw new UnauthenticatedException();
 
@@ -73,7 +74,7 @@ public class PolicyController {
         return policyService.addPolicy(policy);
     }
 
-    @PutMapping("/organisation/{oid}/policies/{id}")
+    @PutMapping("/organisation/{oid}/policy/{id}")
     public Policy updatePolicy(@PathVariable Long oid, @PathVariable Long id, @RequestBody Policy newPolicyInfo){
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -88,7 +89,7 @@ public class PolicyController {
         return policy;
     }
 
-    @DeleteMapping("/organisation/{oid}/policies/{id}")
+    @DeleteMapping("/organisation/{oid}/policy/{id}")
     public void deletePolicy(@PathVariable Long oid, @PathVariable Long id){
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

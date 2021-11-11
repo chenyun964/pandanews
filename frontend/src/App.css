@@ -684,3 +684,13 @@
   color: white !important;
   margin-bottom: 0px !important;
 }
+
+.ql-editor {
+  min-height: 35vh;
+}
+
+.in-card-container{
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 10px;
+}

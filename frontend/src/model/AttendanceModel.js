@@ -1,5 +1,4 @@
 import config from '../config/Config';
-import axios from 'axios';
 import AxiosJwt from '../lib/AxiosJwt';
 
 class AttendanceModel {

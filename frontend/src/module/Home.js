@@ -109,7 +109,7 @@ class Home extends Component {
                                 {this.state.news.map((news, i) => {
                                     if (i >= (this.state.pageNumber - 1) * 10 && i < this.state.pageNumber * 10) {
                                         return (
-                                            <a key={i} href={news.content} target="_blank">
+                                            <a key={i} href={news.source === "Manual" ? "/news/" + news.slug : news.content} target="_blank">
                                                 <div className="row mb-3 news-item">
                                                     <div className="col-md-4 col-12 news-image" style={{ "backgroundImage": "url(" + news.coverImage + ")" }}></div>
                                                     <div className="col-md-8 col-12 p-4">
