@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import sg.edu.smu.cs203.pandanews.exception.UnauthenticatedException;
 import sg.edu.smu.cs203.pandanews.exception.UnauthorizedUserException;
+import sg.edu.smu.cs203.pandanews.exception.PolicyNotFoundException;
 import sg.edu.smu.cs203.pandanews.service.policy.PolicyService;
 import sg.edu.smu.cs203.pandanews.service.user.UserService;
 import sg.edu.smu.cs203.pandanews.model.Policy;
@@ -127,8 +128,15 @@ public class PolicyController {
         return policy;
     }
 
+    /**
+     * Removes the policy with the given policy id of the given organisation
+     * Throws UnauthenticatedException, UnauthorizedUserException, PolicyNotFoundException
+     * 
+     * @param oid, @param id
+     * @return void
+     */
     @DeleteMapping("/organisation/{oid}/policies/{id}")
-    public void deletePolicy(@PathVariable Long oid, @PathVariable Long id) {
+    public void deletePolicy(@PathVariable Long oid, @PathVariable Long id) throws UnauthenticatedException, UnauthorizedUserException, PolicyNotFoundException {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
@@ -142,7 +150,7 @@ public class PolicyController {
         try {
             policyService.deletePolicy(id);
         } catch (EmptyResultDataAccessException e) {
-            // throw new PolicyNotFoundException(id);
+            throw new PolicyNotFoundException();
         }
     }
 }
