@@ -38,9 +38,9 @@ public class OrganisationController {
     }
 
     /**
-     * List all books in the system
+     * Lists all the organisations
      * 
-     * @return list of all books
+     * @return List<Organisation>
      */
     @GetMapping("/organisation")
     public List<Organisation> getOrganisations() {
@@ -48,27 +48,10 @@ public class OrganisationController {
     }
 
     /**
-     * Search for book with the given id If there is no book with the given "id",
-     * throw a BookNotFoundException
-     * 
-     * @param id
-     * @return book with the given id
-     */
-    // @GetMapping("/organisation/{id}")
-    // public Organisation getOrganisation(@PathVariable Long id){
-    // Organisation organisation = orgService.getOrganisation(id);
-
-    // // Need to handle "book not found" error using proper HTTP status code
-    // // In this case it should be HTTP 404
-    // if(organisation == null) return null;
-    // return orgService.getOrganisation(id);
-    // }
-
-    /**
-     * Add a new book with POST request to "/books" Note the use of @RequestBody
+     * Creates a new organisation
      * 
      * @param organisation
-     * @return list of all books
+     * @return Organisation
      */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/organisation")
