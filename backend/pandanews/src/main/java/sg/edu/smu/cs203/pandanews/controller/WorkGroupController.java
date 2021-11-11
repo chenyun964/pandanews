@@ -140,10 +140,11 @@ public class WorkGroupController {
     }
 
     /**
-     * Remove a book with the DELETE request to "/books/{id}" If there is no book
-     * with the given "id", throw a BookNotFoundException
+     * Removes the work group under the given organisation
+     * Throws UnauthenticatedException, UnauthorizedUserException
      * 
-     * @param id
+     * @param oid, @param id
+     * @return WorkGroup
      */
     @DeleteMapping("/organisation/{oid}/workgroup/{id}")
     public void deleteWorkGroup(@PathVariable Long oid, @PathVariable Long id)
@@ -165,6 +166,12 @@ public class WorkGroupController {
         }
     }
 
+    /**
+     * Removes the given employee from the work group under the organisation
+     * 
+     * @param oid, @param wgid, @param id
+     * @return WorkGroup
+     */
     @DeleteMapping("/organisation/{oid}/workgroup/{wgid}/employee/{id}")
     public void removeWorkGroupEmployee(@PathVariable Long oid, @PathVariable Long wgid, @PathVariable Long id) {
         User employee = userService.getUser(id);
