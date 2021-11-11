@@ -54,6 +54,12 @@ public class PolicyController {
         return policyService.listPolicies(oid);
     }
 
+    /**
+     * Retrieves the policy with the given id under the given organisation
+     * 
+     * @param oid, @param id
+     * @return Policy
+     */
     @GetMapping("/organisation/{oid}/policies/{id}")
     public Policy getPolicy(@PathVariable Long oid, @PathVariable Long id) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
