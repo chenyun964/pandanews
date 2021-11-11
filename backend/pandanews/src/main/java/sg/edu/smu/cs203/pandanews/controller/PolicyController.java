@@ -32,6 +32,13 @@ public class PolicyController {
         this.policyService = policyService;
     }
 
+    /**
+     * List the policies under the given organisation
+     * Throws UnauthenticatedException, UnauthorizedUserException
+     * 
+     * @param oid
+     * @return List<Policy>
+     */
     @GetMapping("/organisation/{oid}/policies")
     public List<Policy> getPolicies(@PathVariable Long oid) throws UnauthenticatedException, UnauthorizedUserException {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
