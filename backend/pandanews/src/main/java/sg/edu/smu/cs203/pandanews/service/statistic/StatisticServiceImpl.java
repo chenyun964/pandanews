@@ -34,6 +34,7 @@ public class StatisticServiceImpl implements StatisticService {
     public Statistic updateStatistic(Long id, Statistic newStatistic) {
         return statisticRepo.findById(id).map
                 (Statistic -> {
+                    Statistic.setDate(newStatistic.getDate());
                     Statistic.setNewCases(newStatistic.getNewCases());
                     Statistic.setNewDeaths(newStatistic.getNewDeaths());
                     Statistic.setNewRecovery(newStatistic.getNewRecovery());
@@ -43,7 +44,7 @@ public class StatisticServiceImpl implements StatisticService {
 
     @Override
     public List<Statistic> displayStatistics() {
-        return statisticRepo.findAll();
+        return statisticRepo.findAllByOrderByDateDesc();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package sg.edu.smu.cs203.pandanews.repository;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,8 @@ import sg.edu.smu.cs203.pandanews.model.Statistic;
 
 @Repository
 public interface StatisticRepository extends JpaRepository<Statistic, Long> {
+    List<Statistic> findAllByOrderByDateDesc();
+
     @Query(value = "SELECT sum(new_cases) FROM Statistic", nativeQuery = true)
     Long getTotalCases();
 
