@@ -102,6 +102,12 @@ public class PolicyController {
         return policyService.addPolicy(policy);
     }
 
+    /**
+     * Updates the policy details of the given policy id of the given organisation
+     * 
+     * @param oid, @param id, @param newPolicyInfo
+     * @return Policy
+     */
     @PutMapping("/organisation/{oid}/policies/{id}")
     public Policy updatePolicy(@PathVariable Long oid, @PathVariable Long id, @RequestBody Policy newPolicyInfo) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
