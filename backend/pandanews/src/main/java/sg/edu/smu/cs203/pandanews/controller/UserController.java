@@ -123,9 +123,8 @@ public class UserController {
     }
 
     /**
-     * Remove a user with the id specified
-     * If there is no user with the given id, throw a BookNotFoundException
-     * @param id
+     * Retrieves the work group of the current user
+     * @return WorkGroup
      */
     @GetMapping("/users/workgroup")
     public WorkGroup getWorkGroup() {
