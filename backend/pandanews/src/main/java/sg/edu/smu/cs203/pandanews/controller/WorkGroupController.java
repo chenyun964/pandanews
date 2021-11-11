@@ -40,6 +40,7 @@ public class WorkGroupController {
 
     /**
      * List all work groups under the given organisation
+     * Throws UnauthenticatedException, UnauthorizedUserException
      * 
      * @return List<WorkGroup>
      */
