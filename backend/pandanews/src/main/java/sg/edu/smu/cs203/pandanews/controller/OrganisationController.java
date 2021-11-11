@@ -107,10 +107,11 @@ public class OrganisationController {
     }
 
     /**
-     * Remove a book with the DELETE request to "/books/{id}" If there is no book
-     * with the given "id", throw a BookNotFoundException
+     * Deletes the organisation with the specified id
+     * Throws OrganisationNotFoundException
      * 
      * @param id
+     * @return void
      */
     @DeleteMapping("/organisation/{id}")
     public void deleteOrganisation(@PathVariable Long id) {
