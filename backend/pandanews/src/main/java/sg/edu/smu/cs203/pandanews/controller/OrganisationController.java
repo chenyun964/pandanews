@@ -234,6 +234,12 @@ public class OrganisationController {
         return null;
     }
 
+    /**
+     * Promotes an employee with the given id
+     * 
+     * @param id
+     * @return Organisation
+     */
     @PutMapping("/organisation/demote/{id}")
     public Organisation demoteEmployee(@PathVariable Long id) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
