@@ -85,10 +85,10 @@ class Statistics extends Component {
         return [
             {
                 title: 'Date',
-                dataIndex: 'createdAt',
-                key: 'createdAt',
+                dataIndex: 'date',
+                key: 'date',
                 editable: true,
-                sorter: (a, b) => a.createdAt.localeCompare(b.createdAt),
+                sorter: (a, b) => a.date.localeCompare(b.date),
                 sortDirections: ['ascend', 'descend'],
                 render: (value => moment(value).format("YYYY-MM-DD"))
             },
@@ -145,7 +145,7 @@ class Statistics extends Component {
                     onCell: (record) => {
                         let type;
                         switch(col.dataIndex){
-                            case "createdAt":
+                            case "date":
                                 type = "datepicker";
                                 break;
                             default:

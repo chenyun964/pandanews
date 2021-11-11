@@ -1,40 +1,28 @@
 import { Component } from "react";
-import { Form, Input, Alert, Spin, Select, Switch } from 'antd';
+import { Form, Input, Alert, Spin } from 'antd';
 import { Link } from "react-router-dom";
-import NewsModel from "../model/NewsModel";
+import MeasurementModel from "../model/MeasurementModel";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import FileUpload from "../lib/FileUpload";
-import CategoryModel from "../model/CategoryModel";
 
-const { TextArea } = Input;
-const { Option } = Select;
-
-class EditNews extends Component {
+class EditPolicy extends Component {
     constructor(props) {
         super(props);
         this.state = {
             data: {
-                coverImage: null,
                 title: null,
                 content: null,
-                category: null,
-                pinned: false
+                imageUrl: null
             },
             loading: false,
             success: false,
-            failed: false,
-            category: []
+            failed: false
         }
     }
 
     componentDidMount() {
         if (this.props.match.params.id) {
-            NewsModel.find(this.props.match.params.id).then(res => {
-                let data = res.data;
-                if (data.category) {
-                    data.category = res.data.category.id
-                }
+            MeasurementModel.get(this.props.match.params.id).then(res => {
                 this.setState({
                     data: res.data,
                     imageUrl: res.data.imageUrl
@@ -43,17 +31,6 @@ class EditNews extends Component {
                 console.log(e);
             })
         }
-        this.getCategory();
-    }
-
-    getCategory() {
-        CategoryModel.list().then(res => {
-            this.setState({
-                category: res.data
-            })
-        }).catch(e => {
-            console.log(e);
-        })
     }
 
     save() {
@@ -62,9 +39,8 @@ class EditNews extends Component {
             success: false,
             failed: false
         })
-
         if (this.state.data.id) {
-            NewsModel.update(this.state.data.id, this.state.data).then(res => {
+            MeasurementModel.update(this.state.data.id, this.state.data).then(res => {
                 this.setState({
                     success: true,
                     loading: false
@@ -77,7 +53,7 @@ class EditNews extends Component {
                 })
             })
         } else {
-            NewsModel.create(this.state.data).then(res => {
+            MeasurementModel.add(this.state.data).then(res => {
                 this.setState({
                     success: true,
                     loading: false
@@ -134,9 +110,9 @@ class EditNews extends Component {
                     <div className="d-flex align-items-center">
                         <div className="mr-auto">
                             {this.props.match.params.id ?
-                                <h1>Edit News</h1>
+                                <h1>Edit Measurements</h1>
                                 :
-                                <h1>Add News</h1>
+                                <h1>Add Measurements</h1>
                             }
                         </div>
                     </div>
@@ -144,7 +120,7 @@ class EditNews extends Component {
                 <div className="card p-30" style={{ margin: 28 }}>
                     <div>
                         {this.state.success &&
-                            <Alert className="m-b-20" message="News saved." type="success" closable afterClose={() => this.handleClose()} />
+                            <Alert className="m-b-20" message="Policy saved." type="success" closable afterClose={() => this.handleClose()} />
                         }
                         {this.state.failed &&
                             <Alert className="m-b-20" message="Failed to save, try again later." type="error" closable afterClose={() => this.handleClose()} />
@@ -155,35 +131,14 @@ class EditNews extends Component {
                         wrapperCol={{ span: 18 }}
                         layout="horizontal"
                     >
-                        <Form.Item label="Cover Image">
-                            <FileUpload className="image-preview product-image-preview"
-                                type="image"
-                                src={this.state.data.coverImage}
-                                fileOnly
-                                onUpload={(d) => this.handleChange(d, "coverImage")}
-                            />
-                        </Form.Item>
-                        <Form.Item label="Pin">
-                            <Switch checked={this.state.data.pinned} onChange={(e) => this.handleChange(e, "pinned")} />
-                        </Form.Item>
-                        <Form.Item label="Title">
-                            <Input rows={5} value={this.state.data.title} onChange={(e) => this.handleChange(e.target.value, "title")} />
+                        <Form.Item label="Industory">
+                            <Input value={this.state.data.title} onChange={(e) => this.handleChange(e.target.value, "title")} />
                         </Form.Item>
                         <Form.Item label="Description">
-                            <TextArea value={this.state.data.description} onChange={(e) => this.handleChange(e.target.value, "description")} />
-                        </Form.Item>
-                        <Form.Item label="Category">
-                            <Select placeholder="Please select category" value={this.state.data.category} onChange={(e) => this.handleChange(e, "category")}>
-                                {this.state.category.map((cate, k) => {
-                                    return <Option key={k} value={cate.id} >{cate.title}</Option>
-                                })}
-                            </Select>
-                        </Form.Item>
-                        <Form.Item label="Content">
                             <ReactQuill theme="snow" modules={this.modules} value={this.state.data.content} onChange={(e) => this.handleChange(e, "content")} />
                         </Form.Item>
                         <div className="d-flex justify-content-between">
-                            <Link to="/news" class="btn btn-secondary">Cancel</Link>
+                            <Link to="/measurement" class="btn btn-secondary" >Cancel</Link>
                             <button type="button" class="btn btn-success" onClick={() => this.save()}>Save</button>
                         </div>
                     </Form>
@@ -193,4 +148,4 @@ class EditNews extends Component {
     }
 }
 
-export default EditNews;
+export default EditPolicy;

@@ -2,6 +2,7 @@ package sg.edu.smu.cs203.pandanews.controller;
 
 import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import sg.edu.smu.cs203.pandanews.model.WorkGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
+@CrossOrigin
 public class UserController {
     private UserService userService;
     private WorkGroupService workGroupService;
