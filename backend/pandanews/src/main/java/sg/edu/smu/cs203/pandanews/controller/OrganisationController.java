@@ -123,6 +123,11 @@ public class OrganisationController {
         }
     }
 
+    /**
+     * Retrieves a list of all the employees in the current user's organisation
+     * 
+     * @return List<User>
+     */
     @GetMapping("/organisation/employee")
     public List<User> getOrganisationEmployees() {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
@@ -139,6 +144,12 @@ public class OrganisationController {
         return organisation.getEmployee();
     }
 
+    /**
+     * Adds the current logged in user to the given organisation
+     * 
+     * @param org
+     * @return Organisation
+     */
     @PostMapping("/organisation/employee")
     public Organisation addOrganisationEmployee(@RequestBody Organisation org) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
