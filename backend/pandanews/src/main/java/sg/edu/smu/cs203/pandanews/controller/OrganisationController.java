@@ -212,10 +212,10 @@ public class OrganisationController {
      * Promotes an employee with the given id
      * 
      * @param id
-     * @return Organisation
+     * @return void
      */
     @PutMapping("/organisation/promote/{id}")
-    public Organisation promoteEmployee(@PathVariable Long id) {
+    public void promoteEmployee(@PathVariable Long id) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
@@ -238,10 +238,10 @@ public class OrganisationController {
      * Promotes an employee with the given id
      * 
      * @param id
-     * @return Organisation
+     * @return void
      */
     @PutMapping("/organisation/demote/{id}")
-    public Organisation demoteEmployee(@PathVariable Long id) {
+    public void demoteEmployee(@PathVariable Long id) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
