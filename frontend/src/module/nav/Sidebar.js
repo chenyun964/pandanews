@@ -51,7 +51,7 @@ class Sidebar extends Component {
               <NavLink to="/dashboard" className="nav-link" aria-current="page"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></NavLink>
             </li>
           </ul>
-          {this.state.authorityLevel > 1 &&
+          {this.state.authorityLevel > 0 &&
             <Fragment>
               <p className="section-title">Employee</p>
               <ul className="nav nav-pills flex-column mb-auto section-nav">
@@ -62,22 +62,24 @@ class Sidebar extends Component {
             </Fragment>
           }
 
-          {this.state.authorityLevel > 2 &&
+          {this.state.authorityLevel > 1 &&
             <Fragment>
               <p className="section-title">Manager</p>
               <ul className="nav nav-pills flex-column mb-auto section-nav">
                 <li className="nav-item" >
                   <NavLink to="/employee" className="nav-link" ><i class="fas fa-user-friends"></i><span>Employee</span></NavLink>
                 </li>
-                <li className="nav-item" >
+                {/* <li className="nav-item" >
                   <NavLink to="/policy" className="nav-link" ><i class="fas fa-scroll"></i><span>Policy</span></NavLink>
-                </li>
-                <li className="nav-item" >
+                </li> */}
+                {/* <li className="nav-item" >
                   <NavLink to="/workgroup" className="nav-link" ><i class="fas fa-users"></i><span>Workgroup</span></NavLink>
-                </li>
-                <li className="nav-item" >
-                  <NavLink to="/organisation" className="nav-link" ><i class="fas fa-building"></i><span>Organisation</span></NavLink>
-                </li>
+                </li> */}
+                {this.state.authorityLevel > 2 &&
+                  <li className="nav-item" >
+                    <NavLink to="/organisation" className="nav-link" ><i class="fas fa-building"></i><span>Organisation</span></NavLink>
+                  </li>
+                }
               </ul>
             </Fragment>
           }

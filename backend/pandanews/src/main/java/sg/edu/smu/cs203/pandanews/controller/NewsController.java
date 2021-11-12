@@ -41,7 +41,11 @@ public class NewsController {
      */
     @PostMapping(path = "/news/api")
     public List<News> createNewsByAPI() {
-        return newsService.createNewsByAPI();
+        List<News> n = newsService.createNewsByAPI();
+        if (n == null) {
+            throw new NewsDuplicationException("Duplicated News Found in API call");
+        }
+        return n;
     }
 
     /**

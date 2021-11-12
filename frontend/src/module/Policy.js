@@ -3,6 +3,7 @@ import { Table, Tag, Space } from 'antd';
 import OrganisationModel from '../model/OrganisationModel';
 import { Link } from 'react-router-dom';
 import UserModel from '../model/UserModel';
+import PolicyModel from '../model/PolicyModel';
 
 const { Column } = Table;
 
@@ -62,6 +63,14 @@ class Policy extends Component {
         })
     }
 
+    deletePolicy(policy){
+        PolicyModel.delete(policy.id).then(res => {
+            this.listPolicy();
+        }).catch(e => {
+            console.log(e)
+        })
+    }
+
     render() {
         return (
             <Fragment>
@@ -91,12 +100,12 @@ class Policy extends Component {
                                 key="id"
                                 render={(id, record) => (
                                     <Space size="middle">
-                                        {id.authorities[0].authority == "ROLE_MANAGER" ?
+                                        {record.validity ?
                                             <button className="btn btn-primary" onClick={() => this.deactivatePolicy(id)}> Dectivate </button>
                                             :
                                             <button className="btn btn-primary" onClick={() => this.activatePolicy(id)}> Activate </button>
                                         }
-                                        <button className="btn btn-danger" onClick={() => this.removeAlert(id)}>Remove</button>
+                                        <button className="btn btn-danger" onClick={() => this.deletePolicy(record)}>Remove</button>
                                     </Space>
                                 )}
                             />

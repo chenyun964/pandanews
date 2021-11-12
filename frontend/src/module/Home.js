@@ -72,13 +72,13 @@ class Home extends Component {
         window.location.replace("/search" + "/" + value);
     }
 
-    newsPageOnchange(e){
+    newsPageOnchange(e) {
         this.setState({
             pageNumber: e
         })
     }
 
-    increaseCount(news){
+    increaseCount(news) {
         let url = news.source === "Manual" ? "/news/" + news.slug : news.content;
         NewsModel.updateCount(news.slug).then(res => {
             window.open(url, '_blank').focus();
@@ -97,7 +97,7 @@ class Home extends Component {
                             <div key={i} className="carousel-item news-image">
                                 <div class="img-overlay"></div>
                                 <div className="carousel-item-image" style={{ "backgroundImage": "url(" + news.coverImage + ")" }}>
-                                    <button onClick={() => this.increaseCount(news)}>
+                                    <button className="news-card-btn" onClick={() => this.increaseCount(news)}>
                                         <div className="carousel-caption">
                                             <h5>{news.title}</h5>
                                             <p>{news.description}</p>
@@ -119,7 +119,11 @@ class Home extends Component {
                                         return (
                                             <button className="mb-3 news-card-btn" onClick={() => this.increaseCount(news)}>
                                                 <div className="row news-item">
-                                                    <div className="col-md-4 col-12 news-image" style={{ "backgroundImage": "url(" + news.coverImage + ")" }}></div>
+                                                    <div className="col-md-4 col-12 news-image" style={{ "backgroundImage": "url(" + news.coverImage + ")" }}>
+                                                        {news.source !== "Manual" &&
+                                                            <div className="badge rounded-pill source-badge">{news.source}</div>
+                                                        }
+                                                    </div>
                                                     <div className="col-md-8 col-12 p-4">
                                                         <div className="news-cate">{news.category ? news.category.title : ""}</div>
                                                         <h5 className="news-title">{news.title.length < 105 ? news.title : news.title.slice(0, 100) + "..."}</h5>
