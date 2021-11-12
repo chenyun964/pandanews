@@ -65,7 +65,7 @@ class EditPolicy extends Component {
                 })
             })
         } else {
-            console.log(this.state.org);
+            console.log(this.state.org)
             PolicyModel.create(this.state.org.id, this.state.data).then(res => {
                 this.setState({
                     success: true,
@@ -154,7 +154,7 @@ class EditPolicy extends Component {
                                     <ReactQuill theme="snow" modules={this.modules} value={this.state.data.message} onChange={(e) => this.handleChange(e, "message")} />
                                 </Form.Item>
                                 <div className="d-flex justify-content-between">
-                                    <Link to="/measurement" class="btn btn-secondary" >Cancel</Link>
+                                    <Link to="/policy" class="btn btn-secondary" >Cancel</Link>
                                     <button type="button" class="btn btn-success" onClick={() => this.save()}>Save</button>
                                 </div>
                             </Form>

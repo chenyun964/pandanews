@@ -55,9 +55,7 @@ class Dashboard extends Component {
     }
 
     punchInOrOut() {
-        console.log(1);
         AttendanceModel.markAttendance().then(res => {
-            console.log(res.data);
             this.setState({
                 attendance: res.data
             });

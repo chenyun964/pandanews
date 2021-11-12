@@ -63,7 +63,7 @@ class Policy extends Component {
         })
     }
 
-    deletePolicy(policy){
+    deletePolicy(policy) {
         PolicyModel.delete(policy.id).then(res => {
             this.listPolicy();
         }).catch(e => {
@@ -82,17 +82,22 @@ class Policy extends Component {
                         </div>
                         <Table dataSource={this.state.policy}>
                             <Column title="Policy ID" dataIndex="id" key="id" />
-                            <Column title="Content" dataIndex="message" key="message" />
+                            <Column
+                                title="Content"
+                                dataIndex="message"
+                                key="message"
+                                render={message => (
+                                    <div dangerouslySetInnerHTML={{ __html: message }}></div>
+                                )}
+                            />
                             <Column
                                 title="Active Policy?"
                                 dataIndex="validity"
                                 key="validity"
                                 render={validity => (
-                                    <>
-                                        <Tag color={validity ? 'green' : "red"} key={validity}>
-                                            {validity ? "Yes" : "No"}
-                                        </Tag>
-                                    </>
+                                    <Tag color={validity ? 'green' : "red"} key={validity}>
+                                        {validity ? "Yes" : "No"}
+                                    </Tag>
                                 )}
                             />
                             <Column
