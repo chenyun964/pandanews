@@ -1,7 +1,7 @@
 import axiosJwt from '../lib/AxiosJwt';
 import config from '../config/Config';
 
-const uri = "/policy"
+const uri = "/policies"
 
 class PolicyModel {
     
@@ -21,8 +21,8 @@ class PolicyModel {
         return axiosJwt.put(config['org_api'] + "/" + oid + uri + "/" + pid, data);
     }
 
-    async delete(oid, pid) {
-        return axiosJwt.delete(config['org_api'] + "/" + oid + uri + "/" + pid);
+    async delete(pid) {
+        return axiosJwt.delete(config['org_api'] + uri + "/" + pid);
     }
 
 }

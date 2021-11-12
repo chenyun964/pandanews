@@ -84,7 +84,11 @@ class SearchNews extends Component {
                                             return (
                                                 <button className="mb-3 news-card-btn" onClick={() => this.increaseCount(news)}>
                                                     <div class="row news-item">
-                                                        <div className="col-md-4 col-12 news-image" style={{ "backgroundImage": "url(" + news.coverImage + ")" }}></div>
+                                                        <div className="col-md-4 col-12 news-image" style={{ "backgroundImage": "url(" + news.coverImage + ")" }}>
+                                                            {news.source !== "Manual" &&
+                                                                <div className="badge rounded-pill source-badge">{news.source}</div>
+                                                            }
+                                                        </div>
                                                         <div className="col-md-8 col-12 p-4">
                                                             <div className="news-cate">{news.category.title}</div>
                                                             <h5 className="news-title">{news.title.length < 105 ? news.title : news.title.slice(0, 100) + "..."}</h5>
