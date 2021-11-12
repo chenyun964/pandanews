@@ -7,8 +7,7 @@ import sg.edu.smu.cs203.pandanews.model.attendance.Attendance;
 import sg.edu.smu.cs203.pandanews.repository.AttendanceRepository;
 import sg.edu.smu.cs203.pandanews.repository.UserRepository;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +22,8 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public Attendance punchInOrOut(Long userId) {
-        Optional<Attendance> temp = attendanceRepo.findByDate(userId, LocalDate.now());
+        ZoneId zoneId = ZoneId.of("Asia/Singapore");
+        Optional<Attendance> temp = attendanceRepo.findByDate(userId, LocalDate.now(zoneId));
         if (temp.isPresent() && temp.get().isPunchedOut()) {
             return null;
         }
@@ -31,11 +31,11 @@ public class AttendanceServiceImpl implements AttendanceService {
         Attendance attendance = temp.orElse(new Attendance());
         if (temp.isPresent()) {
             attendance.setPunchedOut(true);
-            attendance.setPunchOutDate(LocalDate.now());
-            attendance.setPunchOutTime(LocalTime.now());
+            attendance.setPunchOutDate(LocalDate.now(zoneId));
+            attendance.setPunchOutTime(LocalTime.now(zoneId));
         } else {
-            attendance.setPunchInDate(LocalDate.now());
-            attendance.setPunchInTime(LocalTime.now());
+            attendance.setPunchInDate(LocalDate.now(zoneId));
+            attendance.setPunchInTime(LocalTime.now(zoneId));
         }
         attendance.setUser(userRepo.findById(userId).orElse(null));
         return attendanceRepo.save(attendance);
