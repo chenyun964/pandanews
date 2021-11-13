@@ -221,17 +221,16 @@ public class OrganisationController {
 
         User manager = userService.getUserByUsername(userDetails.getUsername());
         if (manager == null)
-            return null;
+            return;
 
         User employee = userService.getUser(id);
         if (employee == null)
-            return null;
+            return;
 
         if (manager.getOrganisation() != employee.getOrganisation())
-            return null;
+            return;
 
         userService.updateUserRole(employee, "ROLE_MANAGER");
-        return null;
     }
 
     /**
@@ -247,16 +246,15 @@ public class OrganisationController {
 
         User manager = userService.getUserByUsername(userDetails.getUsername());
         if (manager == null)
-            return null;
+            return;
 
         User employee = userService.getUser(id);
         if (employee == null)
-            return null;
+            return;
 
         if (manager.getOrganisation() != employee.getOrganisation())
-            return null;
+            return;
 
         userService.updateUserRole(employee, "ROLE_USER");
-        return null;
     }
 }
