@@ -1,13 +1,13 @@
 import { Component, Fragment } from 'react';
 import NewsModel from '../model/NewsModel';
 import CategoryModel from '../model/CategoryModel';
-import { Carousel, Input } from 'antd';
+import { Carousel, Input, Result } from 'antd';
 import { Link } from "react-router-dom";
 import moment from 'moment';
 
 const { Search } = Input;
 class SearchNews extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -18,6 +18,11 @@ class SearchNews extends Component {
     }
 
     componentDidMount() {
+        this.listCate();
+        this.getSearch();
+    }
+
+    listCate() {
         CategoryModel.list().then(res => {
             this.setState({
                 category: res.data
@@ -25,7 +30,9 @@ class SearchNews extends Component {
         }).catch(e => {
             console.log(e);
         })
+    }
 
+    getSearch() {
         NewsModel.searchNews(this.state.slug).then(res => {
             this.setState({
                 news: res.data
@@ -39,13 +46,28 @@ class SearchNews extends Component {
         if (prevProps.match.params.keyword !== this.props.match.params.keyword) {
             this.setState({
                 slug: this.props.match.params.keyword,
+            }, () => {
+                this.listCate();
+                this.getSearch();
             });
         }
     }
+
     onSearch(value) {
         window.location.replace("/search" + "/" + value);
-        }
-        
+    }
+
+    increaseCount(news) {
+        let url = news.source === "Manual" ? "/news/" + news.slug : news.content;
+        NewsModel.updateCount(news.slug).then(res => {
+            window.open(url, '_blank').focus();
+        }).catch(e => {
+            console.log(e);
+            window.open(url, '_blank').focus();
+        })
+    }
+
+
     render() {
         return (
             <Fragment>
@@ -56,22 +78,36 @@ class SearchNews extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-8 col-12">
-                                {this.state.news.map((news, i) => {
-                                    return (
-                                        <a href={news.content} target="_blank">
-                                            <div class="row mb-3 news-item">
-                                                <div className="col-md-4 col-12 news-image" style={{ "backgroundImage": "url(" + news.coverImage + ")" }}></div>
-                                                <div className="col-md-8 col-12 p-4">
-                                                    <div className="news-cate">{news.category}</div>
-                                                    <h5 className="news-title">{news.title.length < 105 ? news.title : news.title.slice(0, 100) + "..."}</h5>
-                                                    <div className="news-info">{moment(news.date, "YYYY-MM-DD").format("MMM D, YY")} &#9679; {news.viewCount} Views</div>
-                                                    <div className="news-descr">{news.description.length < 265 ? news.description : news.description.slice(0, 250) + "..."}</div>
-                                                    <a className="news-read-btn" href={news.content} target="_blank">READ MORE <i class="fas fa-long-arrow-alt-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    )
-                                })}
+                                {this.state.news.length > 0 ?
+                                    <Fragment>
+                                        {this.state.news.map((news, i) => {
+                                            return (
+                                                <button className="mb-3 news-card-btn" onClick={() => this.increaseCount(news)}>
+                                                    <div class="row news-item">
+                                                        <div className="col-md-4 col-12 news-image" style={{ "backgroundImage": "url(" + news.coverImage + ")" }}>
+                                                            {news.source !== "Manual" &&
+                                                                <div className="badge rounded-pill source-badge">{news.source}</div>
+                                                            }
+                                                        </div>
+                                                        <div className="col-md-8 col-12 p-4">
+                                                            <div className="news-cate">{news.category.title}</div>
+                                                            <h5 className="news-title">{news.title.length < 105 ? news.title : news.title.slice(0, 100) + "..."}</h5>
+                                                            <div className="news-info">{moment(news.date, "YYYY-MM-DD").format("MMM D, YY")} &#9679; {news.viewCount} Views</div>
+                                                            <div className="news-descr">{news.description.length < 265 ? news.description : news.description.slice(0, 250) + "..."}</div>
+                                                            <a className="news-read-btn" href={news.content} target="_blank">READ MORE <i class="fas fa-long-arrow-alt-right"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            )
+                                        })}
+                                    </Fragment>
+                                    :
+                                    <Result
+                                        status="404"
+                                        title="404"
+                                        subTitle="No search result found"
+                                    />
+                                }
                             </div>
 
                             <div class="col-lg-4 col-12">

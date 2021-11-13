@@ -22,3 +22,5 @@ pandanews.admin.uri=http://localhost:3001
 #spring.servlet.multipart.max-file-size=200MB
 #spring.servlet.multipart.max-request-size=215MB
 #file.upload-dir=upload-dir
+
+admin.code=<ADMIN_CODE>

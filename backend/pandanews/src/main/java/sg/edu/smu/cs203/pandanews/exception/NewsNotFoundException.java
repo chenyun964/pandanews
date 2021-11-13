@@ -9,9 +9,7 @@ public class NewsNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     public NewsNotFoundException() {
+        super("News not found");
     }
 
-    public NewsNotFoundException(String title) {
-        super("News Not Found");
-    }
 }

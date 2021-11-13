@@ -108,12 +108,12 @@ public class StatisticServiceTests {
         List<Statistic> statisticList = new ArrayList<>();
         Statistic s = new Statistic();
         statisticList.add(s);
-        when(statisticRepo.findAll()).thenReturn(statisticList);
+        when(statisticRepo.findAllByOrderByDateDesc()).thenReturn(statisticList);
 
         List<Statistic> result = statisticService.displayStatistics();
 
         assertNotNull(result);
-        verify(statisticRepo).findAll();
+        verify(statisticRepo).findAllByOrderByDateDesc();
     }
 
     @Test

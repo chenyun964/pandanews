@@ -35,7 +35,7 @@ class Profile extends Component {
 
         //Name
         if (fields["name"] && typeof fields["name"] !== "undefined") {
-            if (!fields["name"].match(/^[a-zA-Z]+$/)) {
+            if (!fields["name"].match(/^[a-zA-Z_ ]+$/)) {
                 formIsValid = false;
                 errors["name"] = "Only letters";
             }

@@ -15,6 +15,7 @@ import News from "./module/News";
 import Statistics from "./module/Statistics";
 import NewsCategory from './module/NewsCategory';
 import EditNews from './module/EditNews';
+import Signup from './module/Signup';
 
 
 class LoginRoutes extends Component {
@@ -55,6 +56,7 @@ class AllRoutes extends Component {
             <Fragment>
                 <Switch>
                     <Route exact path="/login" component={Login} />
+                    <Route exact path="/signup" component={Signup} />
                     <LoginRoutes />
                 </Switch>
             </Fragment>

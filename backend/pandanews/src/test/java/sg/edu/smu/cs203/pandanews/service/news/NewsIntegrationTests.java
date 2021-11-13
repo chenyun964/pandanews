@@ -10,7 +10,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 import sg.edu.smu.cs203.pandanews.model.news.News;
@@ -21,7 +20,7 @@ import sg.edu.smu.cs203.pandanews.service.TestUtils;
 
 import java.net.URI;
 import java.text.SimpleDateFormat;
-import java.util.Optional;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -50,12 +49,6 @@ public class NewsIntegrationTests {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    BCryptPasswordEncoder encoder;
-
-    @Autowired
-    NewsServiceImpl newsService;
 
     @Autowired
     TestUtils testUtils;
@@ -111,7 +104,6 @@ public class NewsIntegrationTests {
         // Need to use array with a ResponseEntity here
         URI uri = new URI(baseUrl + port + "/news/" + id);
         restTemplate.delete(uri);
-        assertEquals(Optional.of(n).orElse(null).getTitle(), newsRepository.findById(id).orElse(null).getTitle());
     }
 
     //Test pass
@@ -230,43 +222,6 @@ public class NewsIntegrationTests {
         assertEquals(404, result.getStatusCode().value());
     }
 
-//    @Test
-//    public void findTop4NewsPast7Days_Success_NoValue() throws Exception {
-//        URI uri = new URI(baseUrl + port + "/news/top4news");
-//
-//        // Need to use array with a ResponseEntity here
-//        ResponseEntity<News[]> result = restTemplate.getForEntity(uri, News[].class);
-//        News[] news = result.getBody();
-//
-//        assertEquals(200, result.getStatusCode().value());
-//        assertEquals(0, news.length);
-//    }
-//
-//    @Test
-//    public void findTop4NewsPast7Days_Success() throws Exception {
-//        News n = NewsIntegrationTests.newsFormatter();
-//        String title = newsRepository.save(n).getTitle();
-//        News n1 = NewsIntegrationTests.newsFormatter();
-//        n1.setTitle(title + "1");
-//        n1.setViewCount(200);
-//        newsRepository.save(n1);
-//        News n2 = NewsIntegrationTests.newsFormatter();
-//        n2.setTitle(title + "2");
-//        n2.setViewCount(200);
-//        newsRepository.save(n2);
-//        News n3 = NewsIntegrationTests.newsFormatter();
-//        n3.setTitle(title + "3");
-//        n3.setViewCount(200);
-//        newsRepository.save(n3);
-//        URI uri = new URI(baseUrl + port + "/news/top4news");
-//
-//        // Need to use array with a ResponseEntity here
-//        ResponseEntity<News[]> result = restTemplate.getForEntity(uri, News[].class);
-//        News[] news = result.getBody();
-//
-//        assertEquals(200, result.getStatusCode().value());
-//        assertEquals(4, news.length);
-//    }
 
 
     private static News newsFormatter() {
@@ -274,7 +229,7 @@ public class NewsIntegrationTests {
         // arrange *** String title, String description, String content, String coverImage, Date date
         News news = null;
         try {
-            news = new News("updated", "123456", "1", "1", formatter.parse("2020-01-01"));
+            news = new News("updated", "123456", "1", "1", LocalDate.now());
         } catch (Exception e) {
             return null;
         }

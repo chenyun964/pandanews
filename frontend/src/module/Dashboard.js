@@ -1,8 +1,9 @@
 import { Component, Fragment } from 'react';
 import OrganisationModel from '../model/OrganisationModel';
 import UserModel from '../model/UserModel';
-import { Modal, Button, Typography, Result, Popconfirm } from 'antd';
+import { Modal, Button, Typography, Result, Popconfirm, Table } from 'antd';
 import AttendanceModel from '../model/AttendanceModel';
+import moment from "moment";
 
 const { Text } = Typography;
 
@@ -16,7 +17,8 @@ class Dashboard extends Component {
             company: {},
             attendance: {},
             loading: false,
-            loginFailed: false
+            loginFailed: false,
+            attendanceList: null
         }
     }
 
@@ -44,7 +46,6 @@ class Dashboard extends Component {
 
         today = yyyy + '-' + mm + '-' + dd;
         AttendanceModel.getAttendanceByDate(today).then(res => {
-            console.log(res.data);
             this.setState({
                 attendance: res.data
             });
@@ -54,6 +55,7 @@ class Dashboard extends Component {
     }
 
     punchInOrOut() {
+        console.log(1);
         AttendanceModel.markAttendance().then(res => {
             console.log(res.data);
             this.setState({
@@ -144,6 +146,17 @@ class Dashboard extends Component {
         } else if (this.state.company.status === 0) {
             return this.renderPending(1);
         } else {
+            if (this.state.profile.id && this.state.attendanceList == null) {
+                AttendanceModel.getAttendanceByUser(this.state.profile.id).then(res => {
+                    this.setState({
+                        attendanceList: res.data
+                    })
+                    return this.renderDashboard()
+                }).catch(e => {
+                    console.log(e);
+                })
+            }
+
             return this.renderDashboard();
         }
     }
@@ -274,79 +287,112 @@ class Dashboard extends Component {
     }
 
     renderDashboard() {
+        const columns = [
+            {
+                title: 'Date',
+                dataIndex: 'punchInDate',
+                key: 'punchInDate',
+                render: (_, record) => {
+                    let date = record.punchInDate[0] + ":" + record.punchInDate[1] + ":" + record.punchInDate[2];
+                    return <div>{moment(date, "YYYY-MM-DD").format("YYYY-MM-DD")}</div>
+                }
+            },
+            {
+                title: 'Punch In Time',
+                dataIndex: 'punchInTime',
+                key: 'punchInTime',
+                render: (_, record) => {
+                    let inTime = record.punchInTime[0] + ":" + record.punchInTime[1];
+                    return <div>{moment(inTime, "hh:mm").format("hh:mm")}</div>
+                }
+            },
+            {
+                title: 'Punch Out Time',
+                dataIndex: 'punchOutTime',
+                key: 'punchOutTime',
+                render: (_, record) => {
+                    if (record.punchOutTime) {
+                        let outTime = record.punchOutTime[0] + ":" + record.punchOutTime[1];
+                        return <div>{moment(outTime, "hh:mm").format("hh:mm")}</div>
+                    }
+                }
+            },
+        ];
+
         return <Fragment>
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Ogranisation Name: {this.state.company.title}</h5>
-                    <p class="card-text">Contact Number: {this.state.company.contact}</p>
-                    <Button danger onClick={() => this.info()}>Delete</Button>
-                </div>
-            </div>
-            <div className="d-flex card-container">
-                <div class="card mb-3 flex-fill">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Hi, {this.state.profile.name ? this.state.profile.name : this.state.profile.username}</h5>
-                        <div className="d-flex">
-                            <div className="flex-fill text-center">
-                                {this.state.profile.vaccinated ?
-                                    <Result
-                                        status="success"
-                                        title="Vaccinated"
-                                    />
-                                    :
-                                    <Result
-                                        status="warning"
-                                        title="Not Vaccinated"
-                                        extra={
-                                            <Button type="primary" key="console" onClick={() => this.updateVaccinated()}>
-                                                Vaccinate Now
-                                            </Button>
+            <div className="card-container">
+                <div className="row">
+                    <div className="col-12 col-lg-6 mb-3">
+                        <div class="card flex-fill">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Hi, {this.state.profile.name ? this.state.profile.name : this.state.profile.username}</h5>
+                                <div className="d-flex">
+                                    <div className="flex-fill text-center">
+                                        {this.state.profile.vaccinated ?
+                                            <Result
+                                                status="success"
+                                                title="Vaccinated"
+                                            />
+                                            :
+                                            <Result
+                                                status="warning"
+                                                title="Not Vaccinated"
+                                                extra={
+                                                    <Button type="primary" key="console" onClick={() => this.updateVaccinated()}>
+                                                        Vaccinate Now
+                                                    </Button>
+                                                }
+                                            />
                                         }
-                                    />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-12 col-lg-6">
+                        <div class="card mb-3 flex-fill">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">Timesheet <span>{moment().format("DD MMM YYYY")}</span></h5>
+                                {!this.state.attendance ?
+                                    <div className="in-card-container mb-3">
+                                        <strong>You have not punch in today</strong>
+                                    </div>
+                                    :
+                                    <div className="in-card-container mb-3">
+                                        {!this.state.attendance.punchedOut ?
+                                            <div>
+                                                <strong>Punch in at</strong><br />
+                                                <span>{moment(this.state.attendance.createdAt).format("dddd, Do MMM YYYY LT")}</span>
+                                            </div>
+                                            :
+                                            <div>
+                                                <strong>Punch out at</strong><br />
+                                                <span>{moment(this.state.attendance.updatedAt).format("dddd, Do MMM YYYY LT")}</span>
+                                            </div>
+                                        }
+
+                                    </div>
+                                }
+
+                                {!this.state.attendance ?
+                                    <button className="btn btn-primary mt-3" onClick={() => this.punchInOrOut()}>Punch In</button>
+                                    :
+                                    <Popconfirm
+                                        className={this.state.attendance.punchedOut ? "btn btn-primary mt-3 disabled" : "btn btn-primary mt-3"}
+                                        title="Sure to punch out?"
+                                        onConfirm={() => this.punchInOrOut()}
+                                        disabled={this.state.attendance.punchedOut}>
+                                        Punch Out
+                                    </Popconfirm>
                                 }
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card mb-3 flex-fill">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Timesheet <span>11 Oct 2021</span></h5>
-                        <div>
-                            <p>Punch in at</p>
-                            <p>Wed, 11th Oct 2021 10.00 AM</p>
-                        </div>
-                        <div classname="text-center">
-                            <div class="progress blue">
-                                <span class="progress-left">
-                                    <span class="progress-bar"></span>
-                                </span>
-                                <span class="progress-right">
-                                    <span class="progress-bar"></span>
-                                </span>
-                                <div class="progress-value">90%</div>
-                            </div>
-                        </div>
-
-                        {(!this.state.attendance) ?
-                            <button className="btn btn-primary mt-3" onClick={() => this.punchInOrOut()}>Punch In</button> :
-                            <button
-                                disabled={this.state.attendance.punchedOut}
-                                className="btn btn-primary mt-3"
-                            >
-                                <Popconfirm title="Sure to punch out?" onConfirm={() => this.punchInOrOut()}>
-                                    Punch Out
-                                </Popconfirm>
-                            </button>}
-                        <hr />
-                        <div className="d-flex">
-                            <div className="flex-fill text-center">
-                                <p>BREAK</p>
-                                <p>1.21 hrs</p>
-                            </div>
-                            <div className="flex-fill text-center">
-                                <p>Overtime</p>
-                                <p>3 hrs</p>
-                            </div>
+                    <div className="col-12">
+                        <div className="card">
+                            <h5 className="p-3">Attendance List</h5>
+                            <Table columns={columns} dataSource={this.state.attendanceList} />
                         </div>
                     </div>
                 </div>

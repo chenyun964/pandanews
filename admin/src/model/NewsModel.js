@@ -1,5 +1,6 @@
 import config from '../config/Config';
 import axios from 'axios';
+import axiosJwt from '../lib/AxiosJwt';
 
 class NewsModel {
   async list() {
@@ -10,8 +11,8 @@ class NewsModel {
     return axios.get(config['news_api'] + "/" + id);
   } 
 
-  async update(id) {
-    return axios.put(config['news_api'] + "/" + id);
+  async update(id, data) {
+    return axios.put(config['news_api'] + "/" + id, data);
   } 
 
   async create(data) {
@@ -23,7 +24,7 @@ class NewsModel {
   } 
 
   async createByAPI() {
-    return axios.post(config['news_generate_bing_api']);
+    return axiosJwt.post(config['news_generate_bing_api']);
   }
 }
 

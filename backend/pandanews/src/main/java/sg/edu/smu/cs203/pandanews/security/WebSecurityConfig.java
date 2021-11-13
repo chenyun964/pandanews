@@ -80,6 +80,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // role-specific requests
                 .antMatchers(HttpMethod.GET, "/organisations/*/workgroups", "/organisations/*/workgroups/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/news/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/news/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/news/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/news/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/category/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/category/*").permitAll()
                 .antMatchers(HttpMethod.PUT, "/category/*").permitAll()
@@ -101,15 +104,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/category/**").permitAll()
 
-                .antMatchers(HttpMethod.GET, "/vaccispots/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/vaccispots/**").permitAll()
-                .antMatchers(HttpMethod.PUT, "/vaccispots/**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/vaccispots/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/organisation/*/policies/*").hasAnyRole("USER","OWNER", "MANAGER")
+                .antMatchers(HttpMethod.POST, "/organisation/*/policies").hasAnyRole("OWNER", "MANAGER")
+                .antMatchers(HttpMethod.PUT, "/organisation/*/policies/*").hasAnyRole("OWNER", "MANAGER")
+                .antMatchers(HttpMethod.DELETE, "/organisation/*/policies/*").hasAnyRole("OWNER", "MANAGER")
 
+                .antMatchers(HttpMethod.GET, "/vaccispots/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/vaccispots/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/vaccispots/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/vaccispots/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/testspots/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/testspots/**").permitAll()
-                .antMatchers(HttpMethod.PUT, "/testspots/**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/testspots/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/testspots/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/testspots/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/testspots/*").hasRole("ADMIN")
 
                 .antMatchers(HttpMethod.GET, "/statistic/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/statistic/**").permitAll()

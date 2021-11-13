@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { NavLink } from "react-router-dom";
 import CategoryModel from '../../model/CategoryModel';
 
 class Nav extends Component {
@@ -12,7 +11,6 @@ class Nav extends Component {
 
   componentDidMount() {
     CategoryModel.list().then(res => {
-      console.log(res.data);
       this.setState({
         category: res.data
       })
