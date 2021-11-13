@@ -41,9 +41,12 @@ public class NewsController {
      */
     @PostMapping(path = "/news/api")
     public List<News> createNewsByAPI() {
-        return newsService.createNewsByAPI();
+        List<News> n = newsService.createNewsByAPI();
+        if (n == null) {
+            throw new NewsDuplicationException("Duplicated News Found in API call");
+        }
+        return n;
     }
-
 
     /**
      * update news information
@@ -56,16 +59,16 @@ public class NewsController {
     public News updateNews(@PathVariable int id, @RequestBody NewsDTO newNews) {
         News news = newsService.updateNews(id, newNews);
         if (news == null) {
-            throw new NewsNotFoundException("News Not Found");
+            throw new NewsNotFoundException();
         }
         return news;
     }
 
-    @PostMapping(path = "/news/view/{slug}")
+    @PutMapping(path = "/news/view/{slug}")
     public News updateViewCount(@PathVariable String slug) {
         News news = newsService.increaseViewCount(slug);
         if (news == null) {
-            throw new NewsNotFoundException("News Not Found");
+            throw new NewsNotFoundException();
         }
         return news;
     }
@@ -90,9 +93,10 @@ public class NewsController {
     public List<News> findNewsByKeyword(@PathVariable String keyword) {
         List<News> list = newsService.findNewsByKeywords(keyword);
         if (list.size() == 0)
-            throw new NewsNotFoundException("News Not Found");
+            throw new NewsNotFoundException();
         return list;
     }
+
 
     /**
      * find news by a id
@@ -104,11 +108,25 @@ public class NewsController {
     public News findNewsById(@PathVariable int id) {
         News n = newsService.findNewsById(id);
         if (n == null) {
-            throw new NewsNotFoundException("News Not Found");
+            throw new NewsNotFoundException();
         }
         return n;
     }
 
+    /**
+     * find news by a slug
+     *
+     * @param slug
+     * @returnnews with particular slug
+     */
+    @GetMapping(path = "/news/slug/{slug}")
+    public News findNewsBySlug(@PathVariable String slug) {
+        News n = newsService.findBySlug(slug);
+        if (n == null) {
+            throw new NewsNotFoundException();
+        }
+        return n;
+    }
 
     /**
      * find news with top viewing count within past 7 days
@@ -130,7 +148,7 @@ public class NewsController {
     public List<News> findNewsByCategory(@PathVariable String category) {
         List<News> newsList = newsService.findNewsByCategory(category);
         if (newsList == null) {
-            throw new NewsNotFoundException("News not found");
+            throw new NewsNotFoundException();
         }
         return newsList;
     }

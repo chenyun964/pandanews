@@ -3,7 +3,7 @@ package sg.edu.smu.cs203.pandanews.dto;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -28,7 +28,7 @@ public class NewsDTO implements Serializable {
 
     private boolean pinned;
 
-    public Date date;
+    public LocalDate date;
 
     public Boolean getPinned() {
         return pinned;

@@ -17,7 +17,6 @@ class Employee extends Component {
 
     componentDidMount() {
         this.listEmployee();
-
         UserModel.userOrg().then(res => {
             this.setState({
                 code: res.data.code
@@ -136,16 +135,19 @@ class Employee extends Component {
                             <Column
                                 title="Action"
                                 key="id"
-                                render={(id, record) => (
-                                    <Space size="middle">
-                                        {id.authorities[0].authority == "ROLE_MANAGER" ?
-                                            <button className="btn btn-primary" onClick={() => this.demoteEmployee(id)}> Demote </button>
-                                            :
-                                            <button className="btn btn-primary" onClick={() => this.promoteEmployee(id)}> Promote </button>
-                                        }
-                                        <button className="btn btn-danger" onClick={() => this.removeAlert(id)}>Remove</button>
-                                    </Space>
-                                )}
+                                render={(id, record) => {
+                                    if (id.authorities[0].authority != "ROLE_OWNER") {
+                                        return <Space size="middle">
+                                            {id.authorities[0].authority == "ROLE_MANAGER" ?
+                                                <button className="btn btn-primary" onClick={() => this.demoteEmployee(id)}> Demote </button>
+                                                :
+                                                <button className="btn btn-primary" onClick={() => this.promoteEmployee(id)}> Promote </button>
+                                            }
+                                            <button className="btn btn-danger" onClick={() => this.removeAlert(id)}>Remove</button>
+                                        </Space>
+                                    }
+
+                                }}
                             />
                         </Table>
                     </div>

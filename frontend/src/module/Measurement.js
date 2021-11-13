@@ -25,13 +25,9 @@ class Measurement extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
-                            <h3 className="text-center title"> Latest Measurements </h3>
-                            <div className="subtitle mb-4">
-                                <div className="mea-subtitle">
-                                    <strong >Here's what you can or cannot do from 19 August (updates 8 September):</strong>
-                                </div>
+                            <div className="text-center">
+                                <h3 className="title mea-subtitle"> Latest Measurements </h3>
                             </div>
-
                             <div className="row">
                                 {this.state.measurements.map((m, i) => {
                                     return (

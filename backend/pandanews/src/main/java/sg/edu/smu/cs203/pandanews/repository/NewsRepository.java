@@ -16,7 +16,7 @@ public interface NewsRepository extends JpaRepository<News, Long> {
 
     //SELECT * FROM employee WHERE name="employee name" OR location="location name";
 
-    @Query("SELECT n FROM News n WHERE n.description LIKE %:keyword% OR n.title LIKE %:keyword% ORDER BY n.updatedAt " +
+    @Query("SELECT n FROM News n WHERE n.description LIKE %:keyword% OR n.title LIKE %:keyword% ORDER BY n.createdAt " +
             "DESC")
     List<News> findAllByKeyword(String keyword);
 

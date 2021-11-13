@@ -2,7 +2,6 @@ import { Component, Fragment } from 'react';
 import { Table, Input, Space, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
-import VacciSpotModel from '../model/VacciSpotModel';
 import OrganisationModel from '../model/OrganisationModel';
 import AttendanceModel from '../model/AttendanceModel';
 

@@ -11,8 +11,8 @@ import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.repository.CategoryRepository;
 import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -220,6 +220,26 @@ public class NewsServiceTests {
     }
 
     @Test
+    void findNewsBySlug_Success() {
+        News n = newsFormatter("Test");
+        when(newsRepo.findBySlug(any(String.class))).thenReturn(n);
+
+        News news = newsService.findBySlug("Test");
+
+        assertNotNull(news);
+        verify(newsRepo).findBySlug("Test");
+    }
+
+    @Test
+    void findNewsBySlug_Failure() {
+        when(newsRepo.findBySlug(any(String.class))).thenReturn(null);
+        News n = newsService.findBySlug("Test");
+
+        assertNull(n);
+        verify(newsRepo).findBySlug("Test");
+    }
+
+    @Test
     void updateNewsCategory_ReturnUpdatedNews() {
         News news = newsFormatter("test");
         News updateNews = newsFormatter("test");
@@ -277,7 +297,7 @@ public class NewsServiceTests {
     private static News newsFormatter(String title) {
         News news = null;
         try {
-            news = new News(title, "123456", "1", "1", new Date());
+            news = new News(title, "123456", "1", "1", LocalDate.now());
         } catch (Exception e) {
             return null;
         }

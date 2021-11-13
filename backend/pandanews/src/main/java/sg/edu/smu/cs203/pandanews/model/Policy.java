@@ -1,18 +1,9 @@
 package sg.edu.smu.cs203.pandanews.model;
 
-import java.util.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Column;
-
 import lombok.*;
+
+import javax.persistence.*;
+import java.util.Date;
 
 
 @Entity
@@ -23,8 +14,12 @@ import lombok.*;
 @EqualsAndHashCode
 public class Policy {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Setter
+    @Column
+    private String title;
 
     @Setter
     @Column
@@ -35,7 +30,8 @@ public class Policy {
     private Boolean validity;
 
     @ManyToOne
-    @JoinColumn(name = "organisation_id", nullable = false)
+    @JoinColumn(name = "organisation_id")
+    @Setter
     private Organisation organisation;
 
     @Column(name = "created_at", updatable = false)

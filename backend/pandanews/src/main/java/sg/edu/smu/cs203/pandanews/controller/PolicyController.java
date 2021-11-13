@@ -1,8 +1,8 @@
 package sg.edu.smu.cs203.pandanews.controller;
 
-import java.util.List;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,17 +17,19 @@ import sg.edu.smu.cs203.pandanews.exception.UnauthorizedUserException;
 import sg.edu.smu.cs203.pandanews.exception.PolicyNotFoundException;
 import sg.edu.smu.cs203.pandanews.service.policy.PolicyService;
 import sg.edu.smu.cs203.pandanews.service.user.UserService;
+
+import org.springframework.web.bind.annotation.*;
+import sg.edu.smu.cs203.pandanews.exception.OrganisationNotFoundException;
 import sg.edu.smu.cs203.pandanews.model.Policy;
-import sg.edu.smu.cs203.pandanews.repository.UserRepository;
-import sg.edu.smu.cs203.pandanews.model.user.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.context.SecurityContextHolder;
+import sg.edu.smu.cs203.pandanews.service.policy.PolicyService;
+
+import java.util.List;
 
 @RestController
+@CrossOrigin
 public class PolicyController {
+    @Autowired
     private PolicyService policyService;
-    private UserService userService;
-    private UserRepository userRepo;
 
     public PolicyController(PolicyService policyService) {
         this.policyService = policyService;

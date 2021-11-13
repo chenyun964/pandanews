@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class OrganisationNotFoundException extends RuntimeException {
+
+    private static final long serialVersionUID = 1L;
+
     public OrganisationNotFoundException() {
-        super("Error 404: Organisation not found.");
+        super("Organisation Not Found");
     }
 
-    public OrganisationNotFoundException(String message) {
-        super(message);
-    }
 }

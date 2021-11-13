@@ -1,62 +1,93 @@
-import { Component, Fragment } from 'react';
-import { Link } from "react-router-dom";
-import OrganisationModel from "../model/OrganisationModel";
-
+import { Component } from 'react';
+import UserModel from '../model/UserModel';
+import StatisticsModel from '../model/StatisticsModel';
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            profile: {},
+            summary: {}
+        }
     }
 
     componentDidMount() {
+        this.getProfile();
+        this.getSummary();
+    }
+
+    getProfile() {
+        UserModel.profile().then(res => {
+            this.setState({
+                profile: res.data
+            })
+        }).catch(e => {
+            console.log(e);
+        })
+    }
+
+    getSummary() {
+        StatisticsModel.summary().then(res => {
+            console.log(res.data);
+            this.setState({
+                summary: res.data
+            })
+        }).catch(e => {
+            console.log(e);
+        })
     }
 
     render() {
         return (
-            <div class="content">
-                <header class="page-header">
-                    <div class="d-flex align-items-center">
-                        <div class="mr-auto">
+            <div className="content">
+                <header className="page-header">
+                    <div className="d-flex align-items-center">
+                        <div className="mr-auto">
                             <h1>Dashboard</h1>
                         </div>
-                        <ul class="actions top-right">
-                            <li class="dropdown">
-                                <a href="javascript:void(0)" class="btn btn-fab" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="la la-ellipsis-h"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-icon-menu dropdown-menu-right">
-                                    <div class="dropdown-header">
-                                        Quick Actions
-                                    </div>
-                                    <a href="#" class="dropdown-item">
-                                        <i class="icon dripicons-clockwise"></i> Refresh
-                                    </a>
-                                    <a href="#" class="dropdown-item">
-                                        <i class="icon dripicons-gear"></i> Manage Widgets
-                                    </a>
-                                    <a href="#" class="dropdown-item">
-                                        <i class="icon dripicons-cloud-download"></i> Export
-                                    </a>
-                                    <a href="#" class="dropdown-item">
-                                        <i class="icon dripicons-help"></i> Support
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
                     </div>
                 </header>
 
-                <section class="page-content container-fluid">
-                    <div class="row">
-
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <span class="d-inline-block">Hi, </span>
+                <section className="page-content container-fluid">
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <div className="card">
+                                <div className="card-header">
+                                    <span className="d-inline-block">Hi, {this.state.profile.username}</span>
                                 </div>
-                                <div class="card-body p-0">
-                                    
+                            </div>
+                        </div>
+                    </div>
+                    <div className="card">
+                        <div className="card-header">
+                            <h5 className="d-inline-block">Covid Statistics</h5>
+                        </div>
+                        <div class="row m-0 col-border-xl">
+                            <div class="col-md-12 col-lg-6 col-xl-4">
+                                <div class="card-body">
+                                    <div class="icon-rounded icon-rounded-accent float-left m-r-20"></div>
+                                    <h5 class="card-title m-b-5 counter">{this.state.summary.totalCases}</h5>
+                                    <h6 class="text-muted m-t-10">
+                                        Total Cases
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-6 col-xl-4">
+                                <div class="card-body">
+                                    <div class="icon-rounded icon-rounded-success float-left m-r-20"></div>
+                                    <h5 class="card-title m-b-5 counter">{this.state.summary.totalRecovery}</h5>
+                                    <h6 class="text-muted m-t-10">
+                                        Total Recovery
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-6 col-xl-4">
+                                <div class="card-body">
+                                    <div class="icon-rounded icon-rounded-info float-left m-r-20"></div>
+                                    <h5 class="card-title m-b-5 counter">{this.state.summary.totalDeath}</h5>
+                                    <h6 class="text-muted m-t-10">
+                                        Total Death
+                                    </h6>
                                 </div>
                             </div>
                         </div>

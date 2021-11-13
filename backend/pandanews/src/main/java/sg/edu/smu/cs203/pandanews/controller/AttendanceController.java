@@ -2,7 +2,6 @@ package sg.edu.smu.cs203.pandanews.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -10,13 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import sg.edu.smu.cs203.pandanews.model.attendance.Attendance;
 import sg.edu.smu.cs203.pandanews.model.user.User;
 import sg.edu.smu.cs203.pandanews.service.attendance.AttendanceService;
-import sg.edu.smu.cs203.pandanews.service.attendance.AttendanceServiceImpl;
 import sg.edu.smu.cs203.pandanews.service.user.UserService;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
