@@ -83,7 +83,7 @@ class Policy extends Component {
                         <Table dataSource={this.state.policy}>
                             <Column title="Policy ID" dataIndex="id" key="id" />
                             <Column
-                                title="Content"
+                                title="Message"
                                 dataIndex="message"
                                 key="message"
                                 render={message => (
@@ -91,25 +91,10 @@ class Policy extends Component {
                                 )}
                             />
                             <Column
-                                title="Active Policy?"
-                                dataIndex="validity"
-                                key="validity"
-                                render={validity => (
-                                    <Tag color={validity ? 'green' : "red"} key={validity}>
-                                        {validity ? "Yes" : "No"}
-                                    </Tag>
-                                )}
-                            />
-                            <Column
                                 title="Action"
                                 key="id"
                                 render={(id, record) => (
                                     <Space size="middle">
-                                        {record.validity ?
-                                            <button className="btn btn-primary" onClick={() => this.deactivatePolicy(id)}> Dectivate </button>
-                                            :
-                                            <button className="btn btn-primary" onClick={() => this.activatePolicy(id)}> Activate </button>
-                                        }
                                         <button className="btn btn-danger" onClick={() => this.deletePolicy(record)}>Remove</button>
                                     </Space>
                                 )}

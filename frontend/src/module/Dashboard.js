@@ -1,11 +1,13 @@
 import { Component, Fragment } from 'react';
 import OrganisationModel from '../model/OrganisationModel';
 import UserModel from '../model/UserModel';
-import { Modal, Button, Typography, Result, Popconfirm, Table } from 'antd';
+import { Modal, Button, Typography, Result, Popconfirm, Table, Collapse } from 'antd';
 import AttendanceModel from '../model/AttendanceModel';
 import moment from "moment";
+import PolicyModel from '../model/PolicyModel';
 
 const { Text } = Typography;
+const { Panel } = Collapse;
 
 class Dashboard extends Component {
     constructor(props) {
@@ -16,6 +18,7 @@ class Dashboard extends Component {
             errors: {},
             company: {},
             attendance: {},
+            policy: [],
             loading: false,
             loginFailed: false,
             attendanceList: null
@@ -56,6 +59,7 @@ class Dashboard extends Component {
 
     punchInOrOut() {
         AttendanceModel.markAttendance().then(res => {
+            this.listAttendanceByUser();
             this.setState({
                 attendance: res.data
             });
@@ -145,18 +149,32 @@ class Dashboard extends Component {
             return this.renderPending(1);
         } else {
             if (this.state.profile.id && this.state.attendanceList == null) {
-                AttendanceModel.getAttendanceByUser(this.state.profile.id).then(res => {
-                    this.setState({
-                        attendanceList: res.data
-                    })
-                    return this.renderDashboard()
-                }).catch(e => {
-                    console.log(e);
-                })
+                this.listAttendanceByUser();
+                this.listPolicy();
             }
 
             return this.renderDashboard();
         }
+    }
+
+    listAttendanceByUser() {
+        AttendanceModel.getAttendanceByUser(this.state.profile.id).then(res => {
+            this.setState({
+                attendanceList: res.data
+            })
+        }).catch(e => {
+            console.log(e);
+        })
+    }
+
+    listPolicy() {
+        OrganisationModel.policy().then(res => {
+            this.setState({
+                policy: res.data
+            })
+        }).catch(e => {
+            console.log(e)
+        })
     }
 
     renderBothForm() {
@@ -320,8 +338,8 @@ class Dashboard extends Component {
         return <Fragment>
             <div className="card-container">
                 <div className="row">
-                    <div className="col-12 col-lg-6 mb-3">
-                        <div class="card flex-fill">
+                    <div className="col-12 col-lg-6">
+                        <div class="card flex-fill  mb-3">
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">Hi, {this.state.profile.name ? this.state.profile.name : this.state.profile.username}</h5>
                                 <div className="d-flex">
@@ -345,6 +363,18 @@ class Dashboard extends Component {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div className="card">
+                            <h5 className="p-3">Policies</h5>
+                            <Collapse defaultActiveKey={["0"]}>
+                                {this.state.policy.map((p, i) => {
+                                    return (
+                                        <Panel header={p.title} key={i}>
+                                            <div dangerouslySetInnerHTML={{ __html: p.message }}></div>
+                                        </Panel>
+                                    )
+                                })}
+                            </Collapse>
                         </div>
                     </div>
 
@@ -386,9 +416,7 @@ class Dashboard extends Component {
                                 }
                             </div>
                         </div>
-                    </div>
-                    <div className="col-12">
-                        <div className="card">
+                        <div className="card ">
                             <h5 className="p-3">Attendance List</h5>
                             <Table columns={columns} dataSource={this.state.attendanceList} />
                         </div>

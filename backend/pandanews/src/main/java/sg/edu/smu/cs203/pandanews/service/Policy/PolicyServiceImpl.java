@@ -41,7 +41,6 @@ public class PolicyServiceImpl implements PolicyService {
         return policyRepo.findById(id).map(policy -> {
             policy.setTitle(newPolicy.getTitle());
             policy.setMessage(newPolicy.getMessage());
-            policy.setValidity(newPolicy.getValidity());
             return policyRepo.save(policy);
         }).orElse(null);
     }
