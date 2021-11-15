@@ -69,9 +69,9 @@ class Sidebar extends Component {
                 <li className="nav-item" >
                   <NavLink to="/employee" className="nav-link" ><i class="fas fa-user-friends"></i><span>Employee</span></NavLink>
                 </li>
-                {/* <li className="nav-item" >
+                <li className="nav-item" >
                   <NavLink to="/policy" className="nav-link" ><i class="fas fa-scroll"></i><span>Policy</span></NavLink>
-                </li> */}
+                </li>
                 {/* <li className="nav-item" >
                   <NavLink to="/workgroup" className="nav-link" ><i class="fas fa-users"></i><span>Workgroup</span></NavLink>
                 </li> */}

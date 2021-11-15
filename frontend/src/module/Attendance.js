@@ -4,6 +4,7 @@ import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import OrganisationModel from '../model/OrganisationModel';
 import AttendanceModel from '../model/AttendanceModel';
+import moment from "moment";
 
 class Attendance extends Component {
     constructor(props) {
@@ -22,7 +23,9 @@ class Attendance extends Component {
             res.data.forEach(employee => {
                 AttendanceModel.getAttendanceByUser(employee.id).then(r => {
                     let newData = this.state.data;
-                    newData.push(r.data);
+                    r.data.forEach(d => {
+                        newData.push(d);
+                    })
                     this.setState({ data: newData });
                 })
             })
@@ -97,6 +100,7 @@ class Attendance extends Component {
     }
 
     render() {
+        console.log(this.state.data);
         const columns = [
             {
                 title: 'Name',
@@ -122,12 +126,20 @@ class Attendance extends Component {
                 key: 'punchInDate',
                 responsive: ['lg'],
                 ...this.getColumnSearchProps('punchInDate'),
+                render: (_, record) => {
+                    let date = record.punchInDate[0] + ":" + record.punchInDate[1] + ":" + record.punchInDate[2];
+                    return <div>{moment(date, "YYYY-MM-DD").format("YYYY-MM-DD")}</div>
+                }
             },
             {
                 title: 'Punch In Time',
                 dataIndex: 'punchInTime',
                 key: 'punchInTime',
                 responsive: ['lg'],
+                render: (_, record) => {
+                    let inTime = record.punchInTime[0] + ":" + record.punchInTime[1];
+                    return <div>{moment(inTime, "hh:mm").format("hh:mm")}</div>
+                }
             },
             {
                 title: 'Punch Out Date',
@@ -141,6 +153,12 @@ class Attendance extends Component {
                 dataIndex: 'punchOutTime',
                 key: 'punchOutTime',
                 responsive: ['lg'],
+                render: (_, record) => {
+                    if (record.punchOutTime) {
+                        let outTime = record.punchOutTime[0] + ":" + record.punchOutTime[1];
+                        return <div>{moment(outTime, "hh:mm").format("hh:mm")}</div>
+                    }
+                }
             },
         ];
         return (

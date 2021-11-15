@@ -25,10 +25,6 @@ public class Policy {
     @Column
     private String message;
 
-    @Setter
-    @Column
-    private Boolean validity;
-
     @ManyToOne
     @JoinColumn(name = "organisation_id")
     @Setter

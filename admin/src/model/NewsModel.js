@@ -12,15 +12,15 @@ class NewsModel {
   } 
 
   async update(id, data) {
-    return axios.put(config['news_api'] + "/" + id, data);
+    return axiosJwt.post(config['news_api'] + "/" + id, data);
   } 
 
   async create(data) {
-    return axios.post(config['news_api'], data);
+    return axiosJwt.post(config['news_api'], data);
   }
   
    async delete(id) {
-    return axios.delete(config['news_api'] + "/" + id);
+    return axiosJwt.delete(config['news_api'] + "/" + id);
   } 
 
   async createByAPI() {
