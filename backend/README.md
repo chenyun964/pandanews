@@ -31,7 +31,7 @@ For OSX users:
 ```sh
 ./mvnw package -DskipTests
 ```
-`-DskipTests` here is to skip the testing process since it is not used in this project.
+`-DskipTests` here is to skip the testing process since it is not used in this project. You may remove this after you have done your test cases.
 
 However, if you are using IntelliJ IDEA, you can simply open your project using IntelliJ and head to pom.xml. There is a small pop up on the right of the window. You can click the button with the letter `M` to load your maven dependencies.
 
