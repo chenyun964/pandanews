@@ -62,7 +62,9 @@ public class TestUtils {
     }
 
     private User generateTestUser() {
-        return new User("name", "abc@gmail.com", "abc");
+        User u = new User("name", "abc@gmail.com", "abc");
+        u.setAuthorities("ROLE_ADMIN");
+        return u;
     }
 
 }
