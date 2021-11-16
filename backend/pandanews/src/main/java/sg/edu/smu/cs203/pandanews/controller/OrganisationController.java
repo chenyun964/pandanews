@@ -96,7 +96,7 @@ public class OrganisationController {
         return organisation;
     }
 
-    @PutMapping("/organisation/approve/{id}")
+    @PutMapping("/organisation/approval/{id}")
     public Organisation approveOrganisation(@PathVariable Long id) {
         Organisation organisation = organisationService.approveOrganisation(id);
         if (organisation == null)
@@ -182,7 +182,7 @@ public class OrganisationController {
         return organisation.getPolicy();
     }
 
-    @PutMapping("/organisation/promote/{id}")
+    @PutMapping("/organisation/promotion/{id}")
     public Organisation promoteEmployee(@PathVariable Long id) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
@@ -202,7 +202,7 @@ public class OrganisationController {
         return null;
     }
 
-    @PutMapping("/organisation/demote/{id}")
+    @PutMapping("/organisation/demotion/{id}")
     public Organisation demoteEmployee(@PathVariable Long id) {
         final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
