@@ -9,7 +9,7 @@ const user_profile_api = API_HOSTS + '/users/profile';
 
 // Ogranisation
 const org_api = API_HOSTS + '/organisation';
-const org_approve_api = API_HOSTS + '/organisation/approve';
+const org_approve_api = API_HOSTS + '/organisation/approval';
 
 // News
 const news_api = API_HOSTS + '/news';

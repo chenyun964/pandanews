@@ -63,14 +63,12 @@ public class NewsIntegrationTests {
         //test12
     }
 
-    //Test pass
     @Test
     public void listNews_Success() throws Exception {
 
         URI uri = new URI(baseUrl + port + "/news");
         newsRepo.save(NewsIntegrationTests.newsFormatter());
 
-        // Need to use array with a ResponseEntity here
         ResponseEntity<News[]> result = restTemplate.getForEntity(uri, News[].class);
         News[] newsList = result.getBody();
 
