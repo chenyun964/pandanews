@@ -86,7 +86,6 @@ public class PolicyServiceTests {
         Policy updatePolicy = new Policy();
 
         updatePolicy.setMessage("updated");
-        updatePolicy.setValidity(true);
 
         when(policyRepo.findById(any(Long.class))).thenReturn(Optional.of(policy));
         when(policyRepo.save(any(Policy.class))).thenReturn(updatePolicy);
@@ -95,7 +94,6 @@ public class PolicyServiceTests {
 
         assertNotNull(result);
         assertEquals("updated", result.getMessage());
-        assertTrue(result.getValidity());
         verify(policyRepo).findById(10L);
         verify(policyRepo).save(policy);
     }
