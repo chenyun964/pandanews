@@ -42,13 +42,13 @@ public class NewsIntegrationTests {
     private TestRestTemplate restTemplate;
 
     @Autowired
-    private NewsRepository newsRepository;
+    private NewsRepository newsRepo;
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepo;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository userRepo;
 
     @Autowired
     TestUtils testUtils;
@@ -57,9 +57,9 @@ public class NewsIntegrationTests {
     @AfterEach
     void tearDown() {
         // clear the database after each test
-        newsRepository.deleteAll();
-        categoryRepository.deleteAll();
-        userRepository.deleteAll();
+        newsRepo.deleteAll();
+        categoryRepo.deleteAll();
+        userRepo.deleteAll();
         //test12
     }
 
@@ -68,7 +68,7 @@ public class NewsIntegrationTests {
     public void listNews_Success() throws Exception {
 
         URI uri = new URI(baseUrl + port + "/news");
-        newsRepository.save(NewsIntegrationTests.newsFormatter());
+        newsRepo.save(NewsIntegrationTests.newsFormatter());
 
         // Need to use array with a ResponseEntity here
         ResponseEntity<News[]> result = restTemplate.getForEntity(uri, News[].class);
@@ -82,10 +82,10 @@ public class NewsIntegrationTests {
     @Test
     public void findNewsByCategory_Success() throws Exception {
         News n = NewsIntegrationTests.newsFormatter();
-        Category c = categoryRepository.save(new Category("business"));
+        Category c = categoryRepo.save(new Category("business"));
         if (n != null) {
             n.setCategory(c);
-            newsRepository.save(n);
+            newsRepo.save(n);
         }
         // Need to use array with a ResponseEntity here
         URI uri = new URI(baseUrl + port + "/news/category/" + c.getTitle());
@@ -100,7 +100,7 @@ public class NewsIntegrationTests {
     @Test
     public void deleteNews_Success() throws Exception {
         News n = NewsIntegrationTests.newsFormatter();
-        long id = newsRepository.save(n).getId();
+        long id = newsRepo.save(n).getId();
         // Need to use array with a ResponseEntity here
         URI uri = new URI(baseUrl + port + "/news/" + id);
         restTemplate.delete(uri);
@@ -109,7 +109,7 @@ public class NewsIntegrationTests {
     //Test pass
     @Test
     public void getNewsById_Success() throws Exception {
-        Long id = newsRepository.save(NewsIntegrationTests.newsFormatter()).getId();
+        Long id = newsRepo.save(NewsIntegrationTests.newsFormatter()).getId();
         URI uri = new URI(baseUrl + port + "/news/" + id);
 
         // Need to use array with a ResponseEntity here
@@ -195,13 +195,13 @@ public class NewsIntegrationTests {
     @Test
     public void findNewsByKeyword_Success() throws Exception {
         News n = NewsIntegrationTests.newsFormatter();
-        String title = newsRepository.save(n).getTitle();
+        String title = newsRepo.save(n).getTitle();
         News n1 = NewsIntegrationTests.newsFormatter();
         n1.setTitle(title + "1");
-        newsRepository.save(n1);
+        newsRepo.save(n1);
         News n2 = NewsIntegrationTests.newsFormatter();
         n2.setTitle(title + "2");
-        newsRepository.save(n2);
+        newsRepo.save(n2);
         URI uri = new URI(baseUrl + port + "/news/keyword/" + title);
 
         // Need to use array with a ResponseEntity here

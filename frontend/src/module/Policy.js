@@ -63,7 +63,7 @@ class Policy extends Component {
         })
     }
 
-    deletePolicy(policy){
+    deletePolicy(policy) {
         PolicyModel.delete(policy.id).then(res => {
             this.listPolicy();
         }).catch(e => {
@@ -82,17 +82,12 @@ class Policy extends Component {
                         </div>
                         <Table dataSource={this.state.policy}>
                             <Column title="Policy ID" dataIndex="id" key="id" />
-                            <Column title="Content" dataIndex="message" key="message" />
                             <Column
-                                title="Active Policy?"
-                                dataIndex="validity"
-                                key="validity"
-                                render={validity => (
-                                    <>
-                                        <Tag color={validity ? 'green' : "red"} key={validity}>
-                                            {validity ? "Yes" : "No"}
-                                        </Tag>
-                                    </>
+                                title="Message"
+                                dataIndex="message"
+                                key="message"
+                                render={message => (
+                                    <div dangerouslySetInnerHTML={{ __html: message }}></div>
                                 )}
                             />
                             <Column
@@ -100,11 +95,6 @@ class Policy extends Component {
                                 key="id"
                                 render={(id, record) => (
                                     <Space size="middle">
-                                        {record.validity ?
-                                            <button className="btn btn-primary" onClick={() => this.deactivatePolicy(id)}> Dectivate </button>
-                                            :
-                                            <button className="btn btn-primary" onClick={() => this.activatePolicy(id)}> Activate </button>
-                                        }
                                         <button className="btn btn-danger" onClick={() => this.deletePolicy(record)}>Remove</button>
                                     </Space>
                                 )}

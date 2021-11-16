@@ -217,14 +217,14 @@ class Covid19 extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="row">
+                <div className="row mb-3">
                     <div className="col-lg-6 col-12">
                         <div className="card">
                             <Table
                                 dataSource={this.state.data}
                                 columns={this.renderColumns()}
                                 pagination={{
-                                    onChange: () => this.cancel(),
+                                    pageSize: 8
                                 }}
                             />
                         </div>

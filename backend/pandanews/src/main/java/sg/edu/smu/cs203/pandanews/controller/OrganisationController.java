@@ -1,27 +1,19 @@
 package sg.edu.smu.cs203.pandanews.controller;
 
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
-
-import sg.edu.smu.cs203.pandanews.service.organisation.OrganisationService;
-import sg.edu.smu.cs203.pandanews.service.user.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 import sg.edu.smu.cs203.pandanews.dto.OrganisationDTO;
-import sg.edu.smu.cs203.pandanews.model.user.User;
 import sg.edu.smu.cs203.pandanews.model.Organisation;
 import sg.edu.smu.cs203.pandanews.model.Policy;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.beans.factory.annotation.Autowired;
+import sg.edu.smu.cs203.pandanews.model.user.User;
+import sg.edu.smu.cs203.pandanews.service.organisation.OrganisationService;
+import sg.edu.smu.cs203.pandanews.service.user.UserService;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -189,22 +181,6 @@ public class OrganisationController {
 
         return organisation.getPolicy();
     }
-
-//    @GetMapping("/organisation/workgroup")
-//    public List<WorkGroup> getOrganisationWorkGroups() {
-//        final UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-//                .getPrincipal();
-//
-//        User user = users.getUserByUsername(userDetails.getUsername());
-//        if (user == null)
-//            return null;
-//
-//        Organisation organisation = user.getOrganisation();
-//        if (organisation == null)
-//            return null;
-//
-//        return organisation.getWorkGroup();
-//    }
 
     @PutMapping("/organisation/promote/{id}")
     public Organisation promoteEmployee(@PathVariable Long id) {
