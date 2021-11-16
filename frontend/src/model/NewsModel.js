@@ -2,20 +2,28 @@ import config from '../config/Config';
 import axios from 'axios';
 
 class NewsModel {
-  async list(data) {
+  async list() {
     return axios.get(config['news_list_api']);
   }
 
-  async list_top_4(data) {
+  async listTop4() {
     return axios.get(config['news_get_top_4_api']);
   }
 
-  async list_category_news(title) {
+  async listCategory(title) {
     return axios.get(config['category_news_api'] + '/' + title);
   }
 
-  async search_news(keyword) {
+  async searchNews(keyword) {
     return axios.get(config['search_news_api'] + '/' + keyword);
+  }
+
+  async slug(slug) {
+    return axios.get(config['news_slug_api'] + "/" + slug);
+  } 
+
+  async updateCount(slug){
+    return axios.put(config['news_count_api'] + "/" + slug);
   }
 }
 

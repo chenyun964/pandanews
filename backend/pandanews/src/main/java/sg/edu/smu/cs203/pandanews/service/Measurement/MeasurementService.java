@@ -1,8 +1,9 @@
 package sg.edu.smu.cs203.pandanews.service.measurement;
 
-import java.util.List;
 import org.springframework.stereotype.Service;
 import sg.edu.smu.cs203.pandanews.model.Measurement;
+
+import java.util.List;
 
 @Service
 public interface MeasurementService {

@@ -80,8 +80,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // role-specific requests
                 .antMatchers(HttpMethod.GET, "/organisations/*/workgroups", "/organisations/*/workgroups/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/news/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/news/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/news/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/news/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/news/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/category/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/category/*").permitAll()
@@ -90,7 +90,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/measurements/*").permitAll()
                 .antMatchers("/measurements").permitAll()
                 .antMatchers("/covid/*").permitAll()
-				.antMatchers("/covid").permitAll()
+                .antMatchers("/covid").permitAll()
+                .antMatchers("/image").permitAll()
+                .antMatchers("/image/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/organisations/*/workgroups").hasAnyRole("ADMIN", "MANAGER")
                 .antMatchers(HttpMethod.PUT, "/organisations/*/workgroups/*").hasAnyRole("ADMIN", "MANAGER")
                 .antMatchers(HttpMethod.DELETE, "/organisations/*/workgroups/*").hasAnyRole("ADMIN", "MANAGER")
@@ -98,8 +100,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/organisation/demote/*").hasRole("OWNER")
                 .antMatchers("/organisation/employee/*").hasAnyRole("OWNER", "MANAGER")
                 .antMatchers("/organisation/**").authenticated()
-                .antMatchers(HttpMethod.POST, "/users").permitAll()
-				.antMatchers("/users/**").authenticated()
+                .antMatchers("/users/**").authenticated()
+
+                .antMatchers("/category/**").permitAll()
+
+                .antMatchers(HttpMethod.GET, "/organisation/*/policies/*").hasAnyRole("USER","OWNER", "MANAGER")
+                .antMatchers(HttpMethod.POST, "/organisation/*/policies").hasAnyRole("OWNER", "MANAGER")
+                .antMatchers(HttpMethod.PUT, "/organisation/*/policies/*").hasAnyRole("OWNER", "MANAGER")
+                .antMatchers(HttpMethod.DELETE, "/organisation/*/policies/*").hasAnyRole("OWNER", "MANAGER")
+
                 .antMatchers(HttpMethod.GET, "/vaccispots/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/vaccispots/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/vaccispots/*").hasRole("ADMIN")
@@ -108,6 +117,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/testspots/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/testspots/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/testspots/*").hasRole("ADMIN")
+
+                .antMatchers(HttpMethod.GET, "/statistic/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/statistic/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/statistic/*").permitAll()
+                .antMatchers(HttpMethod.PUT, "/statistic/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/statistic/**").permitAll()
 
                 // all other requests need to be authenticated
                 .anyRequest().authenticated().and()
@@ -118,22 +133,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Add a filter to validate the tokens with every request
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
-
-
-//	@Override
-//	protected void configure(HttpSecurity httpSecurity) throws Exception {
-//		// We don't need CSRF for this example
-//		httpSecurity.csrf().disable()
-//				// dont authenticate this particular request
-//				.authorizeRequests().antMatchers("/authenticate", "/register").permitAll().
-//				// all other requests need to be authenticated
-//				anyRequest().authenticated().and().
-//				// make sure we use stateless session; session won't be used to store user's
-//				// state.
-//				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
-//				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//
-//		// Add a filter to validate the tokens with every request
-//		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-//	}
 }

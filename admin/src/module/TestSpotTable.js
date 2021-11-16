@@ -1,133 +1,10 @@
 import React, { Component } from 'react';
-import { Table, Modal, Select, Input, InputNumber, Popconfirm, Form, Typography, Space, Button } from 'antd';
+import { Table, Input, Popconfirm, Form, Space, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import TestSpotModel from '../model/TestSpotModel';
-
-const { Option } = Select;
-
-const EditableCell = ({
-    editing,
-    dataIndex,
-    title,
-    inputType,
-    record,
-    index,
-    children,
-    ...restProps
-}) => {
-    const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
-    return (
-        <td {...restProps}>
-            {editing ? (
-                <Form.Item
-                    name={dataIndex}
-                    style={{
-                        margin: 0,
-                    }}
-                    rules={[
-                        {
-                            required: true,
-                            message: `Please Input ${title}!`,
-                        },
-                    ]}
-                >
-                    {inputNode}
-                </Form.Item>
-            ) : (
-                children
-            )}
-        </td>
-    );
-};
-
-const SpotCreateForm = ({ visible, onCreate, onCancel }) => {
-    const [form] = Form.useForm();
-    return (
-        <Modal
-            visible={visible}
-            title="Create a new swab test spot"
-            okText="Create"
-            cancelText="Cancel"
-            onCancel={onCancel}
-            onOk={() => {
-                form
-                    .validateFields()
-                    .then((values) => {
-                        form.resetFields();
-                        onCreate(values);
-                    })
-                    .catch((info) => {
-                        console.log('Validate Failed:', info);
-                    });
-            }}
-        >
-            <Form
-                form={form}
-                labelCol={{ span: 7 }}
-                wrapperCol={{ span: 18}}
-                layout="horizontal"
-                name="form_in_modal"
-                requiredMark={false}
-            >
-                <Form.Item
-                    name="name"
-                    label="Name"
-                    rules={[{
-                        required: true,
-                        message: 'Please input name of the swab test spot!',
-                    }]}
-                >
-                    <Input placeholder="Please input name of the swab test spot" />
-                </Form.Item>
-                <Form.Item
-                    name="address"
-                    label="Address"
-                    rules={[{
-                        required: true,
-                        message: 'Please input address!',
-                    }]}
-                >
-                    <Input.TextArea placeholder="Please input address" />
-                </Form.Item>
-                <Form.Item
-                    name="type"
-                    label="Type"
-                    hasFeedback
-                    rules={[{
-                        required: true,
-                        message: 'Please select type of test!'
-                    }]}
-                >
-                    <Select placeholder="Please select type of test">
-                        <Option value="PCR">PCR</Option>
-                        <Option value="ART">ART</Option>
-                    </Select>
-                </Form.Item>
-                <Form.Item
-                    name="opHours"
-                    label="Operating Hours"
-                    rules={[{
-                        required: true,
-                        message: 'Please input operating hours!',
-                    }]}
-                >
-                    <Input.TextArea placeholder="Please input operating hours" />
-                </Form.Item>
-                <Form.Item
-                    name="contact"
-                    label="Contact"
-                    rules={[{
-                        required: true,
-                        message: 'Please input contact!',
-                    }]}
-                >
-                    <Input placeholder="Please input contact" />
-                </Form.Item>
-            </Form>
-        </Modal>
-    );
-};
+import { TestSpotCreateForm } from '../forms/TestSpotCreateForm';
+import { EditableCell } from '../lib/EditableCell';
 
 class TestSpotTable extends Component {
     formRef = React.createRef();
@@ -182,7 +59,7 @@ class TestSpotTable extends Component {
         }
     }
 
-    async onCreate(values) {
+    onCreate(values) {
         const newData = [...this.state.data];
         TestSpotModel.add(values).then(res => {
             newData.push(res.data);
@@ -346,32 +223,22 @@ class TestSpotTable extends Component {
                 render: (_, record) => {
                     if (this.isEditing(record)) {
                         return (
-                            <span>
-                                <a
-                                    href='javascript:;'
-                                    onClick={() => this.save(record.id)}
-                                    style={{
-                                        marginRight: 8,
-                                    }}
-                                >
-                                    Save
-                                </a>
+                            <Space size='large'>
+                                <button className="btn btn-success" onClick={() => this.save(record.id)}>Save</button>
                                 <Popconfirm title="Sure to cancel?" onConfirm={() => this.cancel()}>
-                                    <a>Cancel</a>
+                                    <button className="btn btn-default">Cancel</button>
                                 </Popconfirm>
-                            </span>
+                            </Space>
                         );
                     }
                     return (
                         <Space size='large'>
-                            <Typography.Link disabled={this.state.editingId != -1} onClick={() => this.edit(record)}>
-                                Edit
-                            </Typography.Link>
-                            {this.state.data.length >= 1 &&
-                                <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.id)}>
-                                    <a>Delete</a>
-                                </Popconfirm>
-                            }
+                            <button className="btn btn-warning" disabled={this.state.editingId != -1} onClick={() => this.edit(record)}>
+                                <i className="zmdi zmdi-edit zmdi-hc-fw"></i>
+                            </button>
+                            <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.id)}>
+                                <button className="btn btn-danger"><i className="la la-trash"></i></button>
+                            </Popconfirm>
                         </Space>
                     );
                 }
@@ -414,7 +281,7 @@ class TestSpotTable extends Component {
                         </ul>
                     </div>
                 </header>
-                <SpotCreateForm
+                <TestSpotCreateForm
                     visible={this.state.visible}
                     onCreate={(values) => this.onCreate(values)}
                     onCancel={() => {

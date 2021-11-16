@@ -23,22 +23,16 @@ public class Statistic {
     private Long id;
 
     @Setter
-    private int newCases;
+    private Date date;
 
     @Setter
-    private int totalCases;
+    private int newCases;
 
     @Setter
     private int newDeaths;
 
     @Setter
-    private int totalDeaths;
-
-    @Setter
     private int newRecovery;
-
-    @Setter
-    private int totalRecovery;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:MM:ss", timezone = "GMT+8")
     @Column(name = "created_at", updatable = false)
@@ -63,5 +57,4 @@ public class Statistic {
         Object param = new java.sql.Timestamp(temp.getTime());
         updatedAt = (Date) param;
     }
-
 }

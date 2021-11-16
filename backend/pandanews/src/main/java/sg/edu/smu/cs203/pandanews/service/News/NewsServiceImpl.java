@@ -2,96 +2,125 @@ package sg.edu.smu.cs203.pandanews.service.news;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sg.edu.smu.cs203.pandanews.dto.NewsDTO;
+import sg.edu.smu.cs203.pandanews.exception.NewsDuplicationException;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 import sg.edu.smu.cs203.pandanews.model.news.News;
 import sg.edu.smu.cs203.pandanews.repository.CategoryRepository;
 import sg.edu.smu.cs203.pandanews.repository.NewsRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class NewsServiceImpl implements NewsService {
 
     @Autowired
-    private NewsNewsAPIServiceImpl newsAPIServiceImpl;
+    private NewsNewsAPIServiceImpl newsAPIService;
 
     @Autowired
-    private NewsRepository newsRepository;
+    private NewsRepository newsRepo;
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepo;
 
     @Override
-    public News createNewsByManual(News news) {
-//        List<News> newsList = newsRepository.findByTitle(news.getTitle());
-//        if (newsList.size() == 0) {
-//            return newsRepository.save(news);
-//        }
-//        return null;
-        return newsRepository.findByTitle(news.getTitle()).size() == 0 ? newsRepository.save(news) : null;
+    public News createNewsByManual(NewsDTO newsDTO) {
+        News news = new News();
+        news.setTitle(newsDTO.getTitle());
+        news.setDescription(newsDTO.getDescription());
+        news.setContent(newsDTO.getContent());
+        news.setSource("Manual");
+        news.setCoverImage(newsDTO.getCoverImage());
+        news.setCategory(categoryRepo.findById(newsDTO.getCategory()).orElse(null));
+        news.setPinned(newsDTO.getPinned());
+        news.setDate(LocalDate.now());
+        return newsRepo.findByTitle(news.getTitle()).size() == 0 ? newsRepo.save(news) : null;
+    }
+
+    @Override
+    public News createNewsByManualWithCategory(News news, Long categoryId) {
+        news.setSource("Manual");
+        news.setCategory(categoryRepo.findById(categoryId).orElse(null));
+        return newsRepo.findByTitle(news.getTitle()).size() == 0 ? newsRepo.save(news) : null;
     }
 
     @Override
     public List<News> createNewsByAPI() {
-        List<News> result = newsAPIServiceImpl.apiCall();
-        return newsAPIServiceImpl.apiCall().size() == 0 ? null : result;
+        List<News> result = newsAPIService.apiCall();
+        if (result == null) {
+            throw new NewsDuplicationException("News Duplicated");
+        }
+        return newsAPIService.apiCall().size() == 0 ? null : result;
     }
 
     @Override
-    public News updateNews(long id, News news) {
-        return newsRepository.findById(id).map(newNews -> {
+    public News updateNews(long id, NewsDTO news) {
+        return newsRepo.findById(id).map(newNews -> {
             newNews.setTitle(news.getTitle());
             newNews.setContent(news.getContent());
             newNews.setCoverImage(news.getCoverImage());
             newNews.setDate(news.getDate());
             newNews.setDescription(news.getDescription());
-            newNews.setPinned(news.isPinned());
-            return newsRepository.save(newNews);
+            newNews.setCategory(categoryRepo.findById(news.getCategory()).orElse(null));
+            newNews.setPinned(news.getPinned());
+            return newsRepo.save(newNews);
         }).orElse(null);
     }
 
     @Override
     public void deleteNews(long id) {
-        newsRepository.deleteById(id);
+        newsRepo.deleteById(id);
     }
 
     @Override
     public List<News> findAllNews() {
-        return newsRepository.findAll();
+        return newsRepo.findAllByOrderByUpdatedAtDesc();
     }
 
     @Override
     public List<News> findNewsByKeywords(String keyword) {
-        return newsRepository.findAllByKeyword(keyword);
+        return newsRepo.findAllByKeyword(keyword);
     }
 
     @Override
     public List<News> findNewsByCategory(String s) {
-        List<Category> c = categoryRepository.findByTitle(s);
-//        if (c.size() != 1) {
-//            return null;
-//        }
-//        return newsRepository.findByCategory(c.get(0));
-        return c.size() != 1 ? null : newsRepository.findByCategory(c.get(0));
+        List<Category> c = categoryRepo.findByTitle(s);
+        if (c.size() != 1) {
+            return null;
+        }
+        return newsRepo.findByCategory(c.get(0));
     }
 
     @Override
     public News findNewsById(long id) {
-        return newsRepository.findById(id).orElse(null);
+        return newsRepo.findById(id).orElse(null);
+    }
+
+    @Override
+    public News findBySlug(String slug) {
+        return newsRepo.findBySlug(slug);
     }
 
     @Override
     public News updateNewsCategory(long id, Category c) {
-        return newsRepository.findById(id).map(newNews -> {
+        return newsRepo.findById(id).map(newNews -> {
             newNews.setCategory(c);
-            return newsRepository.save(newNews);
+            return newsRepo.save(newNews);
         }).orElse(null);
     }
 
     @Override
     public List<News> findTop4NewsPast7Days() {
-        return newsRepository.findByViewCountAndCreatedAtBetween();
+        return newsRepo.findByViewCountAndCreatedAtBetween();
     }
 
+    @Override
+    public News increaseViewCount(String slug) {
+        News n = newsRepo.findBySlug(slug);
+        n.incrementViewCount();
+        return newsRepo.save(n);
+
+    }
 
 }

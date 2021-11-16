@@ -1,7 +1,9 @@
 import { Component, Fragment } from 'react';
-import { Table, Tag, Space, Button } from 'antd';
+import { Table, Tag, Space } from 'antd';
 import OrganisationModel from '../model/OrganisationModel';
+import { Link } from 'react-router-dom';
 import UserModel from '../model/UserModel';
+import PolicyModel from '../model/PolicyModel';
 
 const { Column } = Table;
 
@@ -10,7 +12,7 @@ class Policy extends Component {
         super(props);
         this.state = {
             policy: [],
-            code: "",
+            org: {},
             visible: false
         }
     }
@@ -20,7 +22,7 @@ class Policy extends Component {
 
         UserModel.userOrg().then(res => {
             this.setState({
-                code: res.data.code
+                org: res.data
             })
         }).catch(e => {
             console.log(e);
@@ -30,7 +32,7 @@ class Policy extends Component {
     listPolicy() {
         OrganisationModel.policy().then(res => {
             this.setState({
-                employee: res.data
+                policy: res.data
             })
         }).catch(e => {
             console.log(e)
@@ -61,6 +63,14 @@ class Policy extends Component {
         })
     }
 
+    deletePolicy(policy){
+        PolicyModel.delete(policy.id).then(res => {
+            this.listPolicy();
+        }).catch(e => {
+            console.log(e)
+        })
+    }
+
     render() {
         return (
             <Fragment>
@@ -68,7 +78,7 @@ class Policy extends Component {
                     <div className="flex-fill">
                         <div className="d-flex justify-content-between">
                             <h1>Policy</h1>
-                            <Button type="primary" onClick={this.showModel}>Add</Button>
+                            <Link to="/policy/create" className="ant-btn ant-btn-primary ant-btn-lg color-white">Add Policy</Link>
                         </div>
                         <Table dataSource={this.state.policy}>
                             <Column title="Policy ID" dataIndex="id" key="id" />
@@ -90,12 +100,12 @@ class Policy extends Component {
                                 key="id"
                                 render={(id, record) => (
                                     <Space size="middle">
-                                        {id.authorities[0].authority == "ROLE_MANAGER" ?
+                                        {record.validity ?
                                             <button className="btn btn-primary" onClick={() => this.deactivatePolicy(id)}> Dectivate </button>
                                             :
                                             <button className="btn btn-primary" onClick={() => this.activatePolicy(id)}> Activate </button>
                                         }
-                                        <button className="btn btn-danger" onClick={() => this.removeAlert(id)}>Remove</button>
+                                        <button className="btn btn-danger" onClick={() => this.deletePolicy(record)}>Remove</button>
                                     </Space>
                                 )}
                             />
@@ -103,7 +113,6 @@ class Policy extends Component {
                     </div>
                 </div>
             </Fragment>
-
         );
     }
 }

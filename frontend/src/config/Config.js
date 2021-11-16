@@ -5,14 +5,15 @@ const authenticate_api = API_HOSTS + '/authenticate';
 const register_api = API_HOSTS + '/register';
 
 //News
-const news_list_api = API_HOSTS + '/news/list'
-const news_get_top_4_api = API_HOSTS + '/news/find/top4news'
-const category_news_api = API_HOSTS + '/news/find/category'
-const search_news_api = API_HOSTS + '/news/find/keyword'
-
+const news_list_api = API_HOSTS + '/news';
+const news_get_top_4_api = API_HOSTS + '/news/top4news';
+const category_news_api = API_HOSTS + '/news/category';
+const search_news_api = API_HOSTS + '/news/keyword';
+const news_slug_api = API_HOSTS + '/news/slug';
+const news_count_api = API_HOSTS + '/news/view';
 
 //Category
-const category_list_api = API_HOSTS + '/category/list'
+const category_api = API_HOSTS + '/category';
 
 //User
 const user_api = API_HOSTS + '/users';
@@ -36,10 +37,6 @@ const org_workgroup_api = API_HOSTS + "/organisation/workgroup"
 const workgroup_api = API_HOSTS + "/organisation"
 const workgroup_join_api = API_HOSTS + "/users/workgroup"
 
-//Measurements
-const measurement_api = API_HOSTS + '/measurements';
-const mea_create_api = API_HOSTS + '/measurements';
-
 //Vaccination Spots
 const vaccispots_api = API_HOSTS + '/vaccispots';
 const vaccispots_name_api = vaccispots_api + '/name';
@@ -57,6 +54,12 @@ const attendance_api = API_HOSTS + '/attendance';
 const attendance_date_api = attendance_api + '/date'
 const attendance_user_api = attendance_api + '/user'
 
+// Measurements
+const measurement_api = API_HOSTS + '/measurements';
+
+// Statistics
+const statistics_api = API_HOSTS + '/statistic';
+
 export default{
     API_HOSTS,
     search_news_api,
@@ -70,7 +73,7 @@ export default{
     org_api,
     org_join_api,
     org_my_org_api,
-    category_list_api,
+    category_api,
     news_list_api,
     user_org_api,
     user_api,
@@ -78,7 +81,6 @@ export default{
     org_employee_api,
     org_policy_api,
     org_workgroup_api,
-    measurement_api,
     vaccispots_api,
     vaccispots_name_api,
     vaccispots_region_api,
@@ -92,7 +94,10 @@ export default{
     org_employee_demote_api,
     org_policy_activate_api,
     org_policy_deactivate_api,
-    mea_create_api,
     workgroup_api,
-    workgroup_join_api
+    workgroup_join_api,
+    measurement_api,
+    statistics_api,
+    news_slug_api,
+    news_count_api
 }

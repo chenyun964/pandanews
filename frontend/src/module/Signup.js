@@ -1,3 +1,4 @@
+import { Result } from 'antd';
 import { Component } from 'react';
 import { Link } from "react-router-dom";
 import LoginModel from '../model/LoginModel';
@@ -14,6 +15,7 @@ class Signup extends Component {
             },
             errors: {},
             registered: false,
+            signupFailed: false,
             loading: false
         }
     }
@@ -97,8 +99,10 @@ class Signup extends Component {
 
     signup() {
         this.setState({
-            loading: true
+            loading: true,
+            signupFailed: false
         })
+
         if (this.handleValidation()) {
             LoginModel.register(this.state.fields).then(res => {
                 this.setState({
@@ -106,6 +110,12 @@ class Signup extends Component {
                 })
             }).catch(e => {
                 console.log(e);
+                if (e.response && e.response.status == 400) {
+                    this.setState({
+                        signupFailed: true,
+                        failedMsg: e.response.data
+                    })
+                }
             })
         }
         this.setState({
@@ -115,15 +125,26 @@ class Signup extends Component {
 
     renderForm() {
         return this.state.registered ?
+
             <div className="d-flex align-items-center justify-content-center p-2 text-center flex-column" style={{ "height": "100%" }}>
-                <p>Congratulation, your account has been successfully created!</p>
-                <Link to="/login">Login Now</Link>
+                <Result
+                    status="success"
+                    title="Congratulation, your account has been successfully created!"
+                    extra={[
+                        <Link className="btn btn-primary btn-rounded" to="/login">Login Now</Link>,
+                    ]}
+                />
             </div>
             :
             <div className="d-flex flex-column p-5">
                 <div className="text-center">
                     <h1 className="section-title pt-2 pb-4">SIGN UP</h1>
                 </div>
+                {this.state.signupFailed &&
+                    <div class="mb-1 text-center">
+                        <span className="input-error-msg">{this.state.failedMsg}</span>
+                    </div>
+                }
                 <div class="mb-3">
                     <input type="text" class="form-control" placeholder="Username" ref="username" onChange={this.handleChange.bind(this, "username")}
                         value={this.state.fields["username"]} />
@@ -168,6 +189,7 @@ class Signup extends Component {
                                     :
                                     this.renderForm()
                                 }
+
                             </div>
                             <div className="col-12 col-md-6 login-left">
                                 <div className="d-flex align-items-center" style={{ "height": "100%" }}>

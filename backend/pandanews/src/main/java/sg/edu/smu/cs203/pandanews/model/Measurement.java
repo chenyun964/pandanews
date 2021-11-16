@@ -28,15 +28,10 @@ public class Measurement {
     private String imageUrl;
 
     @Setter
-    @Size(min = 5, max = 200, message = "Measurement's title should be at least 5 characters long")
     private String title;
 
     @Setter
     private String content;
-
-    // did not manage to find the admin table
-    // @OneToMany(mappedBy = "xxx", cascade = CascadeType.All, orphanRemoval = true)
-    // private List<Admin> xxx ;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:MM:ss", timezone = "GMT+8")
     @Column(name = "created_at", updatable = false)

@@ -1,17 +1,19 @@
 package sg.edu.smu.cs203.pandanews.model.news;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Type;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @AllArgsConstructor
+@ToString
+@NoArgsConstructor
 public class News {
 
     @Id
@@ -26,29 +28,30 @@ public class News {
 
     private String content;
 
+    @Getter
+    @Setter
+    private String source;
+
     private String coverImage;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date date;
+    private LocalDate date;
 
     private long viewCount = 0;
 
-    public News(String title, String description, String content, String coverImage, Date date) {
+    public News(String title, String description, String content, String coverImage, LocalDate date) {
         this.title = title;
         this.description = description;
         this.content = content;
         this.coverImage = coverImage;
         this.date = date;
     }
+
     @Setter
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @JsonIgnore
     private Category category;
 
-
-    public News() {
-    }
 
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean pinned;
@@ -60,12 +63,25 @@ public class News {
     private Date updatedAt;
 
 
-    @PrePersist
+    @PostPersist
     public void logTime() {
         Date temp = new Date();
         Object param = new java.sql.Timestamp(temp.getTime());
+        slug = title.replaceAll(" ", "-").replaceAll("_", "-") + "-" + (this.id << LocalDateTime.now().getDayOfMonth());
         createdAt = (Date) param;
         updatedAt = createdAt;
+    }
+
+    @Getter
+    @Column(unique = true)
+    private String slug;
+
+    public void generateSlug() {
+        slug = title.replaceAll(" ", "-").replaceAll("_", "-") + "-" + (this.id << LocalDateTime.now().getDayOfMonth());
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     @PreUpdate
@@ -111,11 +127,11 @@ public class News {
         this.coverImage = coverImage;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -139,7 +155,7 @@ public class News {
         this.pinned = pinned;
     }
 
-    public News(Long id, String title, String description, String content, String coverImage, Date date) {
+    public News(Long id, String title, String description, String content, String coverImage, LocalDate date) {
         this.id = id;
         this.title = title;
         this.description = description;
