@@ -1,8 +1,6 @@
 package sg.edu.smu.cs203.pandanews.model.attendance;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.*;
 import org.hibernate.annotations.Type;
 import sg.edu.smu.cs203.pandanews.model.user.User;
@@ -24,15 +22,19 @@ public class Attendance {
     private Long id;
 
     @Setter
+    @JsonFormat(timezone = "GMT+8")
     private LocalDate punchInDate;
 
     @Setter
+    @JsonFormat(timezone = "GMT+8")
     private LocalTime punchInTime;
 
     @Setter
+    @JsonFormat(timezone = "GMT+8")
     private LocalDate punchOutDate;
 
     @Setter
+    @JsonFormat(timezone = "GMT+8")
     private LocalTime punchOutTime;
 
     @Type(type = "org.hibernate.type.NumericBooleanType")

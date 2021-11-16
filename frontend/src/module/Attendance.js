@@ -22,14 +22,13 @@ class Attendance extends Component {
         OrganisationModel.employee().then(res =>
             res.data.forEach(employee => {
                 AttendanceModel.getAttendanceByUser(employee.id).then(r => {
-                    let newData = this.state.data;
-                    r.data.forEach(d => {
-                        newData.push(d);
-                    })
+                    let newData = [...this.state.data, ...r.data]
                     this.setState({ data: newData });
                 })
             })
-        );
+        ).catch(e =>
+            console.log(e)
+        )
     }
 
     getColumnSearchProps(dataIndex) {
@@ -147,6 +146,10 @@ class Attendance extends Component {
                 key: 'punchOutDate',
                 responsive: ['lg'],
                 ...this.getColumnSearchProps('punchOutDate'),
+                render: (_, record) => {
+                    let date = record.punchInDate[0] + ":" + record.punchInDate[1] + ":" + record.punchInDate[2];
+                    return <div>{moment(date, "YYYY-MM-DD").format("YYYY-MM-DD")}</div>
+                }
             },
             {
                 title: 'Punch Out Time',

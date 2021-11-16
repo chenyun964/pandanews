@@ -20,7 +20,8 @@ public interface NewsRepository extends JpaRepository<News, Long> {
             "DESC")
     List<News> findAllByKeyword(String keyword);
 
-    @Query(value = "SELECT * FROM news n WHERE date <= DATE(NOW()) - INTERVAL 7 DAY AND cover_image IS NOT null ORDER BY n.view_Count DESC LIMIT 4",
+    @Query(value = "SELECT * FROM news n WHERE date >= DATE(NOW()) - INTERVAL 7 DAY AND cover_image IS NOT null ORDER" +
+            " BY n.view_Count DESC LIMIT 4",
             nativeQuery = true)
     List<News> findByViewCountAndCreatedAtBetween();
 
