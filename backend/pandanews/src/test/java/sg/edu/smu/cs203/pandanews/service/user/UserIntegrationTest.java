@@ -83,7 +83,7 @@ public class UserIntegrationTest {
 
     String exchangeJWT() throws Exception {
         // clear the database after each test
-        URI uri = new URI(baseUrl + port + "/authenticate");
+        URI uri = new URI(baseUrl + port + "/authentication");
 
         User input = generateTestUser();
         User u2 = jwtUserDetailsService.save(new UserDTO(input.getUsername(), input.getEmail(), input.getPassword(),
