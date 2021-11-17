@@ -99,7 +99,6 @@ class Attendance extends Component {
     }
 
     render() {
-        console.log(this.state.data);
         const columns = [
             {
                 title: 'Name',

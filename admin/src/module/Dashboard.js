@@ -28,7 +28,6 @@ class Dashboard extends Component {
 
     getSummary() {
         StatisticsModel.summary().then(res => {
-            console.log(res.data);
             this.setState({
                 summary: res.data
             })

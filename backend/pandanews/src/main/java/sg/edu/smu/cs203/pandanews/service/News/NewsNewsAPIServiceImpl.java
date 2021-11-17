@@ -107,14 +107,12 @@ public class NewsNewsAPIServiceImpl implements NewsAPIService {
   
     private LocalDate formatter(String date) {
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println(date);
         Date d = null;
         try {
             d = dt.parse(date);
         } catch (ParseException e) {
             return null;
         }
-        System.out.println(d);
         return d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 }
