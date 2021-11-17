@@ -58,7 +58,6 @@ public class NewsIntegrationTests {
         newsRepo.deleteAll();
         categoryRepo.deleteAll();
         userRepo.deleteAll();
-        //test12
     }
 
     @Test
@@ -74,7 +73,6 @@ public class NewsIntegrationTests {
         assertEquals(1, newsList.length);
     }
 
-    //
     @Test
     public void findNewsByCategory_Success() throws Exception {
         News n = NewsIntegrationTests.newsFormatter();
