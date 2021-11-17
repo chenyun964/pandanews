@@ -33,19 +33,16 @@ public class NewsServiceTests {
 
     @Test
     void createNewsByManual_ReturnSavedNews() {
-        // arrange ** String title, String description, String content, String coverImage, Date date
         NewsDTO newsDTO = new NewsDTO();
         newsDTO.setTitle("title");
         News news = newsFormatter("title");
 
-        // mock the "findById" operation
         when(newsRepo.findByTitle(any(String.class))).thenReturn(new ArrayList<News>());
-        // mock the "save" operation
         when(newsRepo.save(any(News.class))).thenReturn(news);
-        // act ***
         News savedNews = newsService.createNewsByManual(newsDTO);
-        // assert ***
+
         assertNotNull(savedNews);
+        assertEquals("title", savedNews.getTitle());
         verify(newsRepo).findByTitle(savedNews.getTitle());
     }
 
