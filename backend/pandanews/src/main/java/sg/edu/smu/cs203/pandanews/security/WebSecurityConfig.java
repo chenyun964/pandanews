@@ -56,9 +56,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // dont authenticate this particular request
                 .authorizeRequests()
                 // Production API
-                .antMatchers("/authenticate", "/register", "/admin/authenticate", "/admin/register").permitAll()
-                .antMatchers("/organisation/approve/*").hasRole("ADMIN")
-                .antMatchers("/organisation/employee").hasAnyRole("ADMIN", "MANAGER", "OWNER")
+
+                // authentication API
+                .antMatchers(HttpMethod.POST, "/authentication", "/registration", "/admin/authentication", "/admin/registration").permitAll()
+                
+                // swagger API
                 .antMatchers("/v2/api-docs",           // swagger
                         "/webjars/**",            // swagger-ui webjars
                         "/swagger-resources/**",  // swagger-ui resources
@@ -68,61 +70,67 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.html",
                         "/**/*.css",
                         "/**/*.js",
-                        "/swagger-ui.html#/",
-                        // Auth API
-                        "/authenticate",
-                        "/register",
-                        "/confirmemail",
-                        "/reset",
-                        "/resetpassword",
-                        // User API
-                        "/user/forget/**").permitAll()                // API Under development
+                        "/swagger-ui.html#/").permitAll()                // API Under development
+
                 // role-specific requests
-                .antMatchers(HttpMethod.GET, "/organisations/*/workgroups", "/organisations/*/workgroups/*").permitAll()
-                .antMatchers(HttpMethod.GET, "/news/**").permitAll()
-                .antMatchers(HttpMethod.PUT, "/news/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/news/**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/news/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/category/*").permitAll()
-                .antMatchers(HttpMethod.POST, "/category/*").permitAll()
-                .antMatchers(HttpMethod.PUT, "/category/*").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/category/*").permitAll()
-                .antMatchers("/measurements/*").permitAll()
-                .antMatchers("/measurements").permitAll()
-                .antMatchers("/covid/*").permitAll()
-                .antMatchers("/covid").permitAll()
+                // users API
+                .antMatchers("/users/**").authenticated()
+
+                // image API
                 .antMatchers("/image").permitAll()
-                .antMatchers("/image/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/image/**").hasRole("ADMIN")
+
+                // news API
+                .antMatchers(HttpMethod.GET, "/news/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/news/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/news/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/news/**").hasRole("ADMIN")
+
+                 // measurements API
+                .antMatchers(HttpMethod.GET, "/measurements/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/measurements/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/measurements/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/measurements/**").hasRole("ADMIN")
+
+                // organisations API
+                .antMatchers(HttpMethod.GET, "/organisations/*/workgroups", "/organisations/*/workgroups/*").hasAnyRole("OWNER", "MANAGER")
                 .antMatchers(HttpMethod.POST, "/organisations/*/workgroups").hasAnyRole("ADMIN", "MANAGER")
                 .antMatchers(HttpMethod.PUT, "/organisations/*/workgroups/*").hasAnyRole("ADMIN", "MANAGER")
                 .antMatchers(HttpMethod.DELETE, "/organisations/*/workgroups/*").hasAnyRole("ADMIN", "MANAGER")
-                .antMatchers("/organisation/promote/*").hasRole("OWNER")
-                .antMatchers("/organisation/demote/*").hasRole("OWNER")
-                .antMatchers("/organisation/employee/*").hasAnyRole("OWNER", "MANAGER")
-                .antMatchers("/organisation/**").authenticated()
-                .antMatchers("/users/**").authenticated()
-
-                .antMatchers("/category/**").permitAll()
-
-                .antMatchers(HttpMethod.GET, "/organisation/*/policies/*").hasAnyRole("USER","OWNER", "MANAGER")
+                .antMatchers(HttpMethod.PUT, "/organisation/promotion/**").hasRole("OWNER")
+                .antMatchers(HttpMethod.PUT, "/organisation/demotion/**").hasRole("OWNER")
+                .antMatchers("/organisation/employee/**").hasAnyRole("OWNER", "MANAGER")
+                .antMatchers(HttpMethod.PUT, "/organisation/approval/*").hasRole("ADMIN")
+                
+                // policies API
+                .antMatchers(HttpMethod.GET, "/organisation/*/policies/*").authenticated()
                 .antMatchers(HttpMethod.POST, "/organisation/*/policies").hasAnyRole("OWNER", "MANAGER")
                 .antMatchers(HttpMethod.PUT, "/organisation/*/policies/*").hasAnyRole("OWNER", "MANAGER")
                 .antMatchers(HttpMethod.DELETE, "/organisation/*/policies/*").hasAnyRole("OWNER", "MANAGER")
 
+                // category API
+                .antMatchers(HttpMethod.GET, "/category/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/category/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/category/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/category/**").hasRole("ADMIN")
+
+                // vaccispots API
                 .antMatchers(HttpMethod.GET, "/vaccispots/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/vaccispots/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/vaccispots/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/vaccispots/*").hasRole("ADMIN")
+
+                // testspots API
                 .antMatchers(HttpMethod.GET, "/testspots/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/testspots/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/testspots/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/testspots/*").hasRole("ADMIN")
 
+                // statistic API
                 .antMatchers(HttpMethod.GET, "/statistic/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/statistic/**").permitAll()
-                .antMatchers(HttpMethod.PUT, "/statistic/*").permitAll()
-                .antMatchers(HttpMethod.PUT, "/statistic/**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/statistic/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/statistic/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/statistic/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/statistic/**").hasRole("ADMIN")
 
                 // all other requests need to be authenticated
                 .anyRequest().authenticated().and()
