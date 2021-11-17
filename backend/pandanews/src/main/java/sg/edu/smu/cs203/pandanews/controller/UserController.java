@@ -76,7 +76,6 @@ public class UserController {
         User user = userService.getUserByUsername(userDetails.getUsername());
         if (user == null)
             return null;
-        System.out.println(user.getId());
         user = userService.updateUser(user.getId(), newUserInfo);
         if (user == null)
             return null;

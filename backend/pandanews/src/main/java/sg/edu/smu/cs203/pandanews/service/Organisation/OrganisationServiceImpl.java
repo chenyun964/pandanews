@@ -79,7 +79,6 @@ public class OrganisationServiceImpl implements OrganisationService {
 
     @Override
     public Organisation addEmployee(String code, User newEmployee) {
-        System.out.println(newEmployee.getUsername());
         return organisationRepo.findByCode(code).map(organisation -> {
             List<User> employee = organisation.getEmployee();
             employee.add(newEmployee);

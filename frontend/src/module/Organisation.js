@@ -129,13 +129,6 @@ class Organisation extends Component {
                 contact: this.state.profile.contact,
                 email: this.state.profile.email
             }
-            // OrganisationModel.saveProfile(data).then(res => {
-            //     this.setState({
-            //         profile: res.data
-            //     })
-            // }).catch(e => {
-            //     console.log(e);
-            // })
         }
 
         this.setState({

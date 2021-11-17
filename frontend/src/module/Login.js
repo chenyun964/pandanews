@@ -84,7 +84,6 @@ class Login extends Component {
     storeToken(data) {
         LoginModel.storeTokens(data).then(res => {
             let redirect = new URLSearchParams(this.props.location.search).get("redirect");
-            console.log(redirect);
             if (redirect) {
                 window.location.replace(decodeURIComponent(redirect));
             } else {

@@ -95,24 +95,6 @@ public class UserIntegrationTest {
 
     }
 
-//    @Test
-//    public void listUser_Success() throws Exception {
-//        String jwt = exchangeJWT().trim();
-//        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-//        map.add("Authorization", "Bearer " + jwt);
-//        HttpEntity<Object> header = new HttpEntity<Object>(map);
-//        URI uri = new URI(baseUrl + port + "/users");
-//        // Need to use array with a ResponseEntity here
-//
-//        ResponseEntity<User[]> result = restTemplate.exchange(uri, HttpMethod.GET, header, User[].class);
-//        User[] newsList = result.getBody();
-//        System.out.println(newsList);
-//        assertEquals(200, result.getStatusCode().value());
-//        assertEquals(1, newsList.length);
-//    }
-
-
-
     private User generateTestUser() {
         return new User("name", "abc@gmail.com", "abc");
     }

@@ -17,9 +17,7 @@ class TestSpotMap extends Component {
     }
 
     getMarkers() {
-        console.log(this.state.type);
         TestSpotModel.getByType(this.state.type).then((res) => {
-            console.log(res.data);
             this.setState({markers: res.data, loading: false});
         }).catch(error => {
             console.log(error);

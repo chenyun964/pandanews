@@ -44,7 +44,6 @@ class Category extends Component {
 
     getNews() {
         NewsModel.listCategory(this.state.slug).then(res => {
-            console.log(this.state.slug);
             this.setState({
                 news: res.data
             })
