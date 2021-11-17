@@ -1,4 +1,4 @@
-package sg.edu.smu.cs203.pandanews.service.measurement;
+package sg.edu.smu.cs203.pandanews.service.statistic;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -11,8 +11,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import sg.edu.smu.cs203.pandanews.model.Measurement;
-import sg.edu.smu.cs203.pandanews.repository.MeasurementRepository;
+import sg.edu.smu.cs203.pandanews.model.Statistic;
+import sg.edu.smu.cs203.pandanews.repository.StatisticRepository;
 import sg.edu.smu.cs203.pandanews.repository.UserRepository;
 import sg.edu.smu.cs203.pandanews.service.TestUtils;
 
@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class MeasurementIntegrationTests {
+public class StatisticIntegrationTests {
 
     @LocalServerPort
     private int port;
@@ -40,7 +40,7 @@ public class MeasurementIntegrationTests {
     private TestRestTemplate restTemplate;
 
     @Autowired
-    private MeasurementRepository measurementRepo;
+    private StatisticRepository statisticRepo;
 
     @Autowired
     private UserRepository userRepo;
@@ -53,61 +53,61 @@ public class MeasurementIntegrationTests {
     void tearDown() {
         // clear the database after each test
         userRepo.deleteAll();
-        measurementRepo.deleteAll();
+        statisticRepo.deleteAll();
         //test12
     }
 
     @Test
-    public void getMeasurements_Success() throws Exception {
+    public void getStatistics_Success() throws Exception {
 
-        URI uri = new URI(baseUrl + port + "/measurements");
-        measurementRepo.save(new Measurement());
+        URI uri = new URI(baseUrl + port + "/statistic");
+        statisticRepo.save(new Statistic());
 
         // Need to use array with a ResponseEntity here
-        ResponseEntity<Measurement[]> result = restTemplate.getForEntity(uri, Measurement[].class);
-        Measurement[] measurements = result.getBody();
+        ResponseEntity<Statistic[]> result = restTemplate.getForEntity(uri, Statistic[].class);
+        Statistic[] statistics = result.getBody();
 
-        assertNotNull(measurements);
+        assertNotNull(statistics);
         assertEquals(200, result.getStatusCode().value());
-        assertEquals(1, measurements.length);
+        assertEquals(1, statistics.length);
     }
 
     @Test
-    public void getMeasurement_Success() throws Exception {
+    public void getStatistic_Success() throws Exception {
 
-        Measurement m = new Measurement();
-        m.setContent("123");
-        Long id = measurementRepo.save(m).getId();
-        URI uri = new URI(baseUrl + port + "/measurements/" + id);
+        Statistic m = new Statistic();
+        m.setNewRecovery(123);
+        Long id = statisticRepo.save(m).getId();
+        URI uri = new URI(baseUrl + port + "/statistic/" + id);
 
         // Need to use array with a ResponseEntity here
-        ResponseEntity<Measurement> result = restTemplate.getForEntity(uri, Measurement.class);
-        Measurement measurement = result.getBody();
+        ResponseEntity<Statistic> result = restTemplate.getForEntity(uri, Statistic.class);
+        Statistic statistic = result.getBody();
 
-        assertNotNull(measurement);
+        assertNotNull(statistic);
         assertEquals(200, result.getStatusCode().value());
-        assertEquals("123", measurement.getContent());
+        assertEquals(123, statistic.getNewRecovery());
     }
 
     @Test
-    public void updateMeasurement_Success() throws Exception {
-        Measurement m = new Measurement();
-        m.setContent("123");
-        Long id = measurementRepo.save(m).getId();
+    public void updateStatistic_Success() throws Exception {
+        Statistic m = new Statistic();
+        m.setNewCases(123);
+        Long id = statisticRepo.save(m).getId();
         // Need to use array with a ResponseEntity here
         HttpHeaders header = testUtils.exchangeHeader();
-        HttpEntity<Measurement> request = new HttpEntity(m, header);
-        URI uri1 = new URI(baseUrl + port + "/measurements/" + id);
-        ResponseEntity<Measurement> result1 = restTemplate.exchange(uri1, HttpMethod.PUT, request, Measurement.class);
-        m.setTitle("Updated Measurement");
-        URI uri2 = new URI(baseUrl + port + "/measurements/" + id);
-        HttpEntity<Measurement> request2 = new HttpEntity(m, header);
-        ResponseEntity<Measurement> result2 = restTemplate.exchange(uri1, HttpMethod.PUT, request2, Measurement.class);
+        HttpEntity<Statistic> request = new HttpEntity(m, header);
+        URI uri1 = new URI(baseUrl + port + "/statistic/" + id);
+        ResponseEntity<Statistic> result1 = restTemplate.exchange(uri1, HttpMethod.PUT, request, Statistic.class);
+        m.setNewDeaths(123);
+        URI uri2 = new URI(baseUrl + port + "/statistic/" + id);
+        HttpEntity<Statistic> request2 = new HttpEntity(m, header);
+        ResponseEntity<Statistic> result2 = restTemplate.exchange(uri1, HttpMethod.PUT, request2, Statistic.class);
 
         assertNotNull(result2);
         assertNotNull(result1);
         assertEquals(200, result1.getStatusCode().value());
         assertEquals(200, result2.getStatusCode().value());
-        assertEquals("Updated Measurement", result2.getBody().getTitle());
+        assertEquals(123, result2.getBody().getNewDeaths());
     }
 }

@@ -38,15 +38,14 @@ public class TestUtils {
         } catch (DisabledException e) {
             throw new Exception("USER_DISABLED", e);
         } catch (BadCredentialsException e) {
-            throw new Exception("INVALID_CREDENTIALS", e);
+            throw new Exception(e.getMessage(), e);
         }
     }
 
     public String exchangeJWT() throws Exception {
         // clear the database after each test
         User input = generateTestUser();
-        jwtUserDetailsService.save(new AdminDTO(input.getUsername(), input.getEmail(), input.getPassword(),
-                input.getPassword()));
+        jwtUserDetailsService.save(new AdminDTO(input.getUsername(), input.getPassword(), input.getPassword(), "hidden"));
         authenticate(input.getUsername(), input.getPassword());
         final UserDetails userDetails =
                 userDetailsService.loadUserByUsername(new JwtRequest(input.getUsername(), input.getPassword()).getUsername());
@@ -63,7 +62,6 @@ public class TestUtils {
 
     private User generateTestUser() {
         User u = new User("name", "abc@gmail.com", "abc");
-        u.setAuthorities("ROLE_ADMIN");
         return u;
     }
 
