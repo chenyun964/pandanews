@@ -7,9 +7,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ main, development, PAN-11-News ]
+    branches: [ main, development ]
   pull_request:
-    branches: [ main, development, PAN-11-News ]
+    branches: [ main, development ]
 
 jobs:
   build:
