@@ -37,7 +37,7 @@ public class JwtAuthenticationController {
     private String adminCode;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/authenticate")
+    @PostMapping("/authentication")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
@@ -46,7 +46,7 @@ public class JwtAuthenticationController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/register")
+    @PostMapping("/registration")
     public ResponseEntity<?> addUser(@Valid @RequestBody UserDTO userDTO) throws Exception {
         if (!userDTO.getPassword().equals(userDTO.getConfirmPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
@@ -73,7 +73,7 @@ public class JwtAuthenticationController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/admin/authenticate")
+    @PostMapping("/admin/authentication")
     public ResponseEntity<?> createAuthenticationTokenAdmin(@RequestBody JwtRequest authenticationRequest)
             throws Exception {
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
@@ -83,7 +83,7 @@ public class JwtAuthenticationController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/admin/register")
+    @PostMapping("/admin/registration")
     public ResponseEntity<?> addAdmin(@Valid @RequestBody AdminDTO adminDTO) throws Exception {
         if (!adminDTO.getAdminCode().equals(adminCode)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Admin Code!");

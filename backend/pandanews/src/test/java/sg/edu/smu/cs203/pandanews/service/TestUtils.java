@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import sg.edu.smu.cs203.pandanews.dto.UserDTO;
+import sg.edu.smu.cs203.pandanews.dto.AdminDTO;
 import sg.edu.smu.cs203.pandanews.model.user.JwtRequest;
 import sg.edu.smu.cs203.pandanews.model.user.User;
 import sg.edu.smu.cs203.pandanews.service.user.JwtUserDetailsService;
@@ -45,7 +45,7 @@ public class TestUtils {
     public String exchangeJWT() throws Exception {
         // clear the database after each test
         User input = generateTestUser();
-        jwtUserDetailsService.save(new UserDTO(input.getUsername(), input.getEmail(), input.getPassword(),
+        jwtUserDetailsService.save(new AdminDTO(input.getUsername(), input.getEmail(), input.getPassword(),
                 input.getPassword()));
         authenticate(input.getUsername(), input.getPassword());
         final UserDetails userDetails =

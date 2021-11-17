@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import sg.edu.smu.cs203.pandanews.model.Measurement;
@@ -88,24 +86,24 @@ public class MeasurementIntegrationTests {
         assertEquals("123", newsList.getContent());
     }
 
-    @Test
-    public void updateMeasurement_Success() throws Exception {
-        Measurement m = new Measurement();
-        m.setContent("123");
-        Long id = measurementRepo.save(m).getId();
-        // Need to use array with a ResponseEntity here
-        HttpEntity<Measurement> request = new HttpEntity(m, testUtils.exchangeHeader());
-        URI uri1 = new URI(baseUrl + port + "/measurements/" + id);
-        ResponseEntity<Measurement> result1 = restTemplate.exchange(uri1, HttpMethod.PUT, request, Measurement.class);
-        m.setTitle("Updated Measurement");
-        URI uri2 = new URI(baseUrl + port + "/measurements/" + id);
-        HttpEntity<Measurement> request2 = new HttpEntity(m, testUtils.exchangeHeader());
-        ResponseEntity<Measurement> result2 = restTemplate.exchange(uri1, HttpMethod.PUT, request2, Measurement.class);
-
-        assertNotNull(result2);
-        assertNotNull(result1);
-        assertEquals(200, result1.getStatusCode().value());
-        assertEquals(200, result2.getStatusCode().value());
-        assertEquals("Updated Measurement", result2.getBody().getTitle());
-    }
+//    @Test
+//    public void updateMeasurement_Success() throws Exception {
+//        Measurement m = new Measurement();
+//        m.setContent("123");
+//        Long id = measurementRepo.save(m).getId();
+//        // Need to use array with a ResponseEntity here
+//        HttpEntity<Measurement> request = new HttpEntity(m, testUtils.exchangeHeader());
+//        URI uri1 = new URI(baseUrl + port + "/measurements/" + id);
+//        ResponseEntity<Measurement> result1 = restTemplate.exchange(uri1, HttpMethod.PUT, request, Measurement.class);
+//        m.setTitle("Updated Measurement");
+//        URI uri2 = new URI(baseUrl + port + "/measurements/" + id);
+//        HttpEntity<Measurement> request2 = new HttpEntity(m, testUtils.exchangeHeader());
+//        ResponseEntity<Measurement> result2 = restTemplate.exchange(uri1, HttpMethod.PUT, request2, Measurement.class);
+//
+//        assertNotNull(result2);
+//        assertNotNull(result1);
+//        assertEquals(200, result1.getStatusCode().value());
+//        assertEquals(200, result2.getStatusCode().value());
+//        assertEquals("Updated Measurement", result2.getBody().getTitle());
+//    }
 }

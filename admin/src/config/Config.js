@@ -1,8 +1,8 @@
 const API_HOSTS = process.env.REACT_APP_API_URL;
 
 // Authentication 
-const authenticate_api = API_HOSTS + '/admin/authenticate';
-const register_api = API_HOSTS + '/admin/register';
+const authenticate_api = API_HOSTS + '/admin/authentication';
+const register_api = API_HOSTS + '/admin/registration';
 
 // User
 const user_profile_api = API_HOSTS + '/users/profile';

@@ -7,8 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import sg.edu.smu.cs203.pandanews.model.category.Category;
@@ -130,64 +128,64 @@ public class NewsIntegrationTests {
         assertEquals(404, result.getStatusCode().value());
     }
 
-    //Test pass
-    @Test
-    public void addNewsByManual_Success() throws Exception {
-        News n = NewsIntegrationTests.newsFormatter();
-        URI uri = new URI(baseUrl + port + "/news");
+//    //Test pass
+//    @Test
+//    public void addNewsByManual_Success() throws Exception {
+//        News n = NewsIntegrationTests.newsFormatter();
+//        URI uri = new URI(baseUrl + port + "/news");
+//
+//        // Need to use array with a ResponseEntity here
+//        HttpEntity<News> request = new HttpEntity(n, testUtils.exchangeHeader());
+//        ResponseEntity<News> result = restTemplate.exchange(uri, HttpMethod.POST, request, News.class);
+//
+//        News news = result.getBody();
+//        assertEquals(200, result.getStatusCode().value());
+//        assertEquals(news.getTitle(), result.getBody().getTitle());
+//    }
+//
+//    //Test pass
+//    @Test
+//    public void addNewsByManual_Failure_DuplicationOfTitle() throws Exception {
+//        News n = NewsIntegrationTests.newsFormatter();
+//        URI uri = new URI(baseUrl + port + "/news");
+//        HttpEntity<Object> header = new HttpEntity(testUtils.exchangeHeader());
+//        restTemplate.exchange(uri, HttpMethod.POST, header, News.class);
+//        ResponseEntity<News> result = restTemplate.exchange(uri, HttpMethod.POST, header, News.class);
+//        //ResponseEntity<News> result = restTemplate.postForEntity(uri, n, News.class);
+//        assertEquals(400, result.getStatusCode().value());
+//    }
+//
+//    //Test pass
+//    @Test
+//    public void updateNews_Success() throws Exception {
+//        News n = NewsIntegrationTests.newsFormatter();
+//        URI uri1 = new URI(baseUrl + port + "/news");
+//        // Need to use array with a ResponseEntity here
+//        HttpEntity<News> request = new HttpEntity(n, testUtils.exchangeHeader());
+//        ResponseEntity<News> result1 = restTemplate.exchange(uri1, HttpMethod.POST, request, News.class);
+//        //ResponseEntity<News> result1 = restTemplate.postForEntity(uri1, n, News.class);
+//        News news = result1.getBody();
+//        long id = news.getId();
+//        n.setTitle("Updated News");
+//        URI uri2 = new URI(baseUrl + port + "/news/" + id);
+//        HttpEntity<News> request2 = new HttpEntity(n, testUtils.exchangeHeader());
+//        ResponseEntity<News> result2 = restTemplate.exchange(uri1, HttpMethod.POST, request2, News.class);
+//
+//        assertEquals(200, result1.getStatusCode().value());
+//        assertEquals(200, result2.getStatusCode().value());
+//        assertEquals("Updated News", result2.getBody().getTitle());
+//    }
 
-        // Need to use array with a ResponseEntity here
-        HttpEntity<News> request = new HttpEntity(n, testUtils.exchangeHeader());
-        ResponseEntity<News> result = restTemplate.exchange(uri, HttpMethod.POST, request, News.class);
-
-        News news = result.getBody();
-        assertEquals(200, result.getStatusCode().value());
-        assertEquals(news.getTitle(), result.getBody().getTitle());
-    }
-
-    //Test pass
-    @Test
-    public void addNewsByManual_Failure_DuplicationOfTitle() throws Exception {
-        News n = NewsIntegrationTests.newsFormatter();
-        URI uri = new URI(baseUrl + port + "/news");
-        HttpEntity<Object> header = new HttpEntity(testUtils.exchangeHeader());
-        restTemplate.exchange(uri, HttpMethod.POST, header, News.class);
-        ResponseEntity<News> result = restTemplate.exchange(uri, HttpMethod.POST, header, News.class);
-        //ResponseEntity<News> result = restTemplate.postForEntity(uri, n, News.class);
-        assertEquals(400, result.getStatusCode().value());
-    }
-
-    //Test pass
-    @Test
-    public void updateNews_Success() throws Exception {
-        News n = NewsIntegrationTests.newsFormatter();
-        URI uri1 = new URI(baseUrl + port + "/news");
-        // Need to use array with a ResponseEntity here
-        HttpEntity<News> request = new HttpEntity(n, testUtils.exchangeHeader());
-        ResponseEntity<News> result1 = restTemplate.exchange(uri1, HttpMethod.POST, request, News.class);
-        //ResponseEntity<News> result1 = restTemplate.postForEntity(uri1, n, News.class);
-        News news = result1.getBody();
-        long id = news.getId();
-        n.setTitle("Updated News");
-        URI uri2 = new URI(baseUrl + port + "/news/" + id);
-        HttpEntity<News> request2 = new HttpEntity(n, testUtils.exchangeHeader());
-        ResponseEntity<News> result2 = restTemplate.exchange(uri1, HttpMethod.POST, request2, News.class);
-
-        assertEquals(200, result1.getStatusCode().value());
-        assertEquals(200, result2.getStatusCode().value());
-        assertEquals("Updated News", result2.getBody().getTitle());
-    }
-
-    //Test pass
-    @Test
-    public void updateNews_Failure_NotFound() throws Exception {
-
-        News n = NewsIntegrationTests.newsFormatter();
-        URI uri = new URI(baseUrl + port + "/news/" + 10L);
-        HttpEntity<News> request2 = new HttpEntity(n, testUtils.exchangeHeader());
-        ResponseEntity<News> result = restTemplate.exchange(uri, HttpMethod.POST, request2, News.class);
-        assertEquals(404, result.getStatusCode().value());
-    }
+//    //Test pass
+//    @Test
+//    public void updateNews_Failure_NotFound() throws Exception {
+//
+//        News n = NewsIntegrationTests.newsFormatter();
+//        URI uri = new URI(baseUrl + port + "/news/" + 10L);
+//        HttpEntity<News> request2 = new HttpEntity(n, testUtils.exchangeHeader());
+//        ResponseEntity<News> result = restTemplate.exchange(uri, HttpMethod.POST, request2, News.class);
+//        assertEquals(404, result.getStatusCode().value());
+//    }
 
 
     @Test
